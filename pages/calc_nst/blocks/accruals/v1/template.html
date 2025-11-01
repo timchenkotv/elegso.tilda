@@ -1,0 +1,119 @@
+<!-- =======================================================================
+БЛОК: Ввод начислений
+Смысл и возможности:
+  • Ввод одной строки с тремя полями: Дата, Начислено (два знака, разделение тысяч), Комментарий (текст).
+  • Таблица с автонумерацией строк, редактированием «в строке», дублированием на +1 месяц, удалением.
+  • Сортировка по дате (по возрастанию/убыванию). После добавления/удаления/сохранения сортировка сохраняет текущий порядок.
+  • Строка «Итого» — суммирует колонку «Начислено».
+  • Кнопка «Данные» — экспорт/импорт:
+        — Excel (CSV, UTF-8 + BOM, разделитель ;, дата в формате dd.mm.yyyy),
+        — XML (простой безопасный),
+        — Текст (JSON Lines, по записи на строку).
+Примечания:
+  • Цвета/стили выдержаны под фон #e5dcd0 и аккуратные рамки (#bcae99).
+  • Мобильная версия: небольшие горизонтальные отступы, расширенные колонки «Дата» и «Комментарий».
+  • Все теги валидны. Логика в IIFE, без утечки глобальных переменных.
+======================================================================= -->
+<div class="elegso-calc" style="max-width:920px; margin:120px auto 100px auto; position:relative; z-index:5; background:#e5dcd0;" data-locale="ru-RU">
+  <!-- ===== Заголовок блока (только текст) ================================= -->
+  <h3 style="text-align:center; margin-bottom:16px;">Ввод начислений</h3>
+
+  <!-- ===== ПАНЕЛЬ ВВОДА: три поля ввода одной строки ===================== -->
+  <div class="inputs-row">
+    <!-- Поле 1: дата в формате ISO для браузера; человекочитаемо выводим в таблице -->
+    <div class="form-col">
+      <label for="dateField">Дата</label>
+      <input type="date" id="dateField" placeholder="Выберите дату" />
+    </div>
+
+    <!-- Поле 2: начислено — число; допускаем запятую/точку как разделитель -->
+    <div class="form-col">
+      <label for="accruedField">Начислено</label>
+      <input type="number" id="accruedField" inputmode="decimal" placeholder="Введите сумму начислений" />
+    </div>
+
+    <!-- Поле 3: комментарий — произвольный текст -->
+    <div class="form-col">
+      <label for="commentField">Комментарий</label>
+      <input type="text" id="commentField" placeholder="Комментарий к строке" />
+    </div>
+  </div>
+
+  <!-- ===== КНОПКИ ДЕЙСТВИЙ НАД ТАБЛИЦЕЙ ================================== -->
+  <div class="btns">
+    <!-- Добавить введённую строку в таблицу -->
+    <button class="btn" id="addBtn" type="button">Добавить в таблицу</button>
+
+    <!-- Переключатель сортировки: по дате ↑/↓ -->
+    <button class="btn" id="sortBtn" type="button" aria-pressed="true">Сортировка: по дате ↑</button>
+
+    <!-- Полная очистка таблицы (tbody) -->
+    <button class="btn btn-danger" id="clearBtn" type="button">Очистить таблицу</button>
+
+    <!-- Группа «Данные»: выпадающее меню экспорта/импорта (CSV/XML/Текст) -->
+    <div class="data-box">
+      <!-- Кнопка открытия/закрытия меню -->
+      <button class="btn btn-data" id="dataBtn" type="button" aria-expanded="false">Данные ▾</button>
+
+      <!-- ВЫПАДАЮЩЕЕ МЕНЮ: каждый пункт — команда (data-cmd=...) -->
+      <div class="data-menu" id="dataMenu" hidden>
+        <!-- Excel через CSV: совместимо с Microsoft Excel и Apple Numbers -->
+        <button class="menu-item" data-cmd="export-excel" type="button">Выгрузить в Excel (CSV)</button>
+        <button class="menu-item" data-cmd="import-excel" type="button">Загрузить из Excel (CSV)</button>
+
+        <hr class="menu-sep" />
+
+        <!-- XML (простой собственный формат) -->
+        <button class="menu-item" data-cmd="export-xml" type="button">Выгрузить в XML</button>
+        <button class="menu-item" data-cmd="import-xml" type="button">Загрузить из XML</button>
+
+        <hr class="menu-sep" />
+
+        <!-- Текст: JSON Lines — по одному JSON-объекту на строку -->
+        <button class="menu-item" data-cmd="export-text" type="button">Выгрузить в текст</button>
+        <button class="menu-item" data-cmd="import-text" type="button">Загрузить из текста</button>
+      </div>
+
+      <!-- Скрытые input[type=file] под каждую загрузку -->
+      <input type="file" id="fileExcelIn" accept=".csv,.tsv,text/csv,text/tab-separated-values" hidden />
+      <input type="file" id="fileXmlIn"   accept=".xml,text/xml" hidden />
+      <input type="file" id="fileTextIn"  accept=".txt,.jsonl,.json,text/plain,application/json" hidden />
+    </div>
+  </div>
+
+  <!-- ===== ТАБЛИЦА ДАННЫХ: шапка, тело, подвал с итогом =================== -->
+  <div class="table-wrap">
+    <table id="calcTable" aria-label="Таблица начислений">
+      <thead>
+        <tr>
+          <!-- Автонумерация строк (пересчитываем после любых операций) -->
+          <th style="width:56px;">№</th>
+
+          <!-- Дата: заголовок кликабелен — дублирует кнопку сортировки -->
+          <th id="thDate" class="no-wrap" style="cursor:pointer;" title="Нажмите, чтобы переключить порядок по дате">Дата</th>
+
+          <!-- Число с выравниванием вправо -->
+          <th style="width:200px;">Начислено</th>
+
+          <!-- Произвольный текст -->
+          <th class="no-wrap">Комментарий</th>
+
+          <!-- Широкая колонка для трёх мини-кнопок (Изменить/Месяц/Удалить) -->
+          <th style="width:280px;">Действия</th>
+        </tr>
+      </thead>
+
+      <!-- Тело (строки данных) — добавляем/редактируем/удаляем динамически -->
+      <tbody></tbody>
+
+      <!-- Подвал: строка «Итого» по колонке «Начислено» -->
+      <tfoot>
+        <tr>
+          <td colspan="2" style="font-weight:700;">Итого</td>
+          <td id="sumAccrued" class="num">0,00</td>
+          <td></td><td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
