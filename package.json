@@ -1,0 +1,24 @@
+{
+  "name": "elegso.tilda",
+  "version": "1.0.0",
+  "description": "Виджеты и кастомные скрипты для сайта ELEGSO на платформе Tilda",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timchenkotv/elegso.tilda.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/timchenkotv/elegso.tilda/issues"
+  },
+  "homepage": "https://github.com/timchenkotv/elegso.tilda#readme",
+  "devDependencies": {
+    "vite": "^7.1.12"
+  }
+}
