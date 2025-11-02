@@ -1,88 +1,105 @@
 <!-- =======================================================================
 БЛОК: Ввод неустойки
 Смысл и возможности:
-  • Ввод одной строки: Дата начала/конца, Сумма долга/ставка, Тип ставки (365/360/фактические), Комментарий.
-  • Таблица результатов: периодизация, дневные начисления, сумма неустойки по интервалам.
-  • Кнопки: Рассчитать, Очистить, Данные (экспорт/импорт CSV/XML/TXT).
+  • Ввод одной строки: Дата, Неустойка (число с двумя знаками), Измерение (фиксированный список).
+  • Таблица: автонумерация, inline-редактирование (включая изменение «Измерения»),
+             дублирование строки на +1 календарный месяц, удаление.
+  • Сортировка по дате (↑/↓), статус сортировки сохраняется после любых операций.
+  • Подвал таблицы «Итого» — суммирует колонку «Неустойка» (как число).
+  • Кнопка «Данные»: экспорт/импорт
+        — Excel (CSV, UTF-8 + BOM, разделитель ;, дата dd.mm.yyyy),
+        — XML (простой/безопасный),
+        — Текст (JSON Lines).
 Особенности:
-  • Цвета в тон остальным блокам: фон #e5dcd0, шапка #efe6db, границы #bcae99.
-  • Адаптив: на мобиле колонки ужимаются, основные поля растягиваются.
-  • Валидная разметка, уникальные id с префиксом pen_, логика — в script.js.
+  • Фон блока: #e5dcd0; аккуратные границы таблицы #bcae99; заголовок #efe6db.
+  • Мобильные отступы слева/справа 14px; расширены колонки «Дата» и «Измерение».
+  • Все теги валидны; логика в IIFE; уникальные селекторы (префикс pen_).
 ======================================================================= -->
-<div class="elegso-pen" style="max-width:920px; margin:120px auto 100px auto; position:relative; z-index:5; background:#e5dcd0;">
+<div class="elegso-pen" style="max-width:920px; margin:120px auto 100px auto; position:relative; z-index:5; background:#e5dcd0;" data-locale="ru-RU">
+  <!-- ===== Заголовок блока =============================================== -->
   <h3 style="text-align:center; margin-bottom:16px;">Ввод неустойки</h3>
 
-  <!-- ВХОДНЫЕ ПАРАМЕТРЫ -->
-  <div class="pen-row">
-    <div class="pen-col">
-      <label for="pen_start">Начало периода</label>
-      <input type="date" id="pen_start" />
+  <!-- ===== ПАНЕЛЬ ВВОДА: три поля одной строки =========================== -->
+  <div class="inputs-row">
+    <!-- Поле: Дата (браузерный ISO), в таблице показываем как dd.mm.yyyy -->
+    <div class="form-col">
+      <label for="pen_date">Дата</label>
+      <input type="date" id="pen_date" placeholder="Выберите дату" />
     </div>
-    <div class="pen-col">
-      <label for="pen_end">Окончание периода</label>
-      <input type="date" id="pen_end" />
+
+    <!-- Поле: Неустойка (число) — допускаем запятую/точку как разделитель -->
+    <div class="form-col">
+      <label for="pen_value">Неустойка</label>
+      <input type="number" id="pen_value" inputmode="decimal" placeholder="Введите значение неустойки" />
     </div>
-    <div class="pen-col">
-      <label for="pen_debt">Сумма долга</label>
-      <input type="number" id="pen_debt" inputmode="decimal" placeholder="например, 150000" />
-    </div>
-    <div class="pen-col">
-      <label for="pen_rate">Ставка, % годовых</label>
-      <input type="number" id="pen_rate" inputmode="decimal" placeholder="например, 8.5" />
-    </div>
-    <div class="pen-col">
-      <label for="pen_base">База расчёта</label>
-      <select id="pen_base">
-        <option value="365">365 дней</option>
-        <option value="360">360 дней</option>
-        <option value="actual">Фактические дни в годах</option>
+
+    <!-- Поле: Измерение — фиксированный список вариантов -->
+    <div class="form-col">
+      <label for="pen_measure">Измерение</label>
+      <select id="pen_measure">
+        <option value="% за каждый день">% за каждый день</option>
+        <option value="% за каждый рабочий день">% за каждый рабочий день</option>
+        <option value="% в год">% в год</option>
       </select>
     </div>
   </div>
 
-  <!-- КНОПКИ -->
-  <div class="pen-actions">
-    <button class="pen-btn" id="pen_calc" type="button">Рассчитать</button>
-    <button class="pen-btn pen-danger" id="pen_clear" type="button">Очистить</button>
+  <!-- ===== КНОПКИ ДЕЙСТВИЙ =============================================== -->
+  <div class="btns">
+    <!-- Добавление строки из панели ввода -->
+    <button class="btn" id="pen_add" type="button">Добавить в таблицу</button>
 
-    <div class="pen-data">
-      <button class="pen-btn pen-data-btn" id="pen_data_btn" type="button" aria-expanded="false">Данные ▾</button>
-      <div class="pen-menu" id="pen_data_menu" hidden>
-        <button class="pen-menu-item" data-cmd="export-csv"  type="button">Выгрузить в CSV</button>
-        <button class="pen-menu-item" data-cmd="import-csv"  type="button">Загрузить из CSV</button>
-        <hr class="pen-sep" />
-        <button class="pen-menu-item" data-cmd="export-xml"  type="button">Выгрузить в XML</button>
-        <button class="pen-menu-item" data-cmd="import-xml"  type="button">Загрузить из XML</button>
-        <hr class="pen-sep" />
-        <button class="pen-menu-item" data-cmd="export-text" type="button">Выгрузить в текст</button>
-        <button class="pen-menu-item" data-cmd="import-text" type="button">Загрузить из текста</button>
+    <!-- Сортировка по дате (переключатель ↑/↓) -->
+    <button class="btn" id="pen_sort" type="button" aria-pressed="true">Сортировка: по дате ↑</button>
+
+    <!-- Очистить таблицу -->
+    <button class="btn btn-danger" id="pen_clear" type="button">Очистить таблицу</button>
+
+    <!-- Кнопка «Данные»: выпадающее меню экспорта/импорта -->
+    <div class="data-box">
+      <button class="btn btn-data" id="pen_data_btn" type="button" aria-expanded="false">Данные ▾</button>
+
+      <!-- Меню команд (data-cmd=...) -->
+      <div class="data-menu" id="pen_data_menu" hidden>
+        <button class="menu-item" data-cmd="export-excel" type="button">Выгрузить в Excel (CSV)</button>
+        <button class="menu-item" data-cmd="import-excel" type="button">Загрузить из Excel (CSV)</button>
+
+        <hr class="menu-sep" />
+
+        <button class="menu-item" data-cmd="export-xml" type="button">Выгрузить в XML</button>
+        <button class="menu-item" data-cmd="import-xml" type="button">Загрузить из XML</button>
+
+        <hr class="menu-sep" />
+
+        <button class="menu-item" data-cmd="export-text" type="button">Выгрузить в текст</button>
+        <button class="menu-item" data-cmd="import-text" type="button">Загрузить из текста</button>
       </div>
+
+      <!-- Скрытые file-инпуты для импорта -->
       <input type="file" id="pen_file_csv" accept=".csv,.tsv,text/csv,text/tab-separated-values" hidden />
       <input type="file" id="pen_file_xml" accept=".xml,text/xml" hidden />
       <input type="file" id="pen_file_txt" accept=".txt,.jsonl,.json,text/plain,application/json" hidden />
     </div>
   </div>
 
-  <!-- ТАБЛИЦА РЕЗУЛЬТАТОВ -->
-  <div class="pen-table-wrap">
-    <table id="pen_table" aria-label="Таблица расчёта неустойки">
+  <!-- ===== ТАБЛИЦА: thead/tbody/tfoot ==================================== -->
+  <div class="table-wrap">
+    <table id="pen_table" aria-label="Таблица неустоек">
       <thead>
         <tr>
           <th style="width:56px;">№</th>
-          <th class="no-wrap">Период</th>
-          <th class="no-wrap">Дней</th>
-          <th class="no-wrap">Ставка, %</th>
-          <th class="no-wrap">База</th>
-          <th>Начислено</th>
-          <th>Комментарий</th>
+          <th id="pen_th_date" class="no-wrap" style="cursor:pointer;" title="Нажмите, чтобы переключить порядок по дате">Дата</th>
+          <th style="width:200px;">Неустойка</th>
+          <th class="no-wrap" style="width:240px;">Измерение</th>
+          <th style="width:300px;">Действия</th>
         </tr>
       </thead>
       <tbody></tbody>
       <tfoot>
         <tr>
-          <td colspan="5" style="font-weight:700;">Итого неустойка</td>
-          <td id="pen_total" class="num">0,00</td>
-          <td></td>
+          <td colspan="2" style="font-weight:700;">Итого</td>
+          <td id="pen_sum" class="num">0,00</td>
+          <td></td><td></td>
         </tr>
       </tfoot>
     </table>
