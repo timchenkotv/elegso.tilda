@@ -1,43 +1,19 @@
-// Loader для блока "Ввод оплат"
+// Loader «Ввод оплат»: берет template/script рядом со своим src
 (function(){
-  var CDN_BASE = "https://cdn.jsdelivr.net/gh/timchenkotv/elegso.tilda@main/pages/calc_nst/blocks/payments/v1";
-  var TEMPLATE_URL = CDN_BASE + "/template.html";
-  var SCRIPT_URL   = CDN_BASE + "/script.js";
-
-  function getMount(){
-    var m = document.getElementById("payments-mount");
-    if (m) return m;
-    var s = document.currentScript;
-    if (s && s.parentElement) return s.parentElement;
-    return document.body;
+  var self = document.currentScript || (function(){var s=document.getElementsByTagName('script');return s[s.length-1];})();
+  var src  = (self && self.src) ? self.src : '';
+  var base = src.replace(/\/loader\.js(?:\?.*)?$/, '');
+  var TEMPLATE_URL = base + "/template.html";
+  var SCRIPT_URL   = base + "/script.js";
+  function getMount(){ var m=document.getElementById("payments-mount"); return m ? m : (self && self.parentElement) ? self.parentElement : document.body; }
+  function loadText(u){ return fetch(u,{credentials:"omit"}).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status+" for "+u); return r.text(); }); }
+  function injectHTML(h){ getMount().insertAdjacentHTML("beforeend", h); }
+  function loadScriptOnce(u){
+    if(window.__elegso_payments_script_loaded__) return Promise.resolve();
+    return new Promise(function(res,rej){ var s=document.createElement("script"); s.src=u; s.async=true;
+      s.onload=function(){ window.__elegso_payments_script_loaded__=true; res(); };
+      s.onerror=function(e){ rej(e); }; document.head.appendChild(s); });
   }
-
-  function loadText(url){
-    return fetch(url, { credentials: "omit", cache: "no-store" }).then(function(r){
-      if(!r.ok) throw new Error("HTTP " + r.status + " for " + url);
-      return r.text();
-    });
-  }
-
-  function injectHTML(html){
-    var mount = getMount();
-    mount.insertAdjacentHTML("beforeend", html);
-  }
-
-  function loadScriptOnce(url){
-    if (window.__elegso_payments_script_loaded__) return Promise.resolve();
-    return new Promise(function(resolve, reject){
-      var s=document.createElement("script");
-      s.src=url + "?v=" + Date.now(); // анти-кеш во время разработки
-      s.async=true;
-      s.onload=function(){ window.__elegso_payments_script_loaded__=true; resolve(); };
-      s.onerror=function(e){ reject(e); };
-      document.head.appendChild(s);
-    });
-  }
-
-  loadText(TEMPLATE_URL)
-    .then(function(html){ injectHTML(html); })
-    .then(function(){ return loadScriptOnce(SCRIPT_URL); })
+  loadText(TEMPLATE_URL).then(injectHTML).then(function(){return loadScriptOnce(SCRIPT_URL);})
     .catch(function(err){ console.error("[ELEGSO payments loader] Error:", err); });
 })();
