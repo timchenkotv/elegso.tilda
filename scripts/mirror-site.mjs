@@ -137,10 +137,14 @@ function extractUrlsFromHtml(html) {
     }
   }
 
-  const styleUrlRe = /url\(([^)]+)\)/gi;
-  while ((m = styleUrlRe.exec(html)) !== null) {
-    const raw = m[1].trim().replace(/^['"]|['"]$/g, '');
-    if (raw) out.push(raw);
+  const styleAttrRe = /\bstyle\s*=\s*(["'])(.*?)\1/gi;
+  while ((m = styleAttrRe.exec(html)) !== null) {
+    const styleUrlRe = /url\(([^)]+)\)/gi;
+    let sm;
+    while ((sm = styleUrlRe.exec(m[2])) !== null) {
+      const raw = sm[1].trim().replace(/^['"]|['"]$/g, '');
+      if (raw) out.push(raw);
+    }
   }
 
   // Inline Tilda scripts load optional modules and full-size cover images from
@@ -410,13 +414,21 @@ function rewriteTextContent(content, fromUrl, isCss = false) {
     return `srcset=${quote}${items.join(', ')}${quote}`;
   });
 
-  out = out.replace(/url\(([^)]+)\)/gi, (m, val) => {
-    const raw = val.trim().replace(/^['"]|['"]$/g, '');
-    if (!raw || shouldIgnoreLink(raw)) return m;
-    const next = resolveLocalLink(raw, fromUrl);
-    if (!next) return m;
-    return `url(${next})`;
-  });
+  const rewriteCssUrls = (text) => text.replace(/url\(([^)]+)\)/gi, (m, val) => {
+      const raw = val.trim().replace(/^['"]|['"]$/g, '');
+      if (!raw || shouldIgnoreLink(raw)) return m;
+      const next = resolveLocalLink(raw, fromUrl);
+      if (!next) return m;
+      return `url(${next})`;
+    });
+
+  if (isCss) {
+    out = rewriteCssUrls(out);
+  } else {
+    out = out.replace(/\bstyle\s*=\s*(["'])(.*?)\1/gi, (m, quote, value) =>
+      `style=${quote}${rewriteCssUrls(value)}${quote}`,
+    );
+  }
 
   if (isCss) {
     out = out.replace(/@import\s+(?:url\()?['"]?([^'"\)\s]+)['"]?\)?/gi, (m, raw) => {

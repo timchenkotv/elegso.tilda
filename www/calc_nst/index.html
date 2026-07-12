@@ -1641,7 +1641,7 @@ UI / ДИЗАЙН
 
   /* --- Fetch from Supabase --- */
   async function fetchAllBalance(reportISO, sessionId){
-    const url = new url(/SB_URL + '/rest/v1/all_balance/);
+    const url = new URL(SB_URL + '/rest/v1/all_balance');
     url.searchParams.set('select', '*');
     url.searchParams.set('session_id', `eq.${sessionId}`);
     url.searchParams.set('dt', `lte.${reportISO}`);
@@ -1897,7 +1897,7 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
   };
 
   async function fetchAllBalance(reportISO, sessionId){
-    const url = new url(/SB_URL + '/rest/v1/all_balance/);
+    const url = new URL(SB_URL + '/rest/v1/all_balance');
     url.searchParams.set('select', '*');
     url.searchParams.set('session_id', `eq.${sessionId}`);
     url.searchParams.set('dt', `lte.${reportISO}`);
@@ -2435,11 +2435,11 @@ API-вызовы (точные примеры)
       const fname = `elegso-export_${stamp}.json`;
       const blob = new Blob([JSON.stringify(result, null, 2)], { type:'application/json;charset=utf-8' });
       const a = document.createElement('a');
-      a.href = URL.createObjecturl(/blob/);
+      a.href = URL.createObjectURL(blob);
       a.download = fname;
       document.body.appendChild(a);
       a.click();
-      setTimeout(()=>{ URL.revokeObjecturl(/a.href); a.remove(); }, 0);
+      setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 0);
 
       // Модал отчета
       const report = [
