@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+repo=/srv/git/elegso.tilda.git
+site=/srv/www/elegso.ru
+
+while read -r old new ref; do
+    [ "$ref" = "refs/heads/main" ] || continue
+    release="$site/releases/$(date -u +%Y%m%dT%H%M%SZ)-$(printf '%s' "$new" | cut -c1-12)"
+    mkdir -p "$release"
+    git --git-dir="$repo" --work-tree="$release" checkout -f "$new"
+    ln -sfn "$release" "$site/current.new"
+    mv -Tf "$site/current.new" "$site/current"
+    find "$site/releases" -mindepth 1 -maxdepth 1 -type d | sort -r | tail -n +6 | xargs -r rm -rf
+done
