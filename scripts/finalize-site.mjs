@@ -34,6 +34,14 @@ for (const file of await walk(root)) {
     `$1"${canonical}"`,
   );
 
+  // Tilda's CDN failover loader constructs regular expressions from absolute
+  // CDN URLs. All required assets are local after migration, so the loader is
+  // both unnecessary and incompatible with root-relative asset paths.
+  html = html.replace(
+    /\s*<script\s+src=["']\/_external\/neo\.tildacdn\.com\/js\/tilda-fallback-1\.0\.min\.js["'][^>]*><\/script>/gi,
+    '',
+  );
+
   // Some calculator scripts contain a literal </body> inside a printable HTML
   // template. Always target the final closing body tag, never the first one.
   html = html.replaceAll('<script src="/assets/migration.js" defer></script>', '');
