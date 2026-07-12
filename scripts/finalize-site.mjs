@@ -66,7 +66,7 @@ for (const file of await walk(root)) {
     )
     .replace(
       /\/_external\/static\.tildacdn\.com\/js\/tilda-feed-1\.1\.min\.js(?:\?v=[^"']*)?/g,
-      '/_external/static.tildacdn.com/js/tilda-feed-1.1.min.js?v=20260712-2',
+      '/_external/static.tildacdn.com/js/tilda-feed-1.1.min.js?v=20260712-3',
     );
 
   // Some calculator scripts contain a literal </body> inside a printable HTML
@@ -74,7 +74,7 @@ for (const file of await walk(root)) {
   html = html.replace(/<script src="\/assets\/migration\.js(?:\?v=[^"]*)?" defer><\/script>/g, '');
   const bodyEnd = html.toLowerCase().lastIndexOf('</body>');
   if (bodyEnd !== -1) {
-    html = `${html.slice(0, bodyEnd)}<script src="/assets/migration.js?v=20260712-2" defer></script>${html.slice(bodyEnd)}`;
+    html = `${html.slice(0, bodyEnd)}<script src="/assets/migration.js?v=20260712-3" defer></script>${html.slice(bodyEnd)}`;
   }
   await fs.writeFile(file, html);
 }
@@ -85,6 +85,10 @@ function migrationHydrateImages() {
   document.querySelectorAll('img[data-original]').forEach((image) => {
     const source = image.getAttribute('data-original');
     if (source) image.src = source;
+  });
+  document.querySelectorAll('[data-original]:not(img)').forEach((element) => {
+    const source = element.getAttribute('data-original');
+    if (source) element.style.backgroundImage = 'url("' + source + '")';
   });
   document.querySelectorAll('[data-content-cover-bg]').forEach((element) => {
     const source = element.getAttribute('data-content-cover-bg');

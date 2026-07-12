@@ -4,6 +4,10 @@ function migrationHydrateImages() {
     const source = image.getAttribute('data-original');
     if (source) image.src = source;
   });
+  document.querySelectorAll('[data-original]:not(img)').forEach((element) => {
+    const source = element.getAttribute('data-original');
+    if (source) element.style.backgroundImage = 'url("' + source + '")';
+  });
   document.querySelectorAll('[data-content-cover-bg]').forEach((element) => {
     const source = element.getAttribute('data-content-cover-bg');
     if (source) element.style.backgroundImage = 'url("' + source + '")';
