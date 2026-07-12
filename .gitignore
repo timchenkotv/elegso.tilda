@@ -1,0 +1,6 @@
+.DS_Store
+.legacy-*/
+work/
+reports/visual-diff/
+node_modules/
+*.log

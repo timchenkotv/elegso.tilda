@@ -1,0 +1,49 @@
+User-Agent: *
+Disallow: /page52312037.html
+Disallow: /calculator_of_the_balance_of_counter_obligations_in_leasing
+Disallow: /page32485845.html
+Disallow: /thank_you_for_the_application_this_is_the_first_step_to_success_court
+Disallow: /page28912341.html
+Disallow: /header
+Disallow: /page28912345.html
+Disallow: /footer
+Disallow: /page32088114.html
+Disallow: /error404
+Disallow: /tilda/form*
+Disallow: /tilda/rec*
+Disallow: /tilda/click*
+Disallow: /tilda/scroll*
+Disallow: /tilda/popup*
+Disallow: /tilda/cart*
+Disallow: /tilda/product*
+Disallow: /tilda/event*
+Disallow: /members/login*
+Disallow: /members/signup*
+Disallow:
+
+User-Agent: Yandex
+Disallow: /page52312037.html
+Disallow: /calculator_of_the_balance_of_counter_obligations_in_leasing
+Disallow: /page32485845.html
+Disallow: /thank_you_for_the_application_this_is_the_first_step_to_success_court
+Disallow: /page28912341.html
+Disallow: /header
+Disallow: /page28912345.html
+Disallow: /footer
+Disallow: /page32088114.html
+Disallow: /error404
+Disallow: /tilda/form*
+Disallow: /tilda/rec*
+Disallow: /tilda/click*
+Disallow: /tilda/scroll*
+Disallow: /tilda/popup*
+Disallow: /tilda/cart*
+Disallow: /tilda/product*
+Disallow: /tilda/event*
+Disallow: /members/login*
+Disallow: /members/signup*
+Disallow:
+Clean-param: utm_place&utm_referer&utm_ya_campaign&utm_etext
+
+Sitemap: https://elegso.ru/sitemap.xml
+Sitemap: https://elegso.ru/sitemap-feeds.xml
