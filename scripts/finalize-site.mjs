@@ -42,6 +42,20 @@ for (const file of await walk(root)) {
     '',
   );
 
+  // Analytics must load current vendor code; local snapshots would silently
+  // stop receiving fixes and can break dynamic query-string construction.
+  html = html
+    .replaceAll('/_external/mc.yandex.ru/metrika/tag.js', 'https://mc.yandex.ru/metrika/tag.js')
+    .replaceAll('/_external/top-fwz1.mail.ru/js/code.js', 'https://top-fwz1.mail.ru/js/code.js')
+    .replace(
+      /\/_external\/www\.googletagmanager\.com\/gtm__q_[a-f0-9]+\.js/g,
+      'https://www.googletagmanager.com/gtm.js?id=',
+    )
+    .replace(
+      /\/_external\/www\.googletagmanager\.com\/ns__q_[a-f0-9]+\.html/g,
+      'https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8',
+    );
+
   // Some calculator scripts contain a literal </body> inside a printable HTML
   // template. Always target the final closing body tag, never the first one.
   html = html.replaceAll('<script src="/assets/migration.js" defer></script>', '');

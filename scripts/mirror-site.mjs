@@ -13,6 +13,11 @@ const REPORT_DIR = path.join(BASE_DIR, 'reports');
 const MAX_PAGES = 5000;
 const MAX_ASSETS = 20000;
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X) CodexMirror/1.0';
+const RUNTIME_SERVICE_HOSTS = new Set([
+  'mc.yandex.ru',
+  'www.googletagmanager.com',
+  'top-fwz1.mail.ru',
+]);
 
 const pageVisited = new Set();
 const assetVisited = new Set();
@@ -370,6 +375,7 @@ async function crawlAssets() {
 function resolveLocalLink(raw, fromUrl) {
   const u = ensureUrl(raw, fromUrl);
   if (!u) return null;
+  if (RUNTIME_SERVICE_HOSTS.has(u.host.toLowerCase())) return null;
 
   const mapped = downloaded.get(u.toString());
   if (mapped) {
