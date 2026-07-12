@@ -12,4 +12,8 @@ while read -r old new ref; do
     ln -sfn "$release" "$site/current.new"
     mv -Tf "$site/current.new" "$site/current"
     find "$site/releases" -mindepth 1 -maxdepth 1 -type d | sort -r | tail -n +6 | xargs -r rm -rf
+
+    # Keep GitHub synchronized from the VM itself. The bare repository has a
+    # protected SSH key and origin configured outside the tracked worktree.
+    git --git-dir="$repo" push origin refs/heads/main:refs/heads/main
 done
