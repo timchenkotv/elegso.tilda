@@ -1,0 +1,168 @@
+
+.elegso-contact-card {
+  --elegso-green: #355a56;
+  --elegso-sand: #e5dcd0;
+  --elegso-yellow: #ffde41;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  overflow: hidden;
+  padding: 28px;
+  border: 1px solid rgba(53, 90, 86, 0.2);
+  border-radius: 16px;
+  background: linear-gradient(145deg, #fff 0%, #f6f1ea 100%);
+  box-shadow: 0 14px 36px rgba(0, 11, 48, 0.14);
+  color: #333;
+  font-family: Ubuntu, Arial, sans-serif;
+  text-align: left;
+}
+.elegso-contact-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: var(--elegso-green);
+}
+.elegso-contact-card *,
+.elegso-contact-card *::before,
+.elegso-contact-card *::after { box-sizing: border-box; }
+.elegso-contact-card__eyebrow {
+  margin: 0 0 8px;
+  color: var(--elegso-green);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+.elegso-contact-card__title {
+  color: #252d2b;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 500;
+  line-height: 1.12;
+}
+.elegso-contact-card__lead {
+  max-width: 680px;
+  margin: 11px 0 20px;
+  color: #5d625f;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.elegso-contact-card__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+}
+.elegso-contact-card__action {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  min-height: 76px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  text-decoration: none !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.elegso-contact-card__action--mail {
+  background: var(--elegso-green);
+  box-shadow: 0 10px 20px rgba(53, 90, 86, 0.22);
+  color: #fff !important;
+}
+.elegso-contact-card__action--phone {
+  border: 1px solid rgba(53, 90, 86, 0.28);
+  background: #fff;
+  color: var(--elegso-green) !important;
+}
+.elegso-contact-card__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+.elegso-contact-card__action--phone .elegso-contact-card__icon {
+  background: rgba(53, 90, 86, 0.09);
+}
+.elegso-contact-card__icon svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+.elegso-contact-card__action small,
+.elegso-contact-card__action strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.elegso-contact-card__action small {
+  margin-bottom: 3px;
+  font-size: 11px;
+  line-height: 1.2;
+  opacity: 0.76;
+}
+.elegso-contact-card__action strong {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+.elegso-contact-card__action--phone strong {
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+.elegso-contact-card__arrow { display: none; }
+.elegso-contact-card__details {
+  display: grid;
+  grid-template-columns: minmax(205px, 0.7fr) minmax(250px, 1.3fr);
+  gap: 15px;
+  margin-top: 17px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(53, 90, 86, 0.16);
+  color: #646966;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.elegso-contact-card__details strong,
+.elegso-contact-card__details span { display: block; }
+.elegso-contact-card__details address {
+  font: inherit;
+  font-style: normal;
+}
+.elegso-contact-card__action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 11, 48, 0.16);
+}
+.elegso-contact-card__action:focus-visible {
+  outline: 3px solid var(--elegso-yellow);
+  outline-offset: 3px;
+}
+.elegso-contact-card--popup {
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: none;
+}
+.elegso-contact-card--popup .elegso-contact-card__title { font-size: 25px; }
+.elegso-contact-card--popup .elegso-contact-card__actions,
+.elegso-contact-card--popup .elegso-contact-card__details { grid-template-columns: 1fr; }
+.elegso-contact-card--calculator { margin-top: 28px; }
+.t-popup.elegso-contact-popup--visible {
+  display: block !important;
+  opacity: 1 !important;
+}
+body.elegso-contact-popup-open { overflow: hidden; }
+@media (max-width: 680px) {
+  .elegso-contact-card { padding: 21px 17px; }
+  .elegso-contact-card__actions,
+  .elegso-contact-card__details { grid-template-columns: 1fr; }
+  .elegso-contact-card__action { min-height: 72px; }
+  .elegso-contact-card__title { font-size: 24px; }
+  .elegso-contact-card__lead { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .elegso-contact-card__action { transition: none; }
+}
