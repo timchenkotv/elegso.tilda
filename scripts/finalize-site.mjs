@@ -63,21 +63,25 @@ for (const file of await walk(root)) {
     .replace(
       /\/_external\/www\.googletagmanager\.com\/ns__q_[a-f0-9]+\.html/g,
       'https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8',
+    )
+    .replace(
+      /\/_external\/static\.tildacdn\.com\/js\/tilda-feed-1\.1\.min\.js(?:\?v=[^"']*)?/g,
+      '/_external/static.tildacdn.com/js/tilda-feed-1.1.min.js?v=20260712-2',
     );
 
   // Some calculator scripts contain a literal </body> inside a printable HTML
   // template. Always target the final closing body tag, never the first one.
-  html = html.replaceAll('<script src="/assets/migration.js" defer></script>', '');
+  html = html.replace(/<script src="\/assets\/migration\.js(?:\?v=[^"]*)?" defer><\/script>/g, '');
   const bodyEnd = html.toLowerCase().lastIndexOf('</body>');
   if (bodyEnd !== -1) {
-    html = `${html.slice(0, bodyEnd)}<script src="/assets/migration.js" defer></script>${html.slice(bodyEnd)}`;
+    html = `${html.slice(0, bodyEnd)}<script src="/assets/migration.js?v=20260712-2" defer></script>${html.slice(bodyEnd)}`;
   }
   await fs.writeFile(file, html);
 }
 
 await fs.mkdir(path.join(root, 'assets'), { recursive: true });
 await fs.writeFile(path.join(root, 'assets/migration.js'), `
-document.addEventListener('DOMContentLoaded', () => {
+function migrationHydrateImages() {
   document.querySelectorAll('img[data-original]').forEach((image) => {
     const source = image.getAttribute('data-original');
     if (source) image.src = source;
@@ -86,6 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const source = element.getAttribute('data-content-cover-bg');
     if (source) element.style.backgroundImage = 'url("' + source + '")';
   });
+}
+window.t_lazyload_update = migrationHydrateImages;
+document.addEventListener('DOMContentLoaded', () => {
+  migrationHydrateImages();
   document.querySelectorAll('form').forEach((form) => {
     form.setAttribute('data-migration-form', 'disabled');
     form.addEventListener('submit', (event) => {
