@@ -34,8 +34,12 @@ for (const file of await walk(root)) {
     `$1"${canonical}"`,
   );
 
-  if (!html.includes('/assets/migration.js')) {
-    html = html.replace(/<\/body>/i, '<script src="/assets/migration.js" defer></script></body>');
+  // Some calculator scripts contain a literal </body> inside a printable HTML
+  // template. Always target the final closing body tag, never the first one.
+  html = html.replaceAll('<script src="/assets/migration.js" defer></script>', '');
+  const bodyEnd = html.toLowerCase().lastIndexOf('</body>');
+  if (bodyEnd !== -1) {
+    html = `${html.slice(0, bodyEnd)}<script src="/assets/migration.js" defer></script>${html.slice(bodyEnd)}`;
   }
   await fs.writeFile(file, html);
 }
