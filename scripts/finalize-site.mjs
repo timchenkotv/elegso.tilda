@@ -41,6 +41,15 @@ for (const file of await walk(root)) {
     /\s*<script\s+src=["']\/_external\/neo\.tildacdn\.com\/js\/tilda-fallback-1\.0\.min\.js["'][^>]*><\/script>/gi,
     '',
   );
+  html = html
+    .replace(
+      /\s*<script\s+[^>]*src=["'][^"']*\/tilda-(?:forms|lazyload|upwidget)-[^"']+\.js["'][^>]*><\/script>/gi,
+      '',
+    )
+    .replace(
+      /\s*<script\b[^>]*>(?:(?!<\/script>)[\s\S])*?tilda-phone-mask-1\.1\.min\.js(?:(?!<\/script>)[\s\S])*?<\/script>/gi,
+      '',
+    );
 
   // Analytics must load current vendor code; local snapshots would silently
   // stop receiving fixes and can break dynamic query-string construction.
@@ -69,6 +78,14 @@ for (const file of await walk(root)) {
 await fs.mkdir(path.join(root, 'assets'), { recursive: true });
 await fs.writeFile(path.join(root, 'assets/migration.js'), `
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('img[data-original]').forEach((image) => {
+    const source = image.getAttribute('data-original');
+    if (source) image.src = source;
+  });
+  document.querySelectorAll('[data-content-cover-bg]').forEach((element) => {
+    const source = element.getAttribute('data-content-cover-bg');
+    if (source) element.style.backgroundImage = 'url("' + source + '")';
+  });
   document.querySelectorAll('form').forEach((form) => {
     form.setAttribute('data-migration-form', 'disabled');
     form.addEventListener('submit', (event) => {
@@ -88,6 +105,48 @@ const liveSitemap = await fetch('https://elegso.ru/sitemap.xml').then((r) => {
   if (!r.ok) throw new Error(`sitemap.xml: HTTP ${r.status}`);
   return r.text();
 });
+
+const feedUrl = 'https://feeds.tildaapi.com/api/getfeed/?feeduid=944414567261&recid=1282040271&size=&slice=1&sort%5Bdate%5D=desc&filters%5Bdate%5D=&getparts=true';
+const feed = await fetch(feedUrl).then((r) => {
+  if (!r.ok) throw new Error(`feed: HTTP ${r.status}`);
+  return r.json();
+});
+const feedAssetMap = new Map();
+async function localizeFeedValue(value) {
+  if (typeof value === 'string' && /^https:\/\/[^/]*tildacdn\.com\//i.test(value)) {
+    if (feedAssetMap.has(value)) return feedAssetMap.get(value);
+    const url = new URL(value);
+    const localUrl = `/_external/${url.host}${url.pathname}`;
+    const destination = path.join(root, localUrl.slice(1));
+    const response = await fetch(value);
+    if (!response.ok) throw new Error(`feed asset ${value}: HTTP ${response.status}`);
+    await fs.mkdir(path.dirname(destination), { recursive: true });
+    await fs.writeFile(destination, Buffer.from(await response.arrayBuffer()));
+    feedAssetMap.set(value, localUrl);
+    return localUrl;
+  }
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i += 1) value[i] = await localizeFeedValue(value[i]);
+  } else if (value && typeof value === 'object') {
+    for (const key of Object.keys(value)) value[key] = await localizeFeedValue(value[key]);
+  }
+  return value;
+}
+await localizeFeedValue(feed);
+await fs.mkdir(path.join(root, 'api/getfeed'), { recursive: true });
+await fs.writeFile(path.join(root, 'api/getfeed/index.html'), JSON.stringify(feed), 'utf8');
+
+const feedScript = path.join(root, '_external/static.tildacdn.com/js/tilda-feed-1.1.min.js');
+try {
+  let source = await fs.readFile(feedScript, 'utf8');
+  source = source.replaceAll(
+    '"https://"+window.t_feeds_endpoint',
+    'window.location.protocol+"//"+window.location.host',
+  );
+  await fs.writeFile(feedScript, source, 'utf8');
+} catch {
+  // Pages without a feed do not download this optional module.
+}
 await fs.writeFile(path.join(root, 'robots.production.txt'), liveRobots, 'utf8');
 await fs.writeFile(path.join(root, 'sitemap.xml'), liveSitemap, 'utf8');
 
