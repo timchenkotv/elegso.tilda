@@ -316,7 +316,9 @@ UX / ДОСТУПНОСТЬ
     let localSid = '';
     try { localSid = localStorage.getItem(ELEGSO_SESSION_KEY) || ''; } catch(_) {}
     const cookieSid = readSessionCookie();
-    let sid = ELEGSO_SESSION_RE.test(localSid) ? localSid : (ELEGSO_SESSION_RE.test(cookieSid) ? cookieSid : '');
+    // The shared cookie wins so the same calculation survives the later
+    // site.elegso.ru -> elegso.ru cutover even if either host has old storage.
+    let sid = ELEGSO_SESSION_RE.test(cookieSid) ? cookieSid : (ELEGSO_SESSION_RE.test(localSid) ? localSid : '');
     if(!sid){
       sid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
