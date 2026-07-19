@@ -1166,6 +1166,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       const saveValueWhileTyping = ()=>{
         const num = inVal.value==='' ? 0 : fmt.parseMoney(inVal.value);
         if(Number.isNaN(num)) return;
+        row.value = num;
         row.persistChain = (row.persistChain || Promise.resolve())
           .catch(()=>{})
           .then(()=>sbPatch('indicators', { id: row.id, session_id, kind }, { value: num }))
@@ -1186,8 +1187,15 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       });
       inVal.addEventListener('blur', async ()=>{
         const num = inVal.value==='' ? null : fmt.parseMoney(inVal.value);
-        if(num===null){ await sbPatch('indicators', { id: row.id, session_id, kind }, { value: 0 }); inVal.value=''; return; }
+        if(num===null){
+          row.value = 0;
+          await sbPatch('indicators', { id: row.id, session_id, kind }, { value: 0 });
+          inVal.value='';
+          emitChanged(kind);
+          return;
+        }
         if(Number.isNaN(num)){ inVal.focus(); return; }
+        row.value = num;
         await sbPatch('indicators', { id: row.id, session_id, kind }, { value: num });
         inVal.value = fmt.fmtMoney(num);
         inVal.classList.toggle('neg', num<0);
@@ -1207,6 +1215,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
           const expr = String(calcIn.value||'').replace(/,/g,'.').replace(/[^-+*/().\d ]/g,'');
           const val = Function('"use strict";return('+expr+')')();
           if(typeof val!=='number' || !isFinite(val)) return;
+          row.value = val;
           await sbPatch('indicators', { id: row.id, session_id, kind }, { value: val });
           inVal.value = fmt.fmtMoney(val);
           inVal.classList.toggle('neg', val<0);
@@ -1262,7 +1271,10 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       return line;
     }
 
+    const rowsByKind = Object.create(null);
+
     function renderTab(kind, rows){
+      rowsByKind[kind] = rows;
       const panel = PANELS[kind];
       panel.innerHTML = '';
       renderHeader(panel);
@@ -1321,7 +1333,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
     }
 
     function emitChanged(kind, rows){
-      const ev = new CustomEvent('elegso:table:changed', { detail:{ tab: kind, rows: rows||[] }});
+      const ev = new CustomEvent('elegso:table:changed', { detail:{ tab: kind, rows: rows || rowsByKind[kind] || [] }});
       document.dispatchEvent(ev);
     }
 
@@ -1933,6 +1945,69 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
     try { return window.ELEGSO && typeof window.ELEGSO.getSessionId==='function' ? window.ELEGSO.getSessionId() : null; }
     catch { return null; }
   };
+
+  /* ---------- автоматический выбор групп печати ---------- */
+  const groupInputs = {
+    penalty: qs('#gPenalty'),
+    cb_rate: qs('#gCB'),
+    avg_loan_rate: qs('#gAvg'),
+    yield_rate: qs('#gYield')
+  };
+  const manuallyChangedGroups = new Set();
+  const groupRevision = Object.fromEntries(Object.keys(groupInputs).map(kind => [kind, 0]));
+
+  function hasNonZeroIndicator(rows){
+    return Array.isArray(rows) && rows.some(row => {
+      const raw = row && row.value;
+      if(raw === null || raw === undefined || raw === '') return false;
+      const value = typeof raw === 'number'
+        ? raw
+        : Number(String(raw).replace(/\s+/g, '').replace(',', '.'));
+      return Number.isFinite(value) && Math.abs(value) > 1e-12;
+    });
+  }
+
+  function applyAutomaticGroup(kind, rows){
+    const input = groupInputs[kind];
+    if(!input || manuallyChangedGroups.has(kind)) return;
+    input.checked = hasNonZeroIndicator(rows);
+  }
+
+  async function fetchIndicatorRows(kind){
+    const sessionId = getSessionId();
+    if(!sessionId) return [];
+    const url = new URL(SB_URL + '/rest/v1/indicators');
+    url.searchParams.set('select', 'value');
+    url.searchParams.set('session_id', `eq.${sessionId}`);
+    url.searchParams.set('kind', `eq.${kind}`);
+    const res = await fetch(url.toString(), {
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+    });
+    if(!res.ok) throw new Error(`Не удалось определить группы печати (${res.status})`);
+    return res.json();
+  }
+
+  Object.entries(groupInputs).forEach(([kind, input]) => {
+    input.checked = false;
+    input.addEventListener('change', () => manuallyChangedGroups.add(kind));
+  });
+
+  document.addEventListener('elegso:table:changed', event => {
+    const kind = event.detail && event.detail.tab;
+    if(!groupInputs[kind]) return;
+    groupRevision[kind] += 1;
+    applyAutomaticGroup(kind, event.detail.rows);
+  });
+
+  Object.keys(groupInputs).forEach(async kind => {
+    const revisionBeforeRequest = groupRevision[kind];
+    try{
+      const rows = await fetchIndicatorRows(kind);
+      if(groupRevision[kind] === revisionBeforeRequest) applyAutomaticGroup(kind, rows);
+    }catch(error){
+      console.warn(error);
+    }
+  });
 
   async function fetchAllBalance(reportISO, sessionId){
     const url = new URL(SB_URL + '/rest/v1/all_balance');
