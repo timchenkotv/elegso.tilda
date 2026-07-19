@@ -3,7 +3,22 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve('www');
-const assetVersion = '20260713-1';
+const assetVersion = '20260719-2';
+
+const brandFooter = `
+<div class="elegso-site-signature" data-elegso-site-signature aria-label="Юридическая компания ЭЛЕГСО">
+  <div class="elegso-site-signature__inner">
+    <span class="elegso-site-signature__brand">ЮК «ЭЛЕГСО»</span>
+    <span class="elegso-site-signature__tagline">Мы — опора для тех, кто ведёт бизнес в сложной реальности.</span>
+  </div>
+</div>`;
+
+function replaceTildaLabel(html) {
+  return html.replace(
+    /\s*<!--\s*Tilda copyright\.[\s\S]*?(?=\s*<!--\s*Stat\s*-->)/gi,
+    `${brandFooter} `,
+  );
+}
 
 function contactPanel({ popup = false, calculator = false } = {}) {
   const modifiers = [
@@ -215,6 +230,18 @@ for (const file of await walk(root)) {
     .replace(/\s*<div class="t678__form-bottom-text\b[^>]*>[\s\S]*?<\/div>/gi, '')
     .replace(/\sdata-tilda-formskey=(?:"[^"]*"|'[^']*')/gi, '');
   html = updateContactCopy(html);
+  html = replaceTildaLabel(html);
+
+  html = html.replace(
+    /\s*<link\s+rel="stylesheet"\s+href="\/assets\/footer-brand\.css(?:\?v=[^"]*)?"\s*\/?>/gi,
+    '',
+  );
+  if (html.includes('data-elegso-site-signature')) {
+    html = html.replace(
+      /<\/head>/i,
+      `<link rel="stylesheet" href="/assets/footer-brand.css?v=${assetVersion}">\n</head>`,
+    );
+  }
 
   html = html.replace(
     /\s*<link\s+rel="stylesheet"\s+href="\/assets\/contact-block\.css(?:\?v=[^"]*)?"\s*\/?>/gi,
@@ -408,6 +435,60 @@ body.elegso-contact-popup-open { overflow: hidden; }
   .elegso-contact-card__action { transition: none; }
 }
 `, 'utf8');
+await fs.writeFile(path.join(root, 'assets/footer-brand.css'), `
+.elegso-site-signature {
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: #2f504c;
+  color: #fff;
+  font-family: Ubuntu, Arial, sans-serif;
+}
+.elegso-site-signature *,
+.elegso-site-signature *::before,
+.elegso-site-signature *::after { box-sizing: border-box; }
+.elegso-site-signature__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  width: min(1160px, calc(100% - 48px));
+  min-height: 76px;
+  margin: 0 auto;
+  padding: 18px 0 18px 76px;
+}
+.elegso-site-signature__brand {
+  flex: 0 0 auto;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+}
+.elegso-site-signature__tagline {
+  max-width: 650px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  text-align: right;
+}
+@media (max-width: 680px) {
+  .elegso-site-signature__inner {
+    display: block;
+    width: min(100% - 34px, 1160px);
+    min-height: 0;
+    padding: 20px 0 22px 76px;
+  }
+  .elegso-site-signature__brand,
+  .elegso-site-signature__tagline { display: block; }
+  .elegso-site-signature__tagline {
+    margin-top: 7px;
+    font-size: 13px;
+    text-align: left;
+  }
+}
+`, 'utf8');
 await fs.writeFile(path.join(root, 'assets/migration.js'), `
 function migrationHydrateImages() {
   document.querySelectorAll('img[data-original]').forEach((image) => {
@@ -495,11 +576,34 @@ function migrationInitContactPopups() {
     }, delay);
   });
 }
+function migrationInitLeaseBalanceCalculator() {
+  const page = document.querySelector('[data-tilda-page-alias="calculator_of_the_balance_of_counter_obligations_in_leasing"]');
+  const host = document.getElementById('rec1164640016');
+  if (!page || !host || host.dataset.elegsoLeaseLoader === 'ready') return;
+  host.dataset.elegsoLeaseLoader = 'ready';
+
+  if (!document.querySelector('link[data-elegso-lease-styles]')) {
+    const styles = document.createElement('link');
+    styles.rel = 'stylesheet';
+    styles.href = '/assets/lease-balance-calculator.css?v=20260719-4';
+    styles.dataset.elegsoLeaseStyles = 'true';
+    document.head.appendChild(styles);
+  }
+
+  if (!document.querySelector('script[data-elegso-lease-script]')) {
+    const script = document.createElement('script');
+    script.src = '/assets/lease-balance-calculator.js?v=20260719-4';
+    script.defer = true;
+    script.dataset.elegsoLeaseScript = 'true';
+    document.body.appendChild(script);
+  }
+}
 window.t_lazyload_update = migrationHydrateImages;
 window.t_lazyload_updateResize_elem = migrationHydrateImages;
 document.addEventListener('DOMContentLoaded', () => {
   migrationHydrateImages();
   migrationInitContactPopups();
+  migrationInitLeaseBalanceCalculator();
 });
 `, 'utf8');
 
@@ -567,4 +671,4 @@ await fs.writeFile(path.join(root, 'robots.txt'), [
 // after each fresh mirror so SEO settings cannot regress to Tilda defaults.
 await import('./prepare-seo.mjs');
 
-console.log('Finalized HTML metadata, staging robots and contact-only communication.');
+console.log('Finalized HTML metadata, branded footer and contact-only communication.');
