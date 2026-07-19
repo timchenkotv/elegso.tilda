@@ -1,0 +1,1436 @@
+{
+  "generatedAt": "2026-07-19T17:19:10.542Z",
+  "root": "/Users/timchenko.t.v/Projects/elegso.tilda/www",
+  "summary": {
+    "htmlPages": 35,
+    "indexablePages": 27,
+    "technicalNoindexPages": 8,
+    "pagesWithErrors": 35,
+    "absoluteInternalReferences": 34,
+    "documentRelativeReferences": 2,
+    "brokenLocalReferences": 0,
+    "images": 592,
+    "imagesWithoutAlt": 0
+  },
+  "duplicateTitles": [],
+  "duplicateDescriptions": [],
+  "pages": [
+    {
+      "route": "/accident_lawyer/",
+      "file": "accident_lawyer/index.html",
+      "indexable": true,
+      "title": "Юрист по ДТП — защита прав после аварии и споры со страховщиками",
+      "description": "Юрист по ДТП: профессиональная помощь при спорах, связанных с дорожно-транспортными происшествиями. Оспаривание требований страховых, защита имущества и прав после ДТП.",
+      "robots": "",
+      "canonical": "https://elegso.ru/accident_lawyer",
+      "expectedCanonical": "https://elegso.ru/accident_lawyer/",
+      "h1": [
+        "Юрист по ДТП"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Юрист по ДТП",
+        "description": "",
+        "url": "https://elegso.ru/accident_lawyer",
+        "image": "/_external/static.tildacdn.com/tild3733-6435-4330-a135-323663316363/--.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/accident_lawyer"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/api/getfeed/",
+      "file": "api/getfeed/index.html",
+      "indexable": false,
+      "title": "",
+      "description": "",
+      "robots": "",
+      "canonical": "",
+      "expectedCanonical": "https://elegso.ru/api/getfeed/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "",
+        "description": "",
+        "url": "",
+        "image": ""
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 0,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": false,
+        "googleTagManager": false,
+        "mailRu": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "missing-title",
+        "missing-canonical",
+        "missing-html-lang",
+        "missing-noindex",
+        "missing-yandex-metrika",
+        "missing-gtm",
+        "missing-mailru"
+      ]
+    },
+    {
+      "route": "/appeal_of_judicial_acts/",
+      "file": "appeal_of_judicial_acts/index.html",
+      "indexable": true,
+      "title": "Обжалование судебных актов: апелляция и кассация в арбитраже",
+      "description": "Обжалование судебных актов в арбитраже: апелляция и кассация по корпоративным и экономическим спорам (дела до 5 томов). Без общей юрисдикции. Возврат средств при неудаче.",
+      "robots": "",
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts",
+      "expectedCanonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "h1": [
+        "Обжалование судебных актов"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Обжалование судебных актов",
+        "description": "",
+        "url": "https://elegso.ru/appeal_of_judicial_acts",
+        "image": "/_external/static.tildacdn.com/tild6535-6638-4162-b263-343231313138/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/appeal_of_judicial_acts"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/arbitration_lawyer/",
+      "file": "arbitration_lawyer/index.html",
+      "indexable": true,
+      "title": "Арбитражный юрист — профессиональная помощь в арбитражных спорах",
+      "description": "Арбитражный юрист — представительство в арбитражном суде, разрешение споров, защита бизнеса. Опытные арбитражные юристы для компаний и предпринимателей.",
+      "robots": "",
+      "canonical": "https://elegso.ru/arbitration_lawyer",
+      "expectedCanonical": "https://elegso.ru/arbitration_lawyer/",
+      "h1": [
+        "Арбитражный юрист"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Арбитражный юрист",
+        "description": "",
+        "url": "https://elegso.ru/arbitration_lawyer",
+        "image": "/_external/static.tildacdn.com/tild3366-3866-4739-a662-653263333965/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 23,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/arbitration_lawyer"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/calc_nst/",
+      "file": "calc_nst/index.html",
+      "indexable": true,
+      "title": "Расчёт неустойки по договору онлайн — калькулятор неустойки бесплатно",
+      "description": "Онлайн‑калькулятор неустойки: быстро рассчитайте сумму неустойки по любому договору. Точный расчёт, учёт ключевой ставки и условий договора. Бесплатный расчёт специалистом, если вы затрудняетесь заполнить калькулятор.",
+      "robots": "",
+      "canonical": "https://elegso.ru/calc_nst",
+      "expectedCanonical": "https://elegso.ru/calc_nst/",
+      "h1": [
+        "Калькулятор расчёта неустойки",
+        "Расчет сальдо исполнения обязательств"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Калькулятор расчета неустойки",
+        "description": "",
+        "url": "https://elegso.ru/calc_nst",
+        "image": "/_external/thb.tildacdn.com/tild6636-3964-4461-b137-336337656463/-/resize/504x/---2.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 15,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/calc_nst"
+      ],
+      "documentRelative": [
+        "./instruction/"
+      ],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "h1-count:2",
+        "missing-og-description",
+        "absolute-internal:1",
+        "document-relative:1"
+      ]
+    },
+    {
+      "route": "/calc_nst/instruction/",
+      "file": "calc_nst/instruction/index.html",
+      "indexable": true,
+      "title": "Инструкция по калькулятору неустойки — ЭЛЕГСО",
+      "description": "Подробная пошаговая инструкция по калькулятору ЭЛЕГСО: начисления, оплаты, неустойка, ключевая ставка, доходность, средняя ставка, формирование и печать отчёта.",
+      "robots": "",
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "expectedCanonical": "https://elegso.ru/calc_nst/instruction/",
+      "h1": [
+        "Калькулятор неустойки: от документов до готового отчёта"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Инструкция по калькулятору неустойки ЭЛЕГСО",
+        "description": "От исходных документов до готового печатного отчёта — понятная инструкция с примерами.",
+        "url": "https://elegso.ru/calc_nst/instruction/",
+        "image": ""
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/calc_nst/instruction/"
+      ],
+      "documentRelative": [
+        "../"
+      ],
+      "broken": [],
+      "errors": [
+        "missing-og-image",
+        "absolute-internal:1",
+        "document-relative:1"
+      ]
+    },
+    {
+      "route": "/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "file": "calculator_of_the_balance_of_counter_obligations_in_leasing/index.html",
+      "indexable": true,
+      "title": "Калькулятор сальдо встречных обязательств",
+      "description": "Калькулятор сальдо встречных обязательств по договору лизинга, составленный в соответствии с Постановлением Пленума ВАС РФ от 14.03.2014 N 17",
+      "robots": "noindex",
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing",
+      "expectedCanonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "h1": [
+        "Калькулятор сальдо лизинга"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Калькулятор сальдо встречных обязательств",
+        "description": "",
+        "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing",
+        "image": "/_external/static.tildacdn.com/tild3861-6265-4731-b637-366162346662/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 30,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "unexpected-noindex",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/cancellation_of_the_court_order/",
+      "file": "cancellation_of_the_court_order/index.html",
+      "indexable": true,
+      "title": "Отмена судебного приказа - подготовка возражения и сопровождение",
+      "description": "Отмена судебного приказа — профессиональная юридическая помощь. Подготовим документы, подадим возражение и добьёмся отмены судебного приказа быстро и законно.",
+      "robots": "",
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order",
+      "expectedCanonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "h1": [
+        "Отмена судебного приказа"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Отмена судебного приказа",
+        "description": "",
+        "url": "https://elegso.ru/cancellation_of_the_court_order",
+        "image": "/_external/static.tildacdn.com/tild6237-3439-4833-b232-656632353763/_20.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/cancellation_of_the_court_order"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/collect_the_debt/",
+      "file": "collect_the_debt/index.html",
+      "indexable": true,
+      "title": "Взыскание долга с юрлиц и физлиц – профессионально и законно",
+      "description": "Взыскание долга под ключ: работаем с юрлицами и физлицами, сложные и «безнадёжные» случаи, оплата только за результат, возможен выкуп долга до 80% от номинала.",
+      "robots": "",
+      "canonical": "https://elegso.ru/collect_the_debt",
+      "expectedCanonical": "https://elegso.ru/collect_the_debt/",
+      "h1": [
+        "Взыскание долга"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Взыскание долга",
+        "description": "",
+        "url": "https://elegso.ru/collect_the_debt",
+        "image": "/_external/static.tildacdn.com/tild3734-3364-4336-a264-346230323063/--.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/collect_the_debt"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/contacts/",
+      "file": "contacts/index.html",
+      "indexable": true,
+      "title": "Контакты юридической компании «ЭЛЕГСО»",
+      "description": "Телефон, e‑mail, адрес офиса на карте, часы приема. Прямая связь по телефону и электронной почте. Помогаем бизнесу и частным клиентам.",
+      "robots": "",
+      "canonical": "https://elegso.ru/contacts",
+      "expectedCanonical": "https://elegso.ru/contacts/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Контакты",
+        "description": "",
+        "url": "https://elegso.ru/contacts",
+        "image": "/_external/static.tildacdn.com/tild3635-3939-4563-b032-313961396162/photo.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 8,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/contacts"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "h1-count:0",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/contract_drafting_service/",
+      "file": "contract_drafting_service/index.html",
+      "indexable": true,
+      "title": "Юрист по договорам - составление, проверка и сопровождение",
+      "description": "Юрист по договорам для бизнеса и частных лиц - составление и тщательная проверка договоров, изменение и расторжение, восстановление документов, консультации и сопровождение сделок. Защитим ваши интересы на каждом этапе.",
+      "robots": "",
+      "canonical": "https://elegso.ru/contract_drafting_service",
+      "expectedCanonical": "https://elegso.ru/contract_drafting_service/",
+      "h1": [
+        "Юрист по договорам"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Юрист по договорам",
+        "description": "",
+        "url": "https://elegso.ru/contract_drafting_service",
+        "image": "/_external/static.tildacdn.com/tild6664-3336-4634-b631-363066303864/--.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 19,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/contract_drafting_service"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/contract_modification/",
+      "file": "contract_modification/index.html",
+      "indexable": true,
+      "title": "Изменение договора лизинга - подготовка допсоглашений и согласование правок",
+      "description": "Изменение договора лизинга: анализ рисков, подготовка допсоглашения, согласование редакции и подписание. Обновим суммы, сроки, обязанности и обеспечим юридическую защиту.",
+      "robots": "",
+      "canonical": "https://elegso.ru/contract_modification",
+      "expectedCanonical": "https://elegso.ru/contract_modification/",
+      "h1": [
+        "Изменение договора лизинга"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Изменение договора лизинга",
+        "description": "",
+        "url": "https://elegso.ru/contract_modification",
+        "image": "/_external/static.tildacdn.com/tild6638-3762-4637-b138-323638323533/--.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 35,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/contract_modification"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/drafting_an_agreement/",
+      "file": "drafting_an_agreement/index.html",
+      "indexable": true,
+      "title": "Составление договора - подготовка и правовая экспертиза для бизнеса",
+      "description": "Составление договора любой сложности - разработка, правовая экспертиза, согласование условий и снижение рисков. Учтём налоги, ответственность, подсудность и практику. Надёжно защитим ваши интересы.",
+      "robots": "",
+      "canonical": "https://elegso.ru/drafting_an_agreement",
+      "expectedCanonical": "https://elegso.ru/drafting_an_agreement/",
+      "h1": [
+        "Составление договора"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Составление договора",
+        "description": "",
+        "url": "https://elegso.ru/drafting_an_agreement",
+        "image": "/_external/static.tildacdn.com/tild6339-3862-4338-b030-343734646361/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/drafting_an_agreement"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/error404/",
+      "file": "error404/index.html",
+      "indexable": false,
+      "title": "Ошибка 404",
+      "description": "",
+      "robots": "",
+      "canonical": "https://elegso.ru/error404",
+      "expectedCanonical": "https://elegso.ru/error404/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Ошибка 404",
+        "description": "",
+        "url": "https://elegso.ru/error404",
+        "image": "/_external/static.tildacdn.com/tild6463-6564-4563-b661-336631646533/sg_pic_685ea82bb13b7.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 6,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/error404"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-noindex",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/footer/",
+      "file": "footer/index.html",
+      "indexable": false,
+      "title": "Подвал сайта юридической помощи гражданам и юрлицам",
+      "description": "",
+      "robots": "",
+      "canonical": "https://elegso.ru/footer",
+      "expectedCanonical": "https://elegso.ru/footer/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Подвал сайта юридической помощи гражданам и юрлицам",
+        "description": "",
+        "url": "https://elegso.ru/footer",
+        "image": ""
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/footer"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-noindex",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/header/",
+      "file": "header/index.html",
+      "indexable": false,
+      "title": "Шапка сайта юридической помощи гражданам и юридическим лицам",
+      "description": "",
+      "robots": "",
+      "canonical": "https://elegso.ru/header",
+      "expectedCanonical": "https://elegso.ru/header/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Шапка сайта юридической помощи гражданам и юридическим лицам",
+        "description": "",
+        "url": "https://elegso.ru/header",
+        "image": "/_external/thb.tildacdn.com/tild6636-3836-4134-b236-373062316464/-/resize/504x/_v6_.png"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/header"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-noindex",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/",
+      "file": "index.html",
+      "indexable": true,
+      "title": "Юридическое сопровождение бизнеса в Москве и РФ - комплексные услуги для юридических лиц",
+      "description": "Профессиональное юридическое сопровождение бизнеса - анализ ситуации, разработка стратегии, договорная работа, представительство в судах и госорганах. Бесплатная консультация профильного юриста и индивидуальные решения под задачи вашей компании.",
+      "robots": "",
+      "canonical": "https://elegso.ru/",
+      "expectedCanonical": "https://elegso.ru/",
+      "h1": [
+        "Юридическое сопровождение бизнеса"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Юридическое сопровождение бизнеса",
+        "description": "",
+        "url": "https://elegso.ru/",
+        "image": "/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 26,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/judicial_protection/",
+      "file": "judicial_protection/index.html",
+      "indexable": true,
+      "title": "Защита в арбитражном суде — юристы по экономическим спорам",
+      "description": "Защита в арбитражном суде: представительство, подготовка документов и стратегии спора. Снижаем риски, возвращаем активы, сопровождаем на всех этапах процесса.",
+      "robots": "",
+      "canonical": "https://elegso.ru/judicial_protection",
+      "expectedCanonical": "https://elegso.ru/judicial_protection/",
+      "h1": [
+        "Судебная защита в арбитражном суде"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Судебная защита",
+        "description": "",
+        "url": "https://elegso.ru/judicial_protection",
+        "image": "/_external/static.tildacdn.com/tild3237-3762-4531-a532-643637646335/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 20,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/judicial_protection"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/leasing_lawyer/",
+      "file": "leasing_lawyer/index.html",
+      "indexable": true,
+      "title": "Юрист по лизингу — профессиональная юридическая помощь в лизинговых спорах",
+      "description": "Юристы по лизингу — вернём максимальную сумму платежей, уменьшаем неустойки, штрафы и пени. Помогаем успешно решать споры с лизинговыми компаниями и защищать ваши имущественные интересы.",
+      "robots": "",
+      "canonical": "https://elegso.ru/leasing_lawyer",
+      "expectedCanonical": "https://elegso.ru/leasing_lawyer/",
+      "h1": [
+        "Юрист по лизингу"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Юрист по лизингу",
+        "description": "",
+        "url": "https://elegso.ru/leasing_lawyer",
+        "image": "/_external/static.tildacdn.com/tild3662-3364-4662-a439-616539306333/--.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 42,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/leasing_lawyer"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/mission/",
+      "file": "mission/index.html",
+      "indexable": true,
+      "title": "Миссия нашей компании «ЭЛЕГСО»",
+      "description": "Наша цель — защитить интересы бизнеса, добиваясь торжества закона и справедливости там, где другие опускают руки. В сложной среде предпринимательства мы — крепкий тыл.",
+      "robots": "",
+      "canonical": "https://elegso.ru/mission",
+      "expectedCanonical": "https://elegso.ru/mission/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Миссия нашей компании",
+        "description": "",
+        "url": "https://elegso.ru/mission",
+        "image": "/_external/static.tildacdn.com/tild3834-6336-4961-a636-313937366533/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 8,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/mission"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "h1-count:0",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/offer_for_lawyer_20231103/",
+      "file": "offer_for_lawyer_20231103/index.html",
+      "indexable": true,
+      "title": "Публичная оферта присоединения исполнителей от 03.11.2023",
+      "description": "Общество приглашает исполнителей за плату выполнять юридические заказы",
+      "robots": "",
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103",
+      "expectedCanonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Публичная оферта присоединения исполнителей от 03.11.2023",
+        "description": "Общество приглашает исполнителей за плату выполнять юридические заказы",
+        "url": "https://elegso.ru/offer_for_lawyer_20231103",
+        "image": "/_external/static.tildacdn.com/tild3339-3236-4064-a438-636635643339/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 6,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/offer_for_lawyer_20231103"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "h1-count:0",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/our_team/",
+      "file": "our_team/index.html",
+      "indexable": true,
+      "title": "Наша команда «ЭЛЕГСО»",
+      "description": "Мы существуем, чтобы защищать интересы предпринимателей, восстанавливая справедливость и силу закона там, где другие отступают. Мы - опора для тех, кто ведет бизнес в сложной реальности.",
+      "robots": "",
+      "canonical": "https://elegso.ru/our_team",
+      "expectedCanonical": "https://elegso.ru/our_team/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Наша команда",
+        "description": "",
+        "url": "https://elegso.ru/our_team",
+        "image": "/_external/static.tildacdn.com/tild6165-6337-4130-a461-326335613539/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 8,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/our_team"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "h1-count:0",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/page28912341.html",
+      "file": "page28912341.html",
+      "indexable": false,
+      "title": "Шапка сайта юридической помощи гражданам и юридическим лицам",
+      "description": "",
+      "robots": "",
+      "canonical": "https://elegso.ru/page28912341.html",
+      "expectedCanonical": "https://elegso.ru/page28912341.html",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Шапка сайта юридической помощи гражданам и юридическим лицам",
+        "description": "",
+        "url": "https://elegso.ru/page28912341.html",
+        "image": "/_external/thb.tildacdn.com/tild6636-3836-4134-b236-373062316464/-/resize/504x/_v6_.png"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/page28912341.html"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "missing-html-lang",
+        "missing-noindex",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/page28912345.html",
+      "file": "page28912345.html",
+      "indexable": false,
+      "title": "Подвал сайта юридической помощи гражданам и юрлицам",
+      "description": "",
+      "robots": "",
+      "canonical": "https://elegso.ru/page28912345.html",
+      "expectedCanonical": "https://elegso.ru/page28912345.html",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Подвал сайта юридической помощи гражданам и юрлицам",
+        "description": "",
+        "url": "https://elegso.ru/page28912345.html",
+        "image": ""
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/page28912345.html"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "missing-html-lang",
+        "missing-noindex",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/page32088114.html",
+      "file": "page32088114.html",
+      "indexable": false,
+      "title": "Ошибка 404",
+      "description": "",
+      "robots": "",
+      "canonical": "https://elegso.ru/page32088114.html",
+      "expectedCanonical": "https://elegso.ru/page32088114.html",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Ошибка 404",
+        "description": "",
+        "url": "https://elegso.ru/page32088114.html",
+        "image": "/_external/static.tildacdn.com/tild6463-6564-4563-b661-336631646533/sg_pic_685ea82bb13b7.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 6,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/page32088114.html"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "missing-html-lang",
+        "missing-noindex",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/page52312037.html",
+      "file": "page52312037.html",
+      "indexable": false,
+      "title": "Калькулятор сальдо встречных обязательств",
+      "description": "Калькулятор сальдо встречных обязательств по договору лизинга, составленный в соответствии с Постановлением Пленума ВАС РФ от 14.03.2014 N 17",
+      "robots": "noindex",
+      "canonical": "https://elegso.ru/page52312037.html",
+      "expectedCanonical": "https://elegso.ru/page52312037.html",
+      "h1": [
+        "Калькулятор сальдо лизинга"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Калькулятор сальдо встречных обязательств",
+        "description": "",
+        "url": "https://elegso.ru/page52312037.html",
+        "image": "/_external/static.tildacdn.com/tild3861-6265-4731-b637-366162346662/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 30,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/page52312037.html"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "missing-html-lang",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/property_law/",
+      "file": "property_law/index.html",
+      "indexable": true,
+      "title": "Юрист по имуществу — защита имущества, взыскание ущерба",
+      "description": "Юрист по имуществу — профессиональная помощь при спорах о долгах, взыскании ущерба, возврате неустойки и защите имущества. Консультация и сопровождение опытного юриста по имуществу.",
+      "robots": "",
+      "canonical": "https://elegso.ru/property_law",
+      "expectedCanonical": "https://elegso.ru/property_law/",
+      "h1": [
+        "Юрист по имуществу"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Юрист по имуществу",
+        "description": "",
+        "url": "https://elegso.ru/property_law",
+        "image": "/_external/static.tildacdn.com/tild6261-6666-4234-b463-336333653136/--.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 20,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/property_law"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/reduction_of_the_penalty_amount/",
+      "file": "reduction_of_the_penalty_amount/index.html",
+      "indexable": true,
+      "title": "Снижение неустойки и начисленных штрафов по лизингу",
+      "description": "Снижение неустойки за счёт доказанной несоразмерности последствий нарушения. Юристы по 333 ГК РФ: анализ договора, стратегия и представительство в суде",
+      "robots": "",
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount",
+      "expectedCanonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "h1": [
+        "Снижение неустойки и начисленных штрафов"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Снижение неустойки и начисленных штрафов",
+        "description": "",
+        "url": "https://elegso.ru/reduction_of_the_penalty_amount",
+        "image": "/_external/static.tildacdn.com/tild3161-3535-4031-a130-653535306362/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 35,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/reduction_of_the_penalty_amount"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/refund_of_the_penalty/",
+      "file": "refund_of_the_penalty/index.html",
+      "indexable": true,
+      "title": "Возврат неустойки - снизим до нуля пени и штрафы по ст. 333 ГК РФ",
+      "description": "Возврат неустойки - уменьшим пени и штрафы по ст. 333 ГК РФ и вернем излишне уплаченное по ст. 1102. Оценка шансов, подготовка документов, представительство в суде.",
+      "robots": "",
+      "canonical": "https://elegso.ru/refund_of_the_penalty",
+      "expectedCanonical": "https://elegso.ru/refund_of_the_penalty/",
+      "h1": [
+        "Возврат неустойки"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Возврат неустойки",
+        "description": "",
+        "url": "https://elegso.ru/refund_of_the_penalty",
+        "image": "/_external/static.tildacdn.com/tild3835-3161-4233-b062-653966646463/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 21,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/refund_of_the_penalty"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/representation_in_the_arbitration_court/",
+      "file": "representation_in_the_arbitration_court/index.html",
+      "indexable": true,
+      "title": "Представительство в арбитражном суде — опытные юристы для бизнеса",
+      "description": "Представительство в арбитражном суде: стратегия, подготовка и участие на всех стадиях. Защита интересов компаний и ИП. Оценка перспектив и смета за 1 день.",
+      "robots": "",
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court",
+      "expectedCanonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "h1": [
+        "Представительство в арбитражном суде"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Представительство в арбитражном суде",
+        "description": "",
+        "url": "https://elegso.ru/representation_in_the_arbitration_court",
+        "image": "/_external/static.tildacdn.com/tild3130-6139-4536-b565-316230393733/--.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 19,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/representation_in_the_arbitration_court"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/restoring_the_contract/",
+      "file": "restoring_the_contract/index.html",
+      "indexable": true,
+      "title": "Восстановление договора - оспаривание расторжения и возврат к исходным условиям",
+      "description": "Восстановление договора - оспорим незаконное расторжение или изменение, вернём договор к первоначальным условиям. Анализ, доказательства, переговоры и судебное представительство. Защита ваших прав.",
+      "robots": "",
+      "canonical": "https://elegso.ru/restoring_the_contract",
+      "expectedCanonical": "https://elegso.ru/restoring_the_contract/",
+      "h1": [
+        "Восстановление договора"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Восстановление договора",
+        "description": "",
+        "url": "https://elegso.ru/restoring_the_contract",
+        "image": "/_external/static.tildacdn.com/tild6430-3436-4631-a233-636461653737/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/restoring_the_contract"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/soglashenie/",
+      "file": "soglashenie/index.html",
+      "indexable": true,
+      "title": "Политика обработки данных",
+      "description": "",
+      "robots": "",
+      "canonical": "https://elegso.ru/soglashenie",
+      "expectedCanonical": "https://elegso.ru/soglashenie/",
+      "h1": [],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Политика обработки данных",
+        "description": "",
+        "url": "https://elegso.ru/soglashenie",
+        "image": "/_external/static.tildacdn.com/tild6465-3965-4562-b964-363165323034/--.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 7,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/soglashenie"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "missing-description",
+        "wrong-canonical",
+        "missing-html-lang",
+        "h1-count:0",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/termination_and_restoration_of_contracts/",
+      "file": "termination_and_restoration_of_contracts/index.html",
+      "indexable": true,
+      "title": "Расторжение договора - безопасное прекращение обязательств для бизнеса и частных лиц",
+      "description": "Расторжение договора без рисков - анализ оснований, уведомления, соглашение о расторжении или односторонний отказ, переговоры и судебное сопровождение. Минимизируем убытки и неустойки, соблюдаем сроки и процедуру.",
+      "robots": "",
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts",
+      "expectedCanonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "h1": [
+        "Расторжение договора"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Расторжение договора",
+        "description": "",
+        "url": "https://elegso.ru/termination_and_restoration_of_contracts",
+        "image": "/_external/static.tildacdn.com/tild6437-3233-4338-b766-386562643364/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/termination_and_restoration_of_contracts"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/termination_of_the_lease_agreement/",
+      "file": "termination_of_the_lease_agreement/index.html",
+      "indexable": true,
+      "title": "Расторжение договора лизинга — возврат платежей, защита интересов",
+      "description": "Расторжение договора лизинга — защищаем лизингополучателей в суде, возвращаем максимальную сумму лизинговых платежей, уменьшаем неустойки, штрафы и пени, помогаем в спорах с лизинговыми компаниями.",
+      "robots": "",
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement",
+      "expectedCanonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "h1": [
+        "Расторжение договора лизинга"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Расторжение договора лизинга",
+        "description": "",
+        "url": "https://elegso.ru/termination_of_the_lease_agreement",
+        "image": "/_external/static.tildacdn.com/tild6165-3164-4532-b636-396135623530/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 41,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/termination_of_the_lease_agreement"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    },
+    {
+      "route": "/trial_lawyer/",
+      "file": "trial_lawyer/index.html",
+      "indexable": true,
+      "title": "Юрист в арбитражный суд — сопровождение споров и защита бизнеса",
+      "description": "Юрист в арбитражный суд: анализ спора, подготовка и подача документов, представительство на всех стадиях процесса. Минимизируем риски и защищаем бизнес.",
+      "robots": "",
+      "canonical": "https://elegso.ru/trial_lawyer",
+      "expectedCanonical": "https://elegso.ru/trial_lawyer/",
+      "h1": [
+        "Юрист в арбитражный суд"
+      ],
+      "htmlLang": "",
+      "openGraph": {
+        "title": "Судебный юрист",
+        "description": "",
+        "url": "https://elegso.ru/trial_lawyer",
+        "image": "/_external/static.tildacdn.com/tild6664-6636-4962-a639-356137643063/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 19,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "googleTagManager": true,
+        "mailRu": true
+      },
+      "absoluteInternal": [
+        "https://elegso.ru/trial_lawyer"
+      ],
+      "documentRelative": [],
+      "broken": [],
+      "errors": [
+        "wrong-canonical",
+        "missing-html-lang",
+        "missing-og-description",
+        "absolute-internal:1"
+      ]
+    }
+  ]
+}

@@ -562,4 +562,8 @@ await fs.writeFile(path.join(root, 'robots.txt'), [
   '',
 ].join('\n'), 'utf8');
 
+// Reapply canonical URLs, indexing rules and the complete production sitemap
+// after each fresh mirror so SEO settings cannot regress to Tilda defaults.
+await import('./prepare-seo.mjs');
+
 console.log('Finalized HTML metadata, staging robots and contact-only communication.');
