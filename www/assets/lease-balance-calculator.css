@@ -224,6 +224,35 @@
   gap: 10px;
 }
 
+.elegso-lease-contract-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(360px, 0.75fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.elegso-lease-period-block {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 10px;
+}
+
+.elegso-lease-period-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.elegso-lease-payment-fields {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding-left: 14px;
+  border-left: 1px solid rgba(53, 90, 86, 0.16);
+}
+
 .elegso-lease-fields.is-parties {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -261,7 +290,6 @@
 }
 
 .elegso-lease-field.is-day-counting {
-  grid-column: span 2;
   align-content: center;
   padding: 9px 11px;
   border: 1px solid rgba(53, 90, 86, 0.18);
@@ -535,6 +563,21 @@
   }
 }
 
+@media (max-width: 760px) {
+  .elegso-lease-contract-layout,
+  .elegso-lease-period-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .elegso-lease-payment-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: 12px;
+    padding-left: 0;
+    border-top: 1px solid rgba(53, 90, 86, 0.16);
+    border-left: 0;
+  }
+}
+
 @media (max-width: 640px) {
   .elegso-lease-host {
     padding-top: 30px !important;
@@ -607,8 +650,8 @@
     font-size: 16px;
   }
 
-  .elegso-lease-field.is-day-counting {
-    grid-column: auto;
+  .elegso-lease-payment-fields {
+    grid-template-columns: 1fr;
   }
 
   .elegso-lease-result {

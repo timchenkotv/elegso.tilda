@@ -62,21 +62,27 @@
 
         <section class="elegso-lease-card is-wide">
           <h3>1. Срок и платежи договора</h3>
-          <div class="elegso-lease-fields">
-            ${dateField('Дата начала договора', 'leaseStartDate', 'По общему правилу статьи 191 ГК РФ этот день не включается в течение срока')}
-            ${dateField('Дата окончания договора', 'leaseEndDate', 'Конечный день включается в расчёт срока')}
-            ${numberField('Срок договора', 'leaseTermDays', 'дн.', 'При изменении срока дата окончания пересчитывается автоматически')}
-            <label class="elegso-lease-field is-day-counting" title="Отметьте только тогда, когда договор или правила лизинга прямо включают день начала в срок">
-              <span class="elegso-lease-checkbox">
-                <input data-field="dayCountingMode" type="checkbox" value="inclusive">
-                <strong>Включать день начала</strong>
-              </span>
-              <small data-day-counting-note>Общий порядок: по статье 191 ГК РФ течение срока начинается на следующий день после даты начала. Начальный день не учитывается, конечный учитывается; 01.01–02.01 = 1 день.</small>
-            </label>
-            ${moneyField('Авансовый платёж', 'advanceAmount', 'А — сумма аванса по договору лизинга')}
-            ${moneyField('Платежи с авансом', 'leasePaymentsTotal', 'Сумма платежей с авансом, без отдельной выкупной стоимости')}
-            ${moneyField('Платежи без аванса', 'leasePaymentsWithoutAdvance', 'Сумма платежей за вычетом авансового платежа')}
-            ${moneyField('Выкупная стоимость', 'buyoutValue', 'Выкупная стоимость предмета по договору')}
+          <div class="elegso-lease-contract-layout">
+            <div class="elegso-lease-period-block">
+              <div class="elegso-lease-period-fields">
+                ${dateField('Дата начала договора', 'leaseStartDate', 'По общему правилу статьи 191 ГК РФ этот день не включается в течение срока')}
+                ${dateField('Дата окончания договора', 'leaseEndDate', 'Конечный день включается в расчёт срока')}
+                ${numberField('Срок договора', 'leaseTermDays', 'дн.', 'При изменении срока дата окончания пересчитывается автоматически')}
+              </div>
+              <label class="elegso-lease-field is-day-counting" title="Отметьте только тогда, когда договор или правила лизинга прямо включают день начала в срок">
+                <span class="elegso-lease-checkbox">
+                  <input data-field="dayCountingMode" type="checkbox" value="inclusive">
+                  <strong>Включать день начала</strong>
+                </span>
+                <small data-day-counting-note>Общий порядок: по статье 191 ГК РФ течение срока начинается на следующий день после даты начала. Начальный день не учитывается, конечный учитывается; 01.01–02.01 = 1 день.</small>
+              </label>
+            </div>
+            <div class="elegso-lease-payment-fields">
+              ${moneyField('Авансовый платёж', 'advanceAmount', 'А — сумма аванса по договору лизинга')}
+              ${moneyField('Платежи с авансом', 'leasePaymentsTotal', 'Сумма платежей с авансом, без отдельной выкупной стоимости')}
+              ${moneyField('Платежи без аванса', 'leasePaymentsWithoutAdvance', 'Сумма платежей за вычетом авансового платежа')}
+              ${moneyField('Выкупная стоимость', 'buyoutValue', 'Выкупная стоимость предмета по договору')}
+            </div>
           </div>
           <div class="elegso-lease-results">
             ${resultLine('P — общий размер платежей', 'allPaymentsP', 'P = платежи с авансом + выкупная стоимость')}
