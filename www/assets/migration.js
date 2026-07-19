@@ -108,6 +108,7 @@ function migrationInitLeaseBalanceCalculator() {
   }
 }
 window.t_lazyload_update = migrationHydrateImages;
+window.t_lazyload_updateResize_elem = migrationHydrateImages;
 document.addEventListener('DOMContentLoaded', () => {
   migrationHydrateImages();
   migrationInitContactPopups();

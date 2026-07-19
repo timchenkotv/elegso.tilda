@@ -1,0 +1,292 @@
+{
+  "generatedAt": "2026-07-19T17:37:09.917Z",
+  "origin": "https://elegso.ru",
+  "summary": {
+    "robotsStatus": 200,
+    "sitemapStatus": 200,
+    "sitemapPages": 27,
+    "pagesChecked": 27,
+    "pagesWithErrors": 0,
+    "uniqueInternalReferences": 161,
+    "brokenInternalReferences": 0,
+    "analyticsCoverage": {
+      "yandexMetrika": 27,
+      "googleTagManager": 27,
+      "mailRu": 27
+    }
+  },
+  "robots": "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /calculator-data/\nDisallow: /calc_nst/service/\nDisallow: /tilda/\nDisallow: /members/\n\nUser-agent: Yandex\nAllow: /\nDisallow: /api/\nDisallow: /calculator-data/\nDisallow: /calc_nst/service/\nDisallow: /tilda/\nDisallow: /members/\nClean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&utm_place&utm_referer&utm_ya_campaign&utm_etext\n\nSitemap: https://elegso.ru/sitemap.xml\n",
+  "pages": [
+    {
+      "url": "https://elegso.ru/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/accident_lawyer/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/appeal_of_judicial_acts/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/arbitration_lawyer/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/calc_nst/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/calc_nst/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/calc_nst/instruction/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/cancellation_of_the_court_order/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/collect_the_debt/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/contacts/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/contacts/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/contract_drafting_service/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/contract_modification/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/contract_modification/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/drafting_an_agreement/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/judicial_protection/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/leasing_lawyer/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/mission/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/mission/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/our_team/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/our_team/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/property_law/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/property_law/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/refund_of_the_penalty/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/restoring_the_contract/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/soglashenie/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/soglashenie/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/trial_lawyer/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "absoluteInternalAnchors": [],
+      "errors": []
+    }
+  ],
+  "brokenReferences": []
+}

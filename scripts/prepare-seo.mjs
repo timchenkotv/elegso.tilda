@@ -140,6 +140,12 @@ function structuralHtml(html) {
     .replace(/<template\b[\s\S]*?<\/template>/gi, '');
 }
 
+function ensureLazyloadCompatibility(html) {
+  html = html.replace(/\s*<script\b[^>]*data-elegso-lazyload-shim[^>]*>[\s\S]*?<\/script>/gi, '');
+  const shim = '<script data-elegso-lazyload-shim>window.t_lazyload_update=window.t_lazyload_update||function(){};window.t_lazyload_updateResize_elem=window.t_lazyload_updateResize_elem||function(){};</script>';
+  return html.replace(/<head>/i, `<head>${shim}`);
+}
+
 function ensureH1(html, title, indexable) {
   if (!indexable || /<h1\b/i.test(structuralHtml(html))) return html;
   const hiddenHeading = `<h1 class="elegso-visually-hidden">${title.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</h1>`;
@@ -220,6 +226,7 @@ for (const file of files) {
   const pageTitle = titleOf(html);
   const description = descriptions.get(rel) || contentOfMeta(html, 'name', 'description');
 
+  html = ensureLazyloadCompatibility(html);
   html = html.replace(/<html(?!\b[^>]*\blang=)(\b[^>]*)>/i, '<html lang="ru"$1>');
   html = setCanonical(html, canonical);
   html = setMeta(html, 'name', 'robots', indexable
