@@ -1,0 +1,517 @@
+.elegso-lease-host {
+  padding-top: 58px !important;
+  padding-bottom: 42px !important;
+  background: #e5dcd0 !important;
+}
+
+.elegso-lease-shell,
+.elegso-lease-shell * {
+  box-sizing: border-box;
+}
+
+.elegso-lease-shell {
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto;
+  color: #172521;
+  font-family: Ubuntu, Arial, sans-serif;
+}
+
+.elegso-lease-app {
+  overflow: hidden;
+  border: 1px solid rgba(53, 90, 86, 0.22);
+  border-radius: 22px;
+  background: rgba(252, 249, 244, 0.94);
+  box-shadow: 0 24px 64px rgba(53, 45, 37, 0.15);
+}
+
+.elegso-lease-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 24px 26px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(255, 222, 65, 0.22), transparent 34%),
+    linear-gradient(135deg, #294c48, #355a56 62%, #2e4d49);
+}
+
+.elegso-lease-title {
+  min-width: 0;
+}
+
+.elegso-lease-eyebrow {
+  margin: 0 0 5px;
+  color: #ffde41;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.elegso-lease-title h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(24px, 3.1vw, 39px);
+  line-height: 1.08;
+}
+
+.elegso-lease-title p:last-child {
+  max-width: 760px;
+  margin: 9px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.elegso-lease-toolbar {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  max-width: 390px;
+}
+
+.elegso-lease-btn {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 10px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.elegso-lease-btn:hover,
+.elegso-lease-btn:focus-visible {
+  border-color: #ffde41;
+  background: rgba(255, 222, 65, 0.14);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.elegso-lease-btn.is-primary {
+  border-color: #ffde41;
+  color: #243f3c;
+  background: #ffde41;
+}
+
+.elegso-lease-btn.is-primary:hover,
+.elegso-lease-btn.is-primary:focus-visible {
+  color: #fff;
+  background: #a04b38;
+  border-color: #a04b38;
+}
+
+.elegso-lease-btn.is-danger {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.elegso-lease-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.elegso-lease-card {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid rgba(53, 90, 86, 0.16);
+  border-radius: 17px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(255, 222, 65, 0.11), transparent 38%),
+    #fff;
+  box-shadow: 0 12px 34px rgba(53, 45, 37, 0.07);
+}
+
+.elegso-lease-card.is-wide,
+.elegso-lease-card.is-summary {
+  grid-column: 1 / -1;
+}
+
+.elegso-lease-card h3 {
+  margin: 0;
+  color: #284a46;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.elegso-lease-card-intro {
+  margin: -5px 0 0;
+  color: #6d7471;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.elegso-lease-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 10px;
+}
+
+.elegso-lease-fields.is-parties {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.elegso-lease-field {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+  color: #5f6c68;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.elegso-lease-field > span {
+  min-height: 29px;
+  display: flex;
+  align-items: flex-end;
+  line-height: 1.25;
+}
+
+.elegso-lease-field input,
+.elegso-lease-field textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 11px;
+  border: 1px solid #d4d8d5;
+  border-radius: 10px;
+  outline: none;
+  color: #172521;
+  background: #fffdfa;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.elegso-lease-field textarea {
+  min-height: 72px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+.elegso-lease-field input:focus,
+.elegso-lease-field textarea:focus {
+  border-color: #355a56;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(53, 90, 86, 0.13);
+}
+
+.elegso-lease-field input[type="number"],
+.elegso-lease-field input[inputmode="decimal"] {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.elegso-lease-input-unit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.elegso-lease-unit {
+  display: inline-flex;
+  min-width: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 9px;
+  border: 1px solid rgba(53, 90, 86, 0.18);
+  border-radius: 10px;
+  color: #355a56;
+  background: #edf2ee;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.elegso-lease-party {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 8px;
+  padding: 11px;
+  border: 1px solid rgba(53, 90, 86, 0.13);
+  border-radius: 12px;
+  background: #fbfaf7;
+}
+
+.elegso-lease-party .elegso-lease-field > span {
+  min-height: auto;
+}
+
+.elegso-lease-contract-fields {
+  display: grid;
+  grid-template-columns: minmax(210px, 0.65fr) minmax(300px, 1.35fr);
+  gap: 10px;
+}
+
+.elegso-lease-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+  gap: 8px;
+}
+
+.elegso-lease-results.is-dense {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.elegso-lease-result {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 11px;
+  border: 1px solid #dfe2df;
+  border-radius: 11px;
+  color: #64706c;
+  background: #fafbf9;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.elegso-lease-result strong {
+  flex: 0 0 auto;
+  color: #172521;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.elegso-lease-result.is-good {
+  border-color: rgba(53, 183, 120, 0.34);
+  background: rgba(53, 183, 120, 0.08);
+}
+
+.elegso-lease-result.is-warn {
+  border-color: rgba(217, 163, 39, 0.38);
+  background: rgba(217, 163, 39, 0.08);
+}
+
+.elegso-lease-formula {
+  overflow-x: auto;
+  padding: 10px 12px;
+  border-radius: 11px;
+  color: #284a46;
+  background: #edf2ee;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.elegso-lease-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(330px, 0.9fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.elegso-lease-summary-left {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 10px;
+}
+
+.elegso-lease-final {
+  display: grid;
+  align-content: center;
+  gap: 7px;
+  min-height: 175px;
+  padding: 20px;
+  border: 1px solid rgba(53, 90, 86, 0.25);
+  border-radius: 16px;
+  color: #355a56;
+  background: linear-gradient(135deg, rgba(53, 90, 86, 0.12), #fff);
+}
+
+.elegso-lease-final > span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.elegso-lease-final strong {
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.elegso-lease-final p {
+  margin: 0;
+  color: #53625e;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.elegso-lease-final.is-lessor {
+  border-color: rgba(160, 75, 56, 0.35);
+  color: #a04b38;
+  background: linear-gradient(135deg, rgba(160, 75, 56, 0.13), #fff);
+}
+
+.elegso-lease-final.is-lessee {
+  border-color: rgba(36, 147, 95, 0.36);
+  color: #187b4d;
+  background: linear-gradient(135deg, rgba(36, 147, 95, 0.13), #fff);
+}
+
+.elegso-lease-footer-note {
+  margin: 0 16px 16px;
+  padding: 13px 15px;
+  border: 1px solid rgba(53, 90, 86, 0.18);
+  border-radius: 13px;
+  color: #5f6c68;
+  background: #f3f0e9;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.elegso-lease-footer-note strong {
+  color: #355a56;
+}
+
+.elegso-lease-save-status {
+  min-height: 18px;
+  margin: -2px 18px 10px;
+  color: #65716d;
+  font-size: 11px;
+  text-align: right;
+}
+
+.elegso-lease-shell > .elegso-contact-card {
+  margin-top: 28px;
+}
+
+@media (max-width: 980px) {
+  .elegso-lease-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .elegso-lease-toolbar {
+    max-width: none;
+    justify-content: flex-start;
+  }
+
+  .elegso-lease-grid,
+  .elegso-lease-fields.is-parties,
+  .elegso-lease-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .elegso-lease-card,
+  .elegso-lease-card.is-wide,
+  .elegso-lease-card.is-summary {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .elegso-lease-host {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+  }
+
+  .elegso-lease-shell {
+    width: min(100% - 20px, 1240px);
+  }
+
+  .elegso-lease-app {
+    border-radius: 16px;
+  }
+
+  .elegso-lease-head {
+    gap: 18px;
+    padding: 20px 16px;
+  }
+
+  .elegso-lease-title h2 {
+    font-size: 27px;
+  }
+
+  .elegso-lease-toolbar {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .elegso-lease-btn {
+    width: 100%;
+    padding-inline: 9px;
+  }
+
+  .elegso-lease-grid {
+    gap: 9px;
+    padding: 10px;
+  }
+
+  .elegso-lease-card {
+    gap: 11px;
+    padding: 14px 12px;
+    border-radius: 14px;
+  }
+
+  .elegso-lease-fields,
+  .elegso-lease-fields.is-parties,
+  .elegso-lease-contract-fields,
+  .elegso-lease-party,
+  .elegso-lease-results,
+  .elegso-lease-results.is-dense {
+    grid-template-columns: 1fr;
+  }
+
+  .elegso-lease-field > span {
+    min-height: auto;
+  }
+
+  .elegso-lease-field input,
+  .elegso-lease-field textarea {
+    font-size: 16px;
+  }
+
+  .elegso-lease-result {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .elegso-lease-result strong {
+    white-space: normal;
+  }
+
+  .elegso-lease-final {
+    min-height: 0;
+    padding: 17px;
+  }
+
+  .elegso-lease-footer-note {
+    margin: 0 10px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .elegso-lease-btn,
+  .elegso-lease-field input,
+  .elegso-lease-field textarea {
+    transition: none;
+  }
+}

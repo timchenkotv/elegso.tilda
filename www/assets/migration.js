@@ -85,8 +85,31 @@ function migrationInitContactPopups() {
     }, delay);
   });
 }
+function migrationInitLeaseBalanceCalculator() {
+  const page = document.querySelector('[data-tilda-page-alias="calculator_of_the_balance_of_counter_obligations_in_leasing"]');
+  const host = document.getElementById('rec1164640016');
+  if (!page || !host || host.dataset.elegsoLeaseLoader === 'ready') return;
+  host.dataset.elegsoLeaseLoader = 'ready';
+
+  if (!document.querySelector('link[data-elegso-lease-styles]')) {
+    const styles = document.createElement('link');
+    styles.rel = 'stylesheet';
+    styles.href = '/assets/lease-balance-calculator.css?v=20260719-1';
+    styles.dataset.elegsoLeaseStyles = 'true';
+    document.head.appendChild(styles);
+  }
+
+  if (!document.querySelector('script[data-elegso-lease-script]')) {
+    const script = document.createElement('script');
+    script.src = '/assets/lease-balance-calculator.js?v=20260719-1';
+    script.defer = true;
+    script.dataset.elegsoLeaseScript = 'true';
+    document.body.appendChild(script);
+  }
+}
 window.t_lazyload_update = migrationHydrateImages;
 document.addEventListener('DOMContentLoaded', () => {
   migrationHydrateImages();
   migrationInitContactPopups();
+  migrationInitLeaseBalanceCalculator();
 });
