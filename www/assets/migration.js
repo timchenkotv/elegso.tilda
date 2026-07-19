@@ -94,14 +94,14 @@ function migrationInitLeaseBalanceCalculator() {
   if (!document.querySelector('link[data-elegso-lease-styles]')) {
     const styles = document.createElement('link');
     styles.rel = 'stylesheet';
-    styles.href = '/assets/lease-balance-calculator.css?v=20260719-2';
+    styles.href = '/assets/lease-balance-calculator.css?v=20260719-3';
     styles.dataset.elegsoLeaseStyles = 'true';
     document.head.appendChild(styles);
   }
 
   if (!document.querySelector('script[data-elegso-lease-script]')) {
     const script = document.createElement('script');
-    script.src = '/assets/lease-balance-calculator.js?v=20260719-2';
+    script.src = '/assets/lease-balance-calculator.js?v=20260719-3';
     script.defer = true;
     script.dataset.elegsoLeaseScript = 'true';
     document.body.appendChild(script);

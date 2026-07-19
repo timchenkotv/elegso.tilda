@@ -63,9 +63,16 @@
         <section class="elegso-lease-card is-wide">
           <h3>1. Срок и платежи договора</h3>
           <div class="elegso-lease-fields">
-            ${dateField('Дата начала договора', 'leaseStartDate', 'Дата включается в календарный срок договора')}
-            ${dateField('Дата окончания договора', 'leaseEndDate', 'Дата включается в календарный срок договора')}
+            ${dateField('Дата начала договора', 'leaseStartDate', 'По общему правилу статьи 191 ГК РФ этот день не включается в течение срока')}
+            ${dateField('Дата окончания договора', 'leaseEndDate', 'Конечный день включается в расчёт срока')}
             ${numberField('Срок договора', 'leaseTermDays', 'дн.', 'При изменении срока дата окончания пересчитывается автоматически')}
+            <label class="elegso-lease-field is-day-counting" title="Отметьте только тогда, когда договор или правила лизинга прямо включают день начала в срок">
+              <span class="elegso-lease-checkbox">
+                <input data-field="dayCountingMode" type="checkbox" value="inclusive">
+                <strong>Включать день начала</strong>
+              </span>
+              <small data-day-counting-note>Общий порядок: по статье 191 ГК РФ течение срока начинается на следующий день после даты начала. Начальный день не учитывается, конечный учитывается; 01.01–02.01 = 1 день.</small>
+            </label>
             ${moneyField('Авансовый платёж', 'advanceAmount', 'А — сумма аванса по договору лизинга')}
             ${moneyField('Платежи с авансом', 'leasePaymentsTotal', 'Сумма платежей с авансом, без отдельной выкупной стоимости')}
             ${moneyField('Платежи без аванса', 'leasePaymentsWithoutAdvance', 'Сумма платежей за вычетом авансового платежа')}
@@ -108,7 +115,7 @@
             ${moneyField('Сумма реализации предмета', 'realizationValue', 'Цена продажи либо доказанная оценочная стоимость')}
           </div>
           <div class="elegso-lease-results">
-            ${resultLine('Срок пользования финансированием', 'financingUseDays', 'От начала договора до даты реализации / оценки включительно')}
+            ${resultLine('Срок пользования финансированием', 'financingUseDays', 'По общему правилу — со дня, следующего за датой начала, по дату возврата финансирования включительно')}
             ${resultLine('Проценты за фактический срок', 'financingInterestForUse', 'Проценты в день × фактический срок')}
           </div>
         </section>
@@ -168,6 +175,7 @@
     lessorName: '', lessorDetails: '', lesseeName: '', lesseeDetails: '',
     supplierName: '', supplierDetails: '', finalBuyerName: '', finalBuyerDetails: '',
     leaseContractNumber: '', leaseSubject: '', leaseStartDate: '', leaseEndDate: '', leaseTermDays: '',
+    dayCountingMode: 'exclusive',
     advanceAmount: '0.00', leasePaymentsTotal: '0.00', leasePaymentsWithoutAdvance: '0.00',
     buyoutValue: '0.00', purchasePrice: '0.00', acquisitionCasco: '0.00', acquisitionOther: '0.00',
     realizationDate: '', realizationValue: '0.00', paidWithoutAdvance: '0.00', penaltyLosses: '0.00',
@@ -252,23 +260,25 @@
     return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
   }
 
-  function inclusiveDaysBetween(startValue, endValue) {
+  function daysBetween(startValue, endValue, includeStartDay) {
     const start = parseDate(startValue);
     const end = parseDate(endValue);
     if (!start || !end) return 0;
-    return Math.max(0, Math.round((end.getTime() - start.getTime()) / 86400000) + 1);
+    const elapsedDays = Math.round((end.getTime() - start.getTime()) / 86400000);
+    return Math.max(0, elapsedDays + (includeStartDay ? 1 : 0));
   }
 
-  function calculateEndDate(startValue, daysValue) {
+  function calculateEndDate(startValue, daysValue, includeStartDay) {
     const start = parseDate(startValue);
     const days = parsePositiveInteger(daysValue);
     if (!start || !days) return '';
-    start.setUTCDate(start.getUTCDate() + days - 1);
+    start.setUTCDate(start.getUTCDate() + days - (includeStartDay ? 1 : 0));
     return dateToIso(start);
   }
 
   function calculate(form) {
-    const leaseTermDays = parsePositiveInteger(form.leaseTermDays) || inclusiveDaysBetween(form.leaseStartDate, form.leaseEndDate);
+    const includeStartDay = form.dayCountingMode === 'inclusive';
+    const leaseTermDays = parsePositiveInteger(form.leaseTermDays) || daysBetween(form.leaseStartDate, form.leaseEndDate, includeStartDay);
     const advanceAmount = parseMoney(form.advanceAmount);
     const leasePaymentsTotal = parseMoney(form.leasePaymentsTotal);
     const leasePaymentsWithoutAdvance = parseMoney(form.leasePaymentsWithoutAdvance);
@@ -287,7 +297,7 @@
       ? (financingInterestTotal / (financingAmount * leaseTermDays)) * 365 * 100
       : 0;
     const dailyInterestAmount = leaseTermDays > 0 ? financingInterestTotal / leaseTermDays : 0;
-    const financingUseDays = inclusiveDaysBetween(form.leaseStartDate, form.realizationDate);
+    const financingUseDays = daysBetween(form.leaseStartDate, form.realizationDate, includeStartDay);
     const financingInterestForUse = dailyInterestAmount * financingUseDays;
     const terminationLosses = parseMoney(form.penaltyLosses) + parseMoney(form.additionalCasco) +
       parseMoney(form.seizureExpenses) + parseMoney(form.storageExpenses) + parseMoney(form.otherTerminationExpenses);
@@ -360,12 +370,18 @@
     const names = keys || Object.keys(defaults);
     names.forEach((key) => {
       const input = root.querySelector(`[data-field="${key}"]`);
-      if (input && input.value !== state[key]) input.value = state[key];
+      if (!input) return;
+      if (input.type === 'checkbox') {
+        input.checked = state[key] === 'inclusive';
+      } else if (input.value !== state[key]) {
+        input.value = state[key];
+      }
     });
   }
 
   function renderResults() {
     const calc = calculate(state);
+    renderDayCountingNote();
     const moneyResults = [
       'allPaymentsP', 'paymentsTotalWithoutAdvanceAndWithBuyout', 'acquisitionExpenses', 'financingAmount',
       'financingInterestTotal', 'dailyInterestAmount', 'financingInterestForUse', 'terminationLosses',
@@ -382,6 +398,20 @@
     root.querySelector('[data-final-text]').textContent = resultText(calc);
   }
 
+  function renderDayCountingNote() {
+    const field = root.querySelector('.elegso-lease-field.is-day-counting');
+    const note = root.querySelector('[data-day-counting-note]');
+    if (!field || !note) return;
+    const isInclusive = state.dayCountingMode === 'inclusive';
+    field.classList.toggle('is-inclusive', isInclusive);
+    field.title = isInclusive
+      ? 'Специальный порядок применяется только при прямом условии договора или правил лизинга'
+      : 'Общий порядок исчисления срока по статье 191 ГК РФ';
+    note.textContent = isInclusive
+      ? 'Специальный порядок договора: день начала включён в расчёт вместе с конечным днём; 01.01–02.01 = 2 дня. Применяйте только если это прямо установлено договором или правилами лизинга.'
+      : 'Общий порядок: по статье 191 ГК РФ течение срока начинается на следующий день после даты начала. Начальный день не учитывается, конечный учитывается; 01.01–02.01 = 1 день.';
+  }
+
   function setResult(key, value) {
     const element = root.querySelector(`[data-result="${key}"]`);
     if (element) element.textContent = value;
@@ -395,24 +425,29 @@
 
   function applyLinkedChanges(field) {
     const changed = [];
+    const includeStartDay = state.dayCountingMode === 'inclusive';
     if (field === 'leaseStartDate') {
       if (state.leaseTermDays) {
-        state.leaseEndDate = calculateEndDate(state.leaseStartDate, state.leaseTermDays);
+        state.leaseEndDate = calculateEndDate(state.leaseStartDate, state.leaseTermDays, includeStartDay);
         changed.push('leaseEndDate');
       } else if (state.leaseEndDate) {
-        state.leaseTermDays = String(inclusiveDaysBetween(state.leaseStartDate, state.leaseEndDate) || '');
+        state.leaseTermDays = String(daysBetween(state.leaseStartDate, state.leaseEndDate, includeStartDay) || '');
         changed.push('leaseTermDays');
       }
     }
     if (field === 'leaseEndDate') {
       state.leaseTermDays = state.leaseStartDate && state.leaseEndDate
-        ? String(inclusiveDaysBetween(state.leaseStartDate, state.leaseEndDate) || '')
+        ? String(daysBetween(state.leaseStartDate, state.leaseEndDate, includeStartDay) || '')
         : state.leaseTermDays;
       changed.push('leaseTermDays');
     }
     if (field === 'leaseTermDays' && state.leaseStartDate) {
-      state.leaseEndDate = calculateEndDate(state.leaseStartDate, state.leaseTermDays);
+      state.leaseEndDate = calculateEndDate(state.leaseStartDate, state.leaseTermDays, includeStartDay);
       changed.push('leaseEndDate');
+    }
+    if (field === 'dayCountingMode' && state.leaseStartDate && state.leaseEndDate) {
+      state.leaseTermDays = String(daysBetween(state.leaseStartDate, state.leaseEndDate, includeStartDay) || '');
+      changed.push('leaseTermDays');
     }
     if (field === 'advanceAmount') {
       const total = parseMoney(state.leasePaymentsTotal);
@@ -515,9 +550,10 @@
     const addMoneyCalc = (symbol, title, value, formula, required = true) => { if (required || Math.abs(value) >= 0.005) addRow(symbol, title, formatMoney(value), formula); };
 
     addGroup('1. Срок и платежи договора');
-    addDate('Дн', 'Дата начала договора', 'leaseStartDate', 'Вводится по договору; дата включается в срок');
-    addDate('До', 'Дата окончания договора', 'leaseEndDate', 'Вводится по договору; дата включается в срок');
-    addDays('C/дн', 'Срок договора лизинга в календарных днях', calc.leaseTermDays, 'Количество календарных дней от даты начала до даты окончания включительно', true);
+    addDate('Дн', 'Дата начала договора', 'leaseStartDate', 'Вводится по договору; по общему правилу статьи 191 ГК РФ начальный день не учитывается');
+    addDate('До', 'Дата окончания договора', 'leaseEndDate', 'Вводится по договору; конечный день учитывается');
+    addRow('—', 'Порядок исчисления дней', state.dayCountingMode === 'inclusive' ? 'Обе даты включаются' : 'Без дня начала', state.dayCountingMode === 'inclusive' ? 'Применено специальное условие договора' : 'Общее правило статьи 191 ГК РФ');
+    addDays('C/дн', 'Срок договора лизинга в календарных днях', calc.leaseTermDays, state.dayCountingMode === 'inclusive' ? 'Разница между датами + день начала' : 'Дата окончания − дата начала', true);
     addMoneyInput('A', 'Авансовый платёж', 'advanceAmount', 'Вводится по договору лизинга');
     addMoneyInput('ЛП', 'Лизинговые платежи с авансом', 'leasePaymentsTotal', 'Сумма платежей по договору с учётом аванса, без отдельной выкупной цены');
     addMoneyInput('ЛП−A', 'Лизинговые платежи без аванса', 'leasePaymentsWithoutAdvance', 'ЛП−A = лизинговые платежи с авансом − A');
@@ -540,7 +576,7 @@
     addGroup('4. Фактическое пользование финансированием и реализация');
     addDate('Др', 'Дата реализации / оценки предмета лизинга', 'realizationDate', 'Дата реализации предмета или его доказанной оценки');
     addMoneyInput('Реал', 'Сумма реализации предмета', 'realizationValue', 'Цена продажи или доказанная оценочная стоимость');
-    addDays('Cф', 'Срок фактического пользования финансированием', calc.financingUseDays, 'От даты начала договора до даты реализации / оценки включительно', true);
+    addDays('Cф', 'Срок фактического пользования финансированием', calc.financingUseDays, state.dayCountingMode === 'inclusive' ? 'Обе граничные даты включаются по условию договора' : 'Со дня, следующего за датой начала, по дату возврата включительно', true);
     addMoneyCalc('%ф', 'Плата за финансирование за фактический срок', calc.financingInterestForUse, '%ф = %д × Cф');
 
     addGroup('5. Убытки и расходы при расторжении');
@@ -599,7 +635,7 @@
     const input = event.target.closest('[data-field]');
     if (!input) return;
     const field = input.dataset.field;
-    state[field] = input.value;
+    state[field] = input.type === 'checkbox' ? (input.checked ? 'inclusive' : 'exclusive') : input.value;
     applyLinkedChanges(field);
     renderResults();
     saveDraft(false);

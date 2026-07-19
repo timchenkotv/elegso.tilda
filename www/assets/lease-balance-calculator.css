@@ -260,6 +260,55 @@
   transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 
+.elegso-lease-field.is-day-counting {
+  grid-column: span 2;
+  align-content: center;
+  padding: 9px 11px;
+  border: 1px solid rgba(53, 90, 86, 0.18);
+  border-radius: 10px;
+  background: #edf2ee;
+  cursor: pointer;
+}
+
+.elegso-lease-field.is-day-counting.is-inclusive {
+  border-color: rgba(160, 75, 56, 0.32);
+  background: rgba(160, 75, 56, 0.08);
+}
+
+.elegso-lease-field.is-day-counting.is-inclusive .elegso-lease-checkbox {
+  color: #8c402f;
+}
+
+.elegso-lease-field .elegso-lease-checkbox {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 9px;
+  color: #355a56;
+}
+
+.elegso-lease-field .elegso-lease-checkbox strong {
+  font-size: 12px;
+}
+
+.elegso-lease-field input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin: 0;
+  padding: 0;
+  accent-color: #355a56;
+  cursor: pointer;
+}
+
+.elegso-lease-field.is-day-counting small {
+  color: #65716d;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
 .elegso-lease-field textarea {
   min-height: 72px;
   resize: vertical;
@@ -556,6 +605,10 @@
   .elegso-lease-field input,
   .elegso-lease-field textarea {
     font-size: 16px;
+  }
+
+  .elegso-lease-field.is-day-counting {
+    grid-column: auto;
   }
 
   .elegso-lease-result {
