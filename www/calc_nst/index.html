@@ -288,7 +288,7 @@ UX / ДОСТУПНОСТЬ
   .calc{ width:320px }
   .calc input{ width:100% }
   .small{ font-size:12px; color:var(--muted) }
-  .icon-btn{ border:1px solid var(--bd); background:#fff; width:28px; height:28px; border-radius:8px; display:grid; place-items:center; cursor:pointer }
+  .icon-btn{ border:1px solid var(--bd); background:#fff; width:36px; height:36px; min-width:36px; border-radius:8px; display:grid; place-items:center; cursor:pointer; touch-action:manipulation }
   .icon{ width:16px; height:16px; display:block }
   @media (max-width:720px){
     .elegso-grid{ grid-template-columns:42px 120px 150px 320px 40px; min-width: 700px }
@@ -909,7 +909,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
   .menu button{ display:block; width:100%; text-align:left; padding:6px 8px; background:#fff; border:none; cursor:pointer }
   .menu button.danger{ color:var(--danger); font-weight:600 }
   .msg{ margin-top:10px; padding:10px 12px; border-radius:10px; border:1px solid var(--bd); background:#fff3f3; color:#a00; font-size:14px }
-  .icon-btn{ border:1px solid var(--bd); background:#fff; width:28px; height:28px; border-radius:8px; display:grid; place-items:center; cursor:pointer }
+  .icon-btn{ border:1px solid var(--bd); background:#fff; width:36px; height:36px; min-width:36px; border-radius:8px; display:grid; place-items:center; cursor:pointer; touch-action:manipulation }
   .icon{ width:16px; height:16px; display:block }
 </style> <script>
 (function(){
@@ -1085,7 +1085,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       const cDate = document.createElement('div'); cDate.className='elegso-cell';
       const inDate = document.createElement('input'); inDate.className='input'; inDate.placeholder='ДД.ММ.ГГГГ';
       inDate.value=fmt.toUI(row.dt); inDate.inputMode='numeric'; inDate.autocomplete='off';
-      const btnCal = document.createElement('button'); btnCal.className='icon-btn'; btnCal.title='Выбрать дату';
+      const btnCal = document.createElement('button'); btnCal.type='button'; btnCal.className='icon-btn'; btnCal.title='Выбрать дату'; btnCal.setAttribute('aria-label','Выбрать дату показателя');
       btnCal.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3" fill="none" stroke="#888"/><path d="M8 2v4M16 2v4M3 10h18" stroke="#888"/></svg>';
       cDate.appendChild(inDate); cDate.appendChild(btnCal); line.appendChild(cDate);
 
@@ -1143,26 +1143,16 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
 
       btnCal.addEventListener('click', (e)=>{
         e.stopPropagation();
-        // Если доступен showPicker() — открываем нативно сразу
-        const test = document.createElement('input'); test.type='date';
-        if (typeof test.showPicker === 'function') {
-          test.value = row.dt || fmt.todayISO();
-          test.addEventListener('change', async ()=> {
-            if(!test.value) return;
-            row.dt = test.value;
-            await sbPatch('indicators', { id: row.id, session_id, kind }, { dt: row.dt });
-            await refreshKind(kind);
-          }, { once:true });
-          document.body.appendChild(test);
-          test.style.position='fixed'; test.style.left='-9999px'; test.showPicker();
-          setTimeout(()=>{ document.body.removeChild(test); }, 0);
-          return;
-        }
-        // Иначе — мини-поповер
+        // Keep the real date input visible while its native picker is open.
+        // Removing a temporary input immediately after showPicker() makes the
+        // calendar close before it can be used in Chromium and Safari.
         dateIn.value = row.dt || fmt.todayISO();
         datePop.hidden = false;
         positionPopover(btnCal, datePop);
         dateIn.focus();
+        if(typeof dateIn.showPicker === 'function'){
+          try { dateIn.showPicker(); } catch(_) {}
+        }
       });
       dateIn.addEventListener('change', async ()=>{
         if(!dateIn.value) return;
