@@ -272,7 +272,7 @@ UX / ДОСТУПНОСТЬ
   #btnAdd:hover{ background:#e9e9ee; }
   .btn-ghost.danger{ color:var(--danger); font-weight:600 }
   .elegso-table{ margin-top:12px; overflow:auto }
-  .elegso-grid{ display:grid; grid-template-columns:56px 160px 200px 1fr 44px; gap:0; align-items:stretch; border-top:1px dashed var(--bd); min-width: 780px }
+  #elegso-charges-payments .elegso-grid{ display:grid; grid-template-columns:56px 190px 200px 1fr 44px; gap:0; align-items:stretch; border-top:1px dashed var(--bd); min-width:810px }
   .elegso-grid.header{ color:var(--muted); font-weight:600; border-top:0; border-bottom:1px dashed var(--bd) }
   .elegso-cell{ padding:8px 10px; border-bottom:1px dashed var(--bd); display:flex; align-items:center; gap:6px }
   .elegso-cell .input, .elegso-cell textarea{ width:100%; border:1px solid var(--bd); border-radius:10px; padding:8px 10px; outline:none; background:#fff }
@@ -291,7 +291,7 @@ UX / ДОСТУПНОСТЬ
   .icon-btn{ border:1px solid var(--bd); background:#fff; width:36px; height:36px; min-width:36px; border-radius:8px; display:grid; place-items:center; cursor:pointer; touch-action:manipulation }
   .icon{ width:16px; height:16px; display:block }
   @media (max-width:720px){
-    .elegso-grid{ grid-template-columns:42px 120px 150px 320px 40px; min-width: 700px }
+    #elegso-charges-payments .elegso-grid{ grid-template-columns:42px 160px 150px 320px 40px; min-width:730px }
     .elegso-cell textarea{ font-size:14px }
     .elegso-table{ overflow-x:auto }
   }
@@ -895,7 +895,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
   #btnAdd:hover{ background:#e9e9ee; }
   .btn-ghost.danger{ color:var(--danger); font-weight:600 }
   .elegso-table{ margin-top:12px; overflow:auto }
-  .elegso-grid{ display:grid; grid-template-columns:56px 160px 180px 240px 1fr 44px; gap:0; align-items:stretch; border-top:1px dashed var(--bd); min-width: 980px }
+  #elegso-indicators .elegso-grid{ display:grid; grid-template-columns:56px 190px 180px 240px 1fr 44px; gap:0; align-items:stretch; border-top:1px dashed var(--bd); min-width:1010px }
   .elegso-grid.header{ color:var(--muted); font-weight:600; border-top:0; border-bottom:1px dashed var(--bd) }
   .elegso-cell{ padding:8px 10px; border-bottom:1px dashed var(--bd); display:flex; align-items:center; gap:6px }
   .elegso-cell .input, .elegso-cell textarea, .elegso-cell select{ width:100%; border:1px solid var(--bd); border-radius:10px; padding:8px 10px; outline:none; background:#fff }
@@ -1143,16 +1143,17 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
 
       btnCal.addEventListener('click', (e)=>{
         e.stopPropagation();
-        // Keep the real date input visible while its native picker is open.
-        // Removing a temporary input immediately after showPicker() makes the
-        // calendar close before it can be used in Chromium and Safari.
         dateIn.value = row.dt || fmt.todayISO();
+        if(typeof dateIn.showPicker === 'function'){
+          try {
+            dateIn.showPicker();
+            return;
+          } catch(_) {}
+        }
+        // Same fallback as in the accruals table for browsers without showPicker().
         datePop.hidden = false;
         positionPopover(btnCal, datePop);
         dateIn.focus();
-        if(typeof dateIn.showPicker === 'function'){
-          try { dateIn.showPicker(); } catch(_) {}
-        }
       });
       dateIn.addEventListener('change', async ()=>{
         if(!dateIn.value) return;
