@@ -150,6 +150,67 @@
   line-height: 1.3;
 }
 
+.elegso-lease-card.is-collapsible.is-collapsed {
+  gap: 0;
+}
+
+.elegso-lease-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.elegso-lease-collapse-btn {
+  display: inline-flex;
+  flex: 0 0 auto;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 8px 13px;
+  border: 1px solid rgba(53, 90, 86, 0.24);
+  border-radius: 10px;
+  color: #355a56;
+  background: #edf2ee;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.elegso-lease-collapse-btn:hover,
+.elegso-lease-collapse-btn:focus-visible {
+  border-color: #355a56;
+  color: #fff;
+  background: #355a56;
+  outline: none;
+}
+
+.elegso-lease-collapse-icon {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.18s ease;
+}
+
+.elegso-lease-collapse-btn[aria-expanded="true"] .elegso-lease-collapse-icon {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.elegso-lease-collapsible-content {
+  display: grid;
+  gap: 12px;
+}
+
+.elegso-lease-collapsible-content[hidden] {
+  display: none;
+}
+
 .elegso-lease-card-intro {
   margin: -5px 0 0;
   color: #6d7471;
@@ -470,6 +531,15 @@
     border-radius: 14px;
   }
 
+  .elegso-lease-card-heading {
+    gap: 10px;
+  }
+
+  .elegso-lease-collapse-btn {
+    min-height: 36px;
+    padding: 7px 10px;
+  }
+
   .elegso-lease-fields,
   .elegso-lease-fields.is-parties,
   .elegso-lease-contract-fields,
@@ -510,6 +580,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .elegso-lease-btn,
+  .elegso-lease-collapse-btn,
+  .elegso-lease-collapse-icon,
   .elegso-lease-field input,
   .elegso-lease-field textarea {
     transition: none;

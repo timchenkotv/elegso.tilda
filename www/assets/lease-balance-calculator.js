@@ -31,24 +31,32 @@
       </header>
 
       <div class="elegso-lease-grid">
-        <section class="elegso-lease-card is-wide">
-          <h3>Участники расчёта и договор</h3>
-          <p class="elegso-lease-card-intro">Эти сведения не влияют на формулу, но попадут в печатный документ. Поля можно оставить пустыми.</p>
-          <div class="elegso-lease-contract-fields">
-            <label class="elegso-lease-field" title="Номер договора лизинга">
-              <span>Договор лизинга №</span>
-              <input data-field="leaseContractNumber" type="text" placeholder="Например: Л-001/2025" autocomplete="off">
-            </label>
-            <label class="elegso-lease-field" title="Наименование предмета лизинга">
-              <span>Предмет лизинга</span>
-              <input data-field="leaseSubject" type="text" placeholder="Например: автомобиль, оборудование" autocomplete="off">
-            </label>
+        <section class="elegso-lease-card is-wide is-collapsible is-collapsed" data-participants-card>
+          <div class="elegso-lease-card-heading">
+            <h3>Участники расчёта и договор</h3>
+            <button class="elegso-lease-collapse-btn" type="button" data-action="toggle-participants" aria-expanded="false" aria-controls="elegso-lease-participants-content">
+              <span data-collapse-label>Развернуть</span>
+              <span class="elegso-lease-collapse-icon" aria-hidden="true"></span>
+            </button>
           </div>
-          <div class="elegso-lease-fields is-parties">
-            ${partyFields('Лизингодатель', 'lessorName', 'lessorDetails', 'Наименование организации или ФИО')}
-            ${partyFields('Лизингополучатель', 'lesseeName', 'lesseeDetails', 'Наименование организации или ФИО')}
-            ${partyFields('Поставщик', 'supplierName', 'supplierDetails', 'Если известен')}
-            ${partyFields('Конечный покупатель', 'finalBuyerName', 'finalBuyerDetails', 'Если известен')}
+          <div class="elegso-lease-collapsible-content" id="elegso-lease-participants-content" data-participants-content hidden>
+            <p class="elegso-lease-card-intro">Эти сведения не влияют на формулу, но попадут в печатный документ. Поля можно оставить пустыми.</p>
+            <div class="elegso-lease-contract-fields">
+              <label class="elegso-lease-field" title="Номер договора лизинга">
+                <span>Договор лизинга №</span>
+                <input data-field="leaseContractNumber" type="text" placeholder="Например: Л-001/2025" autocomplete="off">
+              </label>
+              <label class="elegso-lease-field" title="Наименование предмета лизинга">
+                <span>Предмет лизинга</span>
+                <input data-field="leaseSubject" type="text" placeholder="Например: автомобиль, оборудование" autocomplete="off">
+              </label>
+            </div>
+            <div class="elegso-lease-fields is-parties">
+              ${partyFields('Лизингодатель', 'lessorName', 'lessorDetails', 'Наименование организации или ФИО')}
+              ${partyFields('Лизингополучатель', 'lesseeName', 'lesseeDetails', 'Наименование организации или ФИО')}
+              ${partyFields('Поставщик', 'supplierName', 'supplierDetails', 'Если известен')}
+              ${partyFields('Конечный покупатель', 'finalBuyerName', 'finalBuyerDetails', 'Если известен')}
+            </div>
           </div>
         </section>
 
@@ -473,6 +481,18 @@
     saveStatusTimer = window.setTimeout(() => { status.textContent = ''; }, 1800);
   }
 
+  function toggleParticipants() {
+    const card = root.querySelector('[data-participants-card]');
+    const button = root.querySelector('[data-action="toggle-participants"]');
+    const content = root.querySelector('[data-participants-content]');
+    if (!card || !button || !content) return;
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!isExpanded));
+    button.querySelector('[data-collapse-label]').textContent = isExpanded ? 'Развернуть' : 'Свернуть';
+    card.classList.toggle('is-collapsed', isExpanded);
+    content.hidden = isExpanded;
+  }
+
   function printReport() {
     const reportWindow = window.open('', '_blank');
     if (!reportWindow) {
@@ -599,6 +619,7 @@
   root.querySelector('[data-action="load"]').addEventListener('click', () => root.querySelector('[data-import-file]').click());
   root.querySelector('[data-action="reset"]').addEventListener('click', resetCalculator);
   root.querySelector('[data-action="print"]').addEventListener('click', printReport);
+  root.querySelector('[data-action="toggle-participants"]').addEventListener('click', toggleParticipants);
   root.querySelector('[data-import-file]').addEventListener('change', (event) => {
     const file = event.target.files && event.target.files[0];
     event.target.value = '';
