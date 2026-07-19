@@ -562,6 +562,13 @@ UX / ДОСТУПНОСТЬ
     });
 
     // Сумма: ограничение 19,2 при наборе и форматирование при blur; допускаем "." и ","
+    const saveAmountWhileTyping = debounce(async ()=>{
+      const num = inAmt.value==='' ? 0 : fmt.parseMoney(inAmt.value);
+      if(Number.isNaN(num)) return;
+      row.val = inAmt.value;
+      await persistRow(tab, row);
+      emitChanged(tab);
+    }, 250);
     inAmt.addEventListener('input', ()=>{
       const before = inAmt.value;
       const after = sanitizeMoneyTyped(before);
@@ -572,6 +579,8 @@ UX / ДОСТУПНОСТЬ
       }
       const num = fmt.parseMoney(inAmt.value);
       inAmt.classList.toggle('neg', !Number.isNaN(num) && num<0);
+      row.val = inAmt.value;
+      saveAmountWhileTyping();
     });
     inAmt.addEventListener('blur', async ()=>{
       if(inAmt.value===''){ row.val=''; await persistRow(tab, row); return; }
@@ -1137,6 +1146,12 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
         await refreshKind(kind);
       });
 
+      const saveValueWhileTyping = debounce(async ()=>{
+        const num = inVal.value==='' ? 0 : fmt.parseMoney(inVal.value);
+        if(Number.isNaN(num)) return;
+        await sbPatch('indicators', { id: row.id, session_id, kind }, { value: num });
+        emitChanged(kind);
+      }, 250);
       inVal.addEventListener('input', ()=>{
         const before = inVal.value;
         const after = fmt.sanitizeMoneyTyped(before);
@@ -1147,6 +1162,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
         }
         const num = fmt.parseMoney(inVal.value);
         inVal.classList.toggle('neg', !Number.isNaN(num)&&num<0);
+        saveValueWhileTyping();
       });
       inVal.addEventListener('blur', async ()=>{
         const num = inVal.value==='' ? null : fmt.parseMoney(inVal.value);
