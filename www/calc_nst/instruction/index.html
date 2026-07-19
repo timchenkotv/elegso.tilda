@@ -298,7 +298,7 @@
       let scheduled=false;
       const activate=()=>{
         scheduled=false;
-        const marker=window.scrollY+Math.min(260,window.innerHeight*.32);
+        const marker=window.scrollY+Math.min(340,window.innerHeight*.42);
         let current=entries[0];
         for(const item of entries){
           const top=item.section.getBoundingClientRect().top+window.scrollY;
@@ -315,7 +315,9 @@
       const schedule=()=>{if(!scheduled){scheduled=true;requestAnimationFrame(activate)}};
       addEventListener('scroll',schedule,{passive:true});
       addEventListener('resize',schedule,{passive:true});
+      addEventListener('load',schedule,{once:true});
       addEventListener('hashchange',schedule);
+      if(document.fonts?.ready)document.fonts.ready.then(schedule);
       for(const {link} of entries)link.addEventListener('click',()=>setTimeout(activate,0));
       activate();
     })();
