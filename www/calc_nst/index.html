@@ -311,7 +311,7 @@ UX / ДОСТУПНОСТЬ
   };
 
   // ====== Supabase (client-side minimal REST) ======
-  const SUPABASE_URL = location.origin + '/api/calc';
+  const SUPABASE_URL = location.origin + '/calculator-data';
   const SUPABASE_ANON_KEY = '';
 
   async function sbSelect(table, filters = {}, order = {column:'dt', ascending:true}) {
@@ -896,7 +896,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       return;
     }
 
-    const SUPABASE_URL = location.origin + '/api/calc';
+  const SUPABASE_URL = location.origin + '/calculator-data';
     const SUPABASE_KEY = '';
     const HDRS = { apikey: SUPABASE_KEY, Authorization:`Bearer ${SUPABASE_KEY}` };
     const HDRS_JSON = { ...HDRS, 'Content-Type':'application/json', Prefer:'return=representation' };
@@ -1530,7 +1530,7 @@ UI / ДИЗАЙН
   if(!ROOT) return;
 
   /* --- CONFIG --- */
-  const SB_URL = location.origin + '/api/calc';
+  const SB_URL = location.origin + '/calculator-data';
   const SB_KEY = '';
 
   /* --- HELPERS --- */
@@ -1832,7 +1832,7 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
   const ROOT = document.getElementById('elegso-saldo-print');
   if(!ROOT) return;
 
-  const SB_URL = location.origin + '/api/calc';
+  const SB_URL = location.origin + '/calculator-data';
   const SB_KEY = '';
 
   /* ---------- helpers ---------- */
@@ -2274,7 +2274,7 @@ API-вызовы (точные примеры)
   'use strict';
 
   const ROOT = document.getElementById('elegso-import-export');
-  const SB_URL = location.origin + '/api/calc';
+  const SB_URL = location.origin + '/calculator-data';
   const SB_KEY = '';
   const HDRS = { apikey: SB_KEY, Authorization: 'Bearer '+SB_KEY };
   const HDRS_JSON = { ...HDRS, 'Content-Type':'application/json', Prefer:'return=representation' };
