@@ -311,8 +311,8 @@ UX / ДОСТУПНОСТЬ
   };
 
   // ====== Supabase (client-side minimal REST) ======
-  const SUPABASE_URL = 'https://wruusahsxmazuzjhsdew.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndydXVzYWhzeG1henV6amhzZGV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyMzQ1NjEsImV4cCI6MjA3NzgxMDU2MX0.kWXjH_h9HmNwgUgDGe4rRLPGior4tZPB24xPfW6Mxgc';
+  const SUPABASE_URL = location.origin + '/api/calc';
+  const SUPABASE_ANON_KEY = '';
 
   async function sbSelect(table, filters = {}, order = {column:'dt', ascending:true}) {
     const where = Object.entries(filters).map(([k,v])=>`${encodeURIComponent(k)}=eq.${encodeURIComponent(v)}`).join('&');
@@ -771,8 +771,8 @@ UX / ДОСТУПНОСТЬ
   });
 
   // Header buttons
-  document.getElementById('btnAdd').addEventListener('click', ()=> addRow(state.activeTab));
-  document.getElementById('btnClear').addEventListener('click', ()=> clearTable(state.activeTab));
+  document.querySelector('#elegso-charges-payments #btnAdd').addEventListener('click', ()=> addRow(state.activeTab));
+  document.querySelector('#elegso-charges-payments #btnClear').addEventListener('click', ()=> clearTable(state.activeTab));
 
   // Initialize
   (async function init(){
@@ -896,8 +896,8 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       return;
     }
 
-    const SUPABASE_URL = 'https://wruusahsxmazuzjhsdew.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndydXVzYWhzeG1henV6amhzZGV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyMzQ1NjEsImV4cCI6MjA3NzgxMDU2MX0.kWXjH_h9HmNwgUgDGe4rRLPGior4tZPB24xPfW6Mxgc';
+    const SUPABASE_URL = location.origin + '/api/calc';
+    const SUPABASE_KEY = '';
     const HDRS = { apikey: SUPABASE_KEY, Authorization:`Bearer ${SUPABASE_KEY}` };
     const HDRS_JSON = { ...HDRS, 'Content-Type':'application/json', Prefer:'return=representation' };
 
@@ -1307,8 +1307,8 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
     });
 
     // Верхние кнопки — привязка к логике SQL
-    document.getElementById('btnAdd').addEventListener('click', ()=> addRow(activeKind));
-    document.getElementById('btnClear').addEventListener('click', ()=> clearTable(activeKind));
+    root.querySelector('#btnAdd').addEventListener('click', ()=> addRow(activeKind));
+    root.querySelector('#btnClear').addEventListener('click', ()=> clearTable(activeKind));
 
     // Закрытие всех поповеров по клику вне
     document.addEventListener('click', (e)=>{
@@ -1530,8 +1530,8 @@ UI / ДИЗАЙН
   if(!ROOT) return;
 
   /* --- CONFIG --- */
-  const SB_URL = 'https://wruusahsxmazuzjhsdew.supabase.co';
-  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndydXVzYWhzeG1henV6amhzZGV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyMzQ1NjEsImV4cCI6MjA3NzgxMDU2MX0.kWXjH_h9HmNwgUgDGe4rRLPGior4tZPB24xPfW6Mxgc';
+  const SB_URL = location.origin + '/api/calc';
+  const SB_KEY = '';
 
   /* --- HELPERS --- */
   const qs = (s, el=ROOT)=> el.querySelector(s);
@@ -1832,8 +1832,8 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
   const ROOT = document.getElementById('elegso-saldo-print');
   if(!ROOT) return;
 
-  const SB_URL = 'https://wruusahsxmazuzjhsdew.supabase.co';
-  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndydXVzYWhzeG1henV6amhzZGV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyMzQ1NjEsImV4cCI6MjA3NzgxMDU2MX0.kWXjH_h9HmNwgUgDGe4rRLPGior4tZPB24xPfW6Mxgc';
+  const SB_URL = location.origin + '/api/calc';
+  const SB_KEY = '';
 
   /* ---------- helpers ---------- */
   const qs = (s, el=ROOT)=> el.querySelector(s);
@@ -2274,8 +2274,8 @@ API-вызовы (точные примеры)
   'use strict';
 
   const ROOT = document.getElementById('elegso-import-export');
-  const SB_URL = 'https://wruusahsxmazuzjhsdew.supabase.co';
-  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndydXVzYWhzeG1henV6amhzZGV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyMzQ1NjEsImV4cCI6MjA3NzgxMDU2MX0.kWXjH_h9HmNwgUgDGe4rRLPGior4tZPB24xPfW6Mxgc';
+  const SB_URL = location.origin + '/api/calc';
+  const SB_KEY = '';
   const HDRS = { apikey: SB_KEY, Authorization: 'Bearer '+SB_KEY };
   const HDRS_JSON = { ...HDRS, 'Content-Type':'application/json', Prefer:'return=representation' };
   const IMPORT_SCHEMA = 'elegso_import_export.v1';

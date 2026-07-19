@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup ELEGSO calculator PostgreSQL database
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/elegso-calc-backup

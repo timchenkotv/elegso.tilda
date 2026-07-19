@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily backup of ELEGSO calculator database
+
+[Timer]
+OnCalendar=*-*-* 03:25:00
+Persistent=true
+RandomizedDelaySec=15m
+
+[Install]
+WantedBy=timers.target
