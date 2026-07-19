@@ -299,14 +299,30 @@ UX / ДОСТУПНОСТЬ
 ;(() => {
   // ====== GLOBAL SESSION ID (shared across blocks) ======
   window.ELEGSO = window.ELEGSO || {};
+  const ELEGSO_SESSION_KEY = 'elegso_session_id';
+  const ELEGSO_SESSION_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  function readSessionCookie(){
+    const prefix = ELEGSO_SESSION_KEY + '=';
+    const item = document.cookie.split(';').map(v=>v.trim()).find(v=>v.startsWith(prefix));
+    return item ? decodeURIComponent(item.slice(prefix.length)) : '';
+  }
+  function persistSessionId(sid){
+    try { localStorage.setItem(ELEGSO_SESSION_KEY, sid); } catch(_) {}
+    const domain = location.hostname === 'elegso.ru' || location.hostname.endsWith('.elegso.ru')
+      ? '; Domain=.elegso.ru' : '';
+    document.cookie = `${ELEGSO_SESSION_KEY}=${encodeURIComponent(sid)}; Path=/; Max-Age=315360000; SameSite=Lax; Secure${domain}`;
+  }
   window.ELEGSO.getSessionId = function(){
-    let sid = localStorage.getItem('elegso_session_id');
+    let localSid = '';
+    try { localSid = localStorage.getItem(ELEGSO_SESSION_KEY) || ''; } catch(_) {}
+    const cookieSid = readSessionCookie();
+    let sid = ELEGSO_SESSION_RE.test(localSid) ? localSid : (ELEGSO_SESSION_RE.test(cookieSid) ? cookieSid : '');
     if(!sid){
       sid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
       );
-      localStorage.setItem('elegso_session_id', sid);
     }
+    persistSessionId(sid);
     return sid;
   };
 
@@ -330,6 +346,7 @@ UX / ДОСТУПНОСТЬ
         apikey: SUPABASE_ANON_KEY, Authorization:`Bearer ${SUPABASE_ANON_KEY}`,
         'Content-Type':'application/json', Prefer:'return=representation'
       },
+      keepalive: true,
       body: JSON.stringify(rows)
     });
     if(!res.ok) throw new Error('Insert failed: '+await res.text());
@@ -344,6 +361,7 @@ UX / ДОСТУПНОСТЬ
         apikey: SUPABASE_ANON_KEY, Authorization:`Bearer ${SUPABASE_ANON_KEY}`,
         'Content-Type':'application/json', Prefer:'return=representation'
       },
+      keepalive: true,
       body: JSON.stringify(values)
     });
     if(!res.ok) throw new Error('Update failed: '+await res.text());
@@ -352,7 +370,7 @@ UX / ДОСТУПНОСТЬ
   async function sbDelete(table, match){
     const where = Object.entries(match).map(([k,v])=>`${encodeURIComponent(k)}=eq.${encodeURIComponent(v)}`).join('&');
     const url = `${SUPABASE_URL}/rest/v1/${table}?${where}`;
-    const res = await fetch(url, { method:'DELETE', headers:{ apikey: SUPABASE_ANON_KEY, Authorization:`Bearer ${SUPABASE_ANON_KEY}` } });
+    const res = await fetch(url, { method:'DELETE', keepalive:true, headers:{ apikey: SUPABASE_ANON_KEY, Authorization:`Bearer ${SUPABASE_ANON_KEY}` } });
     if(!res.ok) throw new Error('Delete failed: '+await res.text());
     return true;
   }
@@ -562,13 +580,13 @@ UX / ДОСТУПНОСТЬ
     });
 
     // Сумма: ограничение 19,2 при наборе и форматирование при blur; допускаем "." и ","
-    const saveAmountWhileTyping = debounce(async ()=>{
+    const saveAmountWhileTyping = async ()=>{
       const num = inAmt.value==='' ? 0 : fmt.parseMoney(inAmt.value);
       if(Number.isNaN(num)) return;
       row.val = inAmt.value;
       await persistRow(tab, row);
       emitChanged(tab);
-    }, 250);
+    };
     inAmt.addEventListener('input', ()=>{
       const before = inAmt.value;
       const after = sanitizeMoneyTyped(before);
@@ -618,11 +636,11 @@ UX / ДОСТУПНОСТЬ
     });
 
     // Комментарий — автосейв
-    ta.addEventListener('input', debounce(async ()=>{
+    ta.addEventListener('input', async ()=>{
       row.comment = ta.value;
       await persistRow(tab, row);
       emitChanged(tab);
-    }, 250));
+    });
 
     // Горячие клавиши по строке
     wrapper.addEventListener('keydown', (e)=>{
@@ -701,7 +719,7 @@ UX / ДОСТУПНОСТЬ
       return state.orderAsc ? ia.localeCompare(ib) : ib.localeCompare(ia);
     });
   }
-  async function persistRow(tab, row){
+  async function persistRowNow(tab, row){
     const sid = window.ELEGSO.getSessionId();
     const table = tabTables[tab].table;
     const iso = fmt.toISO(row.date);
@@ -714,6 +732,12 @@ UX / ДОСТУПНОСТЬ
       const ins = await sbInsert(table, [{ session_id: sid, dt: iso, amount: amount ?? 0, comment: row.comment ?? null }]);
       row.id = ins?.[0]?.id;
     }
+  }
+  function persistRow(tab, row){
+    row.persistChain = (row.persistChain || Promise.resolve())
+      .catch(()=>{})
+      .then(()=>persistRowNow(tab, row));
+    return row.persistChain;
   }
   async function deleteRow(tab, idx){
     const row = state.rows[tab][idx];
@@ -905,14 +929,6 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       return;
     }
 
-    function debounceWrite(fn, ms=250){
-      let timer;
-      return (...args)=>{
-        clearTimeout(timer);
-        timer = setTimeout(()=>fn(...args), ms);
-      };
-    }
-
     const SUPABASE_URL = location.origin + '/calculator-data';
     const SUPABASE_KEY = '';
     const HDRS = { apikey: SUPABASE_KEY, Authorization:`Bearer ${SUPABASE_KEY}` };
@@ -928,21 +944,21 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
     }
     async function sbInsert(table, rows){
       const url = `${SUPABASE_URL}/rest/v1/${table}`;
-      const r = await fetch(url, { method:'POST', headers: HDRS_JSON, body: JSON.stringify(rows) });
+      const r = await fetch(url, { method:'POST', headers: HDRS_JSON, keepalive:true, body: JSON.stringify(rows) });
       if(!r.ok) throw new Error(await r.text());
       return r.json();
     }
     async function sbPatch(table, match, values){
       const where = Object.entries(match).map(([k,v])=>`${encodeURIComponent(k)}=eq.${encodeURIComponent(v)}`).join('&');
       const url = `${SUPABASE_URL}/rest/v1/${table}?${where}`;
-      const r = await fetch(url, { method:'PATCH', headers: HDRS_JSON, body: JSON.stringify(values) });
+      const r = await fetch(url, { method:'PATCH', headers: HDRS_JSON, keepalive:true, body: JSON.stringify(values) });
       if(!r.ok) throw new Error(await r.text());
       return r.json();
     }
     async function sbDelete(table, match){
       const where = Object.entries(match).map(([k,v])=>`${encodeURIComponent(k)}=eq.${encodeURIComponent(v)}`).join('&');
       const url = `${SUPABASE_URL}/rest/v1/${table}?${where}`;
-      const r = await fetch(url, { method:'DELETE', headers: HDRS });
+      const r = await fetch(url, { method:'DELETE', headers: HDRS, keepalive:true });
       if(!r.ok) throw new Error(await r.text());
       return true;
     }
@@ -1154,12 +1170,15 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
         await refreshKind(kind);
       });
 
-      const saveValueWhileTyping = debounceWrite(async ()=>{
+      const saveValueWhileTyping = ()=>{
         const num = inVal.value==='' ? 0 : fmt.parseMoney(inVal.value);
         if(Number.isNaN(num)) return;
-        await sbPatch('indicators', { id: row.id, session_id, kind }, { value: num });
-        emitChanged(kind);
-      }, 250);
+        row.persistChain = (row.persistChain || Promise.resolve())
+          .catch(()=>{})
+          .then(()=>sbPatch('indicators', { id: row.id, session_id, kind }, { value: num }))
+          .then(()=>emitChanged(kind));
+        return row.persistChain;
+      };
       inVal.addEventListener('input', ()=>{
         const before = inVal.value;
         const after = fmt.sanitizeMoneyTyped(before);
