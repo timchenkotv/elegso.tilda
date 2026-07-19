@@ -905,7 +905,15 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       return;
     }
 
-  const SUPABASE_URL = location.origin + '/calculator-data';
+    function debounceWrite(fn, ms=250){
+      let timer;
+      return (...args)=>{
+        clearTimeout(timer);
+        timer = setTimeout(()=>fn(...args), ms);
+      };
+    }
+
+    const SUPABASE_URL = location.origin + '/calculator-data';
     const SUPABASE_KEY = '';
     const HDRS = { apikey: SUPABASE_KEY, Authorization:`Bearer ${SUPABASE_KEY}` };
     const HDRS_JSON = { ...HDRS, 'Content-Type':'application/json', Prefer:'return=representation' };
@@ -1146,7 +1154,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
         await refreshKind(kind);
       });
 
-      const saveValueWhileTyping = debounce(async ()=>{
+      const saveValueWhileTyping = debounceWrite(async ()=>{
         const num = inVal.value==='' ? 0 : fmt.parseMoney(inVal.value);
         if(Number.isNaN(num)) return;
         await sbPatch('indicators', { id: row.id, session_id, kind }, { value: num });
