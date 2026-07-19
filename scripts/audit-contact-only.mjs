@@ -52,7 +52,7 @@ for (const file of htmlFiles) {
 }
 
 const expected = {
-  pages: 33,
+  pages: 34,
   panels: 51,
   popupPanels: 24,
   calculatorContainers: 2,
