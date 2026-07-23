@@ -4,6 +4,7 @@ import path from 'node:path';
 
 const root = path.resolve('www');
 const assetVersion = '20260719-2';
+const cbrImporterVersion = '20260723-1';
 
 const brandFooter = `
 <div class="elegso-site-signature" data-elegso-site-signature aria-label="Юридическая компания ЭЛЕГСО">
@@ -254,12 +255,33 @@ for (const file of await walk(root)) {
     );
   }
 
+  // The CBR key-rate importer belongs only to the penalty calculator. Keeping
+  // this wiring in the finalizer makes the integration survive future mirrors
+  // of the original Tilda export without leaking calculator assets elsewhere.
+  html = html.replace(
+    /\s*<link\s+rel="stylesheet"\s+href="\/assets\/cbr-key-rate-import\.css(?:\?v=[^"]*)?"\s*\/?>/gi,
+    '',
+  );
+  if (route === '/calc_nst') {
+    html = html.replace(
+      /<\/head>/i,
+      `<link rel="stylesheet" href="/assets/cbr-key-rate-import.css?v=${cbrImporterVersion}">\n</head>`,
+    );
+  }
+
   // Some calculator scripts contain a literal </body> inside a printable HTML
   // template. Always target the final closing body tag, never the first one.
   html = html.replace(/<script src="\/assets\/migration\.js(?:\?v=[^"]*)?" defer><\/script>/g, '');
+  html = html.replace(
+    /<script src="\/assets\/cbr-key-rate-import\.js(?:\?v=[^"]*)?" defer><\/script>/g,
+    '',
+  );
   const bodyEnd = html.toLowerCase().lastIndexOf('</body>');
   if (bodyEnd !== -1) {
-    html = `${html.slice(0, bodyEnd)}<script src="/assets/migration.js?v=${assetVersion}" defer></script>${html.slice(bodyEnd)}`;
+    const cbrImporter = route === '/calc_nst'
+      ? `<script src="/assets/cbr-key-rate-import.js?v=${cbrImporterVersion}" defer></script>`
+      : '';
+    html = `${html.slice(0, bodyEnd)}${cbrImporter}<script src="/assets/migration.js?v=${assetVersion}" defer></script>${html.slice(bodyEnd)}`;
   }
   html = html.replace(/[ \t]+$/gm, '');
   await fs.writeFile(file, html);

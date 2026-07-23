@@ -3,8 +3,13 @@ import datetime as dt
 import decimal
 import json
 import re
+import threading
+import time
+import xml.etree.ElementTree as ET
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import parse_qs, urlparse
+from urllib.error import HTTPError, URLError
+from urllib.parse import parse_qs, urlencode, urlparse
+from urllib.request import Request, urlopen
 
 import psycopg2
 from psycopg2 import sql
@@ -13,6 +18,16 @@ from psycopg2 import sql
 DB_DSN = "dbname=elegso_calc user=elegso_api host=/var/run/postgresql"
 MAX_BODY = 2 * 1024 * 1024
 SESSION_RE = re.compile(r"^[0-9a-fA-F-]{36}$")
+CBR_MIN_DATE = dt.date(2013, 9, 17)
+CBR_MAX_RANGE_DAYS = 5000
+CBR_SOURCE_PATH = "https://www.cbr.ru/hd_base/KeyRate/"
+CBR_SOAP_ENDPOINT = "https://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx"
+CBR_SOAP_ACTION = "http://web.cbr.ru/KeyRateXML"
+CBR_CACHE_TTL_SECONDS = 6 * 60 * 60
+CBR_CACHE_MAX_ENTRIES = 128
+CBR_COMMENT_PREFIX = "ЦБ РФ ·"
+CBR_CACHE = {}
+CBR_CACHE_LOCK = threading.Lock()
 
 TABLES = {
     "accruals": {
@@ -46,6 +61,385 @@ TABLES = {
         "filters": ("session_id", "dt"),
     },
 }
+
+
+class CbrFetchError(RuntimeError):
+    pass
+
+
+def parse_iso_date(value, label):
+    try:
+        return dt.date.fromisoformat(str(value))
+    except (TypeError, ValueError):
+        raise ValueError(f"Некорректная дата «{label}»")
+
+
+def validate_cbr_period(date_from, date_to):
+    if date_from < CBR_MIN_DATE:
+        raise ValueError("Ключевая ставка доступна с 17.09.2013")
+    if date_to > dt.date.today():
+        raise ValueError("Нельзя загрузить ключевую ставку за будущий период")
+    if date_from > date_to:
+        raise ValueError("Дата начала периода позже даты окончания")
+    if (date_to - date_from).days > CBR_MAX_RANGE_DAYS:
+        raise ValueError("Период загрузки слишком большой")
+
+
+def xml_local_name(tag):
+    return tag.rsplit("}", 1)[-1]
+
+
+def parse_cbr_key_rate_xml(source):
+    try:
+        root = ET.fromstring(source)
+    except ET.ParseError as exc:
+        raise CbrFetchError("Банк России вернул некорректный XML") from exc
+
+    fault = next(
+        (element for element in root.iter() if xml_local_name(element.tag) == "faultstring"),
+        None,
+    )
+    if fault is not None:
+        raise CbrFetchError("Веб-сервис Банка России вернул ошибку")
+
+    rates = {}
+    row_count = 0
+    invalid_rows = 0
+    for row in root.iter():
+        if xml_local_name(row.tag) != "KR":
+            continue
+        row_count += 1
+        values = {
+            xml_local_name(child.tag): (child.text or "").strip()
+            for child in row
+        }
+        raw_date = values.get("DT", "")
+        raw_value = values.get("Rate", "")
+        try:
+            # DT is published in Moscow time. Keep its calendar part so that
+            # a UTC conversion can never shift the effective date.
+            date_value = dt.date.fromisoformat(raw_date[:10])
+            rate_value = decimal.Decimal(raw_value.replace(",", "."))
+            if not rate_value.is_finite() or rate_value <= 0:
+                raise decimal.InvalidOperation
+        except (ValueError, decimal.InvalidOperation):
+            invalid_rows += 1
+            continue
+        rates[date_value] = rate_value
+    if row_count and invalid_rows:
+        raise CbrFetchError("Банк России вернул неполные или некорректные данные")
+    return [{"date": date_value, "value": rates[date_value]} for date_value in sorted(rates)]
+
+
+def cbr_soap_body(date_from, date_to):
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <KeyRateXML xmlns="http://web.cbr.ru/">
+      <fromDate>{date_from.isoformat()}T00:00:00</fromDate>
+      <ToDate>{date_to.isoformat()}T00:00:00</ToDate>
+    </KeyRateXML>
+  </soap:Body>
+</soap:Envelope>""".encode("utf-8")
+
+
+def fetch_cbr_daily_rates(date_from, date_to):
+    cache_key = (date_from.isoformat(), date_to.isoformat())
+    now = time.monotonic()
+    with CBR_CACHE_LOCK:
+        cached = CBR_CACHE.get(cache_key)
+        if cached and now - cached["stored_at"] < CBR_CACHE_TTL_SECONDS:
+            return cached["rates"], True
+
+    body = cbr_soap_body(date_from, date_to)
+    last_error = None
+    for attempt in range(2):
+        request = Request(
+            CBR_SOAP_ENDPOINT,
+            data=body,
+            method="POST",
+            headers={
+                "Content-Type": "text/xml; charset=utf-8",
+                "SOAPAction": f'"{CBR_SOAP_ACTION}"',
+                "User-Agent": "ElegsoKeyRateImporter/1.0 (+https://elegso.ru/)",
+                "Accept": "text/xml",
+            },
+        )
+        try:
+            with urlopen(request, timeout=25) as response:
+                daily_rates = parse_cbr_key_rate_xml(response.read())
+            if not daily_rates:
+                raise CbrFetchError("Банк России вернул ответ без данных")
+            with CBR_CACHE_LOCK:
+                expired = [
+                    key
+                    for key, value in CBR_CACHE.items()
+                    if time.monotonic() - value["stored_at"] >= CBR_CACHE_TTL_SECONDS
+                ]
+                for key in expired:
+                    CBR_CACHE.pop(key, None)
+                if len(CBR_CACHE) >= CBR_CACHE_MAX_ENTRIES:
+                    oldest_key = min(
+                        CBR_CACHE,
+                        key=lambda key: CBR_CACHE[key]["stored_at"],
+                    )
+                    CBR_CACHE.pop(oldest_key, None)
+                CBR_CACHE[cache_key] = {
+                    "stored_at": time.monotonic(),
+                    "rates": daily_rates,
+                }
+            return daily_rates, False
+        except CbrFetchError:
+            raise
+        except (HTTPError, URLError, TimeoutError, OSError) as exc:
+            last_error = exc
+            if attempt == 0:
+                time.sleep(0.35)
+
+    raise CbrFetchError("Не удалось получить данные с сайта Банка России") from last_error
+
+
+def compress_cbr_key_rates(daily_rates, date_from, date_to):
+    baseline = [item for item in daily_rates if item["date"] <= date_from]
+    if not baseline:
+        raise CbrFetchError("Банк России не вернул ставку, действующую на начало периода")
+
+    first = baseline[-1]
+    points = [{
+        "date": date_from,
+        "value": first["value"],
+        "source_date": first["date"],
+        "period_start": True,
+    }]
+    current_value = first["value"]
+    for item in daily_rates:
+        if item["date"] <= date_from or item["date"] > date_to:
+            continue
+        if item["value"] == current_value:
+            continue
+        points.append({
+            "date": item["date"],
+            "value": item["value"],
+            "source_date": item["date"],
+            "period_start": False,
+        })
+        current_value = item["value"]
+    return points
+
+
+def fetch_cbr_key_rates(date_from, date_to):
+    validate_cbr_period(date_from, date_to)
+    query_from = max(CBR_MIN_DATE, date_from - dt.timedelta(days=31))
+    daily_rates, cache_hit = fetch_cbr_daily_rates(query_from, date_to)
+    points = compress_cbr_key_rates(daily_rates, date_from, date_to)
+    selected_daily = [item for item in daily_rates if date_from <= item["date"] <= date_to]
+    source_query = urlencode({
+        "UniDbQuery.Posted": "True",
+        "UniDbQuery.From": date_from.strftime("%d.%m.%Y"),
+        "UniDbQuery.To": date_to.strftime("%d.%m.%Y"),
+    })
+    return {
+        "date_from": date_from,
+        "date_to": date_to,
+        "source_url": f"{CBR_SOURCE_PATH}?{source_query}",
+        "source_service": CBR_SOAP_ENDPOINT,
+        "cache_hit": cache_hit,
+        "daily_rows": len(selected_daily),
+        "rates": points,
+    }
+
+
+def cbr_comment(point):
+    source_date = point["source_date"].strftime("%d.%m.%Y")
+    if point["period_start"] and point["source_date"] != point["date"]:
+        return f"{CBR_COMMENT_PREFIX} ставка на начало периода (действует с {source_date})"
+    return f"{CBR_COMMENT_PREFIX} официальная ключевая ставка"
+
+
+def import_cbr_key_rates(session_id, date_from, date_to):
+    dataset = fetch_cbr_key_rates(date_from, date_to)
+    summary = {
+        "official_daily_rows": dataset["daily_rows"],
+        "change_points": len(dataset["rates"]),
+        "inserted": 0,
+        "updated": 0,
+        "skipped": 0,
+        "removed_placeholders": 0,
+        "removed_same_date_duplicates": 0,
+        "removed_obsolete_points": 0,
+        "removed_redundant_points": 0,
+    }
+
+    with psycopg2.connect(DB_DSN) as conn, conn.cursor() as cur:
+        # The HTTP server is threaded. Serialize imports for one calculator
+        # session so that two simultaneous clicks cannot race and insert the
+        # same effective-date point twice.
+        cur.execute(
+            "SELECT pg_advisory_xact_lock(hashtext(%s))",
+            (f"cbr-key-rate:{session_id}",),
+        )
+        cur.execute(
+            """
+            SELECT default_unit_code
+              FROM indicator_kinds
+             WHERE code = 'cb_rate'
+            """,
+        )
+        unit_row = cur.fetchone()
+        unit_code = unit_row[0] if unit_row and unit_row[0] else "percent_per_year"
+
+        cur.execute(
+            """
+            DELETE FROM indicators
+             WHERE session_id = %s
+               AND kind = 'cb_rate'
+               AND dt BETWEEN %s AND %s
+               AND value = 0
+               AND COALESCE(BTRIM(comment), '') = ''
+            RETURNING id
+            """,
+            (session_id, date_from, date_to),
+        )
+        summary["removed_placeholders"] = len(cur.fetchall())
+
+        cur.execute(
+            """
+            SELECT id, dt, value, unit_code, comment
+              FROM indicators
+             WHERE session_id = %s AND kind = 'cb_rate'
+             ORDER BY dt ASC, id ASC
+            """,
+            (session_id,),
+        )
+        existing = [
+            {
+                "id": row[0],
+                "date": row[1],
+                "value": decimal.Decimal(row[2]),
+                "unit_code": row[3],
+                "comment": row[4],
+            }
+            for row in cur.fetchall()
+        ]
+
+        # The selected interval is authoritative: keep only official effective
+        # dates there. Rows outside the user's chosen interval remain intact.
+        desired_dates = {point["date"] for point in dataset["rates"]}
+        obsolete_ids = [
+            row["id"]
+            for row in existing
+            if date_from <= row["date"] <= date_to
+            and row["date"] not in desired_dates
+        ]
+        if obsolete_ids:
+            cur.execute("DELETE FROM indicators WHERE id = ANY(%s)", (obsolete_ids,))
+            summary["removed_obsolete_points"] = len(obsolete_ids)
+            existing = [row for row in existing if row["id"] not in obsolete_ids]
+
+        for point in dataset["rates"]:
+            point_date = point["date"]
+            point_value = decimal.Decimal(point["value"])
+            same_date = sorted(
+                [row for row in existing if row["date"] == point_date],
+                key=lambda row: (
+                    str(row["comment"] or "").startswith(CBR_COMMENT_PREFIX),
+                    row["id"],
+                ),
+            )
+            source_comment = cbr_comment(point)
+
+            if same_date:
+                keep = same_date[0]
+                duplicate_ids = [row["id"] for row in same_date[1:]]
+                if duplicate_ids:
+                    cur.execute("DELETE FROM indicators WHERE id = ANY(%s)", (duplicate_ids,))
+                    summary["removed_same_date_duplicates"] += len(duplicate_ids)
+                    existing = [row for row in existing if row["id"] not in duplicate_ids]
+
+                next_comment = keep["comment"]
+                if not next_comment or str(next_comment).startswith(CBR_COMMENT_PREFIX):
+                    next_comment = source_comment
+                changed = (
+                    keep["value"] != point_value
+                    or keep["unit_code"] != unit_code
+                    or keep["comment"] != next_comment
+                )
+                if changed:
+                    cur.execute(
+                        """
+                        UPDATE indicators
+                           SET value = %s, unit_code = %s, comment = %s
+                         WHERE id = %s AND session_id = %s AND kind = 'cb_rate'
+                        """,
+                        (point_value, unit_code, next_comment, keep["id"], session_id),
+                    )
+                    keep.update(value=point_value, unit_code=unit_code, comment=next_comment)
+                    summary["updated"] += 1
+                else:
+                    summary["skipped"] += 1
+                continue
+
+            previous = [row for row in existing if row["date"] < point_date]
+            previous_row = previous[-1] if previous else None
+            if (
+                previous_row
+                and previous_row["value"] == point_value
+                and previous_row["unit_code"] == unit_code
+            ):
+                summary["skipped"] += 1
+                continue
+
+            cur.execute(
+                """
+                INSERT INTO indicators (session_id, kind, dt, value, unit_code, comment)
+                VALUES (%s, 'cb_rate', %s, %s, %s, %s)
+                RETURNING id
+                """,
+                (session_id, point_date, point_value, unit_code, source_comment),
+            )
+            new_row = {
+                "id": cur.fetchone()[0],
+                "date": point_date,
+                "value": point_value,
+                "unit_code": unit_code,
+                "comment": source_comment,
+            }
+            existing.append(new_row)
+            existing.sort(key=lambda row: (row["date"], row["id"]))
+            summary["inserted"] += 1
+
+        # An overlapping import can start earlier than a previous import. In
+        # that case the old synthetic "start of period" row may become
+        # redundant. Remove only our generated row, never a user's manual row.
+        previous_row = None
+        for row in sorted(existing, key=lambda item: (item["date"], item["id"])):
+            generated = str(row["comment"] or "").startswith(CBR_COMMENT_PREFIX)
+            if (
+                previous_row
+                and generated
+                and date_from <= row["date"] <= date_to
+                and row["value"] == previous_row["value"]
+                and row["unit_code"] == previous_row["unit_code"]
+            ):
+                cur.execute(
+                    """
+                    DELETE FROM indicators
+                     WHERE id = %s AND session_id = %s AND kind = 'cb_rate'
+                    """,
+                    (row["id"], session_id),
+                )
+                summary["removed_redundant_points"] += 1
+                continue
+            previous_row = row
+
+        conn.commit()
+
+    return {
+        **dataset,
+        "summary": summary,
+    }
 
 
 def json_default(value):
@@ -127,7 +521,8 @@ class ApiHandler(BaseHTTPRequestHandler):
         return json.loads(self.rfile.read(length))
 
     def do_GET(self):
-        if urlparse(self.path).path == "/health":
+        request_path = urlparse(self.path).path
+        if request_path == "/health":
             try:
                 with psycopg2.connect(DB_DSN) as conn, conn.cursor() as cur:
                     cur.execute("SELECT 1")
@@ -163,6 +558,25 @@ class ApiHandler(BaseHTTPRequestHandler):
             self.send_json(500, {"error": "Ошибка базы данных"})
 
     def do_POST(self):
+        if urlparse(self.path).path == "/cbr/key-rate/import":
+            try:
+                payload = self.read_body()
+                if not isinstance(payload, dict):
+                    raise ValueError("Некорректный запрос")
+                session_id = str(payload.get("session_id", ""))
+                if not SESSION_RE.fullmatch(session_id):
+                    raise ValueError("Некорректный session_id")
+                date_from = parse_iso_date(payload.get("from"), "с")
+                date_to = parse_iso_date(payload.get("to"), "по")
+                self.send_json(200, import_cbr_key_rates(session_id, date_from, date_to))
+            except (ValueError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+            except CbrFetchError as exc:
+                self.send_json(502, {"error": str(exc)})
+            except Exception as exc:
+                self.log_error("CBR import failed: %s", exc)
+                self.send_json(500, {"error": "Ошибка импорта ключевой ставки"})
+            return
         self.mutate("insert")
 
     def do_PATCH(self):

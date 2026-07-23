@@ -1,0 +1,372 @@
+.elegso-cbr-import-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 7px 13px;
+  border: 1px solid #355a56;
+  border-radius: 10px;
+  background: #355a56;
+  box-shadow: 0 5px 14px rgba(53, 90, 86, 0.2);
+  color: #fff;
+  cursor: pointer;
+  font: 650 14px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+  transition: background .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.elegso-cbr-import-button[hidden] {
+  display: none !important;
+}
+
+.elegso-cbr-import-button svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.9;
+}
+
+.elegso-cbr-import-button:hover {
+  background: #294a47;
+  box-shadow: 0 7px 18px rgba(53, 90, 86, 0.27);
+  transform: translateY(-1px);
+}
+
+.elegso-cbr-import-button:focus-visible {
+  outline: 3px solid rgba(42, 103, 255, .24);
+  outline-offset: 2px;
+}
+
+body.elegso-cbr-modal-open {
+  overflow: hidden;
+}
+
+.elegso-cbr-modal {
+  position: fixed;
+  z-index: 11000;
+  inset: 0;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity .18s ease;
+}
+
+.elegso-cbr-modal[hidden] {
+  display: none !important;
+}
+
+.elegso-cbr-modal.is-open {
+  opacity: 1;
+}
+
+.elegso-cbr-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 19, 25, .66);
+  backdrop-filter: blur(4px);
+}
+
+.elegso-cbr-modal__dialog {
+  position: relative;
+  box-sizing: border-box;
+  width: min(100%, 640px);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  padding: 32px;
+  border: 1px solid rgba(53, 90, 86, .2);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(255, 222, 65, .18), transparent 34%),
+    #fff;
+  box-shadow: 0 24px 70px rgba(0, 11, 48, .28);
+  color: #222;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  transform: translateY(10px) scale(.985);
+  transition: transform .18s ease;
+}
+
+.elegso-cbr-modal.is-open .elegso-cbr-modal__dialog {
+  transform: translateY(0) scale(1);
+}
+
+.elegso-cbr-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #dedede;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .88);
+  color: #355a56;
+  cursor: pointer;
+}
+
+.elegso-cbr-modal__close svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
+.elegso-cbr-modal__eyebrow {
+  margin: 0 48px 8px 0;
+  color: #a04b38;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.elegso-cbr-modal h3 {
+  margin: 0 48px 12px 0;
+  color: #355a56;
+  font-size: clamp(23px, 4vw, 30px);
+  line-height: 1.16;
+}
+
+.elegso-cbr-modal__lead {
+  margin: 0 0 24px;
+  color: #5f6367;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.elegso-cbr-modal__period {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.elegso-cbr-modal__period label {
+  display: grid;
+  gap: 7px;
+  color: #3d4143;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.elegso-cbr-modal__period input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid #d7dcdb;
+  border-radius: 11px;
+  background: #fff;
+  color: #222;
+  font: 600 16px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.elegso-cbr-modal__period input:focus {
+  border-color: #355a56;
+  box-shadow: 0 0 0 3px rgba(53, 90, 86, .14);
+  outline: none;
+}
+
+.elegso-cbr-modal__notice {
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  gap: 11px;
+  margin: 18px 0 14px;
+  padding: 14px;
+  border: 1px solid rgba(53, 90, 86, .18);
+  border-radius: 12px;
+  background: #f4f7f6;
+  color: #3e514e;
+}
+
+.elegso-cbr-modal__notice svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: #355a56;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
+.elegso-cbr-modal__notice p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.elegso-cbr-modal__source {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #355a56;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-decoration-color: rgba(53, 90, 86, .38);
+  text-underline-offset: 3px;
+}
+
+.elegso-cbr-modal__source svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.elegso-cbr-modal__status {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.elegso-cbr-modal__status--progress {
+  border-color: #dfe3e2;
+  background: #f4f5f5;
+  color: #52595a;
+}
+
+.elegso-cbr-modal__status--success {
+  border-color: #bcd8c7;
+  background: #edf8f1;
+  color: #245f3e;
+}
+
+.elegso-cbr-modal__status--error {
+  border-color: #e3bbb2;
+  background: #fff1ee;
+  color: #8c3425;
+}
+
+.elegso-cbr-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.elegso-cbr-modal__actions button {
+  box-sizing: border-box;
+  min-height: 46px;
+  padding: 10px 18px;
+  border-radius: 11px;
+  cursor: pointer;
+  font: 700 14px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.elegso-cbr-modal__cancel {
+  border: 1px solid #d8dcdb;
+  background: #fff;
+  color: #355a56;
+}
+
+.elegso-cbr-modal__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid #355a56;
+  background: #355a56;
+  color: #fff;
+}
+
+.elegso-cbr-modal__submit:hover:not(:disabled),
+.elegso-cbr-modal__close:hover,
+.elegso-cbr-modal__cancel:hover {
+  filter: brightness(.94);
+}
+
+.elegso-cbr-modal__actions button:focus-visible,
+.elegso-cbr-modal__close:focus-visible,
+.elegso-cbr-modal__source:focus-visible {
+  outline: 3px solid rgba(42, 103, 255, .24);
+  outline-offset: 2px;
+}
+
+.elegso-cbr-modal__submit:disabled,
+.elegso-cbr-modal__period input:disabled {
+  cursor: wait;
+  opacity: .72;
+}
+
+.elegso-cbr-modal__spinner {
+  display: none;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, .38);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: elegso-cbr-spin .7s linear infinite;
+}
+
+.elegso-cbr-modal__submit.is-loading .elegso-cbr-modal__spinner {
+  display: block;
+}
+
+@keyframes elegso-cbr-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 640px) {
+  .elegso-cbr-import-button {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .elegso-cbr-modal {
+    align-items: end;
+    padding: 0;
+  }
+
+  .elegso-cbr-modal__dialog {
+    width: 100%;
+    max-height: min(92vh, 760px);
+    padding: 25px 18px calc(20px + env(safe-area-inset-bottom));
+    border-radius: 20px 20px 0 0;
+  }
+
+  .elegso-cbr-modal__close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .elegso-cbr-modal__period {
+    grid-template-columns: 1fr;
+  }
+
+  .elegso-cbr-modal__actions {
+    flex-direction: column-reverse;
+  }
+
+  .elegso-cbr-modal__actions button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .elegso-cbr-modal,
+  .elegso-cbr-modal__dialog,
+  .elegso-cbr-import-button {
+    transition: none;
+  }
+
+  .elegso-cbr-modal__spinner {
+    animation-duration: 1.4s;
+  }
+}
