@@ -3,12 +3,56 @@ set -eu
 
 repo=/srv/git/elegso.tilda.git
 site=/srv/www/elegso.ru
+api=/opt/elegso-calc-api
 
 while read -r old new ref; do
     [ "$ref" = "refs/heads/main" ] || continue
     release="$site/releases/$(date -u +%Y%m%dT%H%M%SZ)-$(printf '%s' "$new" | cut -c1-12)"
     mkdir -p "$release"
     git --git-dir="$repo" --work-tree="$release" checkout -f "$new"
+
+    # Deploy database migrations and the calculator API before exposing a
+    # release whose JavaScript may depend on new API routes. Every migration
+    # in this repository must be safe to run repeatedly.
+    if [ -f "$release/ops/calc-api/server.py" ]; then
+        for migration in "$release"/ops/calc-api/migrations/*.sql; do
+            [ -f "$migration" ] || continue
+            sudo -u postgres /usr/bin/psql \
+                -v ON_ERROR_STOP=1 \
+                -d elegso_calc \
+                -f "$migration"
+        done
+
+        /usr/bin/python3 -m py_compile "$release/ops/calc-api/server.py"
+        sudo /usr/bin/install -d -o root -g root -m 0755 "$api"
+        if [ -f "$api/server.py" ]; then
+            sudo /bin/cp -p "$api/server.py" "$api/server.py.rollback"
+        fi
+        sudo /usr/bin/install \
+            -o root \
+            -g root \
+            -m 0755 \
+            "$release/ops/calc-api/server.py" \
+            "$api/server.py.new"
+        sudo /bin/mv -f "$api/server.py.new" "$api/server.py"
+        sudo /bin/systemctl restart elegso-calc-api.service
+
+        attempt=0
+        while ! /usr/bin/curl -fsS http://127.0.0.1:8783/health >/dev/null; do
+            attempt=$((attempt + 1))
+            if [ "$attempt" -ge 15 ]; then
+                if [ -f "$api/server.py.rollback" ]; then
+                    sudo /bin/mv -f "$api/server.py.rollback" "$api/server.py"
+                    sudo /bin/systemctl restart elegso-calc-api.service
+                fi
+                echo "Calculator API health check failed; frontend release was not switched" >&2
+                exit 1
+            fi
+            sleep 1
+        done
+        sudo /bin/rm -f "$api/server.py.rollback"
+    fi
+
     ln -sfn "$release" "$site/current.new"
     mv -Tf "$site/current.new" "$site/current"
     find "$site/releases" -mindepth 1 -maxdepth 1 -type d | sort -r | tail -n +6 | xargs -r rm -rf

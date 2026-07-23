@@ -5,6 +5,7 @@ import path from 'node:path';
 const root = path.resolve('www');
 const assetVersion = '20260719-2';
 const cbrImporterVersion = '20260723-1';
+const calcReportCutoffVersion = '20260723-1';
 
 const brandFooter = `
 <div class="elegso-site-signature" data-elegso-site-signature aria-label="Юридическая компания ЭЛЕГСО">
@@ -269,6 +270,20 @@ for (const file of await walk(root)) {
     );
   }
 
+  // The optional indicator calculation cutoff is shared by the on-page and
+  // printable penalty reports. Keep its controller external so both fields
+  // stay synchronized and the integration survives a future Tilda remirror.
+  html = html.replace(
+    /\s*<link\s+rel="stylesheet"\s+href="\/assets\/calc-report-cutoff\.css(?:\?v=[^"]*)?"\s*\/?>/gi,
+    '',
+  );
+  if (route === '/calc_nst') {
+    html = html.replace(
+      /<\/head>/i,
+      `<link rel="stylesheet" href="/assets/calc-report-cutoff.css?v=${calcReportCutoffVersion}">\n</head>`,
+    );
+  }
+
   // Some calculator scripts contain a literal </body> inside a printable HTML
   // template. Always target the final closing body tag, never the first one.
   html = html.replace(/<script src="\/assets\/migration\.js(?:\?v=[^"]*)?" defer><\/script>/g, '');
@@ -276,12 +291,19 @@ for (const file of await walk(root)) {
     /<script src="\/assets\/cbr-key-rate-import\.js(?:\?v=[^"]*)?" defer><\/script>/g,
     '',
   );
+  html = html.replace(
+    /<script src="\/assets\/calc-report-cutoff\.js(?:\?v=[^"]*)?" defer><\/script>/g,
+    '',
+  );
   const bodyEnd = html.toLowerCase().lastIndexOf('</body>');
   if (bodyEnd !== -1) {
     const cbrImporter = route === '/calc_nst'
       ? `<script src="/assets/cbr-key-rate-import.js?v=${cbrImporterVersion}" defer></script>`
       : '';
-    html = `${html.slice(0, bodyEnd)}${cbrImporter}<script src="/assets/migration.js?v=${assetVersion}" defer></script>${html.slice(bodyEnd)}`;
+    const calcReportCutoff = route === '/calc_nst'
+      ? `<script src="/assets/calc-report-cutoff.js?v=${calcReportCutoffVersion}" defer></script>`
+      : '';
+    html = `${html.slice(0, bodyEnd)}${cbrImporter}${calcReportCutoff}<script src="/assets/migration.js?v=${assetVersion}" defer></script>${html.slice(bodyEnd)}`;
   }
   html = html.replace(/[ \t]+$/gm, '');
   await fs.writeFile(file, html);

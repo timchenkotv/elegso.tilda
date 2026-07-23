@@ -17,7 +17,12 @@ from psycopg2 import sql
 
 DB_DSN = "dbname=elegso_calc user=elegso_api host=/var/run/postgresql"
 MAX_BODY = 2 * 1024 * 1024
-SESSION_RE = re.compile(r"^[0-9a-fA-F-]{36}$")
+SESSION_RE = re.compile(
+    r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-"
+    r"[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+)
+REPORT_MIN_YEAR = 1900
+REPORT_MAX_YEAR = 2200
 CBR_MIN_DATE = dt.date(2013, 9, 17)
 CBR_MAX_RANGE_DAYS = 5000
 CBR_SOURCE_PATH = "https://www.cbr.ru/hd_base/KeyRate/"
@@ -62,16 +67,191 @@ TABLES = {
     },
 }
 
+REPORT_ALL_BALANCE_WITH_CUTOFF_SQL = """
+WITH params AS (
+    SELECT
+        %s::text AS session_id,
+        %s::date AS report_date,
+        LEAST(%s::date, %s::date) AS cutoff_date
+),
+events AS (
+    SELECT
+        a.session_id,
+        a.dt,
+        a.accrued,
+        a.paid,
+        a.remains
+    FROM all_acc_pay a
+    CROSS JOIN params p
+    WHERE a.session_id = p.session_id
+      AND a.dt <= p.report_date
+),
+balance_intervals AS (
+    SELECT
+        a.session_id,
+        a.dt,
+        a.accrued,
+        a.paid,
+        a.remains,
+        SUM(COALESCE(a.remains, 0::numeric)) OVER (
+            PARTITION BY a.session_id
+            ORDER BY a.dt
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+        ) AS balance,
+        LEAST(
+            COALESCE(
+                LEAD(a.dt) OVER (
+                    PARTITION BY a.session_id
+                    ORDER BY a.dt
+                ) - 1,
+                p.report_date
+            ),
+            p.report_date
+        ) AS dt_end,
+        fn_get_comment(a.session_id, a.dt) AS comment,
+        fn_get_indicator_value(a.session_id, 'penalty', a.dt) AS penalty_value,
+        fn_get_indicator_unit(a.session_id, 'penalty', a.dt) AS penalty_unit,
+        fn_get_indicator_value(a.session_id, 'cb_rate', a.dt) AS cb_rate_value,
+        fn_get_indicator_unit(a.session_id, 'cb_rate', a.dt) AS cb_rate_unit,
+        fn_get_indicator_value(a.session_id, 'avg_loan_rate', a.dt) AS avg_loan_rate_value,
+        fn_get_indicator_unit(a.session_id, 'avg_loan_rate', a.dt) AS avg_loan_rate_unit,
+        fn_get_indicator_value(a.session_id, 'yield_rate', a.dt) AS yield_rate_value,
+        fn_get_indicator_unit(a.session_id, 'yield_rate', a.dt) AS yield_rate_unit
+    FROM events a
+    CROSS JOIN params p
+),
+calculation_intervals AS (
+    SELECT
+        b.session_id,
+        b.dt,
+        b.accrued,
+        b.paid,
+        b.remains,
+        b.balance,
+        b.dt_end,
+        b.comment,
+        b.penalty_value,
+        b.penalty_unit,
+        b.cb_rate_value,
+        b.cb_rate_unit,
+        b.avg_loan_rate_value,
+        b.avg_loan_rate_unit,
+        b.yield_rate_value,
+        b.yield_rate_unit,
+        (
+            SELECT COUNT(*)
+            FROM generate_series(
+                b.dt::timestamp with time zone,
+                LEAST(b.dt_end, p.cutoff_date)::timestamp with time zone,
+                '1 day'::interval
+            ) AS g(day)
+            WHERE EXTRACT(isodow FROM g.day) < 6
+        ) AS dt_work_days,
+        GREATEST(0, LEAST(b.dt_end, p.cutoff_date) - b.dt + 1) AS dt_total_days
+    FROM balance_intervals b
+    CROSS JOIN params p
+)
+SELECT
+    c.session_id,
+    c.dt,
+    c.accrued,
+    c.paid,
+    c.remains,
+    c.balance,
+    c.dt_end,
+    c.comment,
+    c.penalty_value,
+    c.penalty_unit,
+    c.cb_rate_value,
+    c.cb_rate_unit,
+    c.avg_loan_rate_value,
+    c.avg_loan_rate_unit,
+    c.yield_rate_value,
+    c.yield_rate_unit,
+    c.dt_work_days,
+    c.dt_total_days,
+    fn_calc_amount_of_delay(
+        c.dt_work_days,
+        c.dt_total_days::bigint,
+        c.penalty_unit,
+        c.penalty_value,
+        c.balance
+    ) AS penalty_amount,
+    fn_calc_amount_of_delay(
+        c.dt_work_days,
+        c.dt_total_days::bigint,
+        c.cb_rate_unit,
+        c.cb_rate_value,
+        c.balance
+    ) AS cb_rate_amount,
+    fn_calc_amount_of_delay(
+        c.dt_work_days,
+        c.dt_total_days::bigint,
+        c.avg_loan_rate_unit,
+        c.avg_loan_rate_value,
+        c.balance
+    ) AS avg_loan_rate_amount,
+    fn_calc_amount_of_delay(
+        c.dt_work_days,
+        c.dt_total_days::bigint,
+        c.yield_rate_unit,
+        c.yield_rate_value,
+        c.balance
+    ) AS yield_rate_amount,
+    c.dt_total_days AS penalty_quantity,
+    c.dt_total_days AS cb_rate_quantity,
+    c.dt_total_days AS avg_loan_rate_quantity,
+    c.dt_total_days AS yield_rate_quantity,
+    COALESCE((
+        SELECT d.title_short
+        FROM indicator_units d
+        WHERE d.code = c.penalty_unit
+    ), '') AS penalty_unit_title_short,
+    COALESCE((
+        SELECT d.title_short
+        FROM indicator_units d
+        WHERE d.code = c.cb_rate_unit
+    ), '') AS cb_rate_unit_title_short,
+    COALESCE((
+        SELECT d.title_short
+        FROM indicator_units d
+        WHERE d.code = c.avg_loan_rate_unit
+    ), '') AS avg_loan_rate_unit_title_short,
+    COALESCE((
+        SELECT d.title_short
+        FROM indicator_units d
+        WHERE d.code = c.yield_rate_unit
+    ), '') AS yield_rate_unit_title_short
+FROM calculation_intervals c
+ORDER BY c.dt ASC
+"""
+
 
 class CbrFetchError(RuntimeError):
     pass
 
 
 def parse_iso_date(value, label):
+    raw = str(value)
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw):
+        raise ValueError(f"Некорректная дата «{label}»")
     try:
-        return dt.date.fromisoformat(str(value))
+        parsed = dt.date.fromisoformat(raw)
     except (TypeError, ValueError):
         raise ValueError(f"Некорректная дата «{label}»")
+    if parsed.year < REPORT_MIN_YEAR or parsed.year > REPORT_MAX_YEAR:
+        raise ValueError(
+            f"Дата «{label}» должна быть в диапазоне "
+            f"{REPORT_MIN_YEAR}–{REPORT_MAX_YEAR}"
+        )
+    return parsed
+
+
+def validate_session_id(value):
+    session_id = str(value or "")
+    if not SESSION_RE.fullmatch(session_id):
+        raise ValueError("Некорректный session_id")
+    return session_id
 
 
 def validate_cbr_period(date_from, date_to):
@@ -520,6 +700,81 @@ class ApiHandler(BaseHTTPRequestHandler):
             raise ValueError("Некорректный размер запроса")
         return json.loads(self.rfile.read(length))
 
+    def report_query(self, allowed):
+        query = parse_qs(urlparse(self.path).query, keep_blank_values=True)
+        unknown = set(query) - set(allowed)
+        if unknown:
+            raise ValueError(f"Недопустимый параметр: {sorted(unknown)[0]}")
+        for name, required in allowed.items():
+            values = query.get(name)
+            if values is not None and len(values) != 1:
+                raise ValueError(f"Параметр {name} должен быть указан один раз")
+            if required and (not values or values[0] == ""):
+                raise ValueError(f"Не указан параметр {name}")
+        return {name: query.get(name, [""])[0] for name in allowed}
+
+    def get_report_settings(self):
+        query = self.report_query({"session_id": True})
+        session_id = validate_session_id(query["session_id"])
+        with psycopg2.connect(DB_DSN) as conn, conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT indicator_cutoff_date
+                  FROM calculation_settings
+                 WHERE session_id = %s
+                """,
+                (session_id,),
+            )
+            row = cur.fetchone()
+        self.send_json(200, {
+            "session_id": session_id,
+            "indicator_cutoff_date": row[0] if row else None,
+        })
+
+    def get_all_balance_report(self):
+        query = self.report_query({
+            "session_id": True,
+            "report_date": True,
+            "indicator_cutoff_date": False,
+        })
+        session_id = validate_session_id(query["session_id"])
+        report_date = parse_iso_date(query["report_date"], "дата отчёта")
+        cutoff_raw = query["indicator_cutoff_date"]
+        cutoff_date = (
+            parse_iso_date(cutoff_raw, "рассчитывать показатели по")
+            if cutoff_raw
+            else None
+        )
+        if cutoff_date is not None and cutoff_date > report_date:
+            raise ValueError(
+                "Дата «рассчитывать показатели по» "
+                "не может быть позже даты отчёта"
+            )
+
+        with psycopg2.connect(DB_DSN) as conn, conn.cursor() as cur:
+            cur.execute("SET LOCAL statement_timeout = '15s'")
+            if cutoff_date is None:
+                # Preserve the original report semantics when the optional
+                # cutoff is empty: this is the same view, filter and ordering
+                # that the browser used before this endpoint was introduced.
+                cur.execute(
+                    """
+                    SELECT *
+                      FROM all_balance
+                     WHERE session_id = %s
+                       AND dt <= %s
+                     ORDER BY dt ASC
+                    """,
+                    (session_id, report_date),
+                )
+            else:
+                cur.execute(
+                    REPORT_ALL_BALANCE_WITH_CUTOFF_SQL,
+                    (session_id, report_date, cutoff_date, report_date),
+                )
+            rows = rows_as_dicts(cur)
+        self.send_json(200, rows)
+
     def do_GET(self):
         request_path = urlparse(self.path).path
         if request_path == "/health":
@@ -529,6 +784,24 @@ class ApiHandler(BaseHTTPRequestHandler):
                 self.send_json(200, {"status": "ok"})
             except Exception:
                 self.send_json(503, {"status": "error"})
+            return
+        if request_path == "/report/settings":
+            try:
+                self.get_report_settings()
+            except ValueError as exc:
+                self.send_json(400, {"error": str(exc)})
+            except Exception as exc:
+                self.log_error("Report settings GET failed: %s", exc)
+                self.send_json(500, {"error": "Ошибка загрузки настроек отчёта"})
+            return
+        if request_path == "/report/all-balance":
+            try:
+                self.get_all_balance_report()
+            except ValueError as exc:
+                self.send_json(400, {"error": str(exc)})
+            except Exception as exc:
+                self.log_error("All-balance report GET failed: %s", exc)
+                self.send_json(500, {"error": "Ошибка формирования отчёта"})
             return
         table = self.table_name()
         if not table:
@@ -578,6 +851,58 @@ class ApiHandler(BaseHTTPRequestHandler):
                 self.send_json(500, {"error": "Ошибка импорта ключевой ставки"})
             return
         self.mutate("insert")
+
+    def do_PUT(self):
+        if urlparse(self.path).path != "/report/settings":
+            self.send_json(404, {"error": "Not found"})
+            return
+        try:
+            payload = self.read_body()
+            if not isinstance(payload, dict):
+                raise ValueError("Некорректный запрос")
+            if set(payload) != {"session_id", "indicator_cutoff_date"}:
+                raise ValueError("Некорректные поля настроек")
+            session_id = validate_session_id(payload["session_id"])
+            cutoff_raw = payload["indicator_cutoff_date"]
+            if cutoff_raw is None:
+                cutoff_date = None
+            elif isinstance(cutoff_raw, str) and cutoff_raw:
+                cutoff_date = parse_iso_date(
+                    cutoff_raw,
+                    "рассчитывать показатели по",
+                )
+            else:
+                raise ValueError(
+                    "indicator_cutoff_date должен быть датой или null"
+                )
+
+            with psycopg2.connect(DB_DSN) as conn, conn.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO calculation_settings (
+                        session_id,
+                        indicator_cutoff_date,
+                        updated_at
+                    )
+                    VALUES (%s, %s, now())
+                    ON CONFLICT (session_id) DO UPDATE
+                       SET indicator_cutoff_date = EXCLUDED.indicator_cutoff_date,
+                           updated_at = now()
+                    RETURNING session_id, indicator_cutoff_date
+                    """,
+                    (session_id, cutoff_date),
+                )
+                row = cur.fetchone()
+                conn.commit()
+            self.send_json(200, {
+                "session_id": row[0],
+                "indicator_cutoff_date": row[1],
+            })
+        except (ValueError, json.JSONDecodeError) as exc:
+            self.send_json(400, {"error": str(exc)})
+        except Exception as exc:
+            self.log_error("Report settings PUT failed: %s", exc)
+            self.send_json(500, {"error": "Ошибка сохранения настроек отчёта"})
 
     def do_PATCH(self):
         self.mutate("update")
