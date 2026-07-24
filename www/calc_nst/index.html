@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script>
 <link rel="stylesheet" href="/assets/contact-block.css?v=20260719-2">
 <link rel="stylesheet" href="/assets/cbr-key-rate-import.css?v=20260723-1">
 <link rel="stylesheet" href="/assets/calc-report-cutoff.css?v=20260723-1">
+<link rel="stylesheet" href="/assets/calc-print-document.css?v=20260724-1">
 <script type="application/ld+json" data-elegso-seo-schema>{"@context":"https://schema.org","@graph":[{"@type":["LegalService","Organization"],"@id":"https://elegso.ru/#organization","name":"Юридическая компания «ЭЛЕГСО»","url":"https://elegso.ru/","logo":"https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png","image":"https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg","telephone":"+7-495-646-00-02","email":"mail@elegso.ru","address":{"@type":"PostalAddress","streetAddress":"ул. Бутлерова, 17, БЦ Neo Geo, блок С, этаж 4, офис С01","addressLocality":"Москва","addressCountry":"RU"}},{"@type":"WebSite","@id":"https://elegso.ru/#website","url":"https://elegso.ru/","name":"Юридическая компания «ЭЛЕГСО»","inLanguage":"ru-RU","publisher":{"@id":"https://elegso.ru/#organization"}},{"@type":"WebPage","@id":"https://elegso.ru/calc_nst/#webpage","url":"https://elegso.ru/calc_nst/","name":"Расчёт неустойки по договору онлайн — калькулятор неустойки бесплатно","description":"Онлайн‑калькулятор неустойки: быстро рассчитайте сумму неустойки по любому договору. Точный расчёт, учёт ключевой ставки и условий договора. Бесплатный расчёт специалистом, если вы затрудняетесь заполнить калькулятор.","inLanguage":"ru-RU","isPartOf":{"@id":"https://elegso.ru/#website"},"about":{"@id":"https://elegso.ru/#organization"}},{"@type":"BreadcrumbList","@id":"https://elegso.ru/calc_nst/#breadcrumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://elegso.ru/"},{"@type":"ListItem","position":2,"name":"Расчёт неустойки по договору онлайн — калькулятор неустойки бесплатно","item":"https://elegso.ru/calc_nst/"}]}]}</script>
 </head> <body class="t-body" style="margin:0;"> <!--allrecords--> <div id="allrecords" class="t-records" data-hook="blocks-collection-content-node" data-tilda-project-id="3964517" data-tilda-page-id="83085476" data-tilda-page-alias="calc_nst" data-tilda-lazy="yes" data-tilda-root-zone="com" data-tilda-project-headcode="yes" data-tilda-project-country="RU"> <!--header--> <header id="t-header" class="t-records" data-hook="blocks-collection-content-node" data-tilda-project-id="3964517" data-tilda-page-id="28912341" data-tilda-page-alias="header" data-tilda-lazy="yes" data-tilda-root-zone="com" data-tilda-project-headcode="yes" data-tilda-project-country="RU"> <div id="rec1167116491" class="r t-rec" style=" " data-record-type="257"> <!-- T228 --> <div id="nav1167116491marker"></div> <div class="tmenu-mobile"> <div class="tmenu-mobile__container"> <div class="tmenu-mobile__text t-name t-name_md" field="menu_mob_title"><div style="font-size: 16px;" data-customstyle="yes"><span style="font-weight: 400; font-family: Ubuntu; color: rgb(0, 0, 0);">Юридическая компания «ЭЛЕГСО»</span></div></div> <button type="button"
 class="t-menuburger t-menuburger_first "
@@ -1665,7 +1666,12 @@ UI / ДИЗАЙН
     for(let i=0;i<start;i++) calGrid.appendChild(document.createElement('div'));
     for(let d=1; d<=dim; d++){
       const b=document.createElement('button'); b.type='button'; b.className='day'; b.textContent=d;
-      b.addEventListener('click',(ev)=>{ ev.stopPropagation(); inpDate.value=fmtDate(y,m,d); CAL.hidden=true; });
+      b.addEventListener('click',(ev)=>{
+        ev.stopPropagation();
+        inpDate.value=fmtDate(y,m,d);
+        inpDate.dispatchEvent(new Event('change', { bubbles:true }));
+        CAL.hidden=true;
+      });
       calGrid.appendChild(b);
     }
   }
@@ -1909,6 +1915,7 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
   /* ---------- helpers ---------- */
   const qs = (s, el=ROOT)=> el.querySelector(s);
   const pad2 = n => String(n).padStart(2,'0');
+  const DEFAULT_PRINT_TITLE = 'Расчёт сальдо исполнения обязательств';
   const daysInMonth=(y,m)=>[31,((y%4===0&&y%100!==0)||(y%400===0))?29:28,31,30,31,30,31,31,30,31,30,31][m];
   const fmtDate = (y,m,d)=> `${pad2(d)}.${pad2(m+1)}.${y}`;  // ДД.ММ.ГГГГ
 
@@ -2077,7 +2084,42 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
     };
   }
 
-  function buildPrintTable(rows, totals, dateLabel, cutoffLabel, sessionId, flags){
+  function getPeriodStartLabel(rows){
+    const dates = (Array.isArray(rows) ? rows : [])
+      .map(row => String(row && row.dt || '').slice(0, 10))
+      .filter(value => /^\d{4}-\d{2}-\d{2}$/.test(value))
+      .sort();
+    return dates.length ? safeDate(dates[0]) : '';
+  }
+
+  function formatMoscowTimestamp(value){
+    const date = value instanceof Date ? value : new Date(value || Date.now());
+    try{
+      return new Intl.DateTimeFormat('ru-RU', {
+        timeZone:'Europe/Moscow',
+        day:'2-digit',
+        month:'2-digit',
+        year:'numeric',
+        hour:'2-digit',
+        minute:'2-digit',
+        second:'2-digit',
+        hour12:false
+      }).format(date).replace(',', '');
+    }catch(_){
+      const moscow = new Date(date.getTime() + 3 * 60 * 60 * 1000);
+      return `${pad2(moscow.getUTCDate())}.${pad2(moscow.getUTCMonth()+1)}.${moscow.getUTCFullYear()} ${pad2(moscow.getUTCHours())}:${pad2(moscow.getUTCMinutes())}:${pad2(moscow.getUTCSeconds())}`;
+    }
+  }
+
+  function buildPrintTable(rows, totals, meta, flags){
+    const esc = (s)=> String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const documentTitle = String(meta && meta.documentTitle || DEFAULT_PRINT_TITLE).trim() || DEFAULT_PRINT_TITLE;
+    const reportDateLabel = String(meta && meta.reportDateLabel || '');
+    const cutoffLabel = String(meta && meta.cutoffLabel || '');
+    const sessionId = String(meta && meta.sessionId || '');
+    const generatedAtLabel = String(meta && meta.generatedAtLabel || '');
+    const periodStartLabel = getPeriodStartLabel(rows);
+
     // Базовые колонки (№, Дата нач., Дата кон., Начислено, Оплачено, Сальдо, Комментарий)
     // «Начислено/Оплачено/Сальдо» — ещё шире; остальные не трогаем.
     const colWidths = [ 9, 22, 22, 28, 28, 28, 30 ];
@@ -2137,7 +2179,6 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
     });
     subHead += `</tr>`;
 
-    const esc = (s)=> String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     const body = rows.map((r,i)=>{
       const dt = r.dt ? safeDate(r.dt) : '—';
       const dte= r.dt_end ? safeDate(r.dt_end) : '—';
@@ -2179,17 +2220,27 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
       totalRow += `</tr>`;
     }
 
+    const periodMeta = periodStartLabel
+      ? `<div class="fact"><span>Период расчёта сальдо</span><strong>с ${esc(periodStartLabel)} по ${esc(reportDateLabel)} включительно</strong></div>`
+      : `<div class="fact"><span>Период расчёта сальдо</span><strong>данные по ${esc(reportDateLabel)} отсутствуют</strong></div>`;
     const cutoffMeta = cutoffLabel
-      ? `\nПоказатели рассчитаны по: ${cutoffLabel} включительно`
+      ? `<div class="fact"><span>Процентные показатели рассчитаны по</span><strong>${esc(cutoffLabel)} включительно</strong></div>`
       : '';
-    const html = `<!doctype html> <html lang="ru"> <head> <meta charset="utf-8"> <title>Печатная форма — Расчет сальдо исполнения обязательств</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <style>
+    const columnCount = 7 + groups.filter(group => group.on).length * 4;
+    const html = `<!doctype html> <html lang="ru"> <head> <meta charset="utf-8"> <title>${esc(documentTitle)}</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <style>
   @page { size: A4 landscape; margin: 12mm; }
   :root { --txt:#222; --muted:#666; --bd:#222; --bdThin:#999; --neg:#C52727; }
   html,body{ margin:0; padding:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--txt); }
   .wrap{ padding:8px 4px 16px; }
-  .head{ display:flex; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:8px; border-bottom:2px solid var(--bd); padding-bottom:8px; }
-  .title{ margin:0; font-weight:800; font-size:20px; }
-  .meta{ font-size:12px; color:var(--muted); line-height:1.4; text-align:right; white-space:pre-line; }
+  .head{ display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; gap:16px; margin-bottom:8px; border-bottom:2px solid var(--bd); padding-bottom:8px; }
+  .title{ margin:0; font-weight:800; font-size:20px; line-height:1.18; overflow-wrap:anywhere; }
+  .facts{ display:flex; flex-wrap:wrap; gap:5px 18px; margin-top:7px; }
+  .fact{ display:flex; flex-wrap:wrap; gap:4px; font-size:11.5px; line-height:1.35; }
+  .fact span{ color:var(--muted); }
+  .fact span::after{ content:":"; }
+  .fact strong{ font-weight:700; }
+  .meta{ min-width:56mm; font-size:10.5px; color:var(--muted); line-height:1.45; text-align:right; }
+  .meta div{ white-space:nowrap; }
   table{ width:100%; border-collapse:collapse; table-layout:fixed; }
   thead tr.grp th{ border:2px solid var(--bd); padding:6px 4px; text-align:center; font-weight:800; background:#fafafa; font-size:12.5px; }
   thead tr.sub th{ border-left:1px solid var(--bdThin); border-right:1px solid var(--bdThin); border-bottom:2px solid var(--bd); padding:6px 4px; text-align:center; font-weight:700; font-size:12px; background:#fff; }
@@ -2198,7 +2249,7 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
   .neg{ color:var(--neg); font-weight:700; }
   tfoot td{ border-top:2px solid var(--bd); border-left:1px solid var(--bdThin); border-right:1px solid var(--bdThin); padding:7px 4px; font-size:12.5px; background:#f8f8f8; }
   .footer-note{ margin-top:10px; font-size:11px; color:var(--muted); }
-</style> </head> <body> <div class="wrap"> <div class="head"> <h1 class="title">Расчет сальдо исполнения обязательств</h1> <div class="meta">Дата отчёта: ${dateLabel}${cutoffMeta}\nsession_id: ${sessionId}</div> </div> <table aria-label="Печатная таблица отчёта"> <colgroup>${colsHTML}</colgroup> <thead>${grpHead}${subHead}</thead> <tbody>${rows.length ? body : `<tr><td colspan="7" class="c" style="color:var(--muted)">Нет данных</td></tr>`}</tbody> <tfoot>${totalRow}</tfoot> </table> <div class="footer-note">Для сохранения в PDF используйте диалог печати браузера.</div> </div> </body> </html>`;
+</style> </head> <body> <div class="wrap"> <div class="head"> <div><h1 class="title">${esc(documentTitle)}</h1><div class="facts">${periodMeta}${cutoffMeta}</div></div> <div class="meta"><div>Сформировано: ${esc(generatedAtLabel)} МСК</div><div>ID расчёта: ${esc(sessionId)}</div></div> </div> <table aria-label="Печатная таблица отчёта"> <colgroup>${colsHTML}</colgroup> <thead>${grpHead}${subHead}</thead> <tbody>${rows.length ? body : `<tr><td colspan="${columnCount}" class="c" style="color:var(--muted)">Нет данных</td></tr>`}</tbody> <tfoot>${totalRow}</tfoot> </table> <div class="footer-note">Для сохранения в PDF используйте диалог печати браузера.</div> </div> </body> </html>`;
     return html;
   }
 
@@ -2233,7 +2284,29 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
         : '';
       const rows = await fetchAllBalance(iso, sessionId, cutoffISO);
       const totals = computeTotals(rows);
-      const html = buildPrintTable(rows, totals, label, cutoffLabel, sessionId, flags);
+      const printDocumentController = window.ELEGSO_PRINT_DOCUMENT;
+      if(printDocumentController && printDocumentController.ready){
+        await printDocumentController.ready;
+      }
+      const documentTitle = printDocumentController && typeof printDocumentController.getTitle === 'function'
+        ? printDocumentController.getTitle()
+        : DEFAULT_PRINT_TITLE;
+      if(printDocumentController && typeof printDocumentController.updateMeta === 'function'){
+        printDocumentController.updateMeta({
+          rows,
+          reportISO: iso,
+          reportLabel: label,
+          cutoffISO,
+          cutoffLabel
+        });
+      }
+      const html = buildPrintTable(rows, totals, {
+        documentTitle,
+        reportDateLabel: label,
+        cutoffLabel,
+        generatedAtLabel: formatMoscowTimestamp(new Date()),
+        sessionId
+      }, flags);
 
       w.document.open();
       w.document.write(html);
@@ -2312,11 +2385,11 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
 
   /* ---------- init today ---------- */
   function setToday(){
+    if(String(inpDate.value || '').trim()) return;
     const d=new Date();
     inpDate.value = fmtDate(d.getFullYear(), d.getMonth(), d.getDate());
   }
-  if(document.readyState==='complete' || document.readyState==='interactive'){ setTimeout(setToday,0); }
-  else { window.addEventListener('load', setToday); }
+  setToday();
 
 })();
 </script> <!-- nominify end --> </div> </div> </div> </div> <div id="rec1537747781" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <!--
@@ -2471,6 +2544,13 @@ API-вызовы (точные примеры)
     return controller;
   }
 
+  async function getPrintDocumentController(){
+    const controller = window.ELEGSO_PRINT_DOCUMENT;
+    if(!controller) throw new Error('Модуль настроек печатного документа не загружен.');
+    if(controller.ready) await controller.ready;
+    return controller;
+  }
+
   function validateCutoffISO(value){
     if(value===null || value===undefined || value==='') return null;
     const text = String(value);
@@ -2487,6 +2567,58 @@ API-вызовы (точные примеры)
       throw new Error('Некорректная дата расчёта показателей в файле.');
     }
     return text;
+  }
+
+  function validateDocumentTitle(value){
+    if(value===null || value===undefined || value==='') return null;
+    if(typeof value!=='string'){
+      throw new Error('Некорректное название документа в файле.');
+    }
+    const title = value.trim();
+    if(!title) return null;
+    if(/[\u0000-\u001f\u007f-\u009f\u2028\u2029]/.test(title)){
+      throw new Error('Название документа в файле не должно содержать управляющие символы или переносы строк.');
+    }
+    if(Array.from(title).length>160){
+      throw new Error('Название документа в файле не должно быть длиннее 160 символов.');
+    }
+    return title;
+  }
+
+  function validatePrintReportDateISO(value){
+    if(value===null || value===undefined || value==='') return null;
+    const text = String(value);
+    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(text);
+    if(!match) throw new Error('Некорректная дата печатного отчёта в файле. Ожидается YYYY-MM-DD.');
+    const year=+match[1], month=+match[2], day=+match[3];
+    const date = new Date(Date.UTC(year, month-1, day));
+    if(
+      year<1900 || year>2200
+      || date.getUTCFullYear()!==year
+      || date.getUTCMonth()!==month-1
+      || date.getUTCDate()!==day
+    ){
+      throw new Error('Некорректная дата печатного отчёта в файле.');
+    }
+    return text;
+  }
+
+  function getPrintReportDateISO(){
+    const input = document.querySelector('#elegso-saldo-print #repDate');
+    const match = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(String(input && input.value || '').trim());
+    if(!match){
+      throw new Error('Укажите корректную дату печатного отчёта перед экспортом.');
+    }
+    return validatePrintReportDateISO(`${match[3]}-${match[2]}-${match[1]}`);
+  }
+
+  function applyPrintReportDateISO(value){
+    if(!value) return;
+    const input = document.querySelector('#elegso-saldo-print #repDate');
+    if(!input) return;
+    const [year, month, day] = value.split('-');
+    input.value = `${day}.${month}.${year}`;
+    input.dispatchEvent(new Event('change', { bubbles:true }));
   }
 
   function selected(){
@@ -2547,9 +2679,9 @@ API-вызовы (точные примеры)
   const modalBody  = ROOT.querySelector('#modalBody');
   const modalActions = ROOT.querySelector('#modalActions');
 
-  function openModal(title, bodyHTML, actions){
+  function openModal(title, bodyText, actions){
     modalTitle.textContent = title;
-    modalBody.innerHTML = bodyHTML;
+    modalBody.textContent = bodyText;
     modalActions.innerHTML = '';
     actions.forEach(a=>{
       const b = document.createElement('button');
@@ -2569,19 +2701,29 @@ API-вызовы (точные примеры)
     try{
       const sid = getSessionId();
       const sel = selected();
-      const cutoffController = await getCutoffController();
+      const [cutoffController, printDocumentController] = await Promise.all([
+        getCutoffController(),
+        getPrintDocumentController()
+      ]);
       const indicatorCutoffISO = cutoffController.getISO();
+      const documentTitle = printDocumentController.getTitle();
+      const printReportDateISO = getPrintReportDateISO();
+      if(indicatorCutoffISO && indicatorCutoffISO>printReportDateISO){
+        throw new Error('«Показатели рассчитать по» не может быть позже даты печатного отчёта.');
+      }
       const metaTables = [];
       const result = {
         meta: {
           schema: IMPORT_SCHEMA,
           exported_at: new Date().toISOString(),
           tables: metaTables
+        },
+        settings: {
+          indicator_cutoff_date: indicatorCutoffISO,
+          report_document_title: documentTitle,
+          print_report_date: printReportDateISO
         }
       };
-      if(indicatorCutoffISO){
-        result.settings = { indicator_cutoff_date: indicatorCutoffISO };
-      }
 
       const counts = { accruals:0, payments:0, penalty:0, cb_rate:0, avg_loan_rate:0, yield_rate:0 };
 
@@ -2635,6 +2777,8 @@ API-вызовы (точные примеры)
         `— ${labels.cb_rate}: ${counts.cb_rate}`,
         `— ${labels.avg_loan_rate}: ${counts.avg_loan_rate}`,
         `— ${labels.yield_rate}: ${counts.yield_rate}`,
+        `— Название документа: ${documentTitle}`,
+        `— Дата печатного отчёта: ${printReportDateISO.split('-').reverse().join('.')}`,
       ].join('\n');
       const reportWithSettings = indicatorCutoffISO
         ? `${report}\n— Показатели рассчитаны по: ${cutoffController.getDisplayValue()} включительно`
@@ -2683,8 +2827,33 @@ API-вызовы (точные примеры)
         ? data.settings.indicator_cutoff_date
         : null;
       const importedCutoffISO = validateCutoffISO(rawImportedCutoff);
-      const cutoffController = await getCutoffController();
+      const rawImportedDocumentTitle = data.settings
+        ? data.settings.report_document_title
+        : null;
+      const importedDocumentTitle = validateDocumentTitle(rawImportedDocumentTitle);
+      const hasImportedPrintReportDate = Boolean(
+        data.settings
+        && Object.prototype.hasOwnProperty.call(data.settings, 'print_report_date')
+      );
+      const importedPrintReportDateISO = hasImportedPrintReportDate
+        ? validatePrintReportDateISO(data.settings.print_report_date)
+        : null;
+      if(
+        importedCutoffISO
+        && importedPrintReportDateISO
+        && importedCutoffISO>importedPrintReportDateISO
+      ){
+        throw new Error('В файле дата расчёта показателей позже даты печатного отчёта.');
+      }
+      const [cutoffController, printDocumentController] = await Promise.all([
+        getCutoffController(),
+        getPrintDocumentController()
+      ]);
       await cutoffController.setISO(importedCutoffISO, { persist:true, source:'import' });
+      await printDocumentController.setTitle(importedDocumentTitle, { persist:true, source:'import' });
+      if(importedPrintReportDateISO){
+        applyPrintReportDateISO(importedPrintReportDateISO);
+      }
       const sid = getSessionId();
       const results = { accruals:null, payments:null, penalty:null, cb_rate:null, avg_loan_rate:null, yield_rate:null };
 
@@ -2768,6 +2937,9 @@ API-вызовы (точные примеры)
       if(sel.cb_rate)       results.cb_rate       = await importKind('cb_rate');
       if(sel.avg_loan_rate) results.avg_loan_rate = await importKind('avg_loan_rate');
       if(sel.yield_rate)    results.yield_rate    = await importKind('yield_rate');
+      if(typeof printDocumentController.refreshSummary === 'function'){
+        await printDocumentController.refreshSummary();
+      }
 
       // Сводка модала «Импорт выполнен»
       const lines = [];
@@ -2782,6 +2954,10 @@ API-вызовы (точные примеры)
           ? '— Показатели рассчитаны по: ' + cutoffController.getDisplayValue() + ' включительно'
           : '— Дата расчёта показателей: не задана'
       );
+      lines.push('— Название документа: ' + printDocumentController.getTitle());
+      if(importedPrintReportDateISO){
+        lines.push('— Дата печатного отчёта: ' + importedPrintReportDateISO.split('-').reverse().join('.'));
+      }
 
       openModal('Импорт выполнен', lines.join('\n'), [{ label:'ОК', onClick: closeModal }]);
 
@@ -2826,6 +3002,13 @@ API-вызовы (точные примеры)
               if(sel.cb_rate) await sbDelete('indicators', { session_id: sid, kind:'cb_rate' });
               if(sel.avg_loan_rate) await sbDelete('indicators', { session_id: sid, kind:'avg_loan_rate' });
               if(sel.yield_rate) await sbDelete('indicators', { session_id: sid, kind:'yield_rate' });
+              const printDocumentController = window.ELEGSO_PRINT_DOCUMENT;
+              if(printDocumentController && printDocumentController.ready){
+                await printDocumentController.ready;
+              }
+              if(printDocumentController && typeof printDocumentController.refreshSummary === 'function'){
+                await printDocumentController.refreshSummary();
+              }
 
               const done = [
                 'Удалено:',
@@ -2906,4 +3089,4 @@ s1.5-0.672,1.5-1.5L25.503,16.881z" /> </svg> </button> </div> <style>#rec5182647
   </div>
 </div>  <!-- Stat --> <!-- Yandex.Metrika counter 87831358 --> <script type="text/javascript" data-tilda-cookie-type="analytics">setTimeout(function(){(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");window.mainMetrikaId='87831358';ym(window.mainMetrikaId,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,params:{__ym:{"ymCms":{"cms":"tilda","cmsVersion":"1.0"}}},ecommerce:"dataLayer"});},2000);</script> <noscript><div><img src="https://mc.yandex.ru/watch/87831358" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter --> <script type="text/javascript">if(!window.mainTracker) {window.mainTracker='tilda';}
 setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s=d.createElement(o),f=function(){n.parentNode.insertBefore(s,n);};s.type="text/javascript";s.async=true;s.key=k;s.id="tildastatscript";s.src=g;if(w.opera=="[object Opera]") {d.addEventListener("DOMContentLoaded",f,false);} else {f();}})(document,window,'8be80a8ae7de810cf2f1a3735e68e1fd','script','/_external/static.tildacdn.com/js/tilda-stat-1.0.min.js');},2000);</script> <!-- Rating Mail.ru counter --> <script type="text/javascript" data-tilda-cookie-type="analytics">setTimeout(function(){var _tmr=window._tmr||(window._tmr=[]);_tmr.push({id:"3662487",type:"pageView",start:(new Date()).getTime()});window.mainMailruId='3662487';(function(d,w,id) {if(d.getElementById(id)) {return;}
-var ts=d.createElement("script");ts.type="text/javascript";ts.async=true;ts.id=id;ts.src="https://top-fwz1.mail.ru/js/code.js";var f=function() {var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(ts,s);};if(w.opera=="[object Opera]") {d.addEventListener("DOMContentLoaded",f,false);} else {f();}})(document,window,"topmailru-code");},2000);</script> <noscript><img src="https://top-fwz1.mail.ru/counter?id=3662487;js=na" style="border:0;position:absolute;left:-9999px;width:1px;height:1px" alt="Top.Mail.Ru" /></noscript> <!-- //Rating Mail.ru counter --> <!-- Google Tag Manager (noscript) --> <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) --> <script src="/assets/cbr-key-rate-import.js?v=20260723-1" defer></script><script src="/assets/calc-report-cutoff.js?v=20260723-1" defer></script><script src="/assets/migration.js?v=20260719-2" defer></script></body> </html>
+var ts=d.createElement("script");ts.type="text/javascript";ts.async=true;ts.id=id;ts.src="https://top-fwz1.mail.ru/js/code.js";var f=function() {var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(ts,s);};if(w.opera=="[object Opera]") {d.addEventListener("DOMContentLoaded",f,false);} else {f();}})(document,window,"topmailru-code");},2000);</script> <noscript><img src="https://top-fwz1.mail.ru/counter?id=3662487;js=na" style="border:0;position:absolute;left:-9999px;width:1px;height:1px" alt="Top.Mail.Ru" /></noscript> <!-- //Rating Mail.ru counter --> <!-- Google Tag Manager (noscript) --> <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) --> <script src="/assets/cbr-key-rate-import.js?v=20260723-1" defer></script><script src="/assets/calc-report-cutoff.js?v=20260723-1" defer></script><script src="/assets/calc-print-document.js?v=20260724-1" defer></script><script src="/assets/migration.js?v=20260719-2" defer></script></body> </html>

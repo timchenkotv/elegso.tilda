@@ -23,6 +23,8 @@ SESSION_RE = re.compile(
 )
 REPORT_MIN_YEAR = 1900
 REPORT_MAX_YEAR = 2200
+REPORT_DOCUMENT_TITLE_MAX_LENGTH = 160
+CONTROL_CHARACTER_RE = re.compile(r"[\x00-\x1f\x7f-\x9f\u2028\u2029]")
 CBR_MIN_DATE = dt.date(2013, 9, 17)
 CBR_MAX_RANGE_DAYS = 5000
 CBR_SOURCE_PATH = "https://www.cbr.ru/hd_base/KeyRate/"
@@ -252,6 +254,27 @@ def validate_session_id(value):
     if not SESSION_RE.fullmatch(session_id):
         raise ValueError("Некорректный session_id")
     return session_id
+
+
+def parse_report_document_title(value):
+    if value is None:
+        return None
+    if not isinstance(value, str):
+        raise ValueError("report_document_title должен быть строкой или null")
+    if CONTROL_CHARACTER_RE.search(value):
+        raise ValueError(
+            "Название документа не должно содержать переводы строк "
+            "или управляющие символы"
+        )
+    title = value.strip()
+    if not title:
+        return None
+    if len(title) > REPORT_DOCUMENT_TITLE_MAX_LENGTH:
+        raise ValueError(
+            "Название документа не должно быть длиннее "
+            f"{REPORT_DOCUMENT_TITLE_MAX_LENGTH} символов"
+        )
+    return title
 
 
 def validate_cbr_period(date_from, date_to):
@@ -719,7 +742,7 @@ class ApiHandler(BaseHTTPRequestHandler):
         with psycopg2.connect(DB_DSN) as conn, conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT indicator_cutoff_date
+                SELECT indicator_cutoff_date, report_document_title
                   FROM calculation_settings
                  WHERE session_id = %s
                 """,
@@ -729,6 +752,7 @@ class ApiHandler(BaseHTTPRequestHandler):
         self.send_json(200, {
             "session_id": session_id,
             "indicator_cutoff_date": row[0] if row else None,
+            "report_document_title": row[1] if row else None,
         })
 
     def get_all_balance_report(self):
@@ -860,21 +884,46 @@ class ApiHandler(BaseHTTPRequestHandler):
             payload = self.read_body()
             if not isinstance(payload, dict):
                 raise ValueError("Некорректный запрос")
-            if set(payload) != {"session_id", "indicator_cutoff_date"}:
+            allowed_fields = {
+                "session_id",
+                "indicator_cutoff_date",
+                "report_document_title",
+            }
+            settings_fields = {
+                "indicator_cutoff_date",
+                "report_document_title",
+            }
+            payload_fields = set(payload)
+            if (
+                "session_id" not in payload_fields
+                or payload_fields - allowed_fields
+                or not payload_fields.intersection(settings_fields)
+            ):
                 raise ValueError("Некорректные поля настроек")
             session_id = validate_session_id(payload["session_id"])
-            cutoff_raw = payload["indicator_cutoff_date"]
-            if cutoff_raw is None:
-                cutoff_date = None
-            elif isinstance(cutoff_raw, str) and cutoff_raw:
-                cutoff_date = parse_iso_date(
-                    cutoff_raw,
-                    "рассчитывать показатели по",
-                )
-            else:
-                raise ValueError(
-                    "indicator_cutoff_date должен быть датой или null"
-                )
+            cutoff_present = "indicator_cutoff_date" in payload
+            title_present = "report_document_title" in payload
+
+            cutoff_date = None
+            if cutoff_present:
+                cutoff_raw = payload["indicator_cutoff_date"]
+                if cutoff_raw is None:
+                    cutoff_date = None
+                elif isinstance(cutoff_raw, str) and cutoff_raw:
+                    cutoff_date = parse_iso_date(
+                        cutoff_raw,
+                        "рассчитывать показатели по",
+                    )
+                else:
+                    raise ValueError(
+                        "indicator_cutoff_date должен быть датой или null"
+                    )
+
+            report_document_title = (
+                parse_report_document_title(payload["report_document_title"])
+                if title_present
+                else None
+            )
 
             with psycopg2.connect(DB_DSN) as conn, conn.cursor() as cur:
                 cur.execute(
@@ -882,21 +931,39 @@ class ApiHandler(BaseHTTPRequestHandler):
                     INSERT INTO calculation_settings (
                         session_id,
                         indicator_cutoff_date,
+                        report_document_title,
                         updated_at
                     )
-                    VALUES (%s, %s, now())
+                    VALUES (%s, %s, %s, now())
                     ON CONFLICT (session_id) DO UPDATE
-                       SET indicator_cutoff_date = EXCLUDED.indicator_cutoff_date,
+                       SET indicator_cutoff_date = CASE
+                               WHEN %s THEN EXCLUDED.indicator_cutoff_date
+                               ELSE calculation_settings.indicator_cutoff_date
+                           END,
+                           report_document_title = CASE
+                               WHEN %s THEN EXCLUDED.report_document_title
+                               ELSE calculation_settings.report_document_title
+                           END,
                            updated_at = now()
-                    RETURNING session_id, indicator_cutoff_date
+                    RETURNING
+                        session_id,
+                        indicator_cutoff_date,
+                        report_document_title
                     """,
-                    (session_id, cutoff_date),
+                    (
+                        session_id,
+                        cutoff_date,
+                        report_document_title,
+                        cutoff_present,
+                        title_present,
+                    ),
                 )
                 row = cur.fetchone()
                 conn.commit()
             self.send_json(200, {
                 "session_id": row[0],
                 "indicator_cutoff_date": row[1],
+                "report_document_title": row[2],
             })
         except (ValueError, json.JSONDecodeError) as exc:
             self.send_json(400, {"error": str(exc)})
