@@ -692,9 +692,9 @@ UX / ДОСТУПНОСТЬ
   function renderTab(tab){
     const panel = tabTables[tab].panel;
     panel.innerHTML = '';
-    renderHeader(panel);
     const body = document.createElement('div'); body.className='elegso-table';
     panel.appendChild(body);
+    renderHeader(body);
     state.rows[tab].forEach((row, idx)=>{
       body.appendChild(rowTemplate(tab, row, idx));
     });
@@ -1296,9 +1296,9 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
       rowsByKind[kind] = rows;
       const panel = PANELS[kind];
       panel.innerHTML = '';
-      renderHeader(panel);
       const body = document.createElement('div'); body.className='elegso-table';
       panel.appendChild(body);
+      renderHeader(body);
       rows.forEach((r, i)=> body.appendChild(buildRow(kind, r, i)));
     }
 
