@@ -35,6 +35,10 @@ CBR_CACHE_MAX_ENTRIES = 128
 CBR_COMMENT_PREFIX = "ЦБ РФ ·"
 CBR_CACHE = {}
 CBR_CACHE_LOCK = threading.Lock()
+RUBLE_PENALTY_UNIT_CODES = frozenset({
+    "rub_per_calendar_day",
+    "rub_per_workday",
+})
 
 TABLES = {
     "accruals": {
@@ -200,10 +204,26 @@ SELECT
         c.yield_rate_value,
         c.balance
     ) AS yield_rate_amount,
-    c.dt_total_days AS penalty_quantity,
-    c.dt_total_days AS cb_rate_quantity,
-    c.dt_total_days AS avg_loan_rate_quantity,
-    c.dt_total_days AS yield_rate_quantity,
+    CASE
+        WHEN c.penalty_unit IN ('percent_per_workday', 'rub_per_workday')
+            THEN c.dt_work_days
+        ELSE c.dt_total_days
+    END AS penalty_quantity,
+    CASE
+        WHEN c.cb_rate_unit IN ('percent_per_workday', 'rub_per_workday')
+            THEN c.dt_work_days
+        ELSE c.dt_total_days
+    END AS cb_rate_quantity,
+    CASE
+        WHEN c.avg_loan_rate_unit IN ('percent_per_workday', 'rub_per_workday')
+            THEN c.dt_work_days
+        ELSE c.dt_total_days
+    END AS avg_loan_rate_quantity,
+    CASE
+        WHEN c.yield_rate_unit IN ('percent_per_workday', 'rub_per_workday')
+            THEN c.dt_work_days
+        ELSE c.dt_total_days
+    END AS yield_rate_quantity,
     COALESCE((
         SELECT d.title_short
         FROM indicator_units d
@@ -254,6 +274,13 @@ def validate_session_id(value):
     if not SESSION_RE.fullmatch(session_id):
         raise ValueError("Некорректный session_id")
     return session_id
+
+
+def validate_indicator_unit_for_kind(kind, unit_code):
+    if unit_code in RUBLE_PENALTY_UNIT_CODES and kind != "penalty":
+        raise ValueError(
+            "Рублёвая ставка за день доступна только для неустойки"
+        )
 
 
 def parse_report_document_title(value):
@@ -996,6 +1023,11 @@ class ApiHandler(BaseHTTPRequestHandler):
                         unknown = set(item) - set(TABLES[table]["write"])
                         if unknown or "session_id" not in item or not SESSION_RE.fullmatch(str(item["session_id"])):
                             raise ValueError("Некорректные поля строки")
+                        if table == "indicators":
+                            validate_indicator_unit_for_kind(
+                                str(item.get("kind", "")),
+                                item.get("unit_code"),
+                            )
                         columns = list(item)
                         query = sql.SQL("INSERT INTO {} ({}) VALUES ({}) RETURNING {}").format(
                             sql.Identifier(table),
@@ -1024,6 +1056,20 @@ class ApiHandler(BaseHTTPRequestHandler):
                 unknown = set(payload) - set(TABLES[table]["write"])
                 if unknown or "session_id" in payload:
                     raise ValueError("Некорректные поля изменения")
+                if table == "indicators" and "unit_code" in payload:
+                    raw_kind = parse_qs(
+                        urlparse(self.path).query,
+                        keep_blank_values=True,
+                    ).get("kind", [""])[0]
+                    filter_kind = (
+                        raw_kind.split(".", 1)[1]
+                        if raw_kind.startswith("eq.")
+                        else ""
+                    )
+                    validate_indicator_unit_for_kind(
+                        str(payload.get("kind", filter_kind)),
+                        payload.get("unit_code"),
+                    )
                 assignments = sql.SQL(",").join(
                     sql.SQL("{} = %s").format(sql.Identifier(column)) for column in payload
                 )
@@ -1037,6 +1083,8 @@ class ApiHandler(BaseHTTPRequestHandler):
                 self.send_json(200, rows)
         except (ValueError, json.JSONDecodeError) as exc:
             self.send_json(400, {"error": str(exc)})
+        except psycopg2.IntegrityError:
+            self.send_json(400, {"error": "Данные нарушают ограничения справочника"})
         except Exception as exc:
             self.log_error("%s failed: %s", action, exc)
             self.send_json(500, {"error": "Ошибка базы данных"})

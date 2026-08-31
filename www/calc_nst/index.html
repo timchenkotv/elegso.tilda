@@ -155,7 +155,7 @@ class="t-btn t-btnflex t-btnflex_type_button t-btnflex_md"
 href="#send_a_request" data-btneffects-first="btneffects-flash"><span class="t-btnflex__text">Связаться с юристом</span> <style>#rec1519994671 .t-btnflex.t-btnflex_type_button {color:#ffde41;background-color:#355a56;--border-width:0px;border-style:none !important;border-radius:6px;box-shadow:0px 2px 3px rgba(0,11,48,0.25) !important;font-weight:400;white-space:normal;transition-duration:0.2s;transition-property:background-color,color,border-color,box-shadow,opacity,transform,gap;transition-timing-function:ease-in-out;}</style></a> </div> </div> <div class="t997__cards-wrapper"> <div class="t997__col t-col t-col_6 t-item t-align_left"> <div class="t997__card-headline"> <div class="t997__img-title-wrapper"> <div class="t997__imgwrapper" style="width:20px;"> <img class="t997__img t-img" src="/_external/static.tildacdn.com/lib/icons/bullets/check5.svg"
 imgfield="li_img__3411646532510" data-original="/_external/static.tildacdn.com/lib/icons/bullets/check5.svg" data-color="#355a56" alt=""> </div> <div class="t997__card-title t-name t-name_sm t997__bottommargin"
 field="li_title__3411646532510"><div style="font-size: 24px; line-height: 22px;" data-customstyle="yes"><strong>Что рассчитывает калькулятор?</strong></div></div> </div> <div class="t997__card-desc t-descr t-descr_xs"
-field="li_descr__3411646532510"><div style="font-size: 16px;" data-customstyle="yes">Поддерживает проценты по ст. 395 ГК РФ, пеню за каждый день просрочки и фиксированные штрафы по договору. Автоматически разбивает период по изменениям ключевой ставки ЦБ и показывает итоговую сумму неустойки и подробный расчёт.</div></div> </div> </div> <div class="t997__col t-col t-col_6 t-item t-align_left"> <div class="t997__card-headline"> <div class="t997__img-title-wrapper"> <div class="t997__imgwrapper" style="width:20px;"> <img class="t997__img t-img" src="/_external/static.tildacdn.com/lib/icons/bullets/check5.svg"
+field="li_descr__3411646532510"><div style="font-size: 16px;" data-customstyle="yes">Поддерживает проценты по ст. 395 ГК РФ, процентную пеню и фиксированную неустойку в рублях за каждый календарный или рабочий день. Автоматически разбивает период по изменениям ставки и показывает итоговую сумму неустойки и подробный расчёт.</div></div> </div> </div> <div class="t997__col t-col t-col_6 t-item t-align_left"> <div class="t997__card-headline"> <div class="t997__img-title-wrapper"> <div class="t997__imgwrapper" style="width:20px;"> <img class="t997__img t-img" src="/_external/static.tildacdn.com/lib/icons/bullets/check5.svg"
 imgfield="li_img__3411646532511" data-original="/_external/static.tildacdn.com/lib/icons/bullets/check5.svg" data-color="#355a56" alt=""> </div> <div class="t997__card-title t-name t-name_sm t997__bottommargin"
 field="li_title__3411646532511"><div style="font-size: 24px; line-height: 22px;" data-customstyle="yes"><strong>Какие данные нужны?</strong></div></div> </div> <div class="t997__card-desc t-descr t-descr_xs"
 field="li_descr__3411646532511"><div style="font-size: 16px;" data-customstyle="yes">Укажите сумму задолженности, дату начала и окончания просрочки, тип неустойки (договорная или по 395 ГК РФ), при необходимости добавьте частичные оплаты. Калькулятор мгновенно посчитает дни, ставки и сумму к взысканию — всё для точного расчёта неустойки онлайн.</div></div> </div> </div> <div class="t-clear t997__separator"
@@ -974,6 +974,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
     }
 
     const KINDS = ['penalty','cb_rate','yield_rate','avg_loan_rate'];
+    const RUB_PENALTY_UNITS = new Set(['rub_per_calendar_day','rub_per_workday']);
     const PANELS = {
       penalty:       document.getElementById('tab-penalty'),
       cb_rate:       document.getElementById('tab-cb_rate'),
@@ -990,6 +991,16 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
 
     const units = {};   // code -> {code,title,title_short}
     const kinds = {};   // code -> {code,title,title_short,default_unit_code}
+
+    function unitCodesForKind(kind, currentUnitCode){
+      const result = Object.keys(units).filter(code => (
+        kind === 'penalty' || !RUB_PENALTY_UNITS.has(code)
+      ));
+      if(currentUnitCode && units[currentUnitCode] && !result.includes(currentUnitCode)){
+        result.push(currentUnitCode);
+      }
+      return result;
+    }
 
     function showError(text){ msg.textContent = text; msg.hidden = false; }
     function hideError(){ msg.hidden = true; msg.textContent = ''; }
@@ -1106,7 +1117,7 @@ document.dispatchEvent(new CustomEvent('elegso:table:changed', { detail:{ tab:<k
 
       const cUnit = document.createElement('div'); cUnit.className='elegso-cell';
       const sel = document.createElement('select');
-      Object.keys(units).forEach(code=>{
+      unitCodesForKind(kind, row.unit_code).forEach(code=>{
         const o = document.createElement('option');
         o.value=code; o.textContent = units[code].title || code;
         if(code===row.unit_code) o.selected = true;
@@ -2224,7 +2235,7 @@ GET /rest/v1/all_balance?select=*&session_id=eq.{session_id}&dt=lte.{YYYY-MM-DD}
       ? `<div class="fact"><span>Период расчёта сальдо</span><strong>с ${esc(periodStartLabel)} по ${esc(reportDateLabel)} включительно</strong></div>`
       : `<div class="fact"><span>Период расчёта сальдо</span><strong>данные по ${esc(reportDateLabel)} отсутствуют</strong></div>`;
     const cutoffMeta = cutoffLabel
-      ? `<div class="fact"><span>Процентные показатели рассчитаны по</span><strong>${esc(cutoffLabel)} включительно</strong></div>`
+      ? `<div class="fact"><span>Неустойка и процентные показатели рассчитаны по</span><strong>${esc(cutoffLabel)} включительно</strong></div>`
       : '';
     const columnCount = 7 + groups.filter(group => group.on).length * 4;
     const html = `<!doctype html> <html lang="ru"> <head> <meta charset="utf-8"> <title>${esc(documentTitle)}</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <style>
@@ -2621,6 +2632,41 @@ API-вызовы (точные примеры)
     input.dispatchEvent(new Event('change', { bubbles:true }));
   }
 
+  async function validateImportedIndicatorUnits(data, selection){
+    const kindsToValidate = ['penalty','cb_rate','avg_loan_rate','yield_rate']
+      .filter(kind => selection[kind]);
+    if(!kindsToValidate.length) return;
+
+    const catalogRows = await sbSelect(
+      'indicator_units',
+      {},
+      { column:'code', ascending:true }
+    );
+    const knownUnitCodes = new Set(catalogRows.map(row => String(row.code)));
+    const rubPenaltyUnits = new Set(['rub_per_calendar_day','rub_per_workday']);
+
+    kindsToValidate.forEach(kind => {
+      const rows = data.indicators && Array.isArray(data.indicators[kind])
+        ? data.indicators[kind]
+        : null;
+      if(!rows) return;
+      rows.forEach((row, index) => {
+        if(!row || typeof row!=='object' || Array.isArray(row)){
+          throw new Error(`Некорректная строка ${index+1} показателя «${labels[kind]}».`);
+        }
+        const rawUnitCode = row.unit_code;
+        if(rawUnitCode===null || rawUnitCode===undefined || rawUnitCode==='') return;
+        const unitCode = String(rawUnitCode);
+        if(!knownUnitCodes.has(unitCode)){
+          throw new Error(`Неизвестная единица измерения «${unitCode}» в показателе «${labels[kind]}».`);
+        }
+        if(kind!=='penalty' && rubPenaltyUnits.has(unitCode)){
+          throw new Error('Рублёвая ставка за день доступна только для неустойки.');
+        }
+      });
+    });
+  }
+
   function selected(){
     return {
       accruals: !!boxes.accruals.checked,
@@ -2845,6 +2891,7 @@ API-вызовы (точные примеры)
       ){
         throw new Error('В файле дата расчёта показателей позже даты печатного отчёта.');
       }
+      await validateImportedIndicatorUnits(data, sel);
       const [cutoffController, printDocumentController] = await Promise.all([
         getCutoffController(),
         getPrintDocumentController()
