@@ -1028,6 +1028,7 @@ body.elegso-cases-page {
 .case-prose h4 {
   margin: 1.5em 0 0.6em;
   font-family: "Prata", Georgia, serif;
+  font-size: clamp(18px, 1.5vw, 21px);
   font-weight: 400;
   line-height: 1.35;
 }

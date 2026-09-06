@@ -170,6 +170,12 @@ def sample_case() -> dict:
 
 
 class CasePublisherTests(unittest.TestCase):
+    def test_rich_text_uses_one_compact_heading_level(self) -> None:
+        self.assertEqual(
+            publisher.safe_rich("<h2>Первый</h2><h3>Второй</h3><h4>Третий</h4>"),
+            "<h4>Первый</h4><h4>Второй</h4><h4>Третий</h4>",
+        )
+
     def test_atomic_static_release_contains_search_seo_and_materials(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / "generated"

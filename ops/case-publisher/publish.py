@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20260906-5"
+ASSET_VERSION = "20260907-1"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -90,6 +90,14 @@ ALLOWED_RICH_TAGS = {
     "blockquote",
     "a",
 }
+RICH_HEADING_TAGS = {"h2", "h3", "h4"}
+RICH_HEADING_OUTPUT_TAG = "h4"
+
+
+def rich_output_tag(tag: str) -> str:
+    if tag in RICH_HEADING_TAGS:
+        return RICH_HEADING_OUTPUT_TAG
+    return tag
 
 
 class SafeRichText(HTMLParser):
@@ -113,12 +121,12 @@ class SafeRichText(HTMLParser):
                     f'<a href="{escape(href)}" rel="nofollow noopener noreferrer">'
                 )
                 return
-        self.parts.append(f"<{tag}>")
+        self.parts.append(f"<{rich_output_tag(tag)}>")
 
     def handle_endtag(self, tag: str) -> None:
         tag = tag.lower()
         if tag in ALLOWED_RICH_TAGS and tag not in {"br"}:
-            self.parts.append(f"</{tag}>")
+            self.parts.append(f"</{rich_output_tag(tag)}>")
 
     def handle_data(self, data: str) -> None:
         self.parts.append(html.escape(data, quote=False))
