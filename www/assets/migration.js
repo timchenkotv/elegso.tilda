@@ -213,6 +213,7 @@ function migrationEnsureCasesExperienceStyles() {
       72%, 100% { left: 126%; }
     }
     #t-footer .elegso-cases-footer-card {
+      box-sizing: border-box;
       width: min(1160px, calc(100% - 40px));
       min-height: 104px;
       display: grid;

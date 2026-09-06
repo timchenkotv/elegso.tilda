@@ -174,6 +174,13 @@ class CasePublisherTests(unittest.TestCase):
             self.assertIn('case-material-viewer--pdf', detail)
             self.assertIn('case-material-viewer--image', detail)
             self.assertIn("Фотография предмета спора.jpg", detail)
+            self.assertNotIn("Документы показаны в той же структуре папок", detail)
+            self.assertLess(
+                detail.index("Фотография предмета спора.jpg"),
+                detail.index("Постановление кассации.pdf"),
+            )
+            self.assertRegex(detail, r'data-material-id="12"\s+>')
+            self.assertRegex(detail, r'data-material-id="11"\s+hidden>')
             self.assertIn("https://law.elegso.ru/api/v1/", detail)
             self.assertIn('data-elegso-cases-schema', detail)
             self.assertIn("/cases/snizhenie-neustoyki-v-kassatsii/", sitemap)

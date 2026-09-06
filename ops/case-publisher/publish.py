@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20260906-3"
+ASSET_VERSION = "20260906-4"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -229,6 +229,35 @@ def with_disposition(url: str, disposition: str) -> str:
 
 def ordered(rows: Iterable[dict[str, Any]], key: str = "row_order") -> list[dict[str, Any]]:
     return sorted(rows, key=lambda row: (int(row.get(key) or 0), int(row.get("id") or 0)))
+
+
+def material_date(item: dict[str, Any]) -> date:
+    raw = str(item.get("file_date") or "").strip()
+    if raw:
+        try:
+            return date.fromisoformat(raw[:10])
+        except ValueError:
+            pass
+
+    match = re.search(r"(?<!\d)(\d{4})[._-](\d{2})[._-](\d{2})(?!\d)", str(item.get("name") or ""))
+    if match:
+        try:
+            return date(*(int(part) for part in match.groups()))
+        except ValueError:
+            pass
+    return date.min
+
+
+def material_display_key(item: dict[str, Any]) -> tuple[Any, ...]:
+    if item.get("kind") == "folder":
+        return (0, int(item.get("row_order") or 0), int(item.get("id") or 0))
+    return (
+        1,
+        -material_date(item).toordinal(),
+        int(item.get("carousel_order") or item.get("row_order") or 0),
+        str(item.get("name") or "").casefold(),
+        int(item.get("id") or 0),
+    )
 
 
 def load_chrome(source_root: Path) -> SiteChrome:
@@ -704,9 +733,12 @@ def render_economics(case: dict[str, Any]) -> str:
 def material_tree(materials: list[dict[str, Any]], api_base: str) -> str:
     by_parent: dict[Any, list[dict[str, Any]]] = {}
     ids = {item.get("id") for item in materials}
-    for item in ordered(materials):
+    for item in materials:
         parent = item.get("parent_id") if item.get("parent_id") in ids else None
         by_parent.setdefault(parent, []).append(item)
+
+    for rows in by_parent.values():
+        rows.sort(key=material_display_key)
 
     def walk(parent: Any, trail: set[Any]) -> str:
         rows = []
@@ -732,7 +764,7 @@ def material_tree(materials: list[dict[str, Any]], api_base: str) -> str:
 def render_materials(case: dict[str, Any], api_base: str) -> str:
     materials = case.get("published_materials") or []
     files = [item for item in materials if item.get("kind") == "file" and item.get("content_url")]
-    files.sort(key=lambda item: (int(item.get("carousel_order") or 0), int(item.get("row_order") or 0)))
+    files.sort(key=material_display_key)
     if not files:
         return ""
     slides = []
@@ -753,7 +785,7 @@ def render_materials(case: dict[str, Any], api_base: str) -> str:
     return f"""
       <section class="case-section case-materials" id="materials">
         <div class="case-section__label"><span>04</span><p>Документы</p></div>
-        <div class="case-section__content"><p class="cases-eyebrow">Материалы дела</p><h2>Решения и подтверждения</h2><p class="case-section__intro">Документы показаны в той же структуре папок, в которой велось дело. Для публикации отобраны только разрешённые PDF и изображения.</p>
+        <div class="case-section__content"><p class="cases-eyebrow">Материалы дела</p><h2>Решения и подтверждения</h2>
           <div class="case-materials-layout" data-case-carousel>
             <aside><div><strong>Состав дела</strong><span>{len(files)} {plural_documents(len(files))}</span></div>{material_tree(materials, api_base)}</aside>
             <div class="case-carousel"><div class="case-carousel__toolbar"><span><b data-case-current>1</b> / {len(files)}</span><div><button type="button" data-case-prev aria-label="Предыдущий документ">←</button><button type="button" data-case-next aria-label="Следующий документ">→</button></div></div>{''.join(slides)}</div>

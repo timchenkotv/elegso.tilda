@@ -59,24 +59,22 @@ body.elegso-cases-page {
 }
 
 .case-card__excerpt,
+.cases-hero__lead,
 .cases-catalog__head > p,
 .cases-method > div p,
+.case-hero__copy > p,
 .case-summary,
 .case-prose,
-.case-section__intro {
+.case-section__intro,
+.case-effect > p,
+.case-disclaimer p {
+  -webkit-hyphens: auto;
   hyphens: auto;
   overflow-wrap: break-word;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
   text-wrap: pretty;
-}
-
-@media (min-width: 821px) {
-  .case-card__excerpt,
-  .cases-method > div p,
-  .case-prose,
-  .case-section__intro {
-    text-align: justify;
-    text-align-last: left;
-  }
 }
 
 .cases-eyebrow {
@@ -1204,7 +1202,7 @@ body.elegso-cases-page {
   display: grid;
   grid-template-columns: minmax(230px, 0.28fr) minmax(0, 1fr);
   gap: 20px;
-  margin-top: 36px;
+  margin-top: 28px;
 }
 
 .case-materials-layout > aside {
@@ -1729,6 +1727,10 @@ body.elegso-cases-page {
   .case-material-slide > header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .case-material-slide > header > div:first-child {
+    width: 100%;
   }
 
   .case-material-viewer {
