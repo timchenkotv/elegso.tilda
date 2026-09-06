@@ -34,7 +34,7 @@ def sample_case() -> dict:
         "opponent_meeting_count": 2,
         "court_instance_count": 3,
         "protected_interest_amount": "18450000.00",
-        "project_cost_amount": None,
+        "project_cost_amount": "1727500.00",
         "currency_code": "RUB",
         "strategy_html": "<p>Сопоставили неустойку с убытками, ставкой кредита и процентами по статье 395 ГК РФ.</p>",
         "result_html": "<p><strong>Кассация согласилась</strong> с необходимостью проверить расчёты.</p>",
@@ -77,6 +77,47 @@ def sample_case() -> dict:
                 "asset_description": None,
                 "note": "Разница между заявленной и соразмерной суммой.",
             }
+        ],
+        "project_cost_items": [
+            {
+                "row_order": 1,
+                "stage_type": "first_instance",
+                "stage_row_order": 1,
+                "cost_type": "legal_work",
+                "calculation_mode": "fixed",
+                "title": "Иск и первая инстанция",
+                "amount": "292500.00",
+                "base_amount": "0",
+                "rate_percent": "0",
+                "include_in_total": True,
+                "note": None,
+            },
+            {
+                "row_order": 2,
+                "stage_type": "cassation",
+                "stage_row_order": 2,
+                "cost_type": "legal_work",
+                "calculation_mode": "fixed",
+                "title": "Кассационная инстанция",
+                "amount": "150000.00",
+                "base_amount": "0",
+                "rate_percent": "0",
+                "include_in_total": True,
+                "note": None,
+            },
+            {
+                "row_order": 3,
+                "stage_type": "other",
+                "stage_row_order": None,
+                "cost_type": "success_fee",
+                "calculation_mode": "percentage",
+                "title": "Премия за достигнутый результат",
+                "amount": "1285000.00",
+                "base_amount": "4750000.00",
+                "rate_percent": "30",
+                "include_in_total": True,
+                "note": "Итоговая сумма согласована сторонами.",
+            },
         ],
         "published_materials": [
             {
@@ -169,6 +210,11 @@ class CasePublisherTests(unittest.TestCase):
             self.assertIn("Поворот в кассации", detail)
             self.assertIn("Судебные акты", detail)
             self.assertIn("Встреч с оппонентом", detail)
+            self.assertIn("Стоимость юридического проекта", detail)
+            self.assertIn("Итого стоимость проекта", detail)
+            self.assertIn("1 727 500 руб.", detail)
+            self.assertIn("Стоимость этапа", detail)
+            self.assertIn("Премия за результат", detail)
             self.assertIn('data-case-carousel', detail)
             self.assertIn('data-case-next', detail)
             self.assertIn('case-material-viewer--pdf', detail)

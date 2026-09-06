@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20260906-4"
+ASSET_VERSION = "20260906-5"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -64,6 +64,13 @@ EFFECT_LABELS = {
     "settlement_benefit": "Выгода мирового соглашения",
     "enforcement_received": "Фактически получено",
     "other": "Иной имущественный эффект",
+}
+
+COST_LABELS = {
+    "legal_work": "Юридическая работа",
+    "success_fee": "Премия за результат",
+    "expense": "Расходы проекта",
+    "other": "Иная часть стоимости",
 }
 
 ALLOWED_RICH_TAGS = {
@@ -498,6 +505,8 @@ def card_search_text(case: dict[str, Any]) -> str:
         values.extend([stage.get("title"), stage.get("narrative_html"), stage.get("result_html")])
     for effect in case.get("economic_effects") or []:
         values.extend([effect.get("title"), effect.get("asset_description"), effect.get("note")])
+    for cost in case.get("project_cost_items") or []:
+        values.extend([cost.get("title"), cost.get("note")])
     return plain_text(" ".join(str(value or "") for value in values)).lower()
 
 
@@ -666,27 +675,63 @@ def render_metrics(case: dict[str, Any]) -> str:
     if case.get("court_instance_count") is not None:
         values.append(("⌂", "Судебных инстанций", str(case["court_instance_count"])))
     if case.get("project_cost_amount") is not None and decimal(case.get("project_cost_amount")) > 0:
-        values.append(("•", "Стоимость проекта", money(case["project_cost_amount"], case.get("currency_code") or "RUB")))
+        values.append(("₽", "Стоимость проекта", money(case["project_cost_amount"], case.get("currency_code") or "RUB")))
     return "".join(
         f'<div><span aria-hidden="true">{icon}</span><small>{escape(label)}</small><strong>{escape(value)}</strong></div>'
         for icon, label, value in values
     )
 
 
+def project_costs_by_stage(case: dict[str, Any], stages: list[dict[str, Any]]) -> dict[int, list[dict[str, Any]]]:
+    result: dict[int, list[dict[str, Any]]] = {}
+    assigned: set[int] = set()
+    for cost in ordered(case.get("project_cost_items") or []):
+        if cost.get("include_in_total", True) is False:
+            continue
+        target_index = None
+        stage_row_order = cost.get("stage_row_order")
+        if stage_row_order is not None:
+            target_index = next(
+                (index for index, stage in enumerate(stages) if stage.get("row_order") == stage_row_order),
+                None,
+            )
+        if target_index is None:
+            target_index = next(
+                (
+                    index
+                    for index, stage in enumerate(stages)
+                    if index not in assigned and stage.get("stage_type") == cost.get("stage_type")
+                ),
+                None,
+            )
+        if target_index is not None:
+            result.setdefault(target_index, []).append(cost)
+            assigned.add(target_index)
+    return result
+
+
 def render_stages(case: dict[str, Any]) -> str:
     stages = ordered(case.get("stages") or [])
     if not stages:
         return ""
+    costs_by_stage = project_costs_by_stage(case, stages)
     rows = []
     for index, stage in enumerate(stages, start=1):
         period = " — ".join(filter(None, [ru_date(stage.get("started_on")), ru_date(stage.get("ended_on"))]))
         narrative = safe_rich(stage.get("narrative_html"))
         result = safe_rich(stage.get("result_html"))
+        stage_costs = costs_by_stage.get(index - 1, [])
+        stage_cost = sum((decimal(item.get("amount")) for item in stage_costs), Decimal("0"))
+        stage_cost_html = (
+            '<div class="case-stage__cost"><small>Стоимость этапа</small>'
+            f'<strong>{escape(money(stage_cost, case.get("currency_code") or "RUB"))}</strong></div>'
+            if stage_cost > 0 else ""
+        )
         rows.append(f"""
           <article class="case-stage">
             <div class="case-stage__rail"><i>{index:02d}</i><span></span></div>
             <div class="case-stage__body">
-              <header><div><small>{escape(STAGE_LABELS.get(str(stage.get('stage_type')), 'Этап дела'))}</small><h3>{escape(stage.get('title') or 'Этап дела')}</h3></div>{f'<time>{escape(period)}</time>' if period else ''}</header>
+              <header><div><small>{escape(STAGE_LABELS.get(str(stage.get('stage_type')), 'Этап дела'))}</small><h3>{escape(stage.get('title') or 'Этап дела')}</h3></div><div class="case-stage__meta">{f'<time>{escape(period)}</time>' if period else ''}{stage_cost_html}</div></header>
               {f'<div class="case-prose">{narrative}</div>' if narrative else ''}
               {f'<div class="case-stage__result"><strong>Результат этапа</strong><div class="case-prose">{result}</div></div>' if result else ''}
             </div>
@@ -698,7 +743,43 @@ def render_stages(case: dict[str, Any]) -> str:
       </section>"""
 
 
-def render_economics(case: dict[str, Any]) -> str:
+def render_project_costs(case: dict[str, Any], section_number: str = "03") -> str:
+    costs = ordered(case.get("project_cost_items") or [])
+    if not costs or case.get("project_cost_amount") is None:
+        return ""
+    currency = case.get("currency_code") or "RUB"
+    cards = []
+    for cost in costs:
+        amount = decimal(cost.get("amount"))
+        if amount <= 0:
+            continue
+        details = []
+        if cost.get("calculation_mode") == "percentage":
+            base = decimal(cost.get("base_amount"))
+            rate = decimal(cost.get("rate_percent"))
+            if base > 0 and rate > 0:
+                rate_text = f"{rate:f}".rstrip("0").rstrip(".").replace(".", ",")
+                details.append(f"{rate_text}% от {money(base, currency)}")
+        if cost.get("note"):
+            details.append(str(cost["note"]))
+        stage_label = STAGE_LABELS.get(str(cost.get("stage_type")), "Проект в целом")
+        cost_label = COST_LABELS.get(str(cost.get("cost_type")), "Стоимость проекта")
+        cards.append(f"""
+          <article class="case-cost{' is-success-fee' if cost.get('cost_type') == 'success_fee' else ''}">
+            <div><small>{escape(cost_label)} · {escape(stage_label)}</small><h3>{escape(cost.get('title') or cost_label)}</h3>{f'<p>{escape(" · ".join(details))}</p>' if details else ''}</div>
+            <strong>{escape(money(amount, currency))}</strong>
+          </article>""")
+    if not cards:
+        return ""
+    total = decimal(case.get("project_cost_amount"))
+    return f"""
+      <section class="case-section case-project-cost" id="project-cost">
+        <div class="case-section__label"><span>{escape(section_number)}</span><p>Стоимость</p></div>
+        <div class="case-section__content"><p class="cases-eyebrow">Прозрачная структура</p><h2>Стоимость юридического проекта</h2><p class="case-section__intro">Цена разделена по этапам работы. Премия за достигнутый результат показана отдельно от базовой стоимости юридических услуг.</p><div class="case-costs">{''.join(cards)}</div><div class="case-cost-total"><span>Итого стоимость проекта</span><strong>{escape(money(total, currency))}</strong></div></div>
+      </section>"""
+
+
+def render_economics(case: dict[str, Any], section_number: str = "03") -> str:
     effects = ordered(case.get("economic_effects") or [])
     if not effects:
         return ""
@@ -725,7 +806,7 @@ def render_economics(case: dict[str, Any]) -> str:
           </article>""")
     return f"""
       <section class="case-section case-economics" id="economics">
-        <div class="case-section__label"><span>03</span><p>В цифрах</p></div>
+        <div class="case-section__label"><span>{escape(section_number)}</span><p>В цифрах</p></div>
         <div class="case-section__content"><p class="cases-eyebrow">Подтверждённый эффект</p><h2>Что удалось защитить</h2><div class="case-effects">{''.join(cards)}</div></div>
       </section>"""
 
@@ -761,7 +842,7 @@ def material_tree(materials: list[dict[str, Any]], api_base: str) -> str:
     return f'<ul class="case-material-tree">{walk(None, set())}</ul>'
 
 
-def render_materials(case: dict[str, Any], api_base: str) -> str:
+def render_materials(case: dict[str, Any], api_base: str, section_number: str = "04") -> str:
     materials = case.get("published_materials") or []
     files = [item for item in materials if item.get("kind") == "file" and item.get("content_url")]
     files.sort(key=material_display_key)
@@ -784,7 +865,7 @@ def render_materials(case: dict[str, Any], api_base: str) -> str:
           </article>""")
     return f"""
       <section class="case-section case-materials" id="materials">
-        <div class="case-section__label"><span>04</span><p>Документы</p></div>
+        <div class="case-section__label"><span>{escape(section_number)}</span><p>Документы</p></div>
         <div class="case-section__content"><p class="cases-eyebrow">Материалы дела</p><h2>Решения и подтверждения</h2>
           <div class="case-materials-layout" data-case-carousel>
             <aside><div><strong>Состав дела</strong><span>{len(files)} {plural_documents(len(files))}</span></div>{material_tree(materials, api_base)}</aside>
@@ -853,6 +934,10 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     strategy = safe_rich(case.get("strategy_html"))
     result = safe_rich(case.get("result_html"))
     significance = safe_rich(case.get("significance_html"))
+    project_cost_section = render_project_costs(case, "03")
+    economics_number = "04" if project_cost_section else "03"
+    economics_section = render_economics(case, economics_number)
+    materials_number = str(3 + int(bool(project_cost_section)) + int(bool(economics_section)))
     published_files = [
         item
         for item in case.get("published_materials") or []
@@ -888,11 +973,12 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
           <div class="case-hero__copy"><div class="case-hero__meta"><span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span><span>{escape(category)}</span>{f'<span>Дело № {escape(case.get("court_case_number"))}</span>' if case.get('court_case_number') else ''}</div><h1>{escape(title)}</h1><p>{escape(summary)}</p><div class="case-hero__footer"><div class="case-hero__dates"><time datetime="{escape(case.get('document_date') or '')}">Анонс от {escape(ru_date(case.get('document_date')))}</time>{f'<span>Период спора: {escape(period)}</span>' if period else ''}</div>{materials_link}</div></div>
         </header>
         {f'<section class="case-metrics-strip">{metrics}</section>' if metrics else ''}
-        <nav class="case-anchor-nav" aria-label="Содержание кейса"><a href="#overview">Суть дела</a>{'<a href="#history">История</a>' if case.get('stages') else ''}{'<a href="#economics">Имущественный эффект</a>' if case.get('economic_effects') else ''}{f'<a class="case-anchor-nav__materials" href="#materials">Судебные акты · {len(published_files)}</a>' if published_files else ''}</nav>
+        <nav class="case-anchor-nav" aria-label="Содержание кейса"><a href="#overview">Суть дела</a>{'<a href="#history">История</a>' if case.get('stages') else ''}{'<a href="#project-cost">Стоимость проекта</a>' if project_cost_section else ''}{'<a href="#economics">Имущественный эффект</a>' if economics_section else ''}{f'<a class="case-anchor-nav__materials" href="#materials">Судебные акты · {len(published_files)}</a>' if published_files else ''}</nav>
         {overview}
         {render_stages(case)}
-        {render_economics(case)}
-        {render_materials(case, api_base)}
+        {project_cost_section}
+        {economics_section}
+        {render_materials(case, api_base, materials_number)}
       </article>
       <section class="case-disclaimer"><strong>Важно</strong><p>Опубликованный результат относится к конкретным обстоятельствам дела и не гарантирует такой же исход в другой ситуации. Для правовой оценки нужны документы и фактический контекст.</p></section>
       <section class="cases-contact cases-contact--detail"><div><p class="cases-eyebrow">Есть похожая задача?</p><h2>Разберём факты до того, как они станут риском.</h2><p>Свяжитесь с юристом и расскажите, на какой стадии находится спор.</p></div><div><a href="tel:+74956460002">+7 (495) 646-00-02</a><a class="cases-contact__button" href="mailto:mail@elegso.ru">Написать юристу</a></div></section>

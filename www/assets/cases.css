@@ -1102,6 +1102,13 @@ body.elegso-cases-page {
   gap: 25px;
 }
 
+.case-stage__meta {
+  flex: 0 0 auto;
+  display: grid;
+  justify-items: end;
+  gap: 7px;
+}
+
 .case-stage h3 {
   margin-bottom: 18px;
   font-size: clamp(19px, 1.7vw, 25px);
@@ -1113,6 +1120,28 @@ body.elegso-cases-page {
   color: #788683;
   background: #f1eee7;
   font-size: 10px;
+}
+
+.case-stage__cost {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  padding: 7px 10px;
+  color: #735d37;
+  background: #f3ead9;
+  border: 1px solid #dfcfaf;
+}
+
+.case-stage__cost small {
+  color: #8b7651;
+  font-size: 8px;
+}
+
+.case-stage__cost strong {
+  font-family: "Prata", Georgia, serif;
+  font-size: 13px;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 .case-stage__result {
@@ -1136,6 +1165,91 @@ body.elegso-cases-page {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   margin-top: 38px;
+}
+
+.case-costs {
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.case-cost {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px 22px;
+  padding: 23px 25px;
+  background: #f6f3ed;
+  border-left: 3px solid var(--cases-forest);
+}
+
+.case-cost.is-success-fee {
+  background: #f4ecdd;
+  border-left-color: var(--cases-clay);
+}
+
+.case-cost small {
+  color: var(--cases-clay);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.case-cost h3 {
+  margin: 8px 0 0;
+  font-family: "Prata", Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.case-cost p {
+  margin: 10px 0 0;
+  color: #687875;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.case-cost > strong {
+  color: var(--cases-forest-deep);
+  font-family: "Prata", Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.case-cost.is-success-fee > strong {
+  color: #76562d;
+}
+
+.case-cost-total {
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 12px;
+  padding: 20px 25px;
+  color: #fff;
+  background: var(--cases-forest-deep);
+}
+
+.case-cost-total span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.case-cost-total strong {
+  font-family: "Prata", Georgia, serif;
+  font-size: clamp(21px, 2vw, 28px);
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 .case-effect {
@@ -1590,6 +1704,10 @@ body.elegso-cases-page {
     grid-template-columns: 1fr;
   }
 
+  .case-costs {
+    grid-template-columns: 1fr;
+  }
+
   .case-material-viewer {
     height: 520px;
   }
@@ -1707,12 +1825,37 @@ body.elegso-cases-page {
     gap: 0;
   }
 
+  .case-stage__meta {
+    width: 100%;
+    justify-items: start;
+  }
+
+  .case-stage__cost {
+    justify-items: start;
+  }
+
   .case-stage time {
     margin-bottom: 15px;
   }
 
   .case-effect {
     grid-template-columns: 1fr;
+  }
+
+  .case-cost {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .case-cost > strong {
+    white-space: normal;
+  }
+
+  .case-cost-total {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+    padding: 18px 20px;
   }
 
   .case-effect > strong,
