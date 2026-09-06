@@ -107,10 +107,25 @@ function migrationInitLeaseBalanceCalculator() {
     document.body.appendChild(script);
   }
 }
+function migrationInitCasesNavigation() {
+  if (document.querySelector('#t-header a[href="/cases/"]')) return;
+  const missionLink = document.querySelector('#t-header a[href="/mission/"]');
+  const missionItem = missionLink && missionLink.closest('li');
+  if (!missionItem || !missionItem.parentElement) return;
+  const casesItem = missionItem.cloneNode(true);
+  const casesLink = casesItem.querySelector('a');
+  const casesLabel = casesItem.querySelector('.t978__link-inner');
+  if (!casesLink) return;
+  casesLink.href = '/cases/';
+  casesLink.setAttribute('href', '/cases/');
+  if (casesLabel) casesLabel.textContent = 'Кейсы';
+  missionItem.insertAdjacentElement('afterend', casesItem);
+}
 window.t_lazyload_update = migrationHydrateImages;
 window.t_lazyload_updateResize_elem = migrationHydrateImages;
 document.addEventListener('DOMContentLoaded', () => {
   migrationHydrateImages();
   migrationInitContactPopups();
   migrationInitLeaseBalanceCalculator();
+  migrationInitCasesNavigation();
 });

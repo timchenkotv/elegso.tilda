@@ -1,0 +1,192 @@
+from __future__ import annotations
+
+import importlib.util
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+MODULE_PATH = ROOT / "ops" / "case-publisher" / "publish.py"
+SPEC = importlib.util.spec_from_file_location("elegso_case_publisher", MODULE_PATH)
+assert SPEC and SPEC.loader
+publisher = importlib.util.module_from_spec(SPEC)
+sys.modules[SPEC.name] = publisher
+SPEC.loader.exec_module(publisher)
+
+
+def sample_case() -> dict:
+    return {
+        "code": "ANN-TEST",
+        "public_title": "Снизили договорную неустойку в кассации",
+        "public_excerpt": "Кассационный суд направил спор на новое рассмотрение после анализа соразмерности санкций.",
+        "public_slug": "snizhenie-neustoyki-v-kassatsii",
+        "outcome_kind": "won",
+        "case_category": "Выкупной лизинг",
+        "document_date": "2026-09-05",
+        "court_case_number": "А40-117474/2023",
+        "dispute_started_on": "2023-06-01",
+        "dispute_ended_on": "2025-04-21",
+        "duration_days": 691,
+        "hearing_count": 9,
+        "opponent_meeting_count": 2,
+        "court_instance_count": 3,
+        "protected_interest_amount": "18450000.00",
+        "project_cost_amount": None,
+        "currency_code": "RUB",
+        "strategy_html": "<p>Сопоставили неустойку с убытками, ставкой кредита и процентами по статье 395 ГК РФ.</p>",
+        "result_html": "<p><strong>Кассация согласилась</strong> с необходимостью проверить расчёты.</p>",
+        "significance_html": "<p>Условия договора не исключают судебную проверку соразмерности санкций.</p>",
+        "seo_title": "Снижение неустойки по договору лизинга: судебный кейс",
+        "seo_description": "Как кассационный суд проверил соразмерность договорной неустойки по статье 333 ГК РФ.",
+        "published_at": "2026-09-06T08:00:00Z",
+        "updated_at": "2026-09-06T08:00:00Z",
+        "stages": [
+            {
+                "row_order": 1,
+                "stage_type": "first_instance",
+                "title": "Первая инстанция",
+                "started_on": "2023-06-01",
+                "ended_on": "2024-05-03",
+                "narrative_html": "<p>Суд отказался снижать договорную неустойку.</p>",
+                "result_html": "<p>Требования удовлетворены без полной проверки расчётов.</p>",
+            },
+            {
+                "row_order": 2,
+                "stage_type": "cassation",
+                "title": "Поворот в кассации",
+                "started_on": "2024-08-19",
+                "ended_on": "2024-12-03",
+                "narrative_html": "<p>Представили экономические модели возможных потерь.</p>",
+                "result_html": "<p>Судебные акты отменены.</p>",
+            },
+        ],
+        "economic_effects": [
+            {
+                "row_order": 1,
+                "stage_type": "cassation",
+                "effect_type": "penalty_reduced",
+                "calculation_mode": "difference",
+                "title": "Предотвращённое взыскание",
+                "initial_amount": "22000000",
+                "final_amount": "3550000",
+                "protected_amount": "18450000",
+                "include_in_total": True,
+                "asset_description": None,
+                "note": "Разница между заявленной и соразмерной суммой.",
+            }
+        ],
+        "published_materials": [
+            {
+                "id": 10,
+                "parent_id": None,
+                "published_root_id": 10,
+                "is_published_root": True,
+                "kind": "folder",
+                "media_kind": "folder",
+                "name": "Судебные акты",
+                "row_order": 1,
+                "carousel_order": None,
+                "path": None,
+                "content_url": None,
+            },
+            {
+                "id": 11,
+                "parent_id": 10,
+                "published_root_id": 10,
+                "is_published_root": False,
+                "kind": "file",
+                "media_kind": "pdf",
+                "name": "Постановление кассации.pdf",
+                "row_order": 1,
+                "carousel_order": 1,
+                "path": "Судебные акты",
+                "file_date": "2024-12-03",
+                "file_content_type": "application/pdf",
+                "file_size": 450000,
+                "content_url": "/api/v1/public/legal-case-announcements/snizhenie-neustoyki-v-kassatsii/materials/11/document.pdf",
+            },
+            {
+                "id": 12,
+                "parent_id": 10,
+                "published_root_id": 10,
+                "is_published_root": False,
+                "kind": "file",
+                "media_kind": "image",
+                "name": "Фотография предмета спора.jpg",
+                "row_order": 2,
+                "carousel_order": 2,
+                "path": "Судебные акты",
+                "file_date": "2024-12-04",
+                "file_content_type": "image/jpeg",
+                "file_size": 250000,
+                "content_url": "/api/v1/public/legal-case-announcements/snizhenie-neustoyki-v-kassatsii/materials/12/photo.jpg",
+            },
+        ],
+    }
+
+
+class CasePublisherTests(unittest.TestCase):
+    def test_atomic_static_release_contains_search_seo_and_materials(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "generated"
+            changed, release = publisher.write_release(
+                ROOT / "www",
+                output,
+                [sample_case()],
+                "https://law.elegso.ru/api/v1/public/legal-case-announcements",
+            )
+            self.assertTrue(changed)
+            self.assertTrue((output / "current").is_symlink())
+            self.assertEqual((output / "current").resolve(), release.resolve())
+
+            listing = (output / "current" / "cases" / "index.html").read_text(encoding="utf-8")
+            detail = (
+                output
+                / "current"
+                / "cases"
+                / "snizhenie-neustoyki-v-kassatsii"
+                / "index.html"
+            ).read_text(encoding="utf-8")
+            sitemap = (output / "current" / "sitemap.xml").read_text(encoding="utf-8")
+
+            self.assertIn('data-cases-search', listing)
+            self.assertIn('href="/cases/"', listing)
+            self.assertIn("Снизили договорную неустойку", listing)
+            self.assertIn("Защищённый имущественный интерес", detail)
+            self.assertIn("Поворот в кассации", detail)
+            self.assertIn("Судебные акты", detail)
+            self.assertIn("Встреч с оппонентом", detail)
+            self.assertIn('data-case-carousel', detail)
+            self.assertIn('data-case-next', detail)
+            self.assertIn('case-material-viewer--pdf', detail)
+            self.assertIn('case-material-viewer--image', detail)
+            self.assertIn("Фотография предмета спора.jpg", detail)
+            self.assertIn("https://law.elegso.ru/api/v1/", detail)
+            self.assertIn('data-elegso-cases-schema', detail)
+            self.assertIn("/cases/snizhenie-neustoyki-v-kassatsii/", sitemap)
+
+            changed_again, same_release = publisher.write_release(
+                ROOT / "www",
+                output,
+                [sample_case()],
+                "https://law.elegso.ru/api/v1/public/legal-case-announcements",
+            )
+            self.assertFalse(changed_again)
+            self.assertEqual(release, same_release)
+
+    def test_rejects_unsafe_or_duplicate_slugs(self) -> None:
+        invalid = sample_case()
+        invalid["public_slug"] = "../outside"
+        with self.assertRaises(RuntimeError):
+            publisher.validate_cases([invalid])
+
+        first = sample_case()
+        second = sample_case()
+        with self.assertRaises(RuntimeError):
+            publisher.validate_cases([first, second])
+
+
+if __name__ == "__main__":
+    unittest.main()

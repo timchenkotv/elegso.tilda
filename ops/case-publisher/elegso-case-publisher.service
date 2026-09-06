@@ -1,0 +1,20 @@
+[Unit]
+Description=Publish INELSIBI.PRAVO cases to elegso.ru
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+UMask=0022
+Environment=PYTHONUNBUFFERED=1
+Environment=ELEGSO_CASES_API_BASE=https://law.elegso.ru/api/v1/public/legal-case-announcements
+RuntimeDirectory=elegso-case-publisher
+RuntimeDirectoryMode=0755
+ExecStart=/usr/bin/flock -n /run/elegso-case-publisher/publish.lock /usr/bin/python3 /opt/elegso-case-publisher/publish.py --source-root /srv/www/elegso.ru/current/www --output-root /srv/www/elegso.ru/generated
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+ReadWritePaths=/srv/www/elegso.ru/generated /run/elegso-case-publisher

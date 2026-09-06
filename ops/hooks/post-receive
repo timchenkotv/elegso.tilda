@@ -4,6 +4,7 @@ set -eu
 repo=/srv/git/elegso.tilda.git
 site=/srv/www/elegso.ru
 api=/opt/elegso-calc-api
+publisher=/opt/elegso-case-publisher
 
 while read -r old new ref; do
     [ "$ref" = "refs/heads/main" ] || continue
@@ -53,9 +54,51 @@ while read -r old new ref; do
         sudo /bin/rm -f "$api/server.py.rollback"
     fi
 
+    # Install the case publisher before switching the public release. It reads
+    # only the anonymous API and atomically keeps the last known-good output.
+    if [ -f "$release/ops/case-publisher/publish.py" ]; then
+        sudo /usr/bin/install -d -o root -g root -m 0755 "$publisher"
+        sudo /usr/bin/install -o root -g root -m 0755 \
+            "$release/ops/case-publisher/publish.py" \
+            "$publisher/publish.py"
+        sudo /usr/bin/install -o root -g root -m 0644 \
+            "$release/ops/case-publisher/elegso-case-publisher.service" \
+            /etc/systemd/system/elegso-case-publisher.service
+        sudo /usr/bin/install -o root -g root -m 0644 \
+            "$release/ops/case-publisher/elegso-case-publisher.timer" \
+            /etc/systemd/system/elegso-case-publisher.timer
+        sudo /usr/bin/install -d -o www-data -g www-data -m 0755 \
+            "$site/generated" "$site/generated/releases"
+        sudo /bin/systemctl daemon-reload
+
+        # The first deployment may safely publish an empty catalogue when the
+        # source API is temporarily unavailable. Later failures leave the
+        # previous generated release untouched.
+        if ! sudo -u www-data /usr/bin/python3 "$publisher/publish.py" \
+            --source-root "$release/www" \
+            --output-root "$site/generated" \
+            --allow-empty-fallback; then
+            echo "Case refresh failed; preserving the previous generated release" >&2
+        fi
+
+        if [ -f "$release/www/sitemap.xml" ]; then
+            /bin/mv "$release/www/sitemap.xml" "$release/www/sitemap.base.xml"
+        fi
+        if [ -e "$release/www/cases" ] || [ -L "$release/www/cases" ]; then
+            /bin/rm -rf -- "$release/www/cases"
+        fi
+        /bin/ln -s "$site/generated/current/cases" "$release/www/cases"
+        /bin/ln -sfn "$site/generated/current/sitemap.xml" "$release/www/sitemap.xml"
+    fi
+
     ln -sfn "$release" "$site/current.new"
     mv -Tf "$site/current.new" "$site/current"
     find "$site/releases" -mindepth 1 -maxdepth 1 -type d | sort -r | tail -n +6 | xargs -r rm -rf
+
+    if [ -f "$release/ops/case-publisher/publish.py" ]; then
+        sudo /bin/systemctl enable --now elegso-case-publisher.timer
+        sudo /bin/systemctl start --no-block elegso-case-publisher.service
+    fi
 
     # Keep GitHub synchronized from the VM itself. The bare repository has a
     # protected SSH key and origin configured outside the tracked worktree.
