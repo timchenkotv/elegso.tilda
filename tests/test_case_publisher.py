@@ -215,6 +215,7 @@ class CasePublisherTests(unittest.TestCase):
             self.assertIn("1 727 500 руб.", detail)
             self.assertIn("Стоимость этапа", detail)
             self.assertIn("Премия за результат", detail)
+            self.assertIn('<span>05</span><p>Документы</p>', detail)
             self.assertIn('data-case-carousel', detail)
             self.assertIn('data-case-next', detail)
             self.assertIn('case-material-viewer--pdf', detail)

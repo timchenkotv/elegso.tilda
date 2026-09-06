@@ -937,7 +937,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     project_cost_section = render_project_costs(case, "03")
     economics_number = "04" if project_cost_section else "03"
     economics_section = render_economics(case, economics_number)
-    materials_number = str(3 + int(bool(project_cost_section)) + int(bool(economics_section)))
+    materials_number = f"{3 + int(bool(project_cost_section)) + int(bool(economics_section)):02d}"
     published_files = [
         item
         for item in case.get("published_materials") or []
