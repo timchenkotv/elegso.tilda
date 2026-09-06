@@ -3,4 +3,6 @@
 work/
 reports/visual-diff/
 node_modules/
+__pycache__/
+*.py[cod]
 *.log
