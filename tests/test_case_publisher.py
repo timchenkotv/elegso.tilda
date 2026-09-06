@@ -155,8 +155,17 @@ class CasePublisherTests(unittest.TestCase):
 
             self.assertIn('data-cases-search', listing)
             self.assertIn('href="/cases/"', listing)
+            header = listing[listing.index("<!--header-->") : listing.index("</header>")]
+            self.assertIn("elegso-cases-nav-item", header)
+            self.assertIn("Юридические проекты и решённые дела", header)
+            self.assertLess(header.index('href="/cases/"'), header.index('href="/contacts/"'))
+            self.assertEqual(header.count('href="/cases/"'), 1)
             self.assertIn("Снизили договорную неустойку", listing)
+            self.assertNotIn("cases-hero__mark", listing)
             self.assertIn("Защищённый имущественный интерес", detail)
+            self.assertIn("Смотреть судебные акты", detail)
+            self.assertIn("Судебные акты · 2", detail)
+            self.assertNotIn('<aside><span aria-hidden="true">Э</span>', detail)
             self.assertIn("Поворот в кассации", detail)
             self.assertIn("Судебные акты", detail)
             self.assertIn("Встреч с оппонентом", detail)
@@ -177,6 +186,13 @@ class CasePublisherTests(unittest.TestCase):
             )
             self.assertFalse(changed_again)
             self.assertEqual(release, same_release)
+
+    def test_shared_site_navigation_exposes_cases_in_hero_and_footer(self) -> None:
+        script = (ROOT / "www" / "assets" / "migration.js").read_text(encoding="utf-8")
+        self.assertIn("migrationInitCasesHeroButton", script)
+        self.assertIn("migrationInitCasesFooterCard", script)
+        self.assertIn("Решённые юридические дела", script)
+        self.assertIn("Решённые юридические задачи и подтверждённые результаты", script)
 
     def test_rejects_unsafe_or_duplicate_slugs(self) -> None:
         invalid = sample_case()

@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20260906-1"
+ASSET_VERSION = "20260906-3"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -250,25 +250,66 @@ def load_chrome(source_root: Path) -> SiteChrome:
 
 
 def inject_cases_navigation(header: str) -> str:
-    if 'href="/cases/"' in header:
-        return header
-    anchor_at = header.find('href="/mission/"')
-    if anchor_at < 0:
-        return header
-    item_end = header.find("</li>", anchor_at)
-    if item_end < 0:
-        return header
-    item_end += len("</li>")
-    item = (
-        ' <li class="t978__menu-item t-submenublocks__item">'
-        ' <div class="t978__menu-link-wrapper">'
-        ' <a class="t978__menu-link t978__typo_1210506996 t-name t-name_xs t-menu__link-item"'
-        ' role="menuitem" href="/cases/" data-menu-submenu-hook=""'
-        ' style="color:#000000;font-size:18px;font-weight:300;font-family:\'Ubuntu\';justify-content:flex-start;">'
-        ' <span class="t978__link-inner t978__link-inner_left">Кейсы</span>'
-        " </a> </div> </li>"
+    legacy_submenu_case = re.compile(
+        r'\s*<li\b[^>]*class="[^"]*t978__menu-item[^"]*"[^>]*>'
+        r'(?:(?!</li>)[\s\S])*?href="/cases/"(?:(?!</li>)[\s\S])*?</li>',
+        flags=re.I,
     )
-    return f"{header[:item_end]}{item}{header[item_end:]}"
+    header = legacy_submenu_case.sub("", header)
+    top_level_cases = re.search(
+        r'<li\b[^>]*class="[^"]*t228__list_item[^"]*"[^>]*>'
+        r'(?:(?!</li>)[\s\S])*?href="/cases/"(?:(?!</li>)[\s\S])*?</li>',
+        header,
+        flags=re.I,
+    )
+    if top_level_cases:
+        return header
+
+    contact_pattern = re.compile(
+        r'<li\b[^>]*class="[^"]*t228__list_item[^"]*"[^>]*>'
+        r'(?:(?!</li>)[\s\S])*?href="/contacts/"(?:(?!</li>)[\s\S])*?</li>',
+        flags=re.I,
+    )
+    contact_match = contact_pattern.search(header)
+    if not contact_match:
+        return header
+
+    contact_item = contact_match.group(0)
+    cases_item = contact_item
+    cases_item = cases_item.replace('href="/contacts/"', 'href="/cases/"', 1)
+    cases_item = re.sub(r'(>\s*)Контакты(\s*</a>)', r'\1Кейсы\2', cases_item, count=1)
+    cases_item = cases_item.replace(
+        'class="t228__list_item"',
+        'class="t228__list_item elegso-cases-nav-item"',
+        1,
+    )
+    cases_item = cases_item.replace(
+        'class="t-menu__link-item"',
+        'class="t-menu__link-item elegso-cases-nav-link"',
+        1,
+    )
+    cases_item = cases_item.replace('data-menu-submenu-hook=""', '', 1)
+    cases_item = cases_item.replace(
+        'data-menu-item-number="3"',
+        'data-menu-item-number="3" data-elegso-cases-nav="true" '
+        'title="Юридические проекты и решённые дела" '
+        'aria-label="Кейсы: юридические проекты и решённые дела"',
+        1,
+    )
+    cases_item = re.sub(
+        r'style="padding:0 0 0 15px;"',
+        'style="padding:0 15px;position:relative;"',
+        cases_item,
+        count=1,
+    )
+    cases_item = cases_item.replace(
+        "</a>",
+        '</a><span class="elegso-cases-nav-hint" role="tooltip">'
+        "Юридические проекты и решённые дела</span>",
+        1,
+    )
+    contact_item = contact_item.replace('data-menu-item-number="3"', 'data-menu-item-number="4"', 1)
+    return f"{header[:contact_match.start()]}{cases_item}{contact_item}{header[contact_match.end():]}"
 
 
 def replace_meta(document: str, attribute: str, name: str, content: str) -> str:
@@ -542,7 +583,6 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
             <div><strong>По документам</strong><span>с подтверждающими судебными актами</span></div>
           </div>
         </div>
-        <div class="cases-hero__mark" aria-hidden="true"><span>Э</span><i>основано на материалах дела</i></div>
       </section>
 
       <section class="cases-catalog" aria-labelledby="cases-catalog-title">
@@ -781,6 +821,19 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     strategy = safe_rich(case.get("strategy_html"))
     result = safe_rich(case.get("result_html"))
     significance = safe_rich(case.get("significance_html"))
+    published_files = [
+        item
+        for item in case.get("published_materials") or []
+        if item.get("kind") == "file" and item.get("media_kind") in {"pdf", "image"}
+    ]
+    materials_link = (
+        '<a class="case-hero__materials-link" href="#materials">'
+        '<span>Смотреть судебные акты</span>'
+        f'<small>{len(published_files)} {plural_documents(len(published_files))}</small>'
+        '<i aria-hidden="true">↓</i></a>'
+        if published_files
+        else ""
+    )
     period = " — ".join(filter(None, [ru_date(case.get("dispute_started_on")), ru_date(case.get("dispute_ended_on"))]))
     overview_sections = "".join(
         section
@@ -800,11 +853,10 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
       <nav class="case-breadcrumbs" aria-label="Навигационная цепочка"><a href="/">Главная</a><span>·</span><a href="/cases/">Кейсы</a><span>·</span><b>{escape(category)}</b></nav>
       <article>
         <header class="case-hero">
-          <div class="case-hero__copy"><div class="case-hero__meta"><span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span><span>{escape(category)}</span>{f'<span>Дело № {escape(case.get("court_case_number"))}</span>' if case.get('court_case_number') else ''}</div><h1>{escape(title)}</h1><p>{escape(summary)}</p><div class="case-hero__dates"><time datetime="{escape(case.get('document_date') or '')}">Анонс от {escape(ru_date(case.get('document_date')))}</time>{f'<span>Период спора: {escape(period)}</span>' if period else ''}</div></div>
-          <aside><span aria-hidden="true">Э</span><p>Юридическая компания</p><strong>ЭЛЕГСО</strong><small>Защита бизнеса в сложных спорах</small></aside>
+          <div class="case-hero__copy"><div class="case-hero__meta"><span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span><span>{escape(category)}</span>{f'<span>Дело № {escape(case.get("court_case_number"))}</span>' if case.get('court_case_number') else ''}</div><h1>{escape(title)}</h1><p>{escape(summary)}</p><div class="case-hero__footer"><div class="case-hero__dates"><time datetime="{escape(case.get('document_date') or '')}">Анонс от {escape(ru_date(case.get('document_date')))}</time>{f'<span>Период спора: {escape(period)}</span>' if period else ''}</div>{materials_link}</div></div>
         </header>
         {f'<section class="case-metrics-strip">{metrics}</section>' if metrics else ''}
-        <nav class="case-anchor-nav" aria-label="Содержание кейса"><a href="#overview">Суть дела</a>{'<a href="#history">История</a>' if case.get('stages') else ''}{'<a href="#economics">Имущественный эффект</a>' if case.get('economic_effects') else ''}{'<a href="#materials">Документы</a>' if case.get('published_materials') else ''}</nav>
+        <nav class="case-anchor-nav" aria-label="Содержание кейса"><a href="#overview">Суть дела</a>{'<a href="#history">История</a>' if case.get('stages') else ''}{'<a href="#economics">Имущественный эффект</a>' if case.get('economic_effects') else ''}{f'<a class="case-anchor-nav__materials" href="#materials">Судебные акты · {len(published_files)}</a>' if published_files else ''}</nav>
         {overview}
         {render_stages(case)}
         {render_economics(case)}
