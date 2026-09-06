@@ -938,6 +938,8 @@ def write_release(
     releases.mkdir(parents=True, exist_ok=True)
     release = releases / digest[:16]
     current = output_root / "current"
+    if release.exists():
+        release.chmod(0o755)
     if current.is_symlink() and current.resolve() == release.resolve() and not force:
         return False, release
 
@@ -972,6 +974,7 @@ def write_release(
             )
             if release.exists():
                 shutil.rmtree(release)
+            temp.chmod(0o755)
             os.replace(temp, release)
         except Exception:
             shutil.rmtree(temp, ignore_errors=True)

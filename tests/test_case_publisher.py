@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import stat
 import sys
 import tempfile
 import unittest
@@ -140,6 +141,7 @@ class CasePublisherTests(unittest.TestCase):
             self.assertTrue(changed)
             self.assertTrue((output / "current").is_symlink())
             self.assertEqual((output / "current").resolve(), release.resolve())
+            self.assertEqual(stat.S_IMODE(release.stat().st_mode), 0o755)
 
             listing = (output / "current" / "cases" / "index.html").read_text(encoding="utf-8")
             detail = (
