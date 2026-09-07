@@ -161,8 +161,10 @@ class CasePublisherTests(unittest.TestCase):
             self.assertLess(header.index('href="/cases/"'), header.index('href="/contacts/"'))
             self.assertEqual(header.count('href="/cases/"'), 1)
             self.assertIn("Снизили договорную неустойку", listing)
+            self.assertIn("18,45 млн", listing)
             self.assertNotIn("cases-hero__mark", listing)
             self.assertIn("Защищённый имущественный интерес", detail)
+            self.assertIn("18 450 000 руб.", detail)
             self.assertIn("Смотреть судебные акты", detail)
             self.assertIn("Судебные акты · 2", detail)
             self.assertNotIn('<aside><span aria-hidden="true">Э</span>', detail)
@@ -193,6 +195,15 @@ class CasePublisherTests(unittest.TestCase):
             )
             self.assertFalse(changed_again)
             self.assertEqual(release, same_release)
+
+    def test_case_card_uses_millions_for_sub_million_result(self) -> None:
+        case = sample_case()
+        case["protected_interest_amount"] = "737224.70"
+
+        card = publisher.render_case_card(case, 0)
+
+        self.assertIn("0,74 млн", card)
+        self.assertNotIn("737 224,70", card)
 
     def test_shared_site_navigation_exposes_cases_in_hero_and_footer(self) -> None:
         script = (ROOT / "www" / "assets" / "migration.js").read_text(encoding="utf-8")

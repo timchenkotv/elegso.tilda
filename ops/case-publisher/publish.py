@@ -184,6 +184,13 @@ def money(value: Any, currency: str = "RUB", *, short: bool = False) -> str:
     return f"{number} {symbols.get(currency, currency)}".strip()
 
 
+def case_card_money(value: Any) -> str:
+    """Keep the case-library cards comparable, including sub-million results."""
+    compact = decimal(value) / Decimal("1000000")
+    number = f"{compact:.2f}".rstrip("0").rstrip(".").replace(".", ",")
+    return f"{number} млн"
+
+
 def ru_date(value: Any) -> str:
     if not value:
         return ""
@@ -520,7 +527,7 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
     search = card_search_text(case)
     metrics = []
     if protected > 0:
-        metrics.append(metric("₽", "Защищено", money(protected, case.get("currency_code") or "RUB", short=True)))
+        metrics.append(metric("₽", "Защищено", case_card_money(protected)))
     if duration is not None:
         metrics.append(metric("◷", "Длительность", f"{duration} дн."))
     if instances is not None:
