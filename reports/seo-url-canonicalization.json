@@ -1,0 +1,2308 @@
+{
+  "generatedAt": "2026-09-08T11:51:18.700Z",
+  "origin": "https://elegso.ru",
+  "sitemapUrl": "https://elegso.ru/sitemap.xml",
+  "summary": {
+    "canonicalPages": 32,
+    "checks": 255,
+    "failures": 0
+  },
+  "failures": [],
+  "results": [
+    {
+      "canonical": "https://elegso.ru/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/",
+      "kind": "http",
+      "url": "http://elegso.ru/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/accident_lawyer/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/accident_lawyer/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/accident_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/accident_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/accident_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "kind": "http",
+      "url": "http://elegso.ru/accident_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/accident_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/accident_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/accident_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/accident_lawyer",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/accident_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//accident_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/accident_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/accident_lawyer//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/accident_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/appeal_of_judicial_acts/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/appeal_of_judicial_acts/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/appeal_of_judicial_acts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/appeal_of_judicial_acts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/appeal_of_judicial_acts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "kind": "http",
+      "url": "http://elegso.ru/appeal_of_judicial_acts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/appeal_of_judicial_acts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/appeal_of_judicial_acts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/appeal_of_judicial_acts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/appeal_of_judicial_acts",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/appeal_of_judicial_acts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//appeal_of_judicial_acts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/appeal_of_judicial_acts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/appeal_of_judicial_acts//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/appeal_of_judicial_acts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/arbitration_lawyer/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/arbitration_lawyer/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/arbitration_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/arbitration_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/arbitration_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "kind": "http",
+      "url": "http://elegso.ru/arbitration_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/arbitration_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/arbitration_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/arbitration_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/arbitration_lawyer",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/arbitration_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//arbitration_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/arbitration_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/arbitration_lawyer//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/arbitration_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/calc_nst/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/calc_nst/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/calc_nst/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/",
+      "kind": "http",
+      "url": "http://elegso.ru/calc_nst/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/calc_nst/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/calc_nst",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//calc_nst/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/calc_nst//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/calc_nst/instruction/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/calc_nst/instruction/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/instruction/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/calc_nst/instruction/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/instruction/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "kind": "http",
+      "url": "http://elegso.ru/calc_nst/instruction/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/instruction/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/calc_nst/instruction/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/instruction/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/calc_nst/instruction",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/instruction/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//calc_nst/instruction/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/instruction/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/calc_nst/instruction//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calc_nst/instruction/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "kind": "http",
+      "url": "http://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/cancellation_of_the_court_order/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/cancellation_of_the_court_order/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cancellation_of_the_court_order/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/cancellation_of_the_court_order/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cancellation_of_the_court_order/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "kind": "http",
+      "url": "http://elegso.ru/cancellation_of_the_court_order/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cancellation_of_the_court_order/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/cancellation_of_the_court_order/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cancellation_of_the_court_order/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/cancellation_of_the_court_order",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cancellation_of_the_court_order/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//cancellation_of_the_court_order/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cancellation_of_the_court_order/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/cancellation_of_the_court_order//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cancellation_of_the_court_order/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/collect_the_debt/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/collect_the_debt/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/collect_the_debt/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/collect_the_debt/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/collect_the_debt/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "kind": "http",
+      "url": "http://elegso.ru/collect_the_debt/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/collect_the_debt/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/collect_the_debt/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/collect_the_debt/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/collect_the_debt",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/collect_the_debt/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//collect_the_debt/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/collect_the_debt/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/collect_the_debt//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/collect_the_debt/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contacts/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/contacts/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contacts/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/contacts/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contacts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contacts/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/contacts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contacts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contacts/",
+      "kind": "http",
+      "url": "http://elegso.ru/contacts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contacts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contacts/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/contacts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contacts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contacts/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/contacts",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contacts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contacts/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//contacts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contacts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contacts/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/contacts//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contacts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/contract_drafting_service/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/contract_drafting_service/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_drafting_service/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/contract_drafting_service/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_drafting_service/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "kind": "http",
+      "url": "http://elegso.ru/contract_drafting_service/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_drafting_service/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/contract_drafting_service/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_drafting_service/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/contract_drafting_service",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_drafting_service/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//contract_drafting_service/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_drafting_service/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/contract_drafting_service//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_drafting_service/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_modification/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/contract_modification/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_modification/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/contract_modification/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_modification/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_modification/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/contract_modification/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_modification/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_modification/",
+      "kind": "http",
+      "url": "http://elegso.ru/contract_modification/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_modification/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_modification/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/contract_modification/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_modification/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_modification/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/contract_modification",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_modification/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_modification/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//contract_modification/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_modification/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/contract_modification/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/contract_modification//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/contract_modification/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/drafting_an_agreement/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/drafting_an_agreement/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/drafting_an_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/drafting_an_agreement/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/drafting_an_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "kind": "http",
+      "url": "http://elegso.ru/drafting_an_agreement/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/drafting_an_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/drafting_an_agreement/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/drafting_an_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/drafting_an_agreement",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/drafting_an_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//drafting_an_agreement/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/drafting_an_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/drafting_an_agreement//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/drafting_an_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/judicial_protection/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/judicial_protection/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/judicial_protection/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/judicial_protection/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/judicial_protection/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "kind": "http",
+      "url": "http://elegso.ru/judicial_protection/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/judicial_protection/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/judicial_protection/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/judicial_protection/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/judicial_protection",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/judicial_protection/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//judicial_protection/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/judicial_protection/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/judicial_protection//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/judicial_protection/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/leasing_lawyer/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/leasing_lawyer/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/leasing_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "kind": "http",
+      "url": "http://elegso.ru/leasing_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/leasing_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/leasing_lawyer",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//leasing_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/leasing_lawyer//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/mission/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/mission/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/mission/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/mission/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/mission/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/mission/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/mission/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/mission/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/mission/",
+      "kind": "http",
+      "url": "http://elegso.ru/mission/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/mission/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/mission/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/mission/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/mission/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/mission/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/mission",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/mission/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/mission/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//mission/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/mission/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/mission/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/mission//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/mission/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/offer_for_lawyer_20231103/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/offer_for_lawyer_20231103/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "kind": "http",
+      "url": "http://elegso.ru/offer_for_lawyer_20231103/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/offer_for_lawyer_20231103/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/offer_for_lawyer_20231103",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//offer_for_lawyer_20231103/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/offer_for_lawyer_20231103//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/our_team/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/our_team/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/our_team/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/our_team/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/our_team/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/our_team/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/our_team/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/our_team/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/our_team/",
+      "kind": "http",
+      "url": "http://elegso.ru/our_team/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/our_team/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/our_team/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/our_team/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/our_team/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/our_team/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/our_team",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/our_team/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/our_team/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//our_team/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/our_team/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/our_team/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/our_team//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/our_team/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/property_law/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/property_law/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/property_law/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/property_law/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/property_law/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/property_law/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/property_law/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/property_law/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/property_law/",
+      "kind": "http",
+      "url": "http://elegso.ru/property_law/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/property_law/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/property_law/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/property_law/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/property_law/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/property_law/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/property_law",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/property_law/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/property_law/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//property_law/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/property_law/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/property_law/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/property_law//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/property_law/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/reduction_of_the_penalty_amount/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/reduction_of_the_penalty_amount/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "kind": "http",
+      "url": "http://elegso.ru/reduction_of_the_penalty_amount/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/reduction_of_the_penalty_amount/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/reduction_of_the_penalty_amount",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//reduction_of_the_penalty_amount/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/reduction_of_the_penalty_amount//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/refund_of_the_penalty/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/refund_of_the_penalty/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/refund_of_the_penalty/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/refund_of_the_penalty/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/refund_of_the_penalty/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "kind": "http",
+      "url": "http://elegso.ru/refund_of_the_penalty/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/refund_of_the_penalty/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/refund_of_the_penalty/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/refund_of_the_penalty/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/refund_of_the_penalty",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/refund_of_the_penalty/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//refund_of_the_penalty/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/refund_of_the_penalty/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/refund_of_the_penalty//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/refund_of_the_penalty/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/representation_in_the_arbitration_court/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/representation_in_the_arbitration_court/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "kind": "http",
+      "url": "http://elegso.ru/representation_in_the_arbitration_court/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/representation_in_the_arbitration_court/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/representation_in_the_arbitration_court",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//representation_in_the_arbitration_court/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/representation_in_the_arbitration_court//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/restoring_the_contract/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/restoring_the_contract/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/restoring_the_contract/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/restoring_the_contract/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/restoring_the_contract/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "kind": "http",
+      "url": "http://elegso.ru/restoring_the_contract/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/restoring_the_contract/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/restoring_the_contract/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/restoring_the_contract/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/restoring_the_contract",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/restoring_the_contract/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//restoring_the_contract/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/restoring_the_contract/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/restoring_the_contract//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/restoring_the_contract/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/soglashenie/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/soglashenie/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/soglashenie/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/soglashenie/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/soglashenie/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/soglashenie/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/soglashenie/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/soglashenie/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/soglashenie/",
+      "kind": "http",
+      "url": "http://elegso.ru/soglashenie/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/soglashenie/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/soglashenie/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/soglashenie/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/soglashenie/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/soglashenie/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/soglashenie",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/soglashenie/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/soglashenie/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//soglashenie/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/soglashenie/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/soglashenie/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/soglashenie//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/soglashenie/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/termination_and_restoration_of_contracts/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/termination_and_restoration_of_contracts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "kind": "http",
+      "url": "http://elegso.ru/termination_and_restoration_of_contracts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/termination_and_restoration_of_contracts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/termination_and_restoration_of_contracts",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//termination_and_restoration_of_contracts/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/termination_and_restoration_of_contracts//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/termination_of_the_lease_agreement/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/termination_of_the_lease_agreement/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "kind": "http",
+      "url": "http://elegso.ru/termination_of_the_lease_agreement/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/termination_of_the_lease_agreement/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/termination_of_the_lease_agreement",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//termination_of_the_lease_agreement/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/termination_of_the_lease_agreement//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/trial_lawyer/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/trial_lawyer/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/trial_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/trial_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/trial_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "kind": "http",
+      "url": "http://elegso.ru/trial_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/trial_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/trial_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/trial_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/trial_lawyer",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/trial_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//trial_lawyer/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/trial_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/trial_lawyer//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/trial_lawyer/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/cases/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/cases/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/cases/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/",
+      "kind": "http",
+      "url": "http://elegso.ru/cases/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/cases/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/cases",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//cases/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/cases//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "kind": "http",
+      "url": "http://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "kind": "http",
+      "url": "http://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "kind": "http",
+      "url": "http://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "kind": "canonical",
+      "url": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "expectRedirect": false,
+      "status": 200,
+      "location": null,
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "kind": "index-html",
+      "url": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/index.html",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "kind": "www",
+      "url": "https://www.elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "kind": "http",
+      "url": "http://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "kind": "http-www",
+      "url": "http://www.elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "kind": "missing-trailing-slash",
+      "url": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "kind": "duplicate-leading-slash",
+      "url": "https://elegso.ru//cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "errors": []
+    },
+    {
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "kind": "duplicate-trailing-slash",
+      "url": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023//",
+      "expectRedirect": true,
+      "status": 301,
+      "location": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "errors": []
+    }
+  ]
+}
