@@ -70,7 +70,10 @@ def open_admin_database(path: Path) -> Iterator[sqlite3.Connection]:
     connection = sqlite3.connect(path, timeout=10.0, check_same_thread=False)
     try:
         connection.row_factory = sqlite3.Row
-        connection.execute("PRAGMA journal_mode=WAL")
+        # Analytics is written by a separate ingest identity and read by the
+        # dashboard without directory write permission. DELETE mode avoids a
+        # dependency on writable WAL/SHM sidecars for those readers.
+        connection.execute("PRAGMA journal_mode=DELETE")
         connection.execute("PRAGMA synchronous=NORMAL")
         connection.execute("PRAGMA busy_timeout=10000")
         connection.executescript(

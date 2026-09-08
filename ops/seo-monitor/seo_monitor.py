@@ -657,7 +657,11 @@ class Database:
         self.connection.execute("PRAGMA foreign_keys=ON")
         self.connection.execute("PRAGMA busy_timeout=30000")
         if self.path != ":memory:":
-            self.connection.execute("PRAGMA journal_mode=WAL")
+            # The dashboard opens this database with a strictly read-only
+            # identity. Rollback journaling lets those readers work while the
+            # collector is active without granting directory write access for
+            # SQLite's shared-memory sidecar files.
+            self.connection.execute("PRAGMA journal_mode=DELETE")
             self.connection.execute("PRAGMA synchronous=NORMAL")
         self.initialize()
 

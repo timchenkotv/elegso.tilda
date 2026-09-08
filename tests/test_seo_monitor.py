@@ -135,6 +135,12 @@ class SeoMonitorTests(unittest.TestCase):
     def setUp(self) -> None:
         self.xml = FIXTURE_PATH.read_bytes()
 
+    def test_history_database_uses_readonly_dashboard_compatible_journal(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            with monitor.Database(Path(temporary) / "history.sqlite3") as database:
+                mode = database.connection.execute("PRAGMA journal_mode").fetchone()[0]
+        self.assertEqual(mode, "delete")
+
     def test_namespaced_xml_preserves_organic_order(self) -> None:
         documents = monitor.parse_serp_xml(self.xml)
         self.assertEqual([document.position for document in documents], [1, 2, 3])

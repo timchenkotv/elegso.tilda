@@ -70,6 +70,11 @@ class SeoAdminUserTests(unittest.TestCase):
         self.environment.stop()
         self.temporary.cleanup()
 
+    def test_ingested_analytics_uses_readonly_dashboard_compatible_journal(self) -> None:
+        with admin.open_admin_database(self.root / "ingested.sqlite3") as connection:
+            mode = connection.execute("PRAGMA journal_mode").fetchone()[0]
+        self.assertEqual(mode, "delete")
+
     def test_owner_is_bootstrapped_and_cannot_be_downgraded_or_deleted(self) -> None:
         self.assertEqual(self.app.actor_role("OWNER@example.ru"), "admin")
         self.assertTrue(self.app.current_user("owner@example.ru")["is_owner"])

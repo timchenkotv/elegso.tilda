@@ -51,7 +51,9 @@ Recommended production paths:
 - history: `/var/lib/elegso-seo-monitor/history.sqlite3`;
 - reports: `/var/lib/elegso-seo-monitor/reports/`.
 
-SQLite uses WAL mode, foreign keys and unique daily keys. Async operation IDs
+SQLite uses rollback journaling, foreign keys and unique daily keys. This keeps
+the database readable by the isolated dashboard identity without granting it
+write access to the collector directory. Async operation IDs
 are persisted before polling. Restarting the same date resumes unfinished jobs
 and reuses completed API results instead of creating duplicate snapshots or
 unnecessary paid searches. A manual retry of a same-day operation that Yandex
