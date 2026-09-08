@@ -71,6 +71,24 @@ for (const canonical of canonicalUrls) {
     noSlashUrl.pathname = noSlashUrl.pathname.slice(0, -1);
     checks.push({ canonical, kind: 'missing-trailing-slash', url: noSlashUrl.href, expectRedirect: true });
   }
+
+  const duplicateLeadingSlashUrl = new URL(url.href);
+  duplicateLeadingSlashUrl.pathname = `/${duplicateLeadingSlashUrl.pathname}`;
+  checks.push({
+    canonical,
+    kind: 'duplicate-leading-slash',
+    url: duplicateLeadingSlashUrl.href,
+    expectRedirect: true,
+  });
+
+  const duplicateTrailingSlashUrl = new URL(url.href);
+  duplicateTrailingSlashUrl.pathname = `${duplicateTrailingSlashUrl.pathname}/`;
+  checks.push({
+    canonical,
+    kind: 'duplicate-trailing-slash',
+    url: duplicateTrailingSlashUrl.href,
+    expectRedirect: true,
+  });
 }
 
 const results = await mapLimit(checks, 8, async (check) => {
