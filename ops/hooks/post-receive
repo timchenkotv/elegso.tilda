@@ -11,6 +11,7 @@ seo_admin=/opt/elegso-seo-admin
 seo_admin_config=/etc/elegso-seo-admin
 seo_admin_state=/var/lib/elegso-seo-admin
 nginx_site=/etc/nginx/sites-available/elegso.conf
+nginx_admin_limit=/etc/nginx/conf.d/elegso-admin-limit.conf
 
 while read -r old new ref; do
     [ "$ref" = "refs/heads/main" ] || continue
@@ -111,12 +112,12 @@ while read -r old new ref; do
         sudo /usr/bin/install -o root -g root -m 0755 \
             "$release/ops/seo-monitor/seo_monitor.py" \
             "$seo_monitor/seo_monitor.py"
-        if [ ! -f "$seo_monitor_config/keywords.json" ]; then
+        if ! sudo /usr/bin/test -f "$seo_monitor_config/keywords.json"; then
             sudo /usr/bin/install -o root -g seo-monitor -m 0640 \
                 "$release/ops/seo-monitor/keywords.example.json" \
                 "$seo_monitor_config/keywords.json"
         fi
-        if [ ! -f "$seo_monitor_config/seo-monitor.env" ]; then
+        if ! sudo /usr/bin/test -f "$seo_monitor_config/seo-monitor.env"; then
             sudo /usr/bin/install -o root -g seo-monitor -m 0600 \
                 "$release/ops/seo-monitor/seo-monitor.env.example" \
                 "$seo_monitor_config/seo-monitor.env"
@@ -137,7 +138,11 @@ while read -r old new ref; do
                 "$release/ops/seo-monitor/$unit" \
                 "/etc/systemd/system/$unit"
         done
-        if [ -f /var/lib/elegso-seo-monitor/history.sqlite3 ]; then
+        if sudo /usr/bin/test -L /var/lib/elegso-seo-monitor/history.sqlite3; then
+            echo "Refusing to change a symlinked SEO monitor database" >&2
+            exit 1
+        fi
+        if sudo /usr/bin/test -f /var/lib/elegso-seo-monitor/history.sqlite3; then
             sudo /bin/chown seo-monitor:seo-monitor \
                 /var/lib/elegso-seo-monitor/history.sqlite3
             sudo /bin/chmod 0640 /var/lib/elegso-seo-monitor/history.sqlite3
@@ -194,8 +199,8 @@ while read -r old new ref; do
         sudo /usr/bin/install -d -o elegso-seo-ingest -g elegso-seo-admin -m 2750 \
             "$seo_admin_state/data"
 
-        if [ ! -f "$seo_admin_state/config/keywords.json" ]; then
-            if [ -f "$seo_monitor_config/keywords.json" ]; then
+        if ! sudo /usr/bin/test -f "$seo_admin_state/config/keywords.json"; then
+            if sudo /usr/bin/test -f "$seo_monitor_config/keywords.json"; then
                 sudo /usr/bin/install -o elegso-seo-admin -g seo-monitor -m 0640 \
                     "$seo_monitor_config/keywords.json" \
                     "$seo_admin_state/config/keywords.json"
@@ -205,7 +210,11 @@ while read -r old new ref; do
                     "$seo_admin_state/config/keywords.json"
             fi
         fi
-        if [ ! -f "$seo_admin_state/auth/users.htpasswd" ]; then
+        if sudo /usr/bin/test -L "$seo_admin_state/auth/users.htpasswd"; then
+            echo "Refusing to change a symlinked dashboard password file" >&2
+            exit 1
+        fi
+        if ! sudo /usr/bin/test -f "$seo_admin_state/auth/users.htpasswd"; then
             sudo /usr/bin/install -o elegso-seo-admin -g www-data -m 0640 \
                 /dev/null "$seo_admin_state/auth/users.htpasswd"
         else
@@ -215,12 +224,12 @@ while read -r old new ref; do
         fi
 
         sudo /usr/bin/install -d -o root -g root -m 0750 "$seo_admin_config"
-        if [ ! -f "$seo_admin_config/admin.env" ]; then
+        if ! sudo /usr/bin/test -f "$seo_admin_config/admin.env"; then
             sudo /usr/bin/install -o root -g root -m 0600 \
                 "$release/ops/seo-admin/admin.env.example" \
                 "$seo_admin_config/admin.env"
         fi
-        if [ ! -f "$seo_admin_config/yandex.env" ]; then
+        if ! sudo /usr/bin/test -f "$seo_admin_config/yandex.env"; then
             sudo /usr/bin/install -o root -g root -m 0600 \
                 "$release/ops/seo-admin/yandex.env.example" \
                 "$seo_admin_config/yandex.env"
@@ -236,6 +245,10 @@ while read -r old new ref; do
             sudo /usr/bin/install -o root -g root -m 0644 \
                 "$release/ops/seo-admin/$unit" "/etc/systemd/system/$unit"
         done
+        admin_previous=
+        if sudo /usr/bin/test -L "$seo_admin/current"; then
+            admin_previous=$(sudo /usr/bin/readlink -f "$seo_admin/current" || :)
+        fi
         sudo /bin/ln -sfn "$admin_release" "$seo_admin/current.new"
         sudo /bin/mv -Tf "$seo_admin/current.new" "$seo_admin/current"
         sudo /bin/systemctl daemon-reload
@@ -243,11 +256,19 @@ while read -r old new ref; do
         sudo /bin/systemctl restart elegso-seo-admin.service
 
         attempt=0
-        while ! /usr/bin/curl -fsS \
+        while ! sudo -u www-data /usr/bin/curl -fsS \
             --unix-socket /run/elegso-seo-admin/admin.sock \
             http://localhost/health >/dev/null; do
             attempt=$((attempt + 1))
             if [ "$attempt" -ge 15 ]; then
+                if [ -n "$admin_previous" ] && sudo /usr/bin/test -d "$admin_previous"; then
+                    sudo /bin/ln -sfn "$admin_previous" "$seo_admin/current.rollback"
+                    sudo /bin/mv -Tf "$seo_admin/current.rollback" "$seo_admin/current"
+                    sudo /bin/systemctl restart elegso-seo-admin.service
+                else
+                    sudo /bin/systemctl stop elegso-seo-admin.service || :
+                    sudo /bin/rm -f "$seo_admin/current"
+                fi
                 echo "SEO dashboard health check failed; release was not switched" >&2
                 exit 1
             fi
@@ -262,10 +283,15 @@ while read -r old new ref; do
     # Install and validate the production nginx vhost atomically. The enabled
     # entry is a symlink to this file on VM 240.
     if [ -f "$release/ops/nginx/elegso.conf" ]; then
+        nginx_admin_limit_had_previous=0
         if [ -f "$release/ops/nginx/elegso-admin-limit.conf" ]; then
+            if sudo /usr/bin/test -f "$nginx_admin_limit"; then
+                sudo /bin/cp -p "$nginx_admin_limit" "$nginx_admin_limit.rollback"
+                nginx_admin_limit_had_previous=1
+            fi
             sudo /usr/bin/install -o root -g root -m 0644 \
                 "$release/ops/nginx/elegso-admin-limit.conf" \
-                /etc/nginx/conf.d/elegso-admin-limit.conf
+                "$nginx_admin_limit"
         fi
         if [ -f "$nginx_site" ]; then
             sudo /bin/cp -p "$nginx_site" "$nginx_site.rollback"
@@ -277,10 +303,16 @@ while read -r old new ref; do
             if [ -f "$nginx_site.rollback" ]; then
                 sudo /bin/mv -f "$nginx_site.rollback" "$nginx_site"
             fi
+            if [ "$nginx_admin_limit_had_previous" -eq 1 ]; then
+                sudo /bin/mv -f "$nginx_admin_limit.rollback" "$nginx_admin_limit"
+            else
+                sudo /bin/rm -f "$nginx_admin_limit"
+            fi
             echo "nginx configuration rejected; previous vhost restored" >&2
             exit 1
         fi
         sudo /bin/rm -f "$nginx_site.rollback"
+        sudo /bin/rm -f "$nginx_admin_limit.rollback"
         sudo /bin/systemctl reload nginx.service
     fi
 
