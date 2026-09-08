@@ -725,15 +725,10 @@ try {
 await fs.writeFile(path.join(root, 'robots.production.txt'), liveRobots, 'utf8');
 await fs.writeFile(path.join(root, 'sitemap.xml'), liveSitemap, 'utf8');
 
-// The staging hostname must never compete with production in search results.
-await fs.writeFile(path.join(root, 'robots.txt'), [
-  'User-agent: *',
-  'Disallow: /',
-  '',
-].join('\n'), 'utf8');
-
 // Reapply canonical URLs, indexing rules and the complete production sitemap
 // after each fresh mirror so SEO settings cannot regress to Tilda defaults.
+// prepare-seo also writes the safe on-disk robots.txt fallback; preview hosts
+// must be protected in their own virtual-host configuration.
 await import('./prepare-seo.mjs');
 
 console.log('Finalized HTML metadata, branded footer and contact-only communication.');

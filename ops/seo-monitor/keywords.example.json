@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "sites": [
+    {
+      "id": "elegso.ru",
+      "name": "ЮК «ЭЛЕГСО»",
+      "domains": [
+        "elegso.ru",
+        "www.elegso.ru"
+      ],
+      "include_subdomains": false,
+      "discovery_seeds": [
+        "юрист по лизингу",
+        "расторжение договора лизинга",
+        "сальдо встречных обязательств"
+      ],
+      "keywords": [
+        {
+          "query": "юрист по лизингу",
+          "cluster": "лизинговые споры",
+          "target_url": "/leasing_lawyer/"
+        },
+        {
+          "query": "юрист по лизинговым спорам",
+          "cluster": "лизинговые споры",
+          "target_url": "/leasing_lawyer/"
+        },
+        {
+          "query": "расторжение договора лизинга",
+          "cluster": "расторжение лизинга",
+          "target_url": "/termination_of_the_lease_agreement/"
+        },
+        {
+          "query": "одностороннее расторжение договора лизинга",
+          "cluster": "расторжение лизинга",
+          "target_url": "/termination_of_the_lease_agreement/"
+        },
+        {
+          "query": "восстановление договора лизинга",
+          "cluster": "расторжение лизинга",
+          "target_url": "/restoring_the_contract/"
+        },
+        {
+          "query": "возврат лизинговых платежей",
+          "cluster": "лизинговые платежи",
+          "target_url": "/termination_of_the_lease_agreement/"
+        },
+        {
+          "query": "взыскание лизинговых платежей",
+          "cluster": "лизинговые платежи",
+          "target_url": "/collect_the_debt/"
+        },
+        {
+          "query": "неустойка по договору лизинга",
+          "cluster": "неустойка",
+          "target_url": "/reduction_of_the_penalty_amount/"
+        },
+        {
+          "query": "снижение неустойки по договору лизинга",
+          "cluster": "неустойка",
+          "target_url": "/reduction_of_the_penalty_amount/"
+        },
+        {
+          "query": "сальдо встречных обязательств лизинг",
+          "cluster": "сальдо",
+          "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"
+        },
+        {
+          "query": "расчет сальдо встречных обязательств лизинг",
+          "cluster": "сальдо",
+          "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"
+        },
+        {
+          "query": "изъятие предмета лизинга",
+          "cluster": "предмет лизинга",
+          "target_url": "/leasing_lawyer/"
+        }
+      ]
+    }
+  ]
+}

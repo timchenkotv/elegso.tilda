@@ -289,4 +289,7 @@ Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&utm_place&u
 Sitemap: ${productionOrigin}/sitemap.xml
 `;
 await fs.writeFile(path.join(root, 'robots.production.txt'), productionRobots);
+// Keep the on-disk fallback safe as well. Any future preview hostname that
+// must be hidden should enforce noindex in its own virtual-host config.
+await fs.writeFile(path.join(root, 'robots.txt'), productionRobots);
 console.log(`SEO prepared: ${uniqueSitemapRoutes.length} indexable routes, ${files.length} HTML files inspected.`);

@@ -5,6 +5,8 @@ repo=/srv/git/elegso.tilda.git
 site=/srv/www/elegso.ru
 api=/opt/elegso-calc-api
 publisher=/opt/elegso-case-publisher
+seo_monitor=/opt/elegso-seo-monitor
+seo_monitor_config=/etc/elegso-seo-monitor
 
 while read -r old new ref; do
     [ "$ref" = "refs/heads/main" ] || continue
@@ -89,6 +91,39 @@ while read -r old new ref; do
         fi
         /bin/ln -s "$site/generated/current/cases" "$release/www/cases"
         /bin/ln -sfn "$site/generated/current/sitemap.xml" "$release/www/sitemap.xml"
+    fi
+
+    # Keep the rank-monitor program and hardened systemd units current while
+    # preserving its private credentials, keyword plan and SQLite history.
+    # The timer is deliberately not enabled here: activation may create paid
+    # Search API requests and is done only after credentials are configured.
+    if [ -f "$release/ops/seo-monitor/seo_monitor.py" ]; then
+        if ! /usr/bin/getent passwd seo-monitor >/dev/null; then
+            sudo /usr/sbin/useradd --system --home /nonexistent \
+                --shell /usr/sbin/nologin seo-monitor
+        fi
+        sudo /usr/bin/install -d -o root -g root -m 0755 "$seo_monitor"
+        sudo /usr/bin/install -d -o root -g seo-monitor -m 0750 "$seo_monitor_config"
+        sudo /usr/bin/install -o root -g root -m 0755 \
+            "$release/ops/seo-monitor/seo_monitor.py" \
+            "$seo_monitor/seo_monitor.py"
+        if [ ! -f "$seo_monitor_config/keywords.json" ]; then
+            sudo /usr/bin/install -o root -g seo-monitor -m 0640 \
+                "$release/ops/seo-monitor/keywords.example.json" \
+                "$seo_monitor_config/keywords.json"
+        fi
+        if [ ! -f "$seo_monitor_config/seo-monitor.env" ]; then
+            sudo /usr/bin/install -o root -g seo-monitor -m 0600 \
+                "$release/ops/seo-monitor/seo-monitor.env.example" \
+                "$seo_monitor_config/seo-monitor.env"
+        fi
+        sudo /usr/bin/install -o root -g root -m 0644 \
+            "$release/ops/seo-monitor/elegso-seo-monitor.service" \
+            /etc/systemd/system/elegso-seo-monitor.service
+        sudo /usr/bin/install -o root -g root -m 0644 \
+            "$release/ops/seo-monitor/elegso-seo-monitor.timer" \
+            /etc/systemd/system/elegso-seo-monitor.timer
+        sudo /bin/systemctl daemon-reload
     fi
 
     ln -sfn "$release" "$site/current.new"

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yandexsearch xmlns="urn:yandex-search-test">
+  <request>
+    <query>юрист по лизингу</query>
+    <page>0</page>
+  </request>
+  <response date="20260908T021700">
+    <results>
+      <grouping mode="flat" groups-on-page="100" docs-in-group="1">
+        <group>
+          <doc id="1">
+            <url>https://competitor.example/leasing</url>
+            <domain>competitor.example</domain>
+            <title>Первый результат</title>
+          </doc>
+        </group>
+        <group>
+          <doc id="2">
+            <url>https://www.elegso.ru/leasing_lawyer/?utm_source=yandex</url>
+            <domain>www.elegso.ru</domain>
+            <title>Юрист по лизингу — ЭЛЕГСО</title>
+          </doc>
+        </group>
+        <group>
+          <doc id="3">
+            <url>https://office27-7.ru/services/leasing/</url>
+            <domain>office27-7.ru</domain>
+            <title>Лизинговые споры</title>
+          </doc>
+        </group>
+      </grouping>
+    </results>
+  </response>
+</yandexsearch>
+
