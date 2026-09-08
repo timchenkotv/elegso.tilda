@@ -5,10 +5,11 @@ Search API. It intentionally does **not** scrape Yandex result pages and does
 not request or store Yandex Webmaster API data.
 
 The collector submits deferred XML searches, polls Yandex Cloud operations and
-stores daily Moscow snapshots in SQLite. One API request is shared by every
-configured site that tracks the same query and device. The stored result is
-limited to result URLs and the derived position; snippets and page content are
-not retained.
+stores daily regional snapshots in SQLite. ELEGSO tracks Russia (`225`), Moscow
+(`213`) and Saint Petersburg (`2`). One API request is shared by every
+configured site that tracks the same query, region and device. The stored
+result is limited to result URLs and the derived position; snippets and page
+content are not retained.
 
 Official references:
 
@@ -23,8 +24,10 @@ Official references:
 Every enabled keyword is checked for both desktop and mobile user agents:
 
 - Russian search type;
-- Moscow region `213`;
-- `metadata.fields.X-Forwarded-For-Y` set to the configured public Moscow IP;
+- Russia `225`, Moscow `213` and Saint Petersburg `2` as independent results;
+- for Moscow only, `metadata.fields.X-Forwarded-For-Y` is set to the configured
+  public Moscow IP; the nationwide and Saint Petersburg checks rely on their
+  explicit Yandex region IDs and are not biased by the Moscow address;
 - relevance sort and all-time period;
 - flat groups, 100 groups, one document per group;
 - XML output containing organic search results.
@@ -42,7 +45,8 @@ snapshots made using the same settings.
 Recommended production paths:
 
 - program: `/opt/elegso-seo-monitor/seo_monitor.py`;
-- keyword configuration: `/etc/elegso-seo-monitor/keywords.json`;
+- keyword configuration: `/var/lib/elegso-seo-admin/config/keywords.json`
+  (edited atomically by the private dashboard and readable by `seo-monitor`);
 - secrets: `/etc/elegso-seo-monitor/seo-monitor.env` (`0600`);
 - history: `/var/lib/elegso-seo-monitor/history.sqlite3`;
 - reports: `/var/lib/elegso-seo-monitor/reports/`.
@@ -67,6 +71,7 @@ only.
 ```json
 {
   "schema_version": 1,
+  "regions": ["225", "213", "2"],
   "sites": [
     {
       "id": "elegso.ru",
@@ -86,6 +91,9 @@ only.
 }
 ```
 
+`regions` contains official numeric Yandex region IDs. If omitted, the
+backward-compatible default is Moscow `213`.
+
 Matching is exact by hostname. Add every legitimate alias explicitly, or set
 `include_subdomains` when all subdomains belong to the same monitored site.
 `target_url` does not constrain ranking: it lets the report detect when Yandex
@@ -95,7 +103,9 @@ shows an unexpected page.
 
 Create a service account with `search-api.webSearch.user` and an API key with
 the `yc.search-api.execute` scope, or provide a valid IAM token. The folder must
-have active billing for Search API.
+have active billing for Search API. A service-account API key can omit
+`YANDEX_FOLDER_ID`: Search API infers the service account's folder. An IAM token
+still requires an explicit folder ID.
 
 Copy `seo-monitor.env.example` to the production path and set real values. Never
 put the production file, API key, IAM token, SQLite database or generated
@@ -105,7 +115,7 @@ copies.
 The program accepts exactly one authentication mechanism:
 
 ```text
-YANDEX_FOLDER_ID=...
+YANDEX_FOLDER_ID=... # optional with a service-account API key
 YANDEX_SEARCH_API_KEY=...
 YANDEX_IAM_TOKEN=
 YANDEX_SEARCH_GEO_IP=155.212.215.203
@@ -146,7 +156,7 @@ set -a
 . /etc/elegso-seo-monitor/seo-monitor.env
 set +a
 python3 /opt/elegso-seo-monitor/seo_monitor.py run \
-  --config /etc/elegso-seo-monitor/keywords.json \
+  --config /var/lib/elegso-seo-admin/config/keywords.json \
   --db /var/lib/elegso-seo-monitor/history.sqlite3 \
   --report-dir /var/lib/elegso-seo-monitor/reports
 ```
@@ -165,11 +175,13 @@ the same Moscow date resumes polling without submitting another paid search.
 
 Wordstat GetTop is synchronous and is used only for finding phrases with a
 positive count. It does not measure the site's position and never edits the
-keyword configuration automatically:
+keyword configuration automatically. Discovery runs each seed independently
+for every configured region so nationwide demand is not mixed with Moscow or
+Saint Petersburg:
 
 ```bash
 python3 /opt/elegso-seo-monitor/seo_monitor.py discover \
-  --config /etc/elegso-seo-monitor/keywords.json \
+  --config /var/lib/elegso-seo-admin/config/keywords.json \
   --db /var/lib/elegso-seo-monitor/history.sqlite3 \
   --site elegso.ru \
   --seed 'юрист по лизингу' \
@@ -182,6 +194,12 @@ If `--seed` is omitted, the site's `discovery_seeds` are used. Results and
 associations with count zero are excluded. Repeated imports update the unique
 same-day row rather than duplicate it.
 
+Production discovery is persistent: the weekly enqueue timer records every
+seed/region job in SQLite and the worker resumes it every 20 minutes. Physical
+Wordstat calls are capped at 90 in any rolling hour, below Yandex's official
+100-per-hour limit. A repeated enqueue or retry reuses completed snapshots and
+does not duplicate rows or calls.
+
 ## Production installation on Debian
 
 The following is an installation outline, not an automatic deployment script:
@@ -192,7 +210,8 @@ sudo install -d -o root -g root -m 0755 /opt/elegso-seo-monitor
 sudo install -d -o root -g seo-monitor -m 0750 /etc/elegso-seo-monitor
 sudo install -d -o seo-monitor -g seo-monitor -m 0750 /var/lib/elegso-seo-monitor
 sudo install -o root -g root -m 0755 seo_monitor.py /opt/elegso-seo-monitor/
-sudo install -o root -g seo-monitor -m 0640 keywords.example.json /etc/elegso-seo-monitor/keywords.json
+sudo install -d -o elegso-seo-admin -g seo-monitor -m 2750 /var/lib/elegso-seo-admin/config
+sudo install -o elegso-seo-admin -g seo-monitor -m 0640 keywords.example.json /var/lib/elegso-seo-admin/config/keywords.json
 sudo install -o root -g seo-monitor -m 0600 seo-monitor.env.example /etc/elegso-seo-monitor/seo-monitor.env
 sudo install -o root -g root -m 0644 elegso-seo-monitor.service /etc/systemd/system/
 sudo install -o root -g root -m 0644 elegso-seo-monitor.timer /etc/systemd/system/

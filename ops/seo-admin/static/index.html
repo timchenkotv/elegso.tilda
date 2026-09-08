@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Маркетинг и SEO — ЭЛЕГСО</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span>Э</span><div><b>ЭЛЕГСО</b><small>маркетинг и SEO</small></div></div>
+      <nav aria-label="Разделы">
+        <button class="nav-item active" data-view="overview"><i>01</i>Сводка</button>
+        <button class="nav-item" data-view="rankings"><i>02</i>Позиции</button>
+        <button class="nav-item" data-view="demand"><i>03</i>Спрос</button>
+        <button class="nav-item" data-view="keywords"><i>04</i>Ключевые фразы</button>
+        <button class="nav-item" data-view="traffic"><i>05</i>Посещаемость</button>
+        <button class="nav-item" data-view="system"><i>06</i>Система</button>
+      </nav>
+      <div class="side-note"><b>Контроль без персонализации</b><span>Россия, Москва и Санкт-Петербург проверяются независимо.</span></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><p class="eyebrow">Закрытая аналитическая панель</p><h1 id="view-title">Общая сводка</h1></div>
+        <div class="top-actions"><span class="status-dot" id="global-status">Загрузка…</span><button id="refresh" class="button ghost">Обновить</button></div>
+      </header>
+
+      <section class="view active" id="view-overview">
+        <div class="notice" id="data-notice">Собираю текущие данные…</div>
+        <div class="cards" id="overview-cards"></div>
+        <div class="grid two">
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">География</p><h2>Состояние по регионам</h2></div></div><div id="region-summary" class="region-list"></div></article>
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">Приоритет</p><h2>Главные изменения</h2></div></div><div id="movement-summary" class="movement-list"></div></article>
+        </div>
+        <article class="panel">
+          <div class="panel-head"><div><p class="eyebrow">Оперативный срез</p><h2>Запросы, требующие внимания</h2></div><button class="text-button" data-go="rankings">Открыть все</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Запрос</th><th>Регион</th><th>Устройство</th><th>Позиция</th><th>Динамика</th><th>Страница</th></tr></thead><tbody id="attention-rows"></tbody></table></div>
+        </article>
+      </section>
+
+      <section class="view" id="view-rankings">
+        <div class="toolbar">
+          <label>Регион<select id="rank-region"></select></label>
+          <label>Устройство<select id="rank-device"><option value="">Все</option><option value="desktop">Компьютер</option><option value="mobile">Телефон</option></select></label>
+          <label class="grow">Поиск<input id="rank-search" type="search" placeholder="Например, юрист по лизингу"></label>
+        </div>
+        <div class="cards compact" id="rank-cards"></div>
+        <article class="panel chart-panel"><div class="panel-head"><div><p class="eyebrow">История выбранной фразы</p><h2 id="history-title">Нажмите на строку в таблице</h2></div><span id="forecast" class="forecast"></span></div><canvas id="rank-chart" height="180"></canvas></article>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>Запрос / кластер</th><th>Регион</th><th>Устройство</th><th>Сейчас</th><th>Было</th><th>Изменение</th><th>Целевая / найденная страница</th></tr></thead><tbody id="rank-rows"></tbody></table></div></article>
+      </section>
+
+      <section class="view" id="view-demand">
+        <div class="toolbar">
+          <label>Регион<select id="demand-region"></select></label>
+          <label class="grow">Поиск по фразам<input id="demand-search" type="search" placeholder="лизинг, арбитраж, неустойка…"></label>
+        </div>
+        <div class="notice"><b>Частотность — не позиция сайта.</b> Это спрос по данным Wordstat за последний доступный период. Ассоциации Яндекса помечены отдельно и требуют смысловой проверки.</div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>Фраза</th><th>Регион</th><th>Запросов</th><th>Тип</th></tr></thead><tbody id="demand-rows"></tbody></table></div></article>
+      </section>
+
+      <section class="view" id="view-keywords">
+        <div class="notice"><b>Редактор боевого ядра.</b> Изменения начнут участвовать в следующем ежедневном замере. Удалённые строки остаются в исторической базе, но перестают проверяться.</div>
+        <div class="toolbar keyword-actions"><button id="add-keyword" class="button">Добавить фразу</button><button id="save-keywords" class="button accent">Сохранить изменения</button><span id="keyword-save-status"></span></div>
+        <article class="panel"><div class="table-wrap"><table class="editor-table"><thead><tr><th>Вкл.</th><th>Запрос</th><th>Кластер</th><th>Целевая страница</th><th>Россия</th><th>Москва</th><th>СПб</th><th></th></tr></thead><tbody id="keyword-rows"></tbody></table></div></article>
+      </section>
+
+      <section class="view" id="view-traffic">
+        <div class="cards compact" id="traffic-cards"></div>
+        <div class="grid two">
+          <article class="panel chart-panel"><div class="panel-head"><div><p class="eyebrow">Динамика</p><h2>Визиты и просмотры по дням</h2></div></div><canvas id="traffic-chart" height="190"></canvas></article>
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">Источники данных</p><h2>Состояние интеграций</h2></div></div><div id="integration-list" class="integration-list"></div></article>
+        </div>
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">Страницы</p><h2>Эффективность каждой страницы</h2></div></div><div class="table-wrap"><table><thead><tr><th>Период</th><th>Страница</th><th>Визиты</th><th>Посетители</th><th>Просмотры</th><th>Отказы</th><th>Среднее время</th></tr></thead><tbody id="page-rows"></tbody></table></div></article>
+        <div class="grid two">
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">Каналы</p><h2>Источники переходов</h2></div></div><div class="table-wrap"><table><thead><tr><th>Источник</th><th>Визиты</th><th>Посетители</th></tr></thead><tbody id="source-rows"></tbody></table></div></article>
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">Аудитория</p><h2>Города и регионы</h2></div></div><div class="table-wrap"><table><thead><tr><th>Регион</th><th>Визиты</th><th>Посетители</th></tr></thead><tbody id="geo-rows"></tbody></table></div></article>
+        </div>
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">Поисковая эффективность</p><h2>Фразы: показы, клики, CTR и средняя позиция</h2></div></div><div class="table-wrap"><table><thead><tr><th>Запрос</th><th>Устройство</th><th>Показы</th><th>Клики</th><th>CTR</th><th>Средняя позиция</th><th>Период</th></tr></thead><tbody id="webmaster-rows"></tbody></table></div></article>
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">Фактические переходы</p><h2>По каким фразам пришли посетители</h2></div></div><div class="table-wrap"><table><thead><tr><th>Фраза</th><th>Визиты</th><th>Посетители</th><th>Период</th></tr></thead><tbody id="metrika-query-rows"></tbody></table></div></article>
+      </section>
+
+      <section class="view" id="view-system">
+        <div class="grid two">
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">Wordstat</p><h2>Очередь и лимиты</h2></div></div><div id="queue-details" class="definition-list"></div></article>
+          <article class="panel"><div class="panel-head"><div><p class="eyebrow">Методика</p><h2>Что означают цифры</h2></div></div><div class="method"><p><b>Контрольная позиция</b> — место домена в независимом снимке первых 100 результатов официального Search API.</p><p><b>Средняя позиция</b> — показатель реальных показов в Вебмастере.</p><p><b>Частотность</b> — спрос в Wordstat, а не число переходов.</p><p><b>Прогноз</b> — простой ориентир по тренду; он не является гарантией выдачи.</p></div></article>
+        </div>
+        <article class="panel" id="users-panel">
+          <div class="panel-head"><div><p class="eyebrow">Доступ владельца</p><h2>Пользователи панели</h2></div><span class="badge good">пароли защищены bcrypt</span></div>
+          <div class="notice user-notice"><b>Маркетологу выбирайте «Только просмотр».</b> Он увидит отчёты, позиции и посещаемость, но не сможет менять ключевые фразы или управлять доступами.</div>
+          <div class="user-form">
+            <label>Электронная почта<input id="new-user" type="email" autocomplete="off" placeholder="marketing@example.ru"></label>
+            <label>Пароль<input id="new-password" type="password" autocomplete="new-password" minlength="12" placeholder="Не менее 12 символов"></label>
+            <label>Роль<select id="new-role"><option value="viewer">Только просмотр</option><option value="admin">Администратор</option></select></label>
+            <button id="save-user" class="button accent">Добавить / обновить</button>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Пользователь</th><th>Роль</th><th>Создан</th><th>Обновлён</th><th></th></tr></thead><tbody id="user-rows"></tbody></table></div>
+        </article>
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">Журнал</p><h2>Последние запуски</h2></div></div><div class="table-wrap"><table><thead><tr><th>Начало</th><th>Тип</th><th>Статус</th><th>План</th><th>Успешно</th><th>Ошибки</th><th>Комментарий</th></tr></thead><tbody id="run-rows"></tbody></table></div></article>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>

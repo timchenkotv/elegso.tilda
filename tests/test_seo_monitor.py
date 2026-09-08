@@ -10,7 +10,7 @@ import sys
 import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -25,7 +25,11 @@ sys.modules[SPEC.name] = monitor
 SPEC.loader.exec_module(monitor)
 
 
-def write_config(directory: Path, two_sites: bool = False) -> Path:
+def write_config(
+    directory: Path,
+    two_sites: bool = False,
+    regions: list[str] | None = None,
+) -> Path:
     sites = [
         {
             "id": "elegso.ru",
@@ -57,10 +61,10 @@ def write_config(directory: Path, two_sites: bool = False) -> Path:
             }
         )
     path = directory / "keywords.json"
-    path.write_text(
-        json.dumps({"schema_version": 1, "sites": sites}, ensure_ascii=False),
-        encoding="utf-8",
-    )
+    payload = {"schema_version": 1, "sites": sites}
+    if regions is not None:
+        payload["regions"] = regions
+    path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     return path
 
 
@@ -85,10 +89,10 @@ class QueueTransport:
 class ImmediateClient:
     def __init__(self, xml: bytes):
         self.xml = xml
-        self.submissions: list[tuple[str, str]] = []
+        self.submissions: list[tuple[str, str, str]] = []
 
-    def submit_search(self, query: str, device: str) -> dict:
-        self.submissions.append((query, device))
+    def submit_search(self, query: str, device: str, region_id: str = "213") -> dict:
+        self.submissions.append((query, device, region_id))
         return {
             "id": f"operation-{len(self.submissions)}",
             "done": True,
@@ -100,7 +104,13 @@ class ImmediateClient:
 
 
 class WordstatClient:
-    def wordstat_top(self, phrase: str, *, num_phrases: int) -> dict:
+    def __init__(self) -> None:
+        self.calls: list[tuple[str, int, str]] = []
+
+    def wordstat_top(
+        self, phrase: str, *, num_phrases: int, region_id: str = "213"
+    ) -> dict:
+        self.calls.append((phrase, num_phrases, region_id))
         return {
             "totalCount": "100",
             "results": [
@@ -112,7 +122,9 @@ class WordstatClient:
 
 
 class RejectingClient:
-    def submit_search(self, query: str, device: str) -> dict:
+    def submit_search(
+        self, query: str, device: str, region_id: str = "213"
+    ) -> dict:
         raise monitor.APIError("mocked API rejection")
 
     def get_operation(self, operation_id: str) -> dict:
@@ -181,6 +193,92 @@ class SeoMonitorTests(unittest.TestCase):
         self.assertEqual(len(documents), 3)
         self.assertNotIn("secret-not-logged", json.dumps(request["payload"]))
 
+    def test_configured_regions_create_independent_search_tasks(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            config = monitor.load_config(
+                write_config(Path(temporary), regions=["225", "213", "2"])
+            )
+        tasks = monitor.build_tasks(config)
+        self.assertEqual(len(tasks), 6)
+        self.assertEqual({task.region_id for task in tasks}, {"225", "213", "2"})
+
+        transport = QueueTransport([
+            {"id": "ru", "done": False},
+            {"id": "msk", "done": False},
+            {"id": "spb", "done": False},
+        ])
+        client = monitor.YandexSearchClient(
+            monitor.Credentials(None, "Api-Key secret-not-logged"),
+            "155.212.215.203",
+            transport=transport,
+            sleep=lambda _seconds: None,
+            monotonic=lambda: 100.0,
+        )
+        for region_id in ("225", "213", "2"):
+            client.submit_search("юрист по лизингу", "desktop", region_id)
+        self.assertNotIn("metadata", transport.calls[0]["payload"])
+        self.assertEqual(
+            transport.calls[1]["payload"]["metadata"]["fields"]["X-Forwarded-For-Y"],
+            "155.212.215.203",
+        )
+        self.assertNotIn("metadata", transport.calls[2]["payload"])
+
+    def test_service_account_api_key_can_infer_folder(self) -> None:
+        credentials = monitor.load_credentials({
+            "YANDEX_SEARCH_API_KEY": "secret-not-logged",
+            "YANDEX_FOLDER_ID": "",
+            "YANDEX_IAM_TOKEN": "",
+        })
+        transport = QueueTransport([{"id": "op-123", "done": False}])
+        client = monitor.YandexSearchClient(
+            credentials,
+            "155.212.215.203",
+            transport=transport,
+            sleep=lambda _seconds: None,
+            monotonic=lambda: 100.0,
+        )
+        client.submit_search("юрист по лизингу", "desktop")
+        self.assertIsNone(credentials.folder_id)
+        self.assertNotIn("folderId", transport.calls[0]["payload"])
+
+        wordstat_transport = QueueTransport([{"results": [], "associations": []}])
+        wordstat_client = monitor.YandexSearchClient(
+            credentials,
+            "155.212.215.203",
+            transport=wordstat_transport,
+            sleep=lambda _seconds: None,
+            monotonic=lambda: 100.0,
+        )
+        wordstat_client.wordstat_top(
+            "юрист по лизингу", num_phrases=100, region_id="225"
+        )
+        self.assertNotIn("folderId", wordstat_transport.calls[0]["payload"])
+
+    def test_folder_id_is_sent_to_search_and_wordstat(self) -> None:
+        transport = QueueTransport([
+            {"id": "op-1", "done": False},
+            {"results": [], "associations": []},
+        ])
+        client = monitor.YandexSearchClient(
+            monitor.Credentials("folder-123", "Api-Key secret-not-logged"),
+            "155.212.215.203",
+            transport=transport,
+            sleep=lambda _seconds: None,
+            monotonic=lambda: 100.0,
+        )
+        client.submit_search("юрист по лизингу", "desktop", "225")
+        client.wordstat_top("юрист по лизингу", num_phrases=100, region_id="2")
+        self.assertEqual(transport.calls[0]["payload"]["folderId"], "folder-123")
+        self.assertEqual(transport.calls[1]["payload"]["folderId"], "folder-123")
+
+    def test_iam_token_still_requires_folder(self) -> None:
+        with self.assertRaisesRegex(monitor.ConfigError, "YANDEX_FOLDER_ID"):
+            monitor.load_credentials({
+                "YANDEX_SEARCH_API_KEY": "",
+                "YANDEX_FOLDER_ID": "",
+                "YANDEX_IAM_TOKEN": "short-lived-token",
+            })
+
     def test_shared_queries_and_same_day_rerun_do_not_duplicate_or_resubmit(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -247,6 +345,83 @@ class SeoMonitorTests(unittest.TestCase):
                 ("лизинговый юрист", 17),
             ])
 
+    def test_wordstat_queue_is_region_isolated_and_hourly_limited(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            config = monitor.load_config(
+                write_config(root, regions=["225", "213", "2"])
+            )
+            current = datetime(2026, 9, 8, 12, 0, tzinfo=timezone.utc)
+            client = WordstatClient()
+            with monitor.Database(root / "history.sqlite3") as database:
+                first = monitor.discover_wordstat(
+                    config,
+                    database,
+                    client,
+                    date(2026, 9, 8),
+                    "elegso.ru",
+                    [],
+                    100,
+                    hourly_limit=2,
+                    batch_size=90,
+                    now=lambda: current,
+                )
+                second = monitor.process_wordstat_queue(
+                    config,
+                    database,
+                    client,
+                    date(2026, 9, 8),
+                    hourly_limit=2,
+                    batch_size=90,
+                    now=lambda: current,
+                )
+                current += timedelta(hours=1, minutes=2)
+                third = monitor.process_wordstat_queue(
+                    config,
+                    database,
+                    client,
+                    date(2026, 9, 8),
+                    hourly_limit=2,
+                    batch_size=90,
+                    now=lambda: current,
+                )
+                stored_regions = {
+                    row[0]
+                    for row in database.connection.execute(
+                        "SELECT DISTINCT region_id FROM wordstat_snapshots"
+                    )
+                }
+                queue = database.wordstat_queue_summary()
+            self.assertEqual(first["attempted"], 2)
+            self.assertTrue(first["throttled"])
+            self.assertEqual(second["attempted"], 0)
+            self.assertTrue(second["throttled"])
+            self.assertEqual(third["attempted"], 1)
+            self.assertEqual(queue["pending"], 0)
+            self.assertEqual(stored_regions, {"225", "213", "2"})
+            self.assertEqual(len(client.calls), 3)
+
+    def test_current_run_counts_ignore_removed_same_day_regions(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            config_path = write_config(root, regions=["225", "213", "2"])
+            wide = monitor.load_config(config_path)
+            client = ImmediateClient(self.xml)
+            with monitor.Database(root / "history.sqlite3") as database:
+                first = monitor.collect_rankings(
+                    wide, database, client, date(2026, 9, 8)
+                )
+                narrow = monitor.load_config(
+                    write_config(root, regions=["213"])
+                )
+                second = monitor.collect_rankings(
+                    narrow, database, client, date(2026, 9, 8)
+                )
+            self.assertEqual(first["status"], "completed")
+            self.assertEqual(second["status"], "completed")
+            self.assertEqual(second["planned_observations"], 2)
+            self.assertEqual(second["found"], 2)
+
     def test_api_failure_is_not_recorded_as_not_found(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -311,7 +486,7 @@ class SeoMonitorTests(unittest.TestCase):
                 )
             self.assertEqual(exit_code, 78)
             self.assertFalse(database_path.exists())
-            self.assertIn("YANDEX_FOLDER_ID", stderr.getvalue())
+            self.assertIn("YANDEX_SEARCH_API_KEY", stderr.getvalue())
 
     def test_status_command_works_without_key_and_without_database(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import base64
 import csv
+import email.utils
 import hashlib
 import html
 import ipaddress
@@ -38,7 +39,15 @@ SEARCH_ASYNC_URL = "https://searchapi.api.cloud.yandex.net/v2/web/searchAsync"
 OPERATIONS_URL = "https://operation.api.cloud.yandex.net/operations/"
 WORDSTAT_TOP_URL = "https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests"
 MOSCOW_REGION_ID = "213"
+DEFAULT_REGION_IDS = (MOSCOW_REGION_ID,)
+REGION_NAMES = {
+    "225": "Россия",
+    MOSCOW_REGION_ID: "Москва",
+    "2": "Санкт-Петербург",
+}
 DEFAULT_GEO_IP = "155.212.215.203"
+DEFAULT_WORDSTAT_HOURLY_LIMIT = 90
+DEFAULT_WORDSTAT_BATCH_SIZE = 90
 MOSCOW_TZ = ZoneInfo("Europe/Moscow")
 SCHEMA_VERSION = 1
 
@@ -98,6 +107,7 @@ class Site:
 @dataclass(frozen=True)
 class MonitorConfig:
     sites: tuple[Site, ...]
+    region_ids: tuple[str, ...]
     digest: str
 
 
@@ -111,6 +121,7 @@ class ObservationPlan:
 class SearchTask:
     query: str
     query_key: str
+    region_id: str
     device: str
     plans: tuple[ObservationPlan, ...]
 
@@ -124,7 +135,7 @@ class SerpDocument:
 
 @dataclass(frozen=True)
 class Credentials:
-    folder_id: str
+    folder_id: str | None
     authorization: str
 
 
@@ -204,6 +215,15 @@ def load_config(path: Path) -> MonitorConfig:
     raw_sites = payload.get("sites")
     if not isinstance(raw_sites, list) or not raw_sites:
         raise ConfigError("keyword configuration must contain a non-empty sites list")
+
+    raw_regions = payload.get("regions", list(DEFAULT_REGION_IDS))
+    if not isinstance(raw_regions, list) or not raw_regions:
+        raise ConfigError("keyword configuration regions must be a non-empty list")
+    region_ids = tuple(
+        dict.fromkeys(normalize_query(region_id) for region_id in raw_regions)
+    )
+    if any(not re.fullmatch(r"[0-9]{1,10}", region_id) for region_id in region_ids):
+        raise ConfigError("keyword configuration regions must contain Yandex numeric IDs")
 
     sites: list[Site] = []
     seen_site_ids: set[str] = set()
@@ -291,7 +311,7 @@ def load_config(path: Path) -> MonitorConfig:
         raise ConfigError("keyword configuration has no enabled sites")
     canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
-    return MonitorConfig(tuple(sites), digest)
+    return MonitorConfig(tuple(sites), region_ids, digest)
 
 
 def load_credentials(environment: Mapping[str, str] | None = None) -> Credentials:
@@ -299,8 +319,8 @@ def load_credentials(environment: Mapping[str, str] | None = None) -> Credential
     folder_id = environment.get("YANDEX_FOLDER_ID", "").strip()
     api_key = environment.get("YANDEX_SEARCH_API_KEY", "").strip()
     iam_token = environment.get("YANDEX_IAM_TOKEN", "").strip()
-    if not folder_id or folder_id.startswith("replace-"):
-        raise ConfigError("YANDEX_FOLDER_ID is not configured")
+    if folder_id.startswith("replace-"):
+        folder_id = ""
     if bool(api_key) == bool(iam_token):
         raise ConfigError(
             "configure exactly one of YANDEX_SEARCH_API_KEY or YANDEX_IAM_TOKEN"
@@ -310,8 +330,12 @@ def load_credentials(environment: Mapping[str, str] | None = None) -> Credential
             raise ConfigError("YANDEX_SEARCH_API_KEY still contains the placeholder")
         authorization = f"Api-Key {api_key}"
     else:
+        if iam_token.startswith("replace-"):
+            raise ConfigError("YANDEX_IAM_TOKEN still contains the placeholder")
+        if not folder_id:
+            raise ConfigError("YANDEX_FOLDER_ID is required with YANDEX_IAM_TOKEN")
         authorization = f"Bearer {iam_token}"
-    return Credentials(folder_id=folder_id, authorization=authorization)
+    return Credentials(folder_id=folder_id or None, authorization=authorization)
 
 
 def validate_public_ip(value: str) -> str:
@@ -325,16 +349,17 @@ def validate_public_ip(value: str) -> str:
 
 
 def build_tasks(config: MonitorConfig) -> list[SearchTask]:
-    grouped: dict[tuple[str, str], tuple[str, list[ObservationPlan]]] = {}
+    grouped: dict[tuple[str, str, str], tuple[str, list[ObservationPlan]]] = {}
     for site in config.sites:
         for keyword in site.keywords:
-            for device in ("desktop", "mobile"):
-                key = (keyword.query_key, device)
-                if key not in grouped:
-                    grouped[key] = (keyword.query, [])
-                grouped[key][1].append(ObservationPlan(site, keyword))
+            for region_id in config.region_ids:
+                for device in ("desktop", "mobile"):
+                    key = (keyword.query_key, region_id, device)
+                    if key not in grouped:
+                        grouped[key] = (keyword.query, [])
+                    grouped[key][1].append(ObservationPlan(site, keyword))
     return [
-        SearchTask(query, key[0], key[1], tuple(plans))
+        SearchTask(query, key[0], key[1], key[2], tuple(plans))
         for key, (query, plans) in sorted(grouped.items())
     ]
 
@@ -394,7 +419,13 @@ def _retry_after_seconds(value: str | None) -> float | None:
     try:
         return max(0.0, float(value))
     except ValueError:
-        return None
+        try:
+            parsed = email.utils.parsedate_to_datetime(value)
+        except (TypeError, ValueError, OverflowError):
+            return None
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return max(0.0, (parsed - utc_now()).total_seconds())
 
 
 class YandexSearchClient:
@@ -434,9 +465,12 @@ class YandexSearchClient:
         method: str,
         url: str,
         payload: Mapping[str, Any] | None = None,
+        *,
+        max_attempts: int | None = None,
     ) -> dict[str, Any]:
         last_error: APIError | None = None
-        for attempt in range(self.max_retries):
+        attempts = self.max_retries if max_attempts is None else max(1, max_attempts)
+        for attempt in range(attempts):
             wait_for_slot = self._last_request_at + self.min_request_interval - self.monotonic()
             if wait_for_slot > 0:
                 self.sleep(wait_for_slot)
@@ -453,14 +487,16 @@ class YandexSearchClient:
                     isinstance(exc, HTTPStatusError)
                     and exc.status in {408, 429, 500, 502, 503, 504}
                 )
-                if not retryable or attempt + 1 >= self.max_retries:
+                if not retryable or attempt + 1 >= attempts:
                     raise
                 server_delay = exc.retry_after if isinstance(exc, HTTPStatusError) else None
                 delay = server_delay if server_delay is not None else min(30.0, 2**attempt)
                 self.sleep(delay + random.uniform(0.0, 0.25))
         raise last_error or APIError("request failed")
 
-    def submit_search(self, query: str, device: str) -> dict[str, Any]:
+    def submit_search(
+        self, query: str, device: str, region_id: str = MOSCOW_REGION_ID
+    ) -> dict[str, Any]:
         if device not in DEVICE_USER_AGENTS:
             raise ConfigError(f"unsupported search device: {device}")
         payload: dict[str, Any] = {
@@ -481,14 +517,16 @@ class YandexSearchClient:
                 "docsInGroup": "1",
             },
             "maxPassages": "1",
-            "region": MOSCOW_REGION_ID,
+            "region": region_id,
             "l10n": "LOCALIZATION_RU",
-            "folderId": self.credentials.folder_id,
             "responseFormat": "FORMAT_XML",
             "userAgent": DEVICE_USER_AGENTS[device],
-            "metadata": {"fields": {"X-Forwarded-For-Y": self.geo_ip}},
             "period": "PERIOD_ALL_TIME",
         }
+        if region_id == MOSCOW_REGION_ID:
+            payload["metadata"] = {"fields": {"X-Forwarded-For-Y": self.geo_ip}}
+        if self.credentials.folder_id:
+            payload["folderId"] = self.credentials.folder_id
         operation = self._request("POST", SEARCH_ASYNC_URL, payload)
         if not normalize_query(operation.get("id")):
             raise APIError("async search response has no operation id")
@@ -508,9 +546,12 @@ class YandexSearchClient:
             "numPhrases": num_phrases,
             "regions": [region_id],
             "devices": ["DEVICE_ALL"],
-            "folderId": self.credentials.folder_id,
         }
-        return self._request("POST", WORDSTAT_TOP_URL, payload)
+        if self.credentials.folder_id:
+            payload["folderId"] = self.credentials.folder_id
+        # Wordstat has a strict hourly quota. Physical retries are handled by
+        # the persistent queue so every attempt is counted across processes.
+        return self._request("POST", WORDSTAT_TOP_URL, payload, max_attempts=1)
 
 
 def _local_name(tag: str) -> str:
@@ -712,6 +753,37 @@ class Database:
             );
             CREATE INDEX IF NOT EXISTS wordstat_phrase_history
                 ON wordstat_snapshots(site_id, phrase_key, observed_date);
+            CREATE TABLE IF NOT EXISTS wordstat_jobs (
+                job_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                observed_date TEXT NOT NULL,
+                site_id TEXT NOT NULL,
+                seed TEXT NOT NULL,
+                seed_key TEXT NOT NULL,
+                region_id TEXT NOT NULL,
+                num_phrases INTEGER NOT NULL CHECK(num_phrases BETWEEN 1 AND 2000),
+                state TEXT NOT NULL,
+                not_before TEXT,
+                attempt_count INTEGER NOT NULL DEFAULT 0,
+                last_error TEXT,
+                completed_at TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                UNIQUE(observed_date, site_id, seed_key, region_id, num_phrases)
+            );
+            CREATE INDEX IF NOT EXISTS wordstat_jobs_queue
+                ON wordstat_jobs(state, not_before, created_at);
+            CREATE TABLE IF NOT EXISTS api_call_log (
+                call_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                endpoint TEXT NOT NULL,
+                attempted_at TEXT NOT NULL,
+                finished_at TEXT,
+                status TEXT NOT NULL,
+                http_status INTEGER,
+                job_id INTEGER REFERENCES wordstat_jobs(job_id) ON DELETE SET NULL,
+                error TEXT
+            );
+            CREATE INDEX IF NOT EXISTS api_call_log_window
+                ON api_call_log(endpoint, attempted_at);
             """
         )
         with self.connection:
@@ -772,7 +844,7 @@ class Database:
                     observed_date.isoformat(),
                     task.query,
                     task.query_key,
-                    MOSCOW_REGION_ID,
+                    task.region_id,
                     task.device,
                     now,
                     now,
@@ -781,7 +853,7 @@ class Database:
         row = self.connection.execute(
             """SELECT * FROM search_jobs
                WHERE observed_date=? AND query_key=? AND region_id=? AND device=?""",
-            (observed_date.isoformat(), task.query_key, MOSCOW_REGION_ID, task.device),
+            (observed_date.isoformat(), task.query_key, task.region_id, task.device),
         ).fetchone()
         assert row is not None
         return row
@@ -839,7 +911,14 @@ class Database:
             )
             for plan in task.plans:
                 self._upsert_rank_snapshot(
-                    observed_date, plan, task.device, documents, run_id, now, None
+                    observed_date,
+                    plan,
+                    task.region_id,
+                    task.device,
+                    documents,
+                    run_id,
+                    now,
+                    None,
                 )
 
     def refresh_snapshots_from_documents(
@@ -853,7 +932,14 @@ class Database:
         with self.connection:
             for plan in task.plans:
                 self._upsert_rank_snapshot(
-                    observed_date, plan, task.device, documents, run_id, now, None
+                    observed_date,
+                    plan,
+                    task.region_id,
+                    task.device,
+                    documents,
+                    run_id,
+                    now,
+                    None,
                 )
 
     def mark_job_failure(
@@ -879,7 +965,14 @@ class Database:
             )
             for plan in task.plans:
                 self._upsert_rank_snapshot(
-                    observed_date, plan, task.device, (), run_id, now, message
+                    observed_date,
+                    plan,
+                    task.region_id,
+                    task.device,
+                    (),
+                    run_id,
+                    now,
+                    message,
                 )
 
     def mark_task_failure_only(
@@ -894,13 +987,21 @@ class Database:
         with self.connection:
             for plan in task.plans:
                 self._upsert_rank_snapshot(
-                    observed_date, plan, task.device, (), run_id, now, message
+                    observed_date,
+                    plan,
+                    task.region_id,
+                    task.device,
+                    (),
+                    run_id,
+                    now,
+                    message,
                 )
 
     def _upsert_rank_snapshot(
         self,
         observed_date: date,
         plan: ObservationPlan,
+        region_id: str,
         device: str,
         documents: Sequence[SerpDocument],
         run_id: str,
@@ -944,7 +1045,7 @@ class Database:
                 plan.keyword.query_key,
                 plan.keyword.cluster,
                 plan.keyword.target_url,
-                MOSCOW_REGION_ID,
+                region_id,
                 device,
                 found.position if found else None,
                 found.url if found else None,
@@ -958,11 +1059,18 @@ class Database:
             ),
         )
 
-    def snapshot_counts(self, observed_date: date) -> dict[str, int]:
+    def snapshot_counts(
+        self, observed_date: date, run_id: str | None = None
+    ) -> dict[str, int]:
+        where = "observed_date=?"
+        parameters: list[str] = [observed_date.isoformat()]
+        if run_id:
+            where += " AND run_id=?"
+            parameters.append(run_id)
         rows = self.connection.execute(
-            """SELECT status, COUNT(*) AS amount FROM rank_snapshots
-               WHERE observed_date=? GROUP BY status""",
-            (observed_date.isoformat(),),
+            f"""SELECT status, COUNT(*) AS amount FROM rank_snapshots
+                WHERE {where} GROUP BY status""",
+            parameters,
         )
         result = {"ok": 0, "not_found": 0, "error": 0}
         for row in rows:
@@ -974,6 +1082,7 @@ class Database:
         observed_date: date,
         site_id: str,
         seed: str,
+        region_id: str,
         rows: Sequence[Mapping[str, Any]],
         run_id: str,
     ) -> None:
@@ -996,11 +1105,197 @@ class Database:
                         query_key(row["phrase"]),
                         row["source"],
                         row["count"],
-                        MOSCOW_REGION_ID,
+                        region_id,
                         now,
                         run_id,
                     ),
                 )
+
+    def enqueue_wordstat_jobs(
+        self,
+        observed_date: date,
+        site_id: str,
+        seeds: Sequence[str],
+        region_ids: Sequence[str],
+        num_phrases: int,
+    ) -> dict[str, int]:
+        now = iso_utc()
+        inserted = 0
+        existing = 0
+        recovered = 0
+        with self.connection:
+            for region_id in region_ids:
+                for seed in seeds:
+                    prior = self.connection.execute(
+                        """SELECT 1 FROM wordstat_snapshots
+                           WHERE observed_date=? AND site_id=? AND seed=? AND region_id=?
+                           LIMIT 1""",
+                        (observed_date.isoformat(), site_id, seed, region_id),
+                    ).fetchone()
+                    initial_state = "completed" if prior else "queued"
+                    cursor = self.connection.execute(
+                        """INSERT OR IGNORE INTO wordstat_jobs(
+                               observed_date, site_id, seed, seed_key, region_id,
+                               num_phrases, state, completed_at, created_at, updated_at
+                           ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                        (
+                            observed_date.isoformat(),
+                            site_id,
+                            seed,
+                            query_key(seed),
+                            region_id,
+                            num_phrases,
+                            initial_state,
+                            now if prior else None,
+                            now,
+                            now,
+                        ),
+                    )
+                    if cursor.rowcount:
+                        inserted += 1
+                        if prior:
+                            recovered += 1
+                    else:
+                        existing += 1
+        return {"inserted": inserted, "existing": existing, "recovered": recovered}
+
+    def recover_stale_wordstat_jobs(self, stale_before: datetime) -> int:
+        with self.connection:
+            cursor = self.connection.execute(
+                """UPDATE wordstat_jobs
+                   SET state='deferred', not_before=?,
+                       last_error='worker interrupted; safely queued for retry',
+                       updated_at=?
+                   WHERE state='running' AND updated_at<?""",
+                (iso_utc(), iso_utc(), iso_utc(stale_before)),
+            )
+        return cursor.rowcount
+
+    def next_ready_wordstat_job(self, now: datetime) -> sqlite3.Row | None:
+        return self.connection.execute(
+            """SELECT * FROM wordstat_jobs
+               WHERE state IN ('queued', 'deferred')
+                 AND (not_before IS NULL OR not_before<=?)
+               ORDER BY observed_date, created_at, job_id
+               LIMIT 1""",
+            (iso_utc(now),),
+        ).fetchone()
+
+    def wordstat_api_calls_since(self, cutoff: datetime) -> int:
+        row = self.connection.execute(
+            """SELECT COUNT(*) AS amount FROM api_call_log
+               WHERE endpoint='wordstat' AND attempted_at>=?""",
+            (iso_utc(cutoff),),
+        ).fetchone()
+        return int(row["amount"] if row else 0)
+
+    def next_wordstat_slot(self, cutoff: datetime) -> str | None:
+        row = self.connection.execute(
+            """SELECT MIN(attempted_at) AS oldest FROM api_call_log
+               WHERE endpoint='wordstat' AND attempted_at>=?""",
+            (iso_utc(cutoff),),
+        ).fetchone()
+        if not row or not row["oldest"]:
+            return None
+        oldest = datetime.fromisoformat(str(row["oldest"]).replace("Z", "+00:00"))
+        return iso_utc(oldest + timedelta(hours=1, minutes=1))
+
+    def begin_wordstat_attempt(self, job_id: int, attempted_at: datetime) -> int:
+        timestamp = iso_utc(attempted_at)
+        with self.connection:
+            self.connection.execute(
+                """UPDATE wordstat_jobs
+                   SET state='running', attempt_count=attempt_count+1,
+                       not_before=NULL, updated_at=? WHERE job_id=?""",
+                (timestamp, job_id),
+            )
+            cursor = self.connection.execute(
+                """INSERT INTO api_call_log(
+                       endpoint, attempted_at, status, job_id
+                   ) VALUES('wordstat', ?, 'attempted', ?)""",
+                (timestamp, job_id),
+            )
+        return int(cursor.lastrowid)
+
+    def finish_api_call(
+        self,
+        call_id: int,
+        status: str,
+        *,
+        http_status: int | None = None,
+        error: BaseException | str | None = None,
+    ) -> None:
+        with self.connection:
+            self.connection.execute(
+                """UPDATE api_call_log
+                   SET finished_at=?, status=?, http_status=?, error=?
+                   WHERE call_id=?""",
+                (
+                    iso_utc(),
+                    status,
+                    http_status,
+                    safe_error_text(error) if error else None,
+                    call_id,
+                ),
+            )
+
+    def complete_wordstat_job(self, job_id: int) -> None:
+        now = iso_utc()
+        with self.connection:
+            self.connection.execute(
+                """UPDATE wordstat_jobs
+                   SET state='completed', not_before=NULL, last_error=NULL,
+                       completed_at=?, updated_at=? WHERE job_id=?""",
+                (now, now, job_id),
+            )
+
+    def defer_wordstat_job(
+        self, job_id: int, not_before: datetime, error: BaseException | str
+    ) -> None:
+        with self.connection:
+            self.connection.execute(
+                """UPDATE wordstat_jobs
+                   SET state='deferred', not_before=?, last_error=?, updated_at=?
+                   WHERE job_id=?""",
+                (
+                    iso_utc(not_before),
+                    safe_error_text(error),
+                    iso_utc(),
+                    job_id,
+                ),
+            )
+
+    def fail_wordstat_job(self, job_id: int, error: BaseException | str) -> None:
+        with self.connection:
+            self.connection.execute(
+                """UPDATE wordstat_jobs
+                   SET state='error', not_before=NULL, last_error=?, updated_at=?
+                   WHERE job_id=?""",
+                (safe_error_text(error), iso_utc(), job_id),
+            )
+
+    def wordstat_queue_summary(self) -> dict[str, Any]:
+        counts = {
+            "queued": 0,
+            "deferred": 0,
+            "running": 0,
+            "completed": 0,
+            "error": 0,
+        }
+        for row in self.connection.execute(
+            "SELECT state, COUNT(*) AS amount FROM wordstat_jobs GROUP BY state"
+        ):
+            counts[str(row["state"])] = int(row["amount"])
+        row = self.connection.execute(
+            """SELECT MIN(not_before) AS next_at FROM wordstat_jobs
+               WHERE state='deferred'"""
+        ).fetchone()
+        pending = counts["queued"] + counts["deferred"] + counts["running"]
+        return {
+            **counts,
+            "pending": pending,
+            "next_not_before": row["next_at"] if row else None,
+        }
 
     def latest_run(self) -> dict[str, Any] | None:
         row = self.connection.execute(
@@ -1078,14 +1373,21 @@ def collect_rankings(
                 continue
 
             try:
-                operation = client.submit_search(task.query, task.device)
+                operation = client.submit_search(
+                    task.query, task.device, task.region_id
+                )
             except APIError as exc:
                 if _is_authentication_failure(exc):
                     raise ConfigError(
                         "Yandex rejected the configured credential; verify its role and scope"
                     ) from exc
                 database.mark_job_failure(
-                    job_id, "error", exc, task, observed_date, run_id
+                    job_id,
+                    "timeout" if _is_transient_failure(exc) else "error",
+                    exc,
+                    task,
+                    observed_date,
+                    run_id,
                 )
                 continue
             operation_id = normalize_query(operation.get("id"))
@@ -1116,16 +1418,18 @@ def collect_rankings(
                         raise ConfigError(
                             "Yandex rejected the configured credential while polling"
                         ) from exc
+                    transient = _is_transient_failure(exc)
                     database.mark_job_failure(
                         job_id,
-                        "timeout" if _is_transient_failure(exc) else "error",
+                        "timeout" if transient else "error",
                         exc,
                         task,
                         observed_date,
                         run_id,
-                        preserve_operation=_is_transient_failure(exc),
+                        preserve_operation=transient,
                     )
-                    del pending[job_id]
+                    if not transient:
+                        del pending[job_id]
                     continue
                 if documents is None:
                     continue
@@ -1152,7 +1456,7 @@ def collect_rankings(
                 break
             sleep(min(max(1.0, poll_interval), remaining))
 
-        counts = database.snapshot_counts(observed_date)
+        counts = database.snapshot_counts(observed_date, run_id)
         successful = counts.get("ok", 0) + counts.get("not_found", 0)
         errors = counts.get("error", 0)
         status = "completed" if errors == 0 and successful == planned_observations else "partial"
@@ -1174,7 +1478,7 @@ def collect_rankings(
             "errors": errors,
         }
     except Exception as exc:
-        counts = database.snapshot_counts(observed_date)
+        counts = database.snapshot_counts(observed_date, run_id)
         successful = counts.get("ok", 0) + counts.get("not_found", 0)
         database.finish_run(
             run_id,
@@ -1206,6 +1510,142 @@ def _wordstat_rows(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
+def process_wordstat_queue(
+    config: MonitorConfig,
+    database: Database,
+    client: YandexSearchClient,
+    observed_date: date,
+    *,
+    hourly_limit: int = DEFAULT_WORDSTAT_HOURLY_LIMIT,
+    batch_size: int = DEFAULT_WORDSTAT_BATCH_SIZE,
+    now: Callable[[], datetime] = utc_now,
+) -> dict[str, Any]:
+    """Process persistent Wordstat jobs within a rolling hourly budget."""
+
+    if not 1 <= hourly_limit <= 100:
+        raise ConfigError("Wordstat hourly limit must be between 1 and 100")
+    if not 1 <= batch_size <= 1000:
+        raise ConfigError("Wordstat batch size must be between 1 and 1000")
+
+    current = now().astimezone(timezone.utc)
+    recovered = database.recover_stale_wordstat_jobs(current - timedelta(minutes=30))
+    initial_queue = database.wordstat_queue_summary()
+    run_id = database.start_run(
+        "wordstat-worker", observed_date, config.digest, initial_queue["pending"]
+    )
+    rows_out: list[dict[str, Any]] = []
+    errors: list[str] = []
+    completed = 0
+    attempted = 0
+    throttled = False
+    next_allowed_at: str | None = None
+    try:
+        while attempted < batch_size:
+            current = now().astimezone(timezone.utc)
+            cutoff = current - timedelta(hours=1)
+            used = database.wordstat_api_calls_since(cutoff)
+            if used >= hourly_limit:
+                throttled = True
+                next_allowed_at = database.next_wordstat_slot(cutoff)
+                break
+
+            job = database.next_ready_wordstat_job(current)
+            if job is None:
+                next_allowed_at = database.wordstat_queue_summary()["next_not_before"]
+                break
+
+            job_id = int(job["job_id"])
+            call_id = database.begin_wordstat_attempt(job_id, current)
+            attempted += 1
+            try:
+                payload = client.wordstat_top(
+                    str(job["seed"]),
+                    num_phrases=int(job["num_phrases"]),
+                    region_id=str(job["region_id"]),
+                )
+                result_rows = _wordstat_rows(payload)
+                database.store_wordstat_rows(
+                    date.fromisoformat(str(job["observed_date"])),
+                    str(job["site_id"]),
+                    str(job["seed"]),
+                    str(job["region_id"]),
+                    result_rows,
+                    run_id,
+                )
+                database.finish_api_call(call_id, "completed", http_status=200)
+                database.complete_wordstat_job(job_id)
+                completed += 1
+                rows_out.extend(
+                    {
+                        "site_id": str(job["site_id"]),
+                        "seed": str(job["seed"]),
+                        "region_id": str(job["region_id"]),
+                        **row,
+                    }
+                    for row in result_rows
+                )
+            except APIError as exc:
+                http_status = exc.status if isinstance(exc, HTTPStatusError) else None
+                database.finish_api_call(
+                    call_id, "failed", http_status=http_status, error=exc
+                )
+                label = (
+                    f"region {job['region_id']}, {job['seed']}: "
+                    f"{safe_error_text(exc)}"
+                )
+                if _is_authentication_failure(exc):
+                    database.defer_wordstat_job(
+                        job_id, current + timedelta(hours=1), exc
+                    )
+                    raise ConfigError(
+                        "Yandex rejected the configured credential for Wordstat"
+                    ) from exc
+                if isinstance(exc, HTTPStatusError) and exc.status == 429:
+                    delay = max(float(exc.retry_after or 0), 3660.0)
+                    deferred_until = current + timedelta(seconds=delay)
+                    database.defer_wordstat_job(job_id, deferred_until, exc)
+                    throttled = True
+                    next_allowed_at = iso_utc(deferred_until)
+                    errors.append(label)
+                    break
+                if _is_transient_failure(exc):
+                    attempt_number = int(job["attempt_count"]) + 1
+                    delay = min(21600, 300 * (2 ** min(attempt_number - 1, 6)))
+                    database.defer_wordstat_job(
+                        job_id, current + timedelta(seconds=delay), exc
+                    )
+                else:
+                    database.fail_wordstat_job(job_id, exc)
+                errors.append(label)
+
+        queue = database.wordstat_queue_summary()
+        status = "completed" if queue["pending"] == 0 and not errors else "partial"
+        if next_allowed_at is None:
+            next_allowed_at = queue["next_not_before"]
+        message = (
+            f"attempted={attempted}, completed={completed}, pending={queue['pending']}, "
+            f"hourly_limit={hourly_limit}, throttled={str(throttled).lower()}"
+        )
+        database.finish_run(run_id, status, completed, len(errors), message)
+        return {
+            "run_id": run_id,
+            "status": status,
+            "observed_date": observed_date.isoformat(),
+            "attempted": attempted,
+            "completed": completed,
+            "recovered_stale_jobs": recovered,
+            "hourly_limit": hourly_limit,
+            "throttled": throttled,
+            "next_allowed_at": next_allowed_at,
+            "queue": queue,
+            "rows": rows_out,
+            "errors": errors,
+        }
+    except Exception as exc:
+        database.finish_run(run_id, "failed", completed, len(errors) + 1, safe_error_text(exc))
+        raise
+
+
 def discover_wordstat(
     config: MonitorConfig,
     database: Database,
@@ -1214,6 +1654,10 @@ def discover_wordstat(
     site_id: str,
     seeds: Sequence[str],
     num_phrases: int,
+    *,
+    hourly_limit: int = DEFAULT_WORDSTAT_HOURLY_LIMIT,
+    batch_size: int = DEFAULT_WORDSTAT_BATCH_SIZE,
+    now: Callable[[], datetime] = utc_now,
 ) -> dict[str, Any]:
     site = next((item for item in config.sites if item.site_id == site_id), None)
     if site is None:
@@ -1223,50 +1667,32 @@ def discover_wordstat(
     ) or site.discovery_seeds
     if not effective_seeds:
         raise ConfigError("provide --seed or configure discovery_seeds for this site")
+    if not 1 <= num_phrases <= 2000:
+        raise ConfigError("Wordstat num_phrases must be between 1 and 2000")
 
-    run_id = database.start_run(
-        "wordstat", observed_date, config.digest, len(effective_seeds)
+    enqueued = database.enqueue_wordstat_jobs(
+        observed_date,
+        site.site_id,
+        effective_seeds,
+        config.region_ids,
+        num_phrases,
     )
-    combined: list[dict[str, Any]] = []
-    errors: list[str] = []
-    try:
-        for seed in effective_seeds:
-            try:
-                payload = client.wordstat_top(seed, num_phrases=num_phrases)
-                rows = _wordstat_rows(payload)
-                database.store_wordstat_rows(
-                    observed_date, site.site_id, seed, rows, run_id
-                )
-                combined.extend(
-                    {"site_id": site.site_id, "seed": seed, **row} for row in rows
-                )
-            except APIError as exc:
-                if _is_authentication_failure(exc):
-                    raise ConfigError(
-                        "Yandex rejected the configured credential for Wordstat"
-                    ) from exc
-                errors.append(f"{seed}: {safe_error_text(exc)}")
-        status = "completed" if not errors else "partial"
-        database.finish_run(
-            run_id,
-            status,
-            len(effective_seeds) - len(errors),
-            len(errors),
-            "; ".join(errors),
-        )
-        return {
-            "run_id": run_id,
-            "status": status,
-            "observed_date": observed_date.isoformat(),
-            "region_id": MOSCOW_REGION_ID,
-            "site_id": site.site_id,
-            "seeds": list(effective_seeds),
-            "rows": combined,
-            "errors": errors,
-        }
-    except Exception as exc:
-        database.finish_run(run_id, "failed", 0, 1, safe_error_text(exc))
-        raise
+    result = process_wordstat_queue(
+        config,
+        database,
+        client,
+        observed_date,
+        hourly_limit=hourly_limit,
+        batch_size=batch_size,
+        now=now,
+    )
+    return {
+        **result,
+        "region_ids": list(config.region_ids),
+        "site_id": site.site_id,
+        "seeds": list(effective_seeds),
+        "enqueued": enqueued,
+    }
 
 
 def _position_value(row: Mapping[str, Any] | None) -> int | None:
@@ -1286,7 +1712,7 @@ def build_report(database: Database, as_of: date, days: int) -> dict[str, Any]:
         dict(row)
         for row in database.connection.execute(
             """SELECT * FROM rank_snapshots WHERE observed_date=?
-               ORDER BY site_id, cluster_name, query, device""",
+               ORDER BY site_id, region_id, cluster_name, query, device""",
             (as_of.isoformat(),),
         )
     ]
@@ -1324,6 +1750,9 @@ def build_report(database: Database, as_of: date, days: int) -> dict[str, Any]:
                 "cluster": current["cluster_name"],
                 "query": current["query"],
                 "region_id": current["region_id"],
+                "region_name": REGION_NAMES.get(
+                    current["region_id"], f"Регион {current['region_id']}"
+                ),
                 "device": current["device"],
                 "status": current["status"],
                 "position": current["position"],
@@ -1365,7 +1794,7 @@ def build_report(database: Database, as_of: date, days: int) -> dict[str, Any]:
         "as_of": as_of.isoformat(),
         "window_days": days,
         "baseline_target_date": baseline_target.isoformat() if days > 1 else None,
-        "region_id": MOSCOW_REGION_ID,
+        "region_ids": sorted({row["region_id"] for row in output_rows}),
         "method": "Official Yandex Search API async XML; top 100",
         "summary": summary,
         "rows": output_rows,
@@ -1374,6 +1803,8 @@ def build_report(database: Database, as_of: date, days: int) -> dict[str, Any]:
 
 REPORT_COLUMNS = (
     "site_id",
+    "region_id",
+    "region_name",
     "cluster",
     "query",
     "device",
@@ -1452,6 +1883,10 @@ def report_to_html(report: Mapping[str, Any]) -> str:
     summary = report["summary"]
     window = report["window_days"]
     title_window = "сегодня" if window == 1 else f"{window} дней"
+    region_summary = " · ".join(
+        REGION_NAMES.get(region_id, f"Регион {region_id}")
+        for region_id in report.get("region_ids", ())
+    ) or "регионы не выбраны"
     cards = "".join(
         f"<div><strong>{html.escape(str(value))}</strong><span>{html.escape(label)}</span></div>"
         for label, value in (
@@ -1479,6 +1914,7 @@ def report_to_html(report: Mapping[str, Any]) -> str:
         body_rows.append(
             "<tr>"
             f"<td>{html.escape(str(row['site_id']))}</td>"
+            f"<td>{html.escape(str(row['region_name']))}</td>"
             f"<td><b>{html.escape(str(row['query']))}</b><small>{html.escape(str(row['cluster'] or '—'))}</small></td>"
             f"<td>{'Телефон' if row['device'] == 'mobile' else 'Компьютер'}</td>"
             f"<td class=rank>{_position_label(row)}</td>"
@@ -1489,7 +1925,7 @@ def report_to_html(report: Mapping[str, Any]) -> str:
             "</tr>"
         )
     empty = (
-        "<tr><td colspan=8 class=empty>За выбранную дату снимков пока нет.</td></tr>"
+        "<tr><td colspan=9 class=empty>За выбранную дату снимков пока нет.</td></tr>"
         if not body_rows
         else ""
     )
@@ -1508,8 +1944,8 @@ h1{{font:700 clamp(28px,4vw,48px)/1.05 Georgia,serif;margin:5px 0}}p{{margin:0;c
 th,td{{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}}th{{position:sticky;top:0;background:#ecf0ec;font-size:11px;letter-spacing:.06em;text-transform:uppercase}}
 .rank{{font-size:20px;font-weight:800}}.up{{color:var(--green);font-weight:800}}.down{{color:var(--red);font-weight:800}}.url{{max-width:360px;overflow-wrap:anywhere}}a{{color:var(--green)}}.empty{{padding:40px;text-align:center;color:var(--muted)}}footer{{margin-top:14px;font-size:12px;color:var(--muted)}}
 @media(max-width:900px){{.cards{{grid-template-columns:repeat(3,1fr)}}header{{display:block}}}}@media(max-width:520px){{main{{padding:22px 12px}}.cards{{grid-template-columns:repeat(2,1fr)}}}}
-</style></head><body><main><header><div><div class=eyebrow>Официальный Yandex Search API · Москва 213</div><h1>Позиции сайта</h1><p>Дата снимка: {report['as_of']} · сравнение: {html.escape(title_window)}</p></div><p>Сформировано {html.escape(str(report['generated_at']))}</p></header>
-<section class=cards>{cards}</section><section class=table><table><thead><tr><th>Сайт</th><th>Запрос</th><th>Устройство</th><th>Позиция</th><th>Было</th><th>Изменение</th><th>Найденная страница</th><th>Ошибка</th></tr></thead><tbody>{''.join(body_rows)}{empty}</tbody></table></section>
+</style></head><body><main><header><div><div class=eyebrow>Официальный Yandex Search API · {html.escape(region_summary)}</div><h1>Позиции сайта</h1><p>Дата снимка: {report['as_of']} · сравнение: {html.escape(title_window)}</p></div><p>Сформировано {html.escape(str(report['generated_at']))}</p></header>
+<section class=cards>{cards}</section><section class=table><table><thead><tr><th>Сайт</th><th>Регион</th><th>Запрос</th><th>Устройство</th><th>Позиция</th><th>Было</th><th>Изменение</th><th>Найденная страница</th><th>Ошибка</th></tr></thead><tbody>{''.join(body_rows)}{empty}</tbody></table></section>
 <footer>Позиция является воспроизводимым снимком Search API, а не персонализированной ручной выдачей. Значение &gt;100 означает отсутствие домена в первых 100 органических результатах.</footer></main></body></html>"""
 
 
@@ -1653,6 +2089,72 @@ def create_parser() -> argparse.ArgumentParser:
     discover.add_argument("--date", help="Moscow observation date, YYYY-MM-DD")
     discover.add_argument("--format", choices=("json", "csv"), default="json")
     discover.add_argument("--output", default="-", help="file path or - for stdout")
+    discover.add_argument(
+        "--hourly-limit",
+        type=int,
+        default=_number_from_env(
+            "SEO_MONITOR_WORDSTAT_HOURLY_LIMIT", DEFAULT_WORDSTAT_HOURLY_LIMIT, int
+        ),
+    )
+    discover.add_argument(
+        "--batch-size",
+        type=int,
+        default=_number_from_env(
+            "SEO_MONITOR_WORDSTAT_BATCH_SIZE", DEFAULT_WORDSTAT_BATCH_SIZE, int
+        ),
+    )
+
+    enqueue = subparsers.add_parser(
+        "enqueue-wordstat",
+        help="persist Wordstat discovery jobs without making network requests",
+    )
+    enqueue.add_argument(
+        "--config",
+        default=_default_path(
+            "SEO_MONITOR_CONFIG", "/etc/elegso-seo-monitor/keywords.json"
+        ),
+    )
+    enqueue.add_argument(
+        "--db",
+        default=_default_path(
+            "SEO_MONITOR_DB", "/var/lib/elegso-seo-monitor/history.sqlite3"
+        ),
+    )
+    enqueue.add_argument("--site", required=True, help="site id from keyword config")
+    enqueue.add_argument("--seed", action="append", default=[])
+    enqueue.add_argument("--num-phrases", type=int, default=200)
+    enqueue.add_argument("--date", help="Moscow observation date, YYYY-MM-DD")
+
+    worker = subparsers.add_parser(
+        "work-wordstat", help="resume the persistent Wordstat queue within its quota"
+    )
+    worker.add_argument(
+        "--config",
+        default=_default_path(
+            "SEO_MONITOR_CONFIG", "/etc/elegso-seo-monitor/keywords.json"
+        ),
+    )
+    worker.add_argument(
+        "--db",
+        default=_default_path(
+            "SEO_MONITOR_DB", "/var/lib/elegso-seo-monitor/history.sqlite3"
+        ),
+    )
+    worker.add_argument("--date", help="Moscow run date, YYYY-MM-DD")
+    worker.add_argument(
+        "--hourly-limit",
+        type=int,
+        default=_number_from_env(
+            "SEO_MONITOR_WORDSTAT_HOURLY_LIMIT", DEFAULT_WORDSTAT_HOURLY_LIMIT, int
+        ),
+    )
+    worker.add_argument(
+        "--batch-size",
+        type=int,
+        default=_number_from_env(
+            "SEO_MONITOR_WORDSTAT_BATCH_SIZE", DEFAULT_WORDSTAT_BATCH_SIZE, int
+        ),
+    )
 
     status = subparsers.add_parser(
         "status", help="show local state; this command never requires an API key"
@@ -1693,7 +2195,15 @@ def _write_discovery_output(result: Mapping[str, Any], output_format: str, path:
 
         stream = StringIO(newline="")
         writer = csv.DictWriter(
-            stream, fieldnames=("site_id", "seed", "source", "phrase", "count")
+            stream,
+            fieldnames=(
+                "site_id",
+                "region_id",
+                "seed",
+                "source",
+                "phrase",
+                "count",
+            ),
         )
         writer.writeheader()
         writer.writerows(_csv_safe_row(row) for row in result["rows"])
@@ -1725,22 +2235,37 @@ def status_payload(config_path: Path, db_path: Path) -> dict[str, Any]:
             }
             for site in config.sites
         ],
+        "regions": [
+            {
+                "id": region_id,
+                "name": REGION_NAMES.get(region_id, f"Регион {region_id}"),
+            }
+            for region_id in config.region_ids
+        ],
         "search_tasks_per_day": len(build_tasks(config)),
         "credentials": {
             "folder_id_set": folder_id,
             "api_key_set": api_key,
             "iam_token_set": iam_token,
-            "valid_shape": folder_id and api_key != iam_token,
+            "valid_shape": (api_key and not iam_token) or (
+                iam_token and not api_key and folder_id
+            ),
         },
         "database": str(db_path),
         "database_exists": db_path.exists(),
         "latest_run": None,
         "latest_snapshot_date": None,
+        "wordstat_queue": None,
+        "wordstat_calls_last_hour": 0,
     }
     if db_path.exists():
         with Database(db_path) as database:
             payload["latest_run"] = database.latest_run()
             payload["latest_snapshot_date"] = database.latest_snapshot_date()
+            payload["wordstat_queue"] = database.wordstat_queue_summary()
+            payload["wordstat_calls_last_hour"] = database.wordstat_api_calls_since(
+                utc_now() - timedelta(hours=1)
+            )
     return payload
 
 
@@ -1764,6 +2289,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                     f"daily API searches: {payload['search_tasks_per_day']}"
                 )
                 print(
+                    "Regions: "
+                    + ", ".join(
+                        f"{region['name']} ({region['id']})"
+                        for region in payload["regions"]
+                    )
+                )
+                print(
                     "Credentials configured: "
                     + ("yes" if payload["credentials"]["valid_shape"] else "no")
                 )
@@ -1773,6 +2305,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                     latest = payload["latest_run"]
                     print(
                         f"Latest run: {latest['started_at']} · {latest['kind']} · {latest['status']}"
+                    )
+                if payload["wordstat_queue"]:
+                    queue = payload["wordstat_queue"]
+                    print(
+                        f"Wordstat queue: {queue['pending']} pending; "
+                        f"{payload['wordstat_calls_last_hour']} calls in the last hour"
                     )
             return 0
 
@@ -1810,6 +2348,65 @@ def main(argv: Sequence[str] | None = None) -> int:
             _print_json(result)
             return 0 if result["status"] == "completed" else 1
 
+        if args.command == "enqueue-wordstat":
+            config = load_config(Path(args.config))
+            observed_date = parse_date(args.date)
+            site = next(
+                (item for item in config.sites if item.site_id == args.site), None
+            )
+            if site is None:
+                raise ConfigError(f"unknown site id: {args.site}")
+            seeds = tuple(
+                dict.fromkeys(
+                    seed
+                    for seed in (normalize_query(item) for item in args.seed)
+                    if seed
+                )
+            ) or site.discovery_seeds
+            if not seeds:
+                raise ConfigError(
+                    "provide --seed or configure discovery_seeds for this site"
+                )
+            if not 1 <= args.num_phrases <= 2000:
+                raise ConfigError("Wordstat num_phrases must be between 1 and 2000")
+            with Database(Path(args.db)) as database:
+                enqueued = database.enqueue_wordstat_jobs(
+                    observed_date,
+                    site.site_id,
+                    seeds,
+                    config.region_ids,
+                    args.num_phrases,
+                )
+                queue = database.wordstat_queue_summary()
+            _print_json(
+                {
+                    "status": "queued",
+                    "observed_date": observed_date.isoformat(),
+                    "site_id": site.site_id,
+                    "regions": list(config.region_ids),
+                    "seeds": list(seeds),
+                    "enqueued": enqueued,
+                    "queue": queue,
+                }
+            )
+            return 0
+
+        if args.command == "work-wordstat":
+            config = load_config(Path(args.config))
+            client = client_from_environment()
+            observed_date = parse_date(args.date)
+            with Database(Path(args.db)) as database:
+                result = process_wordstat_queue(
+                    config,
+                    database,
+                    client,
+                    observed_date,
+                    hourly_limit=args.hourly_limit,
+                    batch_size=args.batch_size,
+                )
+            _print_json(result)
+            return 0 if result["status"] in {"completed", "partial"} else 1
+
         if args.command == "discover":
             config = load_config(Path(args.config))
             client = client_from_environment()
@@ -1823,6 +2420,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                     args.site,
                     args.seed,
                     args.num_phrases,
+                    hourly_limit=args.hourly_limit,
+                    batch_size=args.batch_size,
                 )
             _write_discovery_output(result, args.format, args.output)
             return 0 if result["status"] == "completed" else 1

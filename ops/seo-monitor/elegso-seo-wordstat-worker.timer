@@ -1,0 +1,11 @@
+[Unit]
+Description=Continue pending ELEGSO Wordstat jobs every 20 minutes
+
+[Timer]
+OnCalendar=*-*-* *:00,20,40:00
+RandomizedDelaySec=2min
+Persistent=true
+Unit=elegso-seo-wordstat-worker.service
+
+[Install]
+WantedBy=timers.target

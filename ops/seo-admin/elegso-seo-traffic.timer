@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh ELEGSO page-view aggregates every 15 minutes
+
+[Timer]
+OnCalendar=*-*-* *:00,15,30,45:00
+RandomizedDelaySec=45s
+Persistent=true
+Unit=elegso-seo-traffic.service
+
+[Install]
+WantedBy=timers.target

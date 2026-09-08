@@ -1,80 +1,133 @@
 {
   "schema_version": 1,
+  "regions": ["225", "213", "2"],
   "sites": [
     {
       "id": "elegso.ru",
       "name": "ЮК «ЭЛЕГСО»",
-      "domains": [
-        "elegso.ru",
-        "www.elegso.ru"
-      ],
+      "domains": ["elegso.ru", "www.elegso.ru"],
       "include_subdomains": false,
       "discovery_seeds": [
         "юрист по лизингу",
+        "лизинговый юрист",
+        "адвокат по лизингу",
+        "помощь по лизингу",
+        "лизинговые споры",
+        "лизинговый спор",
+        "спор с лизинговой компанией",
+        "суд с лизинговой компанией",
+        "защита лизингополучателя",
         "расторжение договора лизинга",
-        "сальдо встречных обязательств"
+        "досрочное расторжение договора лизинга",
+        "одностороннее расторжение договора лизинга",
+        "возврат лизинговых платежей",
+        "взыскание лизинговых платежей",
+        "изъятие предмета лизинга",
+        "возврат предмета лизинга",
+        "восстановление договора лизинга",
+        "переуступка лизинга",
+        "сальдо встречных обязательств",
+        "расчет сальдо встречных обязательств",
+        "калькулятор сальдо встречных обязательств",
+        "неустойка по договору лизинга",
+        "снижение неустойки",
+        "уменьшение неустойки",
+        "возврат неустойки",
+        "калькулятор неустойки",
+        "расчет неустойки",
+        "юридическое сопровождение бизнеса",
+        "юридические услуги для бизнеса",
+        "судебная защита бизнеса",
+        "арбитражные споры",
+        "арбитражный юрист",
+        "юрист по арбитражным делам",
+        "юрист в арбитражный суд",
+        "представительство в арбитражном суде",
+        "обжалование решения арбитражного суда",
+        "апелляционная жалоба арбитражный суд",
+        "кассационная жалоба арбитражный суд",
+        "взыскание долга",
+        "взыскание задолженности",
+        "взыскание упущенной выгоды",
+        "юрист по договорам",
+        "проверка договора юристом",
+        "составление договора",
+        "изменение условий договора",
+        "расторжение договора",
+        "восстановление договора",
+        "отмена судебного приказа",
+        "возражение на судебный приказ",
+        "имущественные споры",
+        "юрист по имущественным спорам",
+        "взыскание ущерба",
+        "юрист по ДТП",
+        "спор со страховой компанией ДТП"
       ],
       "keywords": [
-        {
-          "query": "юрист по лизингу",
-          "cluster": "лизинговые споры",
-          "target_url": "/leasing_lawyer/"
-        },
-        {
-          "query": "юрист по лизинговым спорам",
-          "cluster": "лизинговые споры",
-          "target_url": "/leasing_lawyer/"
-        },
-        {
-          "query": "расторжение договора лизинга",
-          "cluster": "расторжение лизинга",
-          "target_url": "/termination_of_the_lease_agreement/"
-        },
-        {
-          "query": "одностороннее расторжение договора лизинга",
-          "cluster": "расторжение лизинга",
-          "target_url": "/termination_of_the_lease_agreement/"
-        },
-        {
-          "query": "восстановление договора лизинга",
-          "cluster": "расторжение лизинга",
-          "target_url": "/restoring_the_contract/"
-        },
-        {
-          "query": "возврат лизинговых платежей",
-          "cluster": "лизинговые платежи",
-          "target_url": "/termination_of_the_lease_agreement/"
-        },
-        {
-          "query": "взыскание лизинговых платежей",
-          "cluster": "лизинговые платежи",
-          "target_url": "/collect_the_debt/"
-        },
-        {
-          "query": "неустойка по договору лизинга",
-          "cluster": "неустойка",
-          "target_url": "/reduction_of_the_penalty_amount/"
-        },
-        {
-          "query": "снижение неустойки по договору лизинга",
-          "cluster": "неустойка",
-          "target_url": "/reduction_of_the_penalty_amount/"
-        },
-        {
-          "query": "сальдо встречных обязательств лизинг",
-          "cluster": "сальдо",
-          "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"
-        },
-        {
-          "query": "расчет сальдо встречных обязательств лизинг",
-          "cluster": "сальдо",
-          "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"
-        },
-        {
-          "query": "изъятие предмета лизинга",
-          "cluster": "предмет лизинга",
-          "target_url": "/leasing_lawyer/"
-        }
+        {"query": "юрист по лизингу", "cluster": "лизинговый юрист", "target_url": "/leasing_lawyer/"},
+        {"query": "лизинговый юрист", "cluster": "лизинговый юрист", "target_url": "/leasing_lawyer/"},
+        {"query": "юрист по лизинговым спорам", "cluster": "лизинговый юрист", "target_url": "/leasing_lawyer/"},
+        {"query": "юрист по лизингу консультация", "cluster": "лизинговый юрист", "target_url": "/leasing_lawyer/"},
+        {"query": "юрист по лизингу автомобиля", "cluster": "лизинговый юрист", "target_url": "/leasing_lawyer/"},
+        {"query": "лизинговый спор", "cluster": "лизинговые споры", "target_url": "/leasing_lawyer/"},
+        {"query": "споры с лизинговыми компаниями", "cluster": "лизинговые споры", "target_url": "/leasing_lawyer/"},
+        {"query": "суд с лизинговой компанией", "cluster": "лизинговые споры", "target_url": "/leasing_lawyer/"},
+        {"query": "защита лизингополучателя", "cluster": "лизинговые споры", "target_url": "/leasing_lawyer/"},
+        {"query": "расторжение договора лизинга", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "расторжение договора лизинга лизингополучателем", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "расторжение договора лизинга лизингодателем", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "досрочное расторжение договора лизинга", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "расторжение договора лизинга по инициативе лизингополучателя", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "односторонне расторжение договора лизинга", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "расторжение договора лизинга в одностороннем порядке", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "расторжение договора лизинга и изъятие", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "возврат лизинговых платежей", "cluster": "расторжение лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "сальдо при расторжении договора лизинга", "cluster": "сальдо лизинга", "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"},
+        {"query": "сальдо встречных обязательств", "cluster": "сальдо лизинга", "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"},
+        {"query": "сальдо встречных обязательств лизинг", "cluster": "сальдо лизинга", "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"},
+        {"query": "сальдо встречных обязательств по договору лизинга", "cluster": "сальдо лизинга", "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"},
+        {"query": "расчет сальдо встречных обязательств лизинг", "cluster": "сальдо лизинга", "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"},
+        {"query": "калькулятор сальдо встречных обязательств", "cluster": "сальдо лизинга", "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"},
+        {"query": "калькулятор сальдо встречных обязательств лизинг", "cluster": "сальдо лизинга", "target_url": "/calculator_of_the_balance_of_counter_obligations_in_leasing/"},
+        {"query": "неустойка по договору лизинга", "cluster": "неустойка", "target_url": "/reduction_of_the_penalty_amount/"},
+        {"query": "изъятие предмета лизинга", "cluster": "предмет лизинга", "target_url": "/leasing_lawyer/"},
+        {"query": "возврат предмета лизинга", "cluster": "предмет лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "возврат предмета лизинга лизингодателю", "cluster": "предмет лизинга", "target_url": "/termination_of_the_lease_agreement/"},
+        {"query": "переуступка лизинга", "cluster": "лизинговые споры", "target_url": "/leasing_lawyer/"},
+        {"query": "восстановление договора лизинга", "cluster": "восстановление договора", "target_url": "/restoring_the_contract/"},
+        {"query": "юридическое сопровождение бизнеса", "cluster": "юридическое сопровождение", "target_url": "/"},
+        {"query": "юридические услуги для бизнеса", "cluster": "юридическое сопровождение", "target_url": "/"},
+        {"query": "юридическое сопровождение бизнеса стоимость", "cluster": "юридическое сопровождение", "target_url": "/"},
+        {"query": "арбитражный юрист", "cluster": "арбитражный юрист", "target_url": "/arbitration_lawyer/"},
+        {"query": "юрист арбитражный суд", "cluster": "арбитражный юрист", "target_url": "/arbitration_lawyer/"},
+        {"query": "юрист по арбитражным делам", "cluster": "арбитражный юрист", "target_url": "/arbitration_lawyer/"},
+        {"query": "услуги арбитражного юриста", "cluster": "арбитражный юрист", "target_url": "/arbitration_lawyer/"},
+        {"query": "арбитражный юрист москва", "cluster": "арбитражный юрист", "target_url": "/arbitration_lawyer/"},
+        {"query": "нужен арбитражный юрист", "cluster": "арбитражный юрист", "target_url": "/arbitration_lawyer/"},
+        {"query": "юрист в арбитражный суд", "cluster": "судебная защита", "target_url": "/trial_lawyer/"},
+        {"query": "услуги юриста в арбитражном суде", "cluster": "судебная защита", "target_url": "/trial_lawyer/"},
+        {"query": "представительство в арбитражном суде", "cluster": "представительство", "target_url": "/representation_in_the_arbitration_court/"},
+        {"query": "стоимость представительства в арбитражном суде", "cluster": "представительство", "target_url": "/representation_in_the_arbitration_court/"},
+        {"query": "обжалование решения арбитражного суда", "cluster": "обжалование", "target_url": "/appeal_of_judicial_acts/"},
+        {"query": "апелляционная жалоба в арбитражный суд", "cluster": "обжалование", "target_url": "/appeal_of_judicial_acts/"},
+        {"query": "подача апелляционной жалобы в арбитражный суд", "cluster": "обжалование", "target_url": "/appeal_of_judicial_acts/"},
+        {"query": "кассационная жалоба в арбитражный суд", "cluster": "обжалование", "target_url": "/appeal_of_judicial_acts/"},
+        {"query": "взыскание долгов", "cluster": "взыскание задолженности", "target_url": "/collect_the_debt/"},
+        {"query": "взыскание задолженности", "cluster": "взыскание задолженности", "target_url": "/collect_the_debt/"},
+        {"query": "взыскание дебиторской задолженности", "cluster": "взыскание задолженности", "target_url": "/collect_the_debt/"},
+        {"query": "услуги взыскания задолженности", "cluster": "взыскание задолженности", "target_url": "/collect_the_debt/"},
+        {"query": "юрист по взысканию долгов", "cluster": "взыскание задолженности", "target_url": "/collect_the_debt/"},
+        {"query": "юрист по договорам", "cluster": "договорное право", "target_url": "/contract_drafting_service/"},
+        {"query": "консультация юриста по договору", "cluster": "договорное право", "target_url": "/contract_drafting_service/"},
+        {"query": "юрист по составлению договоров", "cluster": "договорное право", "target_url": "/contract_drafting_service/"},
+        {"query": "стоимость услуг юриста по договорам", "cluster": "договорное право", "target_url": "/contract_drafting_service/"},
+        {"query": "составление договора", "cluster": "договорное право", "target_url": "/drafting_an_agreement/"},
+        {"query": "отмена судебного приказа", "cluster": "судебный приказ", "target_url": "/cancellation_of_the_court_order/"},
+        {"query": "возражение на судебный приказ", "cluster": "судебный приказ", "target_url": "/cancellation_of_the_court_order/"},
+        {"query": "отмена судебного приказа пропущен срок", "cluster": "судебный приказ", "target_url": "/cancellation_of_the_court_order/"},
+        {"query": "юристы по имущественным спорам", "cluster": "имущественные споры", "target_url": "/property_law/"},
+        {"query": "взыскание упущенной выгоды", "cluster": "имущественные споры", "target_url": "/property_law/"},
+        {"query": "взыскание ущерба после дтп", "cluster": "дтп", "target_url": "/accident_lawyer/"}
       ]
     }
   ]

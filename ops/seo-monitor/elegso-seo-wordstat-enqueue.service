@@ -1,0 +1,18 @@
+[Unit]
+Description=Queue weekly ELEGSO Wordstat discovery jobs
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=seo-monitor
+Group=seo-monitor
+UMask=0027
+Environment=TZ=Europe/Moscow
+ExecStart=/usr/bin/python3 /opt/elegso-seo-monitor/seo_monitor.py enqueue-wordstat --config /var/lib/elegso-seo-admin/config/keywords.json --db /var/lib/elegso-seo-monitor/history.sqlite3 --site elegso.ru --num-phrases 200
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ReadOnlyPaths=/var/lib/elegso-seo-admin/config
+ReadWritePaths=/var/lib/elegso-seo-monitor

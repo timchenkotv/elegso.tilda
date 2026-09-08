@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh ELEGSO Yandex marketing analytics four times daily
+
+[Timer]
+OnCalendar=*-*-* 03,09,15,21:27:00 Europe/Moscow
+RandomizedDelaySec=5min
+Persistent=true
+Unit=elegso-yandex-analytics.service
+
+[Install]
+WantedBy=timers.target

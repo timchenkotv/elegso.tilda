@@ -7,6 +7,10 @@ api=/opt/elegso-calc-api
 publisher=/opt/elegso-case-publisher
 seo_monitor=/opt/elegso-seo-monitor
 seo_monitor_config=/etc/elegso-seo-monitor
+seo_admin=/opt/elegso-seo-admin
+seo_admin_config=/etc/elegso-seo-admin
+seo_admin_state=/var/lib/elegso-seo-admin
+nginx_site=/etc/nginx/sites-available/elegso.conf
 
 while read -r old new ref; do
     [ "$ref" = "refs/heads/main" ] || continue
@@ -123,7 +127,161 @@ while read -r old new ref; do
         sudo /usr/bin/install -o root -g root -m 0644 \
             "$release/ops/seo-monitor/elegso-seo-monitor.timer" \
             /etc/systemd/system/elegso-seo-monitor.timer
+        for unit in \
+            elegso-seo-wordstat-enqueue.service \
+            elegso-seo-wordstat-enqueue.timer \
+            elegso-seo-wordstat-worker.service \
+            elegso-seo-wordstat-worker.timer
+        do
+            sudo /usr/bin/install -o root -g root -m 0644 \
+                "$release/ops/seo-monitor/$unit" \
+                "/etc/systemd/system/$unit"
+        done
+        if [ -f /var/lib/elegso-seo-monitor/history.sqlite3 ]; then
+            sudo /bin/chown seo-monitor:seo-monitor \
+                /var/lib/elegso-seo-monitor/history.sqlite3
+            sudo /bin/chmod 0640 /var/lib/elegso-seo-monitor/history.sqlite3
+        fi
         sudo /bin/systemctl daemon-reload
+    fi
+
+    # Deploy the private dashboard under separate web and ingest identities.
+    # OAuth credentials, passwords, role data and historical analytics live
+    # outside Git and are never overwritten by a release.
+    if [ -f "$release/ops/seo-admin/app.py" ]; then
+        if [ ! -x /usr/bin/htpasswd ]; then
+            echo "apache2-utils is required before deploying the SEO dashboard" >&2
+            exit 1
+        fi
+        if ! /usr/bin/getent passwd elegso-seo-admin >/dev/null; then
+            sudo /usr/sbin/useradd --system --user-group --home /nonexistent \
+                --shell /usr/sbin/nologin elegso-seo-admin
+        fi
+        if ! /usr/bin/getent passwd elegso-seo-ingest >/dev/null; then
+            sudo /usr/sbin/useradd --system --user-group --home /nonexistent \
+                --shell /usr/sbin/nologin elegso-seo-ingest
+        fi
+
+        sudo /usr/bin/install -d -o root -g root -m 0755 \
+            "$seo_admin" "$seo_admin/releases"
+        admin_release="$seo_admin/releases/$(printf '%s' "$new" | cut -c1-12)"
+        sudo /usr/bin/install -d -o root -g root -m 0755 \
+            "$admin_release" "$admin_release/static"
+        for program in app.py traffic_aggregate.py yandex_sync.py; do
+            sudo /usr/bin/install -o root -g root -m 0755 \
+                "$release/ops/seo-admin/$program" "$admin_release/$program"
+        done
+        for asset in index.html app.css app.js; do
+            sudo /usr/bin/install -o root -g root -m 0644 \
+                "$release/ops/seo-admin/static/$asset" \
+                "$admin_release/static/$asset"
+        done
+        /usr/bin/python3 -m py_compile \
+            "$admin_release/app.py" \
+            "$admin_release/traffic_aggregate.py" \
+            "$admin_release/yandex_sync.py"
+
+        # The top directory is traverse-only to unrelated identities; every
+        # child then grants only the precise role it needs.
+        sudo /usr/bin/install -d -o elegso-seo-admin -g elegso-seo-admin -m 0711 \
+            "$seo_admin_state"
+        sudo /usr/bin/install -d -o elegso-seo-admin -g elegso-seo-admin -m 0700 \
+            "$seo_admin_state/access"
+        sudo /usr/bin/install -d -o elegso-seo-admin -g seo-monitor -m 2750 \
+            "$seo_admin_state/config"
+        sudo /usr/bin/install -d -o elegso-seo-admin -g www-data -m 2750 \
+            "$seo_admin_state/auth"
+        sudo /usr/bin/install -d -o elegso-seo-ingest -g elegso-seo-admin -m 2750 \
+            "$seo_admin_state/data"
+
+        if [ ! -f "$seo_admin_state/config/keywords.json" ]; then
+            if [ -f "$seo_monitor_config/keywords.json" ]; then
+                sudo /usr/bin/install -o elegso-seo-admin -g seo-monitor -m 0640 \
+                    "$seo_monitor_config/keywords.json" \
+                    "$seo_admin_state/config/keywords.json"
+            else
+                sudo /usr/bin/install -o elegso-seo-admin -g seo-monitor -m 0640 \
+                    "$release/ops/seo-monitor/keywords.example.json" \
+                    "$seo_admin_state/config/keywords.json"
+            fi
+        fi
+        if [ ! -f "$seo_admin_state/auth/users.htpasswd" ]; then
+            sudo /usr/bin/install -o elegso-seo-admin -g www-data -m 0640 \
+                /dev/null "$seo_admin_state/auth/users.htpasswd"
+        else
+            sudo /bin/chown elegso-seo-admin:www-data \
+                "$seo_admin_state/auth/users.htpasswd"
+            sudo /bin/chmod 0640 "$seo_admin_state/auth/users.htpasswd"
+        fi
+
+        sudo /usr/bin/install -d -o root -g root -m 0750 "$seo_admin_config"
+        if [ ! -f "$seo_admin_config/admin.env" ]; then
+            sudo /usr/bin/install -o root -g root -m 0600 \
+                "$release/ops/seo-admin/admin.env.example" \
+                "$seo_admin_config/admin.env"
+        fi
+        if [ ! -f "$seo_admin_config/yandex.env" ]; then
+            sudo /usr/bin/install -o root -g root -m 0600 \
+                "$release/ops/seo-admin/yandex.env.example" \
+                "$seo_admin_config/yandex.env"
+        fi
+
+        for unit in \
+            elegso-seo-admin.service \
+            elegso-seo-traffic.service \
+            elegso-seo-traffic.timer \
+            elegso-yandex-analytics.service \
+            elegso-yandex-analytics.timer
+        do
+            sudo /usr/bin/install -o root -g root -m 0644 \
+                "$release/ops/seo-admin/$unit" "/etc/systemd/system/$unit"
+        done
+        sudo /bin/ln -sfn "$admin_release" "$seo_admin/current.new"
+        sudo /bin/mv -Tf "$seo_admin/current.new" "$seo_admin/current"
+        sudo /bin/systemctl daemon-reload
+        sudo /bin/systemctl enable elegso-seo-admin.service
+        sudo /bin/systemctl restart elegso-seo-admin.service
+
+        attempt=0
+        while ! /usr/bin/curl -fsS \
+            --unix-socket /run/elegso-seo-admin/admin.sock \
+            http://localhost/health >/dev/null; do
+            attempt=$((attempt + 1))
+            if [ "$attempt" -ge 15 ]; then
+                echo "SEO dashboard health check failed; release was not switched" >&2
+                exit 1
+            fi
+            sleep 1
+        done
+        sudo /usr/bin/find "$seo_admin/releases" -mindepth 1 -maxdepth 1 \
+            -type d -printf '%T@ %p\n' | /usr/bin/sort -nr | \
+            /usr/bin/tail -n +6 | /usr/bin/cut -d' ' -f2- | \
+            /usr/bin/xargs -r sudo /bin/rm -rf
+    fi
+
+    # Install and validate the production nginx vhost atomically. The enabled
+    # entry is a symlink to this file on VM 240.
+    if [ -f "$release/ops/nginx/elegso.conf" ]; then
+        if [ -f "$release/ops/nginx/elegso-admin-limit.conf" ]; then
+            sudo /usr/bin/install -o root -g root -m 0644 \
+                "$release/ops/nginx/elegso-admin-limit.conf" \
+                /etc/nginx/conf.d/elegso-admin-limit.conf
+        fi
+        if [ -f "$nginx_site" ]; then
+            sudo /bin/cp -p "$nginx_site" "$nginx_site.rollback"
+        fi
+        sudo /usr/bin/install -o root -g root -m 0644 \
+            "$release/ops/nginx/elegso.conf" "$nginx_site.new"
+        sudo /bin/mv -f "$nginx_site.new" "$nginx_site"
+        if ! sudo /usr/sbin/nginx -t; then
+            if [ -f "$nginx_site.rollback" ]; then
+                sudo /bin/mv -f "$nginx_site.rollback" "$nginx_site"
+            fi
+            echo "nginx configuration rejected; previous vhost restored" >&2
+            exit 1
+        fi
+        sudo /bin/rm -f "$nginx_site.rollback"
+        sudo /bin/systemctl reload nginx.service
     fi
 
     ln -sfn "$release" "$site/current.new"
@@ -133,6 +291,12 @@ while read -r old new ref; do
     if [ -f "$release/ops/case-publisher/publish.py" ]; then
         sudo /bin/systemctl enable --now elegso-case-publisher.timer
         sudo /bin/systemctl start --no-block elegso-case-publisher.service
+    fi
+
+    if [ -f "$release/ops/seo-admin/app.py" ]; then
+        sudo /bin/systemctl enable --now elegso-seo-traffic.timer
+        sudo /bin/systemctl enable --now elegso-yandex-analytics.timer
+        sudo /bin/systemctl start --no-block elegso-seo-traffic.service
     fi
 
     # Keep GitHub synchronized from the VM itself. The bare repository has a

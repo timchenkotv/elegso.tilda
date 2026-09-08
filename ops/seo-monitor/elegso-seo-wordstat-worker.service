@@ -1,6 +1,5 @@
 [Unit]
-Description=Collect multi-site SEO positions from the official Yandex Search API
-Documentation=https://aistudio.yandex.ru/ru/docs/search-api/concepts/
+Description=Resume ELEGSO Wordstat discovery within the rolling quota
 After=network-online.target
 Wants=network-online.target
 
@@ -12,12 +11,9 @@ UMask=0027
 Environment=PYTHONUNBUFFERED=1
 Environment=TZ=Europe/Moscow
 EnvironmentFile=/etc/elegso-seo-monitor/seo-monitor.env
-StateDirectory=elegso-seo-monitor
-StateDirectoryMode=0750
-RuntimeDirectory=elegso-seo-monitor
-RuntimeDirectoryMode=0750
-ExecStart=/usr/bin/flock --wait 1800 /var/lib/elegso-seo-monitor/network.lock /usr/bin/python3 /opt/elegso-seo-monitor/seo_monitor.py run --config /var/lib/elegso-seo-admin/config/keywords.json --db /var/lib/elegso-seo-monitor/history.sqlite3 --report-dir /var/lib/elegso-seo-monitor/reports
-TimeoutStartSec=4h
+ExecStart=/usr/bin/flock --conflict-exit-code 75 --nonblock /var/lib/elegso-seo-monitor/network.lock /usr/bin/python3 /opt/elegso-seo-monitor/seo_monitor.py work-wordstat --config /var/lib/elegso-seo-admin/config/keywords.json --db /var/lib/elegso-seo-monitor/history.sqlite3 --hourly-limit 90 --batch-size 90
+SuccessExitStatus=75
+TimeoutStartSec=30min
 NoNewPrivileges=true
 PrivateTmp=true
 PrivateDevices=true
@@ -27,7 +23,6 @@ ProtectControlGroups=true
 ProtectKernelModules=true
 ProtectKernelTunables=true
 ProtectKernelLogs=true
-ProtectClock=true
 RestrictSUIDSGID=true
 LockPersonality=true
 MemoryDenyWriteExecute=true

@@ -1,0 +1,35 @@
+[Unit]
+Description=Synchronize ELEGSO aggregate Yandex marketing analytics
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=elegso-seo-ingest
+Group=elegso-seo-ingest
+UMask=0027
+Environment=PYTHONUNBUFFERED=1
+Environment=TZ=Europe/Moscow
+Environment=SEO_MONITOR_PROGRAM_DIR=/opt/elegso-seo-monitor
+Environment=SEO_ADMIN_DB=/var/lib/elegso-seo-admin/data/analytics.sqlite3
+Environment=YANDEX_METRIKA_COUNTER=87831358
+EnvironmentFile=-/etc/elegso-seo-admin/yandex.env
+ExecStart=/usr/bin/python3 /opt/elegso-seo-admin/current/yandex_sync.py
+TimeoutStartSec=20min
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_INET AF_INET6
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+ReadWritePaths=/var/lib/elegso-seo-admin/data

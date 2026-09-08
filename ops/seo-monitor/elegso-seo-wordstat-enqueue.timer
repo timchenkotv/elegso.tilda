@@ -1,0 +1,11 @@
+[Unit]
+Description=Queue ELEGSO Wordstat discovery every Monday
+
+[Timer]
+OnCalendar=Mon *-*-* 03:17:00 Europe/Moscow
+RandomizedDelaySec=5min
+Persistent=true
+Unit=elegso-seo-wordstat-enqueue.service
+
+[Install]
+WantedBy=timers.target

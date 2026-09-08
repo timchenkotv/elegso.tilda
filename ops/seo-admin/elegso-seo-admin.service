@@ -1,0 +1,49 @@
+[Unit]
+Description=Private ELEGSO marketing and SEO dashboard
+After=network.target
+
+[Service]
+Type=simple
+User=elegso-seo-admin
+Group=www-data
+SupplementaryGroups=elegso-seo-admin seo-monitor
+UMask=0027
+Environment=PYTHONUNBUFFERED=1
+Environment=TZ=Europe/Moscow
+Environment=SEO_ADMIN_SOCKET=/run/elegso-seo-admin/admin.sock
+Environment=SEO_MONITOR_PROGRAM_DIR=/opt/elegso-seo-monitor
+Environment=SEO_MONITOR_DB=/var/lib/elegso-seo-monitor/history.sqlite3
+Environment=SEO_MONITOR_CONFIG=/var/lib/elegso-seo-admin/config/keywords.json
+Environment=SEO_ADMIN_DB=/var/lib/elegso-seo-admin/data/analytics.sqlite3
+Environment=SEO_ADMIN_ACCESS_DB=/var/lib/elegso-seo-admin/access/access.sqlite3
+Environment=SEO_ADMIN_STATIC_DIR=/opt/elegso-seo-admin/current/static
+Environment=SEO_ADMIN_HTPASSWD=/var/lib/elegso-seo-admin/auth/users.htpasswd
+Environment=SEO_ADMIN_ALLOWED_ORIGIN=https://elegso.ru
+EnvironmentFile=-/etc/elegso-seo-admin/admin.env
+RuntimeDirectory=elegso-seo-admin
+RuntimeDirectoryMode=0750
+ExecStart=/usr/bin/python3 /opt/elegso-seo-admin/current/app.py
+Restart=on-failure
+RestartSec=3s
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+ProtectClock=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_UNIX
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+ReadOnlyPaths=/var/lib/elegso-seo-monitor /var/lib/elegso-seo-admin/data
+ReadWritePaths=/var/lib/elegso-seo-admin/access /var/lib/elegso-seo-admin/auth /var/lib/elegso-seo-admin/config
+
+[Install]
+WantedBy=multi-user.target

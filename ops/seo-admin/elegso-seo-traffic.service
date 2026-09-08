@@ -1,0 +1,31 @@
+[Unit]
+Description=Aggregate privacy-minimized ELEGSO nginx traffic
+After=nginx.service
+
+[Service]
+Type=oneshot
+User=elegso-seo-ingest
+Group=elegso-seo-ingest
+SupplementaryGroups=adm
+UMask=0027
+Environment=PYTHONUNBUFFERED=1
+Environment=SEO_MONITOR_PROGRAM_DIR=/opt/elegso-seo-monitor
+ExecStart=/usr/bin/python3 /opt/elegso-seo-admin/current/traffic_aggregate.py --logs /var/log/nginx/elegso.access.log* --db /var/lib/elegso-seo-admin/data/analytics.sqlite3 --retention-days 400
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_UNIX
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+ReadOnlyPaths=/var/log/nginx
+ReadWritePaths=/var/lib/elegso-seo-admin/data
