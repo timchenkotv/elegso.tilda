@@ -176,7 +176,7 @@ while read -r old new ref; do
                 "$release/ops/seo-admin/static/$asset" \
                 "$admin_release/static/$asset"
         done
-        /usr/bin/python3 -m py_compile \
+        sudo /usr/bin/python3 -m py_compile \
             "$admin_release/app.py" \
             "$admin_release/traffic_aggregate.py" \
             "$admin_release/yandex_sync.py"
