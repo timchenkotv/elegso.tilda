@@ -284,7 +284,7 @@ Disallow: /calculator-data/
 Disallow: /calc_nst/service/
 Disallow: /tilda/
 Disallow: /members/
-Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&utm_place&utm_referer&utm_ya_campaign&utm_etext
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&utm_place&utm_referer&utm_referrer&utm_ya_campaign&utm_etext&utm_media&utm_group&utm_expid&etext&ysclid&yrclid&ybaip&erid
 
 Sitemap: ${productionOrigin}/sitemap.xml
 `;

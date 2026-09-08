@@ -90,7 +90,9 @@ for (const pageUrl of sitemapUrls) {
   if (!/<title\b[^>]*>[^<]+<\/title>/i.test(html)) pageErrors.push('missing-title');
   if (!meta(html, 'name', 'description')) pageErrors.push('missing-description');
   if (!/<html\b[^>]*\blang=["']ru["']/i.test(html)) pageErrors.push('missing-lang');
-  if (!html.includes('data-elegso-seo-schema')) pageErrors.push('missing-structured-data');
+  if (!html.includes('data-elegso-seo-schema') && !html.includes('data-elegso-cases-schema')) {
+    pageErrors.push('missing-structured-data');
+  }
   if (!html.includes('87831358')) pageErrors.push('missing-yandex-metrika');
   if (!html.includes('GTM-PBV2TC8')) pageErrors.push('missing-gtm');
   if (!html.includes('3662487')) pageErrors.push('missing-mailru');
