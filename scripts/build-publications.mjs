@@ -40,8 +40,9 @@ function nav(html) {
   });
 }
 function footerNav(html) {
+  html=html.replace(/(<div class="r t-rec" data-elegso-articles-footer[\s\S]*?<a\b[^>]*>)Статьи и практика(<\/a>)/g,'$1Статьи$2');
   if(html.includes('data-elegso-articles-footer')) return html;
-  return html.replace('<div id="rec1169591771"','<div class="r t-rec" data-elegso-articles-footer style="background-color:#e5dcd0;"><div class="t-container"><div class="t-col t-col_12"><p style="margin:0;padding:0 0 25px;font-family:Ubuntu,Arial,sans-serif;font-size:16px;line-height:1.5;"><a href="/articles/" style="color:#355a56;">Статьи и практика</a></p></div></div></div> <div id="rec1169591771"');
+  return html.replace('<div id="rec1169591771"','<div class="r t-rec" data-elegso-articles-footer style="background-color:#e5dcd0;"><div class="t-container"><div class="t-col t-col_12"><p style="margin:0;padding:0 0 25px;font-family:Ubuntu,Arial,sans-serif;font-size:16px;line-height:1.5;"><a href="/articles/" style="color:#355a56;">Статьи</a></p></div></div></div> <div id="rec1169591771"');
 }
 if(process.argv.includes('--navigation-only')) {
   let changed=0;
