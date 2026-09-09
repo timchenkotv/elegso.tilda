@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T14:17:46.230Z",
+  "generatedAt": "2026-09-09T01:17:47.943Z",
   "origin": "https://elegso.ru/",
   "manifest": "ops/nginx/legacy-redirects.json",
   "sources": [
@@ -9,10 +9,10 @@
     "production access logs"
   ],
   "summary": {
-    "aliases": 49,
+    "aliases": 50,
     "tildaPageIds": 72,
     "tildaProducts": 30,
-    "redirectChecks": 510,
+    "redirectChecks": 512,
     "redirectFailures": 0,
     "uniqueTargets": 26,
     "targetFailures": 0
@@ -145,6 +145,11 @@
         "source": "/leasing_",
         "target": "/leasing_lawyer/",
         "title": "Лизинговые споры"
+      },
+      {
+        "source": "/leasing_lawy",
+        "target": "/leasing_lawyer/",
+        "title": "Обрезанный внешний адрес страницы юриста по лизингу"
       },
       {
         "source": "/legal_advice_in_case_of_withdrawal_of_the_leased_item",
@@ -1361,6 +1366,28 @@
       "target": "/leasing_lawyer/",
       "title": "Лизинговые споры",
       "url": "https://elegso.ru/leasing_/",
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "expected": "https://elegso.ru/leasing_lawyer/",
+      "ok": true
+    },
+    {
+      "category": "alias",
+      "source": "/leasing_lawy",
+      "target": "/leasing_lawyer/",
+      "title": "Обрезанный внешний адрес страницы юриста по лизингу",
+      "url": "https://elegso.ru/leasing_lawy",
+      "status": 301,
+      "location": "https://elegso.ru/leasing_lawyer/",
+      "expected": "https://elegso.ru/leasing_lawyer/",
+      "ok": true
+    },
+    {
+      "category": "alias-slash",
+      "source": "/leasing_lawy/",
+      "target": "/leasing_lawyer/",
+      "title": "Обрезанный внешний адрес страницы юриста по лизингу",
+      "url": "https://elegso.ru/leasing_lawy/",
       "status": 301,
       "location": "https://elegso.ru/leasing_lawyer/",
       "expected": "https://elegso.ru/leasing_lawyer/",
