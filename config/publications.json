@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "section": {
+    "title": "Статьи и практика",
+    "path": "/articles/",
+    "rss": "/articles/rss.xml",
+    "summaryRss": "/articles/announcements.xml",
+    "publishedAt": "2026-09-09T04:00:00+03:00",
+    "modifiedAt": "2026-09-09T04:00:00+03:00",
+    "publisher": "Редакция ЮК «ЭЛЕГСО»"
+  },
+  "migration": {
+    "from": "Tilda feed 944414567261 / Дзен",
+    "recordedAt": "2026-09-09",
+    "sourcePages": [
+      "/",
+      "/leasing_lawyer/",
+      "/termination_of_the_lease_agreement/"
+    ],
+    "originalFullTextRetrieved": true,
+    "sourceFormat": "Семь авторских PDF из папки Загрузки на Mac, 41 страница",
+    "sourceManifest": "config/publication-sources.json",
+    "note": "Все семь авторских материалов прочитаны из предоставленных пользователем PDF. Сохранены темы и описанный автором кейс; тексты переработаны и дополнены со сверкой правовых источников. Численное сравнение оригинальности в стороннем сервисе не проводилось. Исходные даты ниже сохранены из прежней ленты; дата новой редакции задаётся отдельно.",
+    "dzenAccountModified": false
+  },
+  "publications": [
+    {
+      "slug": "leasing-lawyer-when-to-contact",
+      "url": "/articles/leasing-lawyer-when-to-contact/",
+      "source": {
+        "platform": "Дзен",
+        "url": "https://dzen.ru/a/aRby7PnsKwiNryc6?share_to=link",
+        "originalTitle": "Юрист по лизингу - зачем нужен и когда обращаться",
+        "originalExcerpt": "Сообщение лизингодателю о тяжелом финансовом положении почти всегда ухудшает позицию в арбитраже: вы подтверждаете риск неплатежеспособности и облегчаете ему расторжение/изъятие. Сначала бесплатная консультация с нами — потом коммуникация.",
+        "originalPublishedAt": "2025-11-14 13:55:59",
+        "legacyUid": "tfs0n6dc71"
+      },
+      "image": "/assets/publications/leasing-fleet.webp",
+      "imageAlt": "Грузовой тягач с полуприцепом, легковые автомобили и весы правосудия — иллюстрация к защите в лизинговом споре",
+      "inlineImage": "/assets/publications/leasing-lawyer-when-to-contact.webp",
+      "inlineImageAlt": "Весы правосудия, договор и строительная техника — проверка лизинговых обязательств",
+      "status": "new-editorial-version"
+    },
+    {
+      "slug": "lease-termination-action-plan",
+      "url": "/articles/lease-termination-action-plan/",
+      "source": {
+        "platform": "Дзен",
+        "url": "https://dzen.ru/a/aNOUq6V8qG-lLWSA?share_to=link",
+        "originalTitle": "Расторжение договора лизинга: пошаговый план и типичные ошибки",
+        "originalExcerpt": "Расторжение договора лизинга — это юридическая процедура прекращения обязательств сторон по договору финансовой аренды до истечения его срока, осуществляемая по соглашению сторон либо в одностороннем порядке при наличии установленных законом или ...",
+        "originalPublishedAt": "2025-09-24 10:45:59",
+        "legacyUid": "g3ld08pcv1"
+      },
+      "image": "/assets/publications/leasing-passenger-cars.webp",
+      "imageAlt": "Автомобили Мерседес и БМВ, ключи, договор и судейский молоток — иллюстрация к прекращению лизинга",
+      "inlineImage": "/assets/publications/lease-termination-action-plan.webp",
+      "inlineImageAlt": "Договор, ключ и раздельные стопки расчётных документов — сверка встречных обязательств",
+      "status": "new-editorial-version"
+    },
+    {
+      "slug": "leasing-payment-crisis",
+      "url": "/articles/leasing-payment-crisis/",
+      "source": {
+        "platform": "Дзен",
+        "url": "https://dzen.ru/a/aLrHSCgkiCczUMg0?share_to=link",
+        "originalTitle": "История одного лизинга: как бизнес попал в шторм и выбрался",
+        "originalExcerpt": "В 2021 году ИП Коровьев решил расширить услуги по строительству: взять в лизинг спецтехнику и закрывать крупные объекты. Экономика сходилась — платежи по договору покрываются выручкой, остаётся прибыль. Лизинговый договор подписан, техника ...",
+        "originalPublishedAt": "2025-09-08 16:41:17",
+        "legacyUid": "v010v3ldi1"
+      },
+      "image": "/assets/publications/leasing-payment-crisis.webp",
+      "imageAlt": "Иллюстрация к теме: История одного лизинга: как бизнес попал в шторм и выбрался",
+      "status": "new-editorial-version"
+    },
+    {
+      "slug": "director-subsidiary-liability",
+      "url": "/articles/director-subsidiary-liability/",
+      "source": {
+        "platform": "Дзен",
+        "url": "https://dzen.ru/a/aL7PrgBwnAHLef8X?share_to=link",
+        "originalTitle": "Как снизить риск субсидиарной ответственности: 7 типичных ошибок директора",
+        "originalExcerpt": "Субсидиарная ответственность — это персональная ответственность контролирующих лиц (директора, собственника, бенефициара) по долгам компании при банкротстве или причинении вреда кредиторам. Риск резко растет при ...",
+        "originalPublishedAt": "2025-09-08 16:40:04",
+        "legacyUid": "jmhs0tjy51"
+      },
+      "image": "/assets/publications/director-subsidiary-liability.webp",
+      "imageAlt": "Иллюстрация к теме: Как снизить риск субсидиарной ответственности: 7 типичных ошибок директора",
+      "status": "new-editorial-version"
+    },
+    {
+      "slug": "self-employed-employment-risks",
+      "url": "/articles/self-employed-employment-risks/",
+      "source": {
+        "platform": "Дзен",
+        "url": "https://dzen.ru/a/aL7X4wuell7dDiBl?share_to=link",
+        "originalTitle": "Самозанятые и ИП у вас в штате: где граница фиктивных отношений",
+        "originalExcerpt": "Риски возникают, когда гражданско-правовой договор фактически прикрывает трудовые отношения. Тогда инспекция труда и ФНС переквалифицируют отношения в трудовые, доначислят НДФЛ/страхвзносы, оштрафуют, а руководителю могут ...",
+        "originalPublishedAt": "2025-09-08 16:38:52",
+        "legacyUid": "tuugoe0gf1"
+      },
+      "image": "/assets/publications/self-employed-employment-risks.webp",
+      "imageAlt": "Иллюстрация к теме: Самозанятые и ИП у вас в штате: где граница фиктивных отношений",
+      "status": "new-editorial-version"
+    },
+    {
+      "slug": "messenger-correspondence-preservation",
+      "url": "/articles/messenger-correspondence-preservation/",
+      "source": {
+        "platform": "Дзен",
+        "url": "https://dzen.ru/a/aL_ft3C-MHpDHKkr?share_to=link",
+        "originalTitle": "Переписка в мессенджерах: можно ли «удалить следы» и что это даёт в деле",
+        "originalExcerpt": "Попытки «подчистить» переписку редко стирают следы полностью и часто ухудшают позицию в суде. «Удалённые» сообщения нередко остаются в резервных копиях, уведомлениях и метаданных устройств — цифровая экспертиза умеет ...",
+        "originalPublishedAt": "2025-09-09 11:19:48",
+        "legacyUid": "8dieaek721"
+      },
+      "image": "/assets/publications/messenger-correspondence-preservation.webp",
+      "imageAlt": "Иллюстрация к теме: Переписка в мессенджерах: можно ли «удалить следы» и что это даёт в деле",
+      "status": "new-editorial-version"
+    },
+    {
+      "slug": "electronic-documents-court-evidence",
+      "url": "/articles/electronic-documents-court-evidence/",
+      "source": {
+        "platform": "Дзен",
+        "url": "https://dzen.ru/a/aL68xlDPvhXxoaJW?share_to=link",
+        "originalTitle": "Электронная переписка и ЭДО как доказательства: что суд принимает, а что — нет",
+        "originalExcerpt": "Ключевой принцип: суд оценивает электронные сведения по обычным критериям относимости, допустимости, достоверности и достаточности. Важны идентификация отправителя/получателя, целостность содержания и подтверждаемая хронология.",
+        "originalPublishedAt": "2025-09-09 10:44:59",
+        "legacyUid": "5d0dvyd551"
+      },
+      "image": "/assets/publications/electronic-documents-court-evidence.webp",
+      "imageAlt": "Иллюстрация к теме: Электронная переписка и ЭДО как доказательства: что суд принимает, а что — нет",
+      "status": "new-editorial-version"
+    }
+  ]
+}

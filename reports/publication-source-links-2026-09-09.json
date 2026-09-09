@@ -1,0 +1,308 @@
+{
+  "checkedAt": "2026-09-09T02:19:00.258Z",
+  "kind": "legal-sources",
+  "total": 30,
+  "failed": 0,
+  "results": [
+    {
+      "url": "https://www.vsrf.ru/files/26272/",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/files/26272/",
+      "type": "application/pdf;",
+      "robots": null,
+      "ms": 679,
+      "bytes": 786353,
+      "ok": true
+    },
+    {
+      "url": "https://www.nalog.gov.ru/rn73/taxation/bankruptcy/16525583/",
+      "status": 200,
+      "finalUrl": "https://www.nalog.gov.ru/rn73/taxation/bankruptcy/16525583/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 624,
+      "bytes": 73595,
+      "ok": true
+    },
+    {
+      "url": "https://www.nalog.gov.ru/rn77/about_fts/docs/6968310/",
+      "status": 200,
+      "finalUrl": "https://www.nalog.gov.ru/rn77/about_fts/docs/6968310/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 524,
+      "bytes": 65000,
+      "ok": true
+    },
+    {
+      "url": "https://www.vsrf.ru/documents/all/34902/",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/documents/all/34902",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 929,
+      "bytes": 192786,
+      "ok": true
+    },
+    {
+      "url": "https://www.nalog.gov.ru/rn77/news/activities_fts/15446623/",
+      "status": 200,
+      "finalUrl": "https://www.nalog.gov.ru/rn77/news/activities_fts/15446623/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 172,
+      "bytes": 72231,
+      "ok": true
+    },
+    {
+      "url": "https://www.nalog.gov.ru/rn25/ifns/r25_14/info/12757251/",
+      "status": 200,
+      "finalUrl": "https://www.nalog.gov.ru/rn25/ifns/r25_14/info/12757251/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 488,
+      "bytes": 74365,
+      "ok": true
+    },
+    {
+      "url": "https://www.nalog.gov.ru/rn63/news/tax_doc_news/14667184/",
+      "status": 200,
+      "finalUrl": "https://www.nalog.gov.ru/rn63/news/tax_doc_news/14667184/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 142,
+      "bytes": 72672,
+      "ok": true
+    },
+    {
+      "url": "https://npd.nalog.ru/",
+      "status": 200,
+      "finalUrl": "https://npd.nalog.ru/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 535,
+      "bytes": 83046,
+      "ok": true
+    },
+    {
+      "url": "https://www.nalog.gov.ru/rn77/taxation/princtax/",
+      "status": 200,
+      "finalUrl": "https://www.nalog.gov.ru/rn77/taxation/princtax/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 131,
+      "bytes": 70065,
+      "ok": true
+    },
+    {
+      "url": "https://www.vsrf.ru/documents/all/31088/",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/documents/all/31088",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 380,
+      "bytes": 189843,
+      "ok": true
+    },
+    {
+      "url": "https://www.nalog.gov.ru/rn73/news/activities_fts/14948329/",
+      "status": 200,
+      "finalUrl": "https://www.nalog.gov.ru/rn73/news/activities_fts/14948329/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 133,
+      "bytes": 69454,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_37800/466710d407bfa851afe19213c463cdfa042ad102/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_37800/466710d407bfa851afe19213c463cdfa042ad102/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 136,
+      "bytes": 60485,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_37800/14ff2a9803deb816601363ca663ae774fa04f447/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_37800/14ff2a9803deb816601363ca663ae774fa04f447/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 175,
+      "bytes": 89435,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_388236/34d0fc3f7dcf3752e71eeb53ae8816d2e530b4bb/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_388236/34d0fc3f7dcf3752e71eeb53ae8816d2e530b4bb/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 138,
+      "bytes": 163777,
+      "ok": true
+    },
+    {
+      "url": "https://legalacts.ru/doc/metodicheskie-rekomendatsii-po-obespecheniiu-dokazatelstv-notariusami-utv-resheniem-pravlenija/",
+      "status": 200,
+      "finalUrl": "https://legalacts.ru/doc/metodicheskie-rekomendatsii-po-obespecheniiu-dokazatelstv-notariusami-utv-resheniem-pravlenija/",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 503,
+      "bytes": 228808,
+      "ok": true
+    },
+    {
+      "url": "https://www.vsrf.ru/lk/practice/stor_pdf/2485298",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/lk/practice/stor_pdf/2485298",
+      "type": "application/pdf;charset=UTF-8",
+      "robots": null,
+      "ms": 437,
+      "bytes": 1492946,
+      "ok": true
+    },
+    {
+      "url": "https://telegram.org/faq",
+      "status": 200,
+      "finalUrl": "https://telegram.org/faq",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 341,
+      "bytes": 120829,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_5142/95f9ba225766dcfec8461f257ed0b179d032c5b7/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_5142/95f9ba225766dcfec8461f257ed0b179d032c5b7/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 59,
+      "bytes": 62078,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_5142/08b8673b58e230c76f61b3a81736d4b2fd9ea3d2/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_5142/08b8673b58e230c76f61b3a81736d4b2fd9ea3d2/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 112,
+      "bytes": 55204,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_112701/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_112701/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 50,
+      "bytes": 43812,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_37800/885ff518675d7a766e590386e31a923e524c513a/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_37800/885ff518675d7a766e590386e31a923e524c513a/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 57,
+      "bytes": 69055,
+      "ok": true
+    },
+    {
+      "url": "https://www.vsrf.ru/files/14913/",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/files/14913/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 98,
+      "bytes": 279492,
+      "ok": true
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc6376",
+      "status": 200,
+      "finalUrl": "https://www.rfc-editor.org/info/rfc6376/",
+      "type": "text/html;charset=utf-8",
+      "robots": null,
+      "ms": 527,
+      "bytes": 797106,
+      "ok": true
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7208",
+      "status": 200,
+      "finalUrl": "https://www.rfc-editor.org/info/rfc7208/",
+      "type": "text/html;charset=utf-8",
+      "robots": null,
+      "ms": 358,
+      "bytes": 744039,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_161313/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_161313/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 99,
+      "bytes": 104414,
+      "ok": true
+    },
+    {
+      "url": "https://www.consultant.ru/document/cons_doc_LAW_5142/331033e3d6e7b72213bd9903b03e29dfb9e608fe/",
+      "status": 200,
+      "finalUrl": "https://www.consultant.ru/document/cons_doc_LAW_5142/331033e3d6e7b72213bd9903b03e29dfb9e608fe/",
+      "type": "text/html; charset=UTF-8",
+      "robots": null,
+      "ms": 62,
+      "bytes": 52688,
+      "ok": true
+    },
+    {
+      "url": "https://www.vsrf.ru/documents/all/30477/",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/documents/all/30477",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 374,
+      "bytes": 188989,
+      "ok": true
+    },
+    {
+      "url": "https://www.vsrf.ru/documents/all/8524",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/documents/all/8524",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 483,
+      "bytes": 378597,
+      "ok": true
+    },
+    {
+      "url": "https://www.vsrf.ru/documents/all/8478",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/documents/all/8478",
+      "type": "text/html; charset=utf-8",
+      "robots": null,
+      "ms": 1749,
+      "bytes": 189020,
+      "ok": true
+    },
+    {
+      "url": "https://vsrf.ru/lk/practice/stor_pdf_ec/2352572",
+      "status": 200,
+      "finalUrl": "https://www.vsrf.ru/lk/practice/stor_pdf_ec/2352572",
+      "type": "application/pdf;charset=UTF-8",
+      "robots": null,
+      "ms": 376,
+      "bytes": 123354,
+      "ok": true
+    }
+  ]
+}

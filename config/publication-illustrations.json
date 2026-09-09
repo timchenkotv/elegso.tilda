@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "mode": "Built-in image generation",
+  "generatedAt": "2026-09-09",
+  "note": "Редакционные иллюстрации; не фотографии реальных судебных дел. PNG originals retained; web delivery resized/compressed to WebP.",
+  "images": [
+    {
+      "slug": "leasing-lawyer-when-to-contact",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover illustration for the Russian legal company ELEGSO website. Premium hand-drawn architectural editorial illustration, precise fine ink lines with soft gouache washes and paper grain, contemporary and restrained. Palette exclusively warm ivory #f7f3ec, sand #e5dcd0, deep forest green #355a56, muted terracotta #a04b38, small golden-yellow #ffde41 highlights. Landscape 3:2 framing, elegant coherent central composition, safe crop margin, rich but uncluttered. No text, no letters, no numbers, no logos, no watermarks. This is an illustration, not evidence or a photo of a real case. A balanced brass justice scale on a lawyer's desk beside a signed-looking blank contract, a fountain pen and a finely drawn miniature excavator, distant calm architectural arches. Visual theme: timely legal analysis protects a business leasing industrial equipment.",
+      "source": "assets-source/publications/leasing-lawyer-when-to-contact.png",
+      "web": "/assets/publications/leasing-lawyer-when-to-contact.webp",
+      "generatedFile": "exec-795fffb1-d614-4c2b-b5d3-b3d4343cbb4e.png"
+    },
+    {
+      "slug": "lease-termination-action-plan",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover illustration for the Russian legal company ELEGSO website. Premium hand-drawn architectural editorial illustration, precise fine ink lines with soft gouache washes and paper grain, contemporary and restrained. Palette exclusively warm ivory #f7f3ec, sand #e5dcd0, deep forest green #355a56, muted terracotta #a04b38, small golden-yellow #ffde41 highlights. Landscape 3:2 framing, elegant coherent central composition, safe crop margin, rich but uncluttered. No text, no letters, no numbers, no logos, no watermarks. This is an illustration, not evidence or a photo of a real case. An open contract folder on a desk, brass key to a vehicle, a dignified small wooden gavel, and two neatly separated stacks of accounting documents joined by a simple elegant golden line. Visual theme: orderly termination of a leasing contract and reconciliation of obligations.",
+      "source": "assets-source/publications/lease-termination-action-plan.png",
+      "web": "/assets/publications/lease-termination-action-plan.webp",
+      "generatedFile": "exec-50997d44-e783-402f-bc26-21009db45dd7.png"
+    },
+    {
+      "slug": "leasing-payment-crisis",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover illustration for the Russian legal company ELEGSO website. Premium hand-drawn architectural editorial illustration, precise fine ink lines with soft gouache washes and paper grain, contemporary and restrained. Palette exclusively warm ivory #f7f3ec, sand #e5dcd0, deep forest green #355a56, muted terracotta #a04b38, small golden-yellow #ffde41 highlights. Landscape 3:2 framing, elegant coherent central composition, safe crop margin, rich but uncluttered. No text, no letters, no numbers, no logos, no watermarks. This is an illustration, not evidence or a photo of a real case. An industrial excavator on a small sandy worksite with moody forest-green storm clouds opening into warm soft light. In the foreground a calm balanced justice scale and a tidy document folder. Visual metaphor: a business navigates a leasing payment crisis and receives a reasoned legal review; no triumphant victory imagery.",
+      "source": "assets-source/publications/leasing-payment-crisis.png",
+      "web": "/assets/publications/leasing-payment-crisis.webp",
+      "generatedFile": "exec-3345014e-344f-4e5a-9716-fb5f7e15ffcf.png"
+    },
+    {
+      "slug": "director-subsidiary-liability",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover illustration for the Russian legal company ELEGSO website. Premium hand-drawn architectural editorial illustration, precise fine ink lines with soft gouache washes and paper grain, contemporary and restrained. Palette exclusively warm ivory #f7f3ec, sand #e5dcd0, deep forest green #355a56, muted terracotta #a04b38, small golden-yellow #ffde41 highlights. Landscape 3:2 framing, elegant coherent central composition, safe crop margin, rich but uncluttered. No text, no letters, no numbers, no logos, no watermarks. This is an illustration, not evidence or a photo of a real case. An architectural office building miniature inside a thin protective transparent dome, a director's empty chair and a meticulously organized document archive on a warm desk, small justice scale. Visual theme: director responsibility, financial decisions and preservation of company documentation.",
+      "source": "assets-source/publications/director-subsidiary-liability.png",
+      "web": "/assets/publications/director-subsidiary-liability.webp",
+      "generatedFile": "exec-dfb31671-1e84-43e3-a2a9-7e197d51cae1.png"
+    },
+    {
+      "slug": "self-employed-employment-risks",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover illustration for the Russian legal company ELEGSO website. Premium hand-drawn architectural editorial illustration, precise fine ink lines with soft gouache washes and paper grain, contemporary and restrained. Palette exclusively warm ivory #f7f3ec, sand #e5dcd0, deep forest green #355a56, muted terracotta #a04b38, small golden-yellow #ffde41 highlights. Landscape 3:2 framing, elegant coherent central composition, safe crop margin, rich but uncluttered. No text, no letters, no numbers, no logos, no watermarks. This is an illustration, not evidence or a photo of a real case. Two separate workspaces: an independent specialist's portable desk with a laptop and project folder, and a structured office desk with task schedule represented only by blank boxes. Between them a dignified brass balance scale and an open blank contract. Theme: distinguishing genuine independent contracting from employment.",
+      "source": "assets-source/publications/self-employed-employment-risks.png",
+      "web": "/assets/publications/self-employed-employment-risks.webp",
+      "generatedFile": "exec-22bac4f5-9383-4b18-a1af-a8401b635203.png"
+    },
+    {
+      "slug": "messenger-correspondence-preservation",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover illustration for the Russian legal company ELEGSO website. Premium hand-drawn architectural editorial illustration, precise fine ink lines with soft gouache washes and paper grain, contemporary and restrained. Palette exclusively warm ivory #f7f3ec, sand #e5dcd0, deep forest green #355a56, muted terracotta #a04b38, small golden-yellow #ffde41 highlights. Landscape 3:2 framing, elegant coherent central composition, safe crop margin, rich but uncluttered. No text, no letters, no numbers, no logos, no watermarks. This is an illustration, not evidence or a photo of a real case. A smartphone with abstract empty message bubbles, a second device and a sealed archival folder, connected by delicate golden lines. Magnifying glass reveals a fine chain of message context; small wooden gavel in the background. Theme: preserving digital correspondence and its context for court.",
+      "source": "assets-source/publications/messenger-correspondence-preservation.png",
+      "web": "/assets/publications/messenger-correspondence-preservation.webp",
+      "generatedFile": "exec-d7257f84-805f-43d5-911c-5d5aaf11ec31.png"
+    },
+    {
+      "slug": "electronic-documents-court-evidence",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover illustration for the Russian legal company ELEGSO website. Premium hand-drawn architectural editorial illustration, precise fine ink lines with soft gouache washes and paper grain, contemporary and restrained. Palette exclusively warm ivory #f7f3ec, sand #e5dcd0, deep forest green #355a56, muted terracotta #a04b38, small golden-yellow #ffde41 highlights. Landscape 3:2 framing, elegant coherent central composition, safe crop margin, rich but uncluttered. No text, no letters, no numbers, no logos, no watermarks. This is an illustration, not evidence or a photo of a real case. A laptop showing an abstract blank digital document, an elegant fountain pen, a small brass justice scale and carefully stacked paper documents linked by subtle golden lines and seal-shaped marks. Theme: verifying electronic signatures, origin and integrity of documents in arbitration.",
+      "source": "assets-source/publications/electronic-documents-court-evidence.png",
+      "web": "/assets/publications/electronic-documents-court-evidence.webp",
+      "generatedFile": "exec-5b282669-1293-4932-9f2d-d286df7bf3d6.png"
+    },
+    {
+      "slug": "leasing-fleet",
+      "prompt": "Use case: illustration-story. Asset type: premium landscape cover illustration for Russian legal company ELEGSO. Hand-drawn architectural editorial art, precise fine ink lines, soft gouache wash, subtle warm paper grain. Palette warm ivory #f7f3ec, sand #e5dcd0, forest green #355a56, muted terracotta #a04b38 and restrained gold #ffde41. Wide 3:2 composition, clean central framing, no text, no lettering, no numbers, no watermarks. No people. Subject: a handsome modern European heavy-duty tractor truck with a long semi-trailer, alongside two distinctly recognizable premium passenger sedans, a Mercedes-Benz E-Class and a BMW 5 Series. Three-quarter view in a calm architectural business courtyard. Foreground small brass scales of justice and an orderly blank leasing contract with a fountain pen. Vehicle silhouettes mechanically accurate, realistic wheel counts and proportions. Truck dominant but all three vehicles clearly visible, legal editorial scene, softly textured illustration. Do not include an excavator or tractor agricultural machinery.",
+      "source": "assets-source/publications/leasing-fleet.png",
+      "web": "/assets/publications/leasing-fleet.webp",
+      "generatedFile": "exec-84447ded-eca8-41f6-9593-70b8f483b48d.png"
+    },
+    {
+      "slug": "leasing-passenger-cars",
+      "prompt": "Use case: illustration-story. Asset type: premium landscape cover illustration for Russian legal company ELEGSO. Hand-drawn architectural editorial art, precise fine ink lines, soft gouache wash, subtle warm paper grain. Palette warm ivory #f7f3ec, sand #e5dcd0, forest green #355a56, muted terracotta #a04b38 and restrained gold #ffde41. Wide 3:2 composition, clean central framing, no text, no lettering, no numbers, no watermarks. No people. Subject: two elegant passenger cars, a Mercedes-Benz E-Class sedan and a BMW 5 Series sedan, three-quarter front view beside each other on an ivory architectural plinth. Foreground open blank leasing contract folder, two car keys and a small dignified wooden gavel. Refined forest-green car paint and sandy metallic paint, intricate ink-drawn detail, calm business-law atmosphere. Cars and their recognizable grille shapes prominent. No truck, no excavator, no agricultural machinery, no advertising slogan.",
+      "source": "assets-source/publications/leasing-passenger-cars.png",
+      "web": "/assets/publications/leasing-passenger-cars.webp",
+      "generatedFile": "exec-f0205749-acca-4d87-ac3b-afc4dcde8b3a.png"
+    }
+  ]
+}
