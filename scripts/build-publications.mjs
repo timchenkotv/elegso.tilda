@@ -30,9 +30,24 @@ const articles = config.publications.map(meta => {
 if(new Set(articles.map(a=>a.slug)).size!==articles.length || content.length!==articles.length) throw new Error('Duplicate or extra articles');
 
 function nav(html) {
+  html=html.replace(/<li class="t228__list_item" style="padding:0 15px;"><a class="t-menu__link-item" href="\/articles\/" data-elegso-articles-nav>Статьи<\/a><\/li>/g,'');
   if(html.includes('data-elegso-articles-nav')) return html;
-  return html.replace(/(<li\b[^>]*class="[^"]*t228__list_item[^"]*"[^>]*>(?:(?!<\/li>)[\s\S])*?href="\/contacts\/"(?:(?!<\/li>)[\s\S])*?<\/li>)/i,
-    '<li class="t228__list_item" style="padding:0 15px;"><a class="t-menu__link-item" href="/articles/" data-elegso-articles-nav>Статьи</a></li>$1');
+  return html.replace(/(<div id="nav1210506996"[\s\S]*?<ul\b[^>]*>)([\s\S]*?)(<\/ul>)/, (_match,start,items,end)=>{
+    const source=items.match(/<li\b[^>]*>(?:(?!<\/li>)[\s\S])*?href="\/mission\/"(?:(?!<\/li>)[\s\S])*?<\/li>/)?.[0];
+    if(!source) throw new Error('About menu template missing');
+    const item=source.replace('href="/mission/"','href="/articles/" data-elegso-articles-nav').replace('Наша миссия','Статьи');
+    return start+items+item+' '+end;
+  });
+}
+function footerNav(html) {
+  if(html.includes('data-elegso-articles-footer')) return html;
+  return html.replace('<div id="rec1169591771"','<div class="r t-rec" data-elegso-articles-footer style="background-color:#e5dcd0;"><div class="t-container"><div class="t-col t-col_12"><p style="margin:0;padding:0 0 25px;font-family:Ubuntu,Arial,sans-serif;font-size:16px;line-height:1.5;"><a href="/articles/" style="color:#355a56;">Статьи и практика</a></p></div></div></div> <div id="rec1169591771"');
+}
+if(process.argv.includes('--navigation-only')) {
+  let changed=0;
+  for(const file of await walk(web)){const old=await fs.readFile(file,'utf8');const updated=footerNav(nav(old));if(updated!==old){await fs.writeFile(file,updated);changed++;}}
+  console.log(JSON.stringify({navigationOnly:true,changed}));
+  process.exit(0);
 }
 const template = await fs.readFile(path.join(web,'mission/index.html'),'utf8');
 const bodyStart = template.search(/<body\b/i);
@@ -41,7 +56,7 @@ const headerEnd = template.indexOf('</header>',headerStart)+9;
 const footerStart = template.indexOf('<!--footer-->',headerEnd);
 if(bodyStart<0 || headerStart<0 || footerStart<0) throw new Error('Site template markers missing');
 const header = nav(template.slice(headerStart,headerEnd));
-const tail = template.slice(footerStart);
+const tail = footerNav(template.slice(footerStart));
 const organisation = {'@type':'Organization','@id':origin+'/#organization',name:'Юридическая компания «ЭЛЕГСО»',url:origin+'/',logo:origin+'/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png'};
 function meta(head,attribute,name,value) {
   const tag=`<meta ${attribute}="${name}" content="${esc(value)}">`;
@@ -91,7 +106,7 @@ for(const route of config.migration.sourcePages){const file=path.join(web,route=
   await fs.writeFile(file,nav(html));
 }
 async function walk(dir){let out=[];for(const e of await fs.readdir(dir,{withFileTypes:true})){if(e.name==='_external'||e.name==='api')continue;const p=path.join(dir,e.name);if(e.isDirectory())out.push(...await walk(p));else if(e.name.endsWith('.html'))out.push(p);}return out;}
-for(const file of await walk(web)){let old=await fs.readFile(file,'utf8');let updated=nav(old);if(!updated.includes('type="application/rss+xml"'))updated=updated.replace('</head>','<link rel="alternate" type="application/rss+xml" title="Статьи и практика ЭЛЕГСО" href="/articles/rss.xml"></head>');if(updated!==old)await fs.writeFile(file,updated);}
+for(const file of await walk(web)){let old=await fs.readFile(file,'utf8');let updated=footerNav(nav(old));if(!updated.includes('type="application/rss+xml"'))updated=updated.replace('</head>','<link rel="alternate" type="application/rss+xml" title="Статьи и практика ЭЛЕГСО" href="/articles/rss.xml"></head>');if(updated!==old)await fs.writeFile(file,updated);}
 for(const name of ['sitemap.xml','sitemap.base.xml']){const p=path.join(web,name);let sitemap;try{sitemap=await fs.readFile(p,'utf8')}catch{continue}const rows=[...sitemap.matchAll(/<url>[\s\S]*?<\/url>/g)].map(m=>m[0]).filter(r=>!r.includes('<loc>'+origin+'/articles/'));
   const changed=new Set(config.migration.sourcePages.map(p=>origin+p));
   for(let i=0;i<rows.length;i++){if([...changed].some(url=>rows[i].includes('<loc>'+url+'</loc>')))rows[i]=rows[i].replace(/<lastmod>[^<]+<\/lastmod>/,`<lastmod>${config.section.modifiedAt.slice(0,10)}</lastmod>`);}

@@ -42,6 +42,19 @@ def visible(html):
 
 
 class PublicationsTest(unittest.TestCase):
+    def test_articles_navigation_location(self):
+        for file in WWW.rglob("*.html"):
+            if "_external" in file.parts or "api" in file.parts:
+                continue
+            html = file.read_text()
+            if 'id="nav1210506996"' in html:
+                about = re.search(r'<div id="nav1210506996".*?</ul>', html, re.S).group()
+                self.assertEqual(about.count("data-elegso-articles-nav"), 1, str(file))
+                self.assertEqual(html.count("data-elegso-articles-nav"), 1, str(file))
+                self.assertIn('href="/articles/"', about)
+            if 'id="rec1169591771"' in html:
+                self.assertEqual(html.count("data-elegso-articles-footer"), 1, str(file))
+
     def test_seven_complete_sources(self):
         manifest = json.loads((ROOT / "config/publication-sources.json").read_text())
         self.assertEqual(len(manifest), 7)
@@ -119,7 +132,8 @@ class PublicationsTest(unittest.TestCase):
                 end = old.index('<div id="rec', match.start() + 1)
                 old = old[:match.start()] + old[end:]
             new = re.sub(r"<!--elegso-publications:start-->.*?<!--elegso-publications:end-->", "", new, flags=re.S)
-            new = re.sub(r'<li\b[^>]*>\s*<a\b[^>]*data-elegso-articles-nav[^>]*>.*?</a></li>', "", new, flags=re.S)
+            new = re.sub(r'<li\b[^>]*>(?:(?!</li>).)*data-elegso-articles-nav(?:(?!</li>).)*</li>', "", new, flags=re.S)
+            new = re.sub(r'<div class="r t-rec" data-elegso-articles-footer.*?</p></div></div></div>', "", new, flags=re.S)
             with self.subTest(file=name):
                 self.assertEqual(visible(old), visible(new))
 
