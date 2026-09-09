@@ -1,0 +1,218 @@
+{
+  "checkedAt": "2026-09-09T02:22:27.275Z",
+  "kind": "live-publications",
+  "total": 21,
+  "failed": 0,
+  "results": [
+    {
+      "url": "https://elegso.ru/articles/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 518,
+      "bytes": 87807,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/leasing-lawyer-when-to-contact/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/leasing-lawyer-when-to-contact/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 462,
+      "bytes": 117931,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/lease-termination-action-plan/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/lease-termination-action-plan/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 449,
+      "bytes": 110764,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/leasing-payment-crisis/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/leasing-payment-crisis/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 438,
+      "bytes": 102305,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/director-subsidiary-liability/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/director-subsidiary-liability/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 141,
+      "bytes": 102193,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/self-employed-employment-risks/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/self-employed-employment-risks/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 134,
+      "bytes": 103658,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/messenger-correspondence-preservation/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/messenger-correspondence-preservation/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 140,
+      "bytes": 105181,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/electronic-documents-court-evidence/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/electronic-documents-court-evidence/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 141,
+      "bytes": 106351,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/rss.xml",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/rss.xml",
+      "type": "application/rss+xml; charset=utf-8",
+      "robots": "noindex, follow",
+      "ms": 167,
+      "bytes": 181489,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/articles/announcements.xml",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/articles/announcements.xml",
+      "type": "application/rss+xml; charset=utf-8",
+      "robots": "noindex, follow",
+      "ms": 108,
+      "bytes": 16388,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 156,
+      "bytes": 244010,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/leasing_lawyer/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/leasing_lawyer/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 197,
+      "bytes": 365486,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "type": "text/html; charset=utf-8",
+      "robots": "index, follow, max-image-preview:large",
+      "ms": 173,
+      "bytes": 302998,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/sitemap.xml",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/sitemap.xml",
+      "type": "text/xml; charset=utf-8",
+      "robots": null,
+      "ms": 99,
+      "bytes": 4797,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/assets/publications/leasing-fleet.webp",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/assets/publications/leasing-fleet.webp",
+      "type": "image/webp",
+      "robots": null,
+      "ms": 346,
+      "bytes": 227040,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/assets/publications/leasing-passenger-cars.webp",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/assets/publications/leasing-passenger-cars.webp",
+      "type": "image/webp",
+      "robots": null,
+      "ms": 316,
+      "bytes": 195082,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/assets/publications/leasing-payment-crisis.webp",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/assets/publications/leasing-payment-crisis.webp",
+      "type": "image/webp",
+      "robots": null,
+      "ms": 669,
+      "bytes": 202898,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/assets/publications/director-subsidiary-liability.webp",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/assets/publications/director-subsidiary-liability.webp",
+      "type": "image/webp",
+      "robots": null,
+      "ms": 299,
+      "bytes": 178798,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/assets/publications/self-employed-employment-risks.webp",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/assets/publications/self-employed-employment-risks.webp",
+      "type": "image/webp",
+      "robots": null,
+      "ms": 275,
+      "bytes": 145736,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/assets/publications/messenger-correspondence-preservation.webp",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/assets/publications/messenger-correspondence-preservation.webp",
+      "type": "image/webp",
+      "robots": null,
+      "ms": 136,
+      "bytes": 136294,
+      "ok": true
+    },
+    {
+      "url": "https://elegso.ru/assets/publications/electronic-documents-court-evidence.webp",
+      "status": 200,
+      "finalUrl": "https://elegso.ru/assets/publications/electronic-documents-court-evidence.webp",
+      "type": "image/webp",
+      "robots": null,
+      "ms": 156,
+      "bytes": 155882,
+      "ok": true
+    }
+  ]
+}
