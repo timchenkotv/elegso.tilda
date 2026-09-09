@@ -54,6 +54,8 @@ class PublicationsTest(unittest.TestCase):
                 self.assertIn('href="/articles/"', about)
             if 'id="rec1169591771"' in html:
                 self.assertEqual(html.count("data-elegso-articles-footer"), 1, str(file))
+                self.assertIn('class="elegso-articles-footer-card__title">Статьи</strong>', html)
+                self.assertIn('class="elegso-articles-footer-card__image"', html)
 
     def test_seven_complete_sources(self):
         manifest = json.loads((ROOT / "config/publication-sources.json").read_text())
@@ -133,7 +135,7 @@ class PublicationsTest(unittest.TestCase):
                 old = old[:match.start()] + old[end:]
             new = re.sub(r"<!--elegso-publications:start-->.*?<!--elegso-publications:end-->", "", new, flags=re.S)
             new = re.sub(r'<li\b[^>]*>(?:(?!</li>).)*data-elegso-articles-nav(?:(?!</li>).)*</li>', "", new, flags=re.S)
-            new = re.sub(r'<div class="r t-rec" data-elegso-articles-footer.*?</p></div></div></div>', "", new, flags=re.S)
+            new = re.sub(r'<!--elegso-articles-footer:start-->.*?<!--elegso-articles-footer:end-->', "", new, flags=re.S)
             with self.subTest(file=name):
                 self.assertEqual(visible(old), visible(new))
 

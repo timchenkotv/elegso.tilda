@@ -40,9 +40,22 @@ function nav(html) {
   });
 }
 function footerNav(html) {
-  html=html.replace(/(<div class="r t-rec" data-elegso-articles-footer[\s\S]*?<a\b[^>]*>)Статьи и практика(<\/a>)/g,'$1Статьи$2');
-  if(html.includes('data-elegso-articles-footer')) return html;
-  return html.replace('<div id="rec1169591771"','<div class="r t-rec" data-elegso-articles-footer style="background-color:#e5dcd0;"><div class="t-container"><div class="t-col t-col_12"><p style="margin:0;padding:0 0 25px;font-family:Ubuntu,Arial,sans-serif;font-size:16px;line-height:1.5;"><a href="/articles/" style="color:#355a56;">Статьи</a></p></div></div></div> <div id="rec1169591771"');
+  const card=`<!--elegso-articles-footer:start--><div class="r t-rec" data-elegso-articles-footer style="display:flow-root;background-color:#e5dcd0;">
+<style>
+#t-footer .elegso-articles-footer-card{box-sizing:border-box;width:min(1160px,calc(100% - 40px));min-height:104px;display:grid;grid-template-columns:108px minmax(0,1fr) auto;align-items:center;gap:24px;margin:0 auto 30px;padding:16px 24px;overflow:hidden;color:#fff!important;background:linear-gradient(105deg,#203f3c 0%,#355a56 72%,#416862 100%);border:1px solid rgba(53,90,86,.24);border-radius:6px;box-shadow:0 12px 30px rgba(32,63,60,.14);font-family:Ubuntu,Arial,sans-serif;text-decoration:none!important;transition:transform .2s ease,box-shadow .2s ease}
+#t-footer .elegso-articles-footer-card:hover,#t-footer .elegso-articles-footer-card:focus-visible{transform:translateY(-2px);box-shadow:0 16px 34px rgba(32,63,60,.2)}
+#t-footer .elegso-articles-footer-card:focus-visible{outline:2px solid #a04b38;outline-offset:4px}
+.elegso-articles-footer-card__image{display:block;width:108px;height:72px;object-fit:cover;border-radius:4px;background:#e5dcd0}
+.elegso-articles-footer-card__title{display:block;color:#e7c77e;font:400 25px/1.2 Prata,Georgia,serif}
+.elegso-articles-footer-card__text{display:block;margin-top:7px;color:rgba(255,255,255,.8);font-size:13px;line-height:1.45}
+.elegso-articles-footer-card__action{color:#fff;font-size:14px;white-space:nowrap}
+.elegso-articles-footer-card__action b{margin-left:10px;font-size:23px;font-weight:400}
+@media(max-width:640px){#t-footer .elegso-articles-footer-card{grid-template-columns:72px minmax(0,1fr) 20px;gap:12px;padding:16px;min-height:96px}.elegso-articles-footer-card__image{width:72px;height:60px}.elegso-articles-footer-card__title{font-size:23px}.elegso-articles-footer-card__text{font-size:12px}.elegso-articles-footer-card__action-label{display:none}.elegso-articles-footer-card__action b{margin:0}}
+@media(prefers-reduced-motion:reduce){#t-footer .elegso-articles-footer-card{transition:none}#t-footer .elegso-articles-footer-card:hover,#t-footer .elegso-articles-footer-card:focus-visible{transform:none}}
+</style><a class="elegso-articles-footer-card" href="/articles/"><img class="elegso-articles-footer-card__image" src="/assets/publications/electronic-documents-court-evidence-600.webp" alt="" width="108" height="72" loading="lazy" decoding="async"><span><strong class="elegso-articles-footer-card__title">Статьи</strong><span class="elegso-articles-footer-card__text">Юридические разборы и рекомендации для бизнеса</span></span><span class="elegso-articles-footer-card__action" aria-hidden="true"><span class="elegso-articles-footer-card__action-label">Читать статьи</span><b>→</b></span></a></div><!--elegso-articles-footer:end-->`;
+  if(html.includes('<!--elegso-articles-footer:start-->')) return html.replace(/<!--elegso-articles-footer:start-->[\s\S]*?<!--elegso-articles-footer:end-->/g,card);
+  if(html.includes('data-elegso-articles-footer')) return html.replace(/<div class="r t-rec" data-elegso-articles-footer[\s\S]*?<\/p><\/div><\/div><\/div>/g,card);
+  return html.replace('<div id="rec1169591771"',card+' <div id="rec1169591771"');
 }
 if(process.argv.includes('--navigation-only')) {
   let changed=0;

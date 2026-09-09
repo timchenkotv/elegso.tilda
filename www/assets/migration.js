@@ -217,7 +217,7 @@ function migrationEnsureCasesExperienceStyles() {
       width: min(1160px, calc(100% - 40px));
       min-height: 104px;
       display: grid;
-      grid-template-columns: minmax(150px, .45fr) minmax(280px, 1fr) auto;
+      grid-template-columns: 96px minmax(130px, .45fr) minmax(0, 1fr) auto;
       align-items: center;
       gap: 24px;
       margin: 0 auto 30px;
@@ -238,11 +238,21 @@ function migrationEnsureCasesExperienceStyles() {
       transform: translateY(-2px);
       box-shadow: 0 16px 34px rgba(32, 63, 60, .2);
     }
+    .elegso-cases-footer-card__image {
+      display: block;
+      width: 96px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 4px;
+      background: #e5dcd0;
+    }
     .elegso-cases-footer-card__title {
+      min-width: 0;
       color: #e7c77e;
       font: 400 25px/1.15 Prata, Georgia, serif;
     }
     .elegso-cases-footer-card__text {
+      min-width: 0;
       color: rgba(255, 255, 255, .74);
       font-size: 13px;
       line-height: 1.45;
@@ -261,22 +271,24 @@ function migrationEnsureCasesExperienceStyles() {
       #t-header .elegso-cases-nav-hint { display: none; }
       .elegso-cases-cta-row { gap: 9px; }
       #t-footer .elegso-cases-footer-card {
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 96px minmax(0, 1fr) auto;
       }
+      .elegso-cases-footer-card__image { grid-column: 1; grid-row: 1; }
+      .elegso-cases-footer-card__title { grid-column: 2; grid-row: 1; }
       .elegso-cases-footer-card__text { grid-column: 1 / -1; grid-row: 2; }
-      .elegso-cases-footer-card__action { grid-column: 2; grid-row: 1; }
+      .elegso-cases-footer-card__action { grid-column: 3; grid-row: 1; }
     }
     @media (max-width: 640px) {
       .elegso-cases-cta-row { flex-direction: column; align-items: stretch; }
       .elegso-cases-cta-row > .t-btn { width: 100% !important; }
       #t-footer .elegso-cases-footer-card {
-        grid-template-columns: 1fr;
+        grid-template-columns: 72px minmax(0, 1fr);
         gap: 10px;
         padding: 20px;
       }
-      .elegso-cases-footer-card__text,
-      .elegso-cases-footer-card__action { grid-column: auto; grid-row: auto; }
-      .elegso-cases-footer-card__action { margin-top: 5px; }
+      .elegso-cases-footer-card__image { width: 72px; height: 60px; }
+      .elegso-cases-footer-card__text { grid-column: 1 / -1; grid-row: 2; }
+      .elegso-cases-footer-card__action { grid-column: 1 / -1; grid-row: 3; min-width: 0; margin-top: 5px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .elegso-cases-cta::after { animation: none; }
@@ -365,7 +377,7 @@ function migrationInitCasesFooterCard() {
   card.className = 'elegso-cases-footer-card';
   card.href = '/cases/';
   card.setAttribute('aria-label', 'Наши кейсы: решённые юридические задачи и подтверждённые результаты');
-  card.innerHTML = '<strong class="elegso-cases-footer-card__title">Наши кейсы</strong><span class="elegso-cases-footer-card__text">Решённые юридические задачи и подтверждённые результаты</span><span class="elegso-cases-footer-card__action">Смотреть дела&nbsp;→</span>';
+  card.innerHTML = '<img class="elegso-cases-footer-card__image" src="/assets/publications/leasing-lawyer-when-to-contact-600.webp" alt="" width="96" height="70" loading="lazy" decoding="async"><strong class="elegso-cases-footer-card__title">Наши кейсы</strong><span class="elegso-cases-footer-card__text">Решённые юридические задачи и подтверждённые результаты</span><span class="elegso-cases-footer-card__action">Смотреть дела&nbsp;→</span>';
   mount.insertAdjacentElement('afterbegin', card);
 }
 window.t_lazyload_update = migrationHydrateImages;
