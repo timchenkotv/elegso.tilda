@@ -33,6 +33,7 @@
     { "source": "/lawyer", "target": "/", "title": "Юридическая помощь юридическим лицам" },
     { "source": "/leasing", "target": "/leasing_lawyer/", "title": "Лизинговые споры" },
     { "source": "/leasing_", "target": "/leasing_lawyer/", "title": "Лизинговые споры" },
+    { "source": "/leasing_lawy", "target": "/leasing_lawyer/", "title": "Обрезанный внешний адрес страницы юриста по лизингу" },
     { "source": "/legal_advice_in_case_of_withdrawal_of_the_leased_item", "target": "/leasing_lawyer/", "title": "Консультация при изъятии предмета лизинга" },
     { "source": "/legal_advice_on_the_lease_agreement", "target": "/leasing_lawyer/", "title": "Консультация по договору лизинга" },
     { "source": "/legal_assistance_for_business", "target": "/", "title": "Юридическая помощь бизнесу" },
