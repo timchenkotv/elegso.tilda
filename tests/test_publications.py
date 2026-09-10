@@ -272,6 +272,9 @@ class PublicationsTest(unittest.TestCase):
         self.assertNotIn("Короткое сообщение", objections)
         self.assertIn("установить конкретные недостатки", objections)
         self.assertIn("подтверждающие материалы", objections)
+        self.assertIn("не нужно оправдываться перед общими", objections)
+        self.assertIn("проверьте, требуется ли ответ по договору или закону", objections)
+        self.assertNotIn("молчание не является универсально безопасной стратегией", objections)
         for fragment in ("1cd43e51fbd4129343b325971a466ec5cd32a425",
                          "33c65ab7522b599d12e61cc848aebcd09e651f9c",
                          "b4e192e502ea85e2cf31e682d6dbd8ad395a5012"):
