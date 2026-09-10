@@ -4,14 +4,33 @@ import re
 import subprocess
 import unittest
 import xml.etree.ElementTree as ET
+from datetime import datetime
+from decimal import Decimal
+from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urljoin
 
 ROOT = Path(__file__).resolve().parents[1]
 WWW = ROOT / "www"
 CONFIG = json.loads((ROOT / "config/publications.json").read_text())
 ARTICLES = [item for file in (ROOT / "content/publications").glob("*.json")
             for item in json.loads(file.read_text())]
+ORIGIN = "https://elegso.ru"
+
+
+def publication(item):
+    article = {**item, **next(a for a in ARTICLES if a["slug"] == item["slug"])}
+    article.setdefault("publishedAt", CONFIG["section"]["publishedAt"])
+    article.setdefault("modifiedAt", article["publishedAt"])
+    return article
+
+
+def article_schema(html):
+    schemas = [json.loads(schema) for schema in re.findall(
+        r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', html, re.S)]
+    return next(node for schema in schemas for node in schema.get("@graph", [])
+                if node.get("@type") == "Article")
 
 
 class VisibleText(HTMLParser):
@@ -20,9 +39,12 @@ class VisibleText(HTMLParser):
         self.ignored = 0
         self.parts = []
         self.ids = []
+        self.images = []
 
     def handle_starttag(self, tag, attrs):
         self.ids.extend(value for name, value in attrs if name == "id")
+        if tag == "img":
+            self.images.append(dict(attrs))
         if tag in {"script", "style", "head", "template"}:
             self.ignored += 1
 
@@ -41,7 +63,34 @@ def visible(html):
     return re.sub(r"\s+", " ", " ".join(parser.parts)).strip()
 
 
+def image_attributes(html):
+    parser = VisibleText()
+    parser.feed(html)
+    return parser.images
+
+
 class PublicationsTest(unittest.TestCase):
+    def test_publication_preview_selection(self):
+        homepage = ["debt-recovery-reconciliation", "leasing-lawyer-when-to-contact",
+                    "messenger-correspondence-preservation"]
+        leasing = [item["slug"] for item in CONFIG["publications"]
+                   if publication(item)["category"] == "Лизинг"][:3]
+        self.assertEqual(len(leasing), 3)
+        for route in CONFIG["migration"]["sourcePages"]:
+            html = (WWW / route.strip("/") / "index.html").read_text()
+            preview = re.search(r'<!--elegso-publications:start-->(.*?)<!--elegso-publications:end-->',
+                                html, re.S).group(1)
+            links = re.findall(r'<a href="([^"]+)" class="ep-card-image"', preview)
+            expected = homepage if route == "/" else leasing
+            self.assertEqual(links, ["/articles/" + slug + "/" for slug in expected], route)
+
+        catalogue = (WWW / "articles/index.html").read_text()
+        cover_article = next(item for item in CONFIG["publications"]
+                             if item["slug"] == "leasing-lawyer-when-to-contact")
+        hero = re.search(r'<figure class="ep-hero-art">(.*?)</figure>', catalogue, re.S).group(1)
+        self.assertEqual(image_attributes(hero)[0]["src"], cover_article["image"])
+        self.assertIn('property="og:image" content="' + ORIGIN + cover_article["image"] + '"', catalogue)
+
     def test_articles_navigation_location(self):
         for file in WWW.rglob("*.html"):
             if "_external" in file.parts or "api" in file.parts:
@@ -57,20 +106,32 @@ class PublicationsTest(unittest.TestCase):
                 self.assertIn('class="elegso-articles-footer-card__title">Статьи</strong>', html)
                 self.assertIn('class="elegso-articles-footer-card__image"', html)
 
-    def test_seven_complete_sources(self):
+    def test_seven_complete_dzen_pdf_sources(self):
         manifest = json.loads((ROOT / "config/publication-sources.json").read_text())
+        dzen = [a for a in CONFIG["publications"] if a["source"]["platform"] == "Дзен"]
         self.assertEqual(len(manifest), 7)
         self.assertEqual(sum(row["pages"] for row in manifest), 41)
         self.assertTrue(CONFIG["migration"]["originalFullTextRetrieved"])
-        self.assertEqual({a["slug"] for a in ARTICLES}, {a["slug"] for a in manifest})
+        self.assertEqual({a["slug"] for a in dzen}, {a["slug"] for a in manifest})
+        self.assertTrue({a["slug"] for a in manifest} <= {a["slug"] for a in ARTICLES})
         for row in manifest:
             self.assertRegex(row["sha256"], r"^[a-f0-9]{64}$")
             self.assertGreater(row["textCharacters"], 5000)
-        self.assertEqual(len({a["source"]["url"] for a in CONFIG["publications"]}), 7)
+        self.assertEqual(len({a["source"]["url"] for a in dzen}), 7)
+
+    def test_publication_registry(self):
+        registered = CONFIG["publications"]
+        self.assertEqual(len(ARTICLES), len(registered))
+        self.assertEqual({a["slug"] for a in ARTICLES}, {a["slug"] for a in registered})
+        for values in ([a["slug"] for a in registered],
+                       [a["url"] for a in registered],
+                       [a["source"]["url"] for a in registered],
+                       [a["source"]["legacyUid"] for a in registered]):
+            self.assertEqual(len(set(values)), len(registered))
 
     def test_article_html_and_images(self):
         for item in CONFIG["publications"]:
-            article = next(a for a in ARTICLES if a["slug"] == item["slug"])
+            article = publication(item)
             html = (WWW / item["url"].strip("/") / "index.html").read_text()
             with self.subTest(slug=item["slug"]):
                 self.assertEqual(len(re.findall(r"<h1\b", html)), 1)
@@ -84,8 +145,23 @@ class PublicationsTest(unittest.TestCase):
                     self.assertIn(section["html"], html)
                 self.assertTrue((WWW / item["image"].lstrip("/")).is_file())
                 self.assertTrue((WWW / item["image"].lstrip("/").replace(".webp", "-600.webp")).is_file())
-                for schema in re.findall(r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', html, re.S):
-                    json.loads(schema)
+                schema = article_schema(html)
+                expected_author = article.get("author", {
+                    "name": CONFIG["section"]["publisher"], "url": "/our_team/"})
+                self.assertEqual(schema["datePublished"], article["publishedAt"])
+                self.assertEqual(schema["dateModified"], article["modifiedAt"])
+                self.assertEqual(schema["author"], {
+                    "@type": "Person" if article.get("author") else "Organization",
+                    "name": expected_author["name"],
+                    "url": urljoin(ORIGIN, expected_author["url"]),
+                })
+                self.assertEqual(schema["publisher"], {"@id": ORIGIN + "/#organization"})
+                self.assertIn('property="article:published_time" content="' + article["publishedAt"] + '"', html)
+                self.assertIn('property="article:modified_time" content="' + article["modifiedAt"] + '"', html)
+                byline = re.search(r'<div class="ep-byline">(.*?)</div>', html, re.S).group(1)
+                self.assertIn(expected_author["name"], visible(byline))
+                self.assertIn('href="' + expected_author["url"] + '"', byline)
+                self.assertIn('datetime="' + article["modifiedAt"] + '"', byline)
                 parser = VisibleText()
                 parser.feed(html)
                 ids = parser.ids
@@ -95,15 +171,89 @@ class PublicationsTest(unittest.TestCase):
         full = ET.parse(WWW / "articles/rss.xml").getroot()
         short = ET.parse(WWW / "articles/announcements.xml").getroot()
         content_key = "{http://purl.org/rss/1.0/modules/content/}encoded"
+        creator_key = "{http://purl.org/dc/elements/1.1/}creator"
         full_items, short_items = full.findall("channel/item"), short.findall("channel/item")
-        self.assertEqual(len(full_items), 7)
-        self.assertEqual(len(short_items), 7)
+        self.assertEqual(len(full_items), len(CONFIG["publications"]))
+        self.assertEqual(len(short_items), len(CONFIG["publications"]))
+        registered = {ORIGIN + item["url"]: publication(item) for item in CONFIG["publications"]}
         for a, b in zip(full_items, short_items):
             self.assertEqual(a.findtext("guid"), b.findtext("guid"))
             self.assertEqual(a.findtext("guid"), a.findtext("link"))
+            article = registered[a.findtext("guid")]
+            author_name = article.get("author", {}).get("name", CONFIG["section"]["publisher"])
+            for feed_item in (a, b):
+                self.assertEqual(feed_item.findtext(creator_key), author_name)
+                self.assertEqual(parsedate_to_datetime(feed_item.findtext("pubDate")),
+                                 datetime.fromisoformat(article["publishedAt"]))
             self.assertGreater(len(a.findtext(content_key)), len(b.findtext(content_key)) * 3)
             self.assertNotRegex(a.findtext(content_key), r'(href|src)="/(?!/)')
-        self.assertEqual(len({a.findtext("guid") for a in full_items}), 7)
+            for image in image_attributes(a.findtext(content_key)):
+                for candidate in image.get("srcset", "").split(","):
+                    if candidate.strip():
+                        self.assertRegex(candidate.strip().split()[0], r"^https?://")
+        self.assertEqual({a.findtext("guid") for a in full_items}, set(registered))
+        latest = max(datetime.fromisoformat(CONFIG["section"]["modifiedAt"]),
+                     *(datetime.fromisoformat(a["modifiedAt"]) for a in registered.values()))
+        for feed in (full, short):
+            self.assertEqual(parsedate_to_datetime(feed.findtext("channel/lastBuildDate")), latest)
+
+    def test_original_author_source(self):
+        item = next((a for a in CONFIG["publications"] if a["slug"] == "debt-recovery-reconciliation"), None)
+        self.assertIsNotNone(item, "Original debt-recovery article must be registered")
+        article = publication(item)
+        self.assertEqual(article["status"], "original-author-source")
+        self.assertEqual(article["source"]["platform"], "Авторский материал")
+        self.assertTrue(article["source"]["originalPublishedAt"])
+        self.assertTrue(article["source"]["legacyUid"])
+        self.assertEqual(article["author"], {
+            "name": "Тимченко Тимур Васильевич", "url": "/our_team/"})
+        self.assertNotEqual(article["publishedAt"], CONFIG["section"]["publishedAt"])
+        html = (WWW / article["url"].strip("/") / "index.html").read_text()
+        self.assertEqual(article_schema(html)["author"]["@type"], "Person")
+
+    def test_original_article_illustrations(self):
+        article = publication(next(a for a in CONFIG["publications"]
+                                   if a["slug"] == "debt-recovery-reconciliation"))
+        embedded = image_attributes("".join(section["html"] for section in article["sections"]))
+        self.assertEqual(len(embedded), 1, "One embedded image complements the cover and inline illustration")
+        images = [article["image"], article["inlineImage"], embedded[0]["src"]]
+        self.assertEqual(len(set(images)), 3)
+        self.assertTrue(embedded[0].get("alt"))
+        self.assertTrue(embedded[0].get("sizes"))
+        candidates = [candidate.strip().split() for candidate in embedded[0]["srcset"].split(",")]
+        self.assertEqual(candidates, [[images[2].replace(".webp", "-600.webp"), "600w"],
+                                      [images[2], "1200w"]])
+        html = (WWW / article["url"].strip("/") / "index.html").read_text()
+        html_images = image_attributes(html)
+        for source in images:
+            self.assertTrue((WWW / source.lstrip("/")).is_file(), source)
+            self.assertTrue((WWW / source.lstrip("/").replace(".webp", "-600.webp")).is_file())
+            self.assertEqual(sum(image.get("src") == source for image in html_images), 1)
+
+        full_items = ET.parse(WWW / "articles/rss.xml").findall("channel/item")
+        feed_item = next(item for item in full_items if item.findtext("link") == ORIGIN + article["url"])
+        feed_images = image_attributes(feed_item.findtext("{http://purl.org/rss/1.0/modules/content/}encoded"))
+        self.assertEqual({image["src"] for image in feed_images}, {ORIGIN + source for source in images})
+        third = next(image for image in feed_images if image["src"] == ORIGIN + images[2])
+        self.assertEqual(third["srcset"], ", ".join(ORIGIN + source + " " + size for source, size in candidates))
+
+    def test_original_article_calculation_and_links(self):
+        article = publication(next(a for a in CONFIG["publications"]
+                                   if a["slug"] == "debt-recovery-reconciliation"))
+        content = "".join(section["html"] for section in article["sections"])
+        result = next(section["html"] for section in article["sections"] if section["id"] == "result")
+        table = re.search(r"<table\b.*?</table>", result, re.S).group()
+        amounts = [Decimal(re.sub(r"\s", "", value).replace(",", "."))
+                   for value in re.findall(r"(?<!\d)(?:\d{1,3}(?:\s\d{3})+|\d+)[,.]\d{2}(?!\d)", visible(table))]
+        self.assertEqual(amounts, [Decimal("950000.52"), Decimal("950000.52"),
+                                   Decimal("70772.69"), Decimal("1970773.73")])
+        self.assertEqual(sum(amounts[:3]), amounts[3])
+        self.assertIn('href="/calc_nst/"', content)
+        for number in (65, 9):
+            sources = [source for source in article["sources"]
+                       if "АПК" in source["title"] and re.search(r"\b" + str(number) + r"\b", source["title"])]
+            self.assertTrue(sources, "Article " + str(number) + " of the Arbitration Procedure Code must be cited")
+            self.assertTrue(any('href="' + source["url"] + '"' in content for source in sources))
 
     def test_sitemap_and_outgoing_dzen_removed(self):
         ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
@@ -112,12 +262,27 @@ class PublicationsTest(unittest.TestCase):
         self.assertEqual(len(locations), len(set(locations)))
         for item in CONFIG["publications"]:
             self.assertIn("https://elegso.ru" + item["url"], locations)
+        for sitemap in ("sitemap.xml", "sitemap.base.xml"):
+            if sitemap == "sitemap.base.xml" and not (WWW / sitemap).exists():
+                continue
+            rows = ET.parse(WWW / sitemap).findall("s:url", ns)
+            dates = {row.findtext("s:loc", namespaces=ns): row.findtext("s:lastmod", namespaces=ns)
+                     for row in rows}
+            for item in CONFIG["publications"]:
+                self.assertEqual(dates[ORIGIN + item["url"]], publication(item)["modifiedAt"][:10])
         routes = CONFIG["migration"]["sourcePages"] + ["/articles/"]
         for route in routes:
             html = (WWW / route.strip("/") / "index.html").read_text()
             self.assertNotRegex(html, r'href=["\']https?://(?:dzen\.ru|zen\.yandex\.ru)')
         feed = json.loads((WWW / "api/getfeed/index.html").read_text())
+        self.assertEqual(len(feed["posts"]), len(CONFIG["publications"]))
         self.assertTrue(all(p["directlink"].startswith("/articles/") for p in feed["posts"]))
+        posts = {post["url"]: post for post in feed["posts"]}
+        for item in CONFIG["publications"]:
+            article = publication(item)
+            self.assertEqual(posts[item["url"]]["uid"], item["source"]["legacyUid"])
+            self.assertEqual(posts[item["url"]]["date"], article["publishedAt"])
+            self.assertEqual(posts[item["url"]]["published"], article["publishedAt"])
 
     def test_existing_page_text_preserved(self):
         # Compare against pre-publications revision. Only the replaced news feed

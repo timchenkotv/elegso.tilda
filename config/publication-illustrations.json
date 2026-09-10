@@ -5,6 +5,30 @@
   "note": "Редакционные иллюстрации; не фотографии реальных судебных дел. PNG originals retained; web delivery resized/compressed to WebP.",
   "images": [
     {
+      "slug": "debt-recovery-reconciliation",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover for the Russian legal company ELEGSO website article about debt recovery and reconstructing a complete history of charges and payments. Scene: an elegant lawyer-economist desk beneath restrained classical architectural arches, a long unfolded accounting ledger with fine grid lines, orderly bank payment sheets and contract folders, a precise brass balance scale, a small dignified dark wooden gavel and fountain pen. Visual idea: separate documents become one coherent chronological calculation, not piles of cash or a victory celebration. Premium hand-drawn architectural editorial illustration with precise fine ink lines, soft gouache washes, warm paper grain. Brand palette warm ivory #f7f3ec, sand #e5dcd0, forest green #355a56, muted terracotta #a04b38 and restrained brass gold. Landscape 3:2 aspect ratio, balanced uncluttered composition with safe crop margins, detailed enough to read at small thumbnail scale. No people, no vehicles, no text, no letters, no numbers, no logos, no watermarks. Decorative editorial illustration, not a real case photograph or evidentiary document.",
+      "source": "assets-source/publications/debt-recovery-reconciliation.png",
+      "web": "/assets/publications/debt-recovery-reconciliation.webp",
+      "generatedFile": "exec-6243688f-108c-45b5-a18c-8ac84a300718.png",
+      "generatedAt": "2026-09-10"
+    },
+    {
+      "slug": "debt-incomplete-period",
+      "prompt": "Use case: illustration-story. Asset type: editorial inline illustration for ELEGSO Russian legal article about a debt claim endangered by an incomplete accounting period. Scene: an elegant forest-green and ivory lawyer's desk with two document folders and a long accordion-folded grid ledger. The ledger visibly continues beneath a short lifted sheet, suggesting that the earlier part of the calculation was overlooked. A magnifying glass reveals the continuous ledger grid; several orderly bank payment slips are being aligned with the older sheets. Small brass justice scales in the background, restrained classical architectural columns. Hand-drawn architectural editorial art, fine ink, soft gouache washes, warm paper grain. Palette ivory #f7f3ec, sand #e5dcd0, forest green #355a56, muted terracotta #a04b38, brass gold. Wide 3:2 composition, visually distinct from a generic cover, medium close-up focused on documents and continuity. No people, no vehicles, no cash, no text, no letters, no numbers, no logos, no watermarks. This is a conceptual illustration, not a scan of real evidence. Calm serious analytical mood, no triumphant claim of victory.",
+      "source": "assets-source/publications/debt-incomplete-period.png",
+      "web": "/assets/publications/debt-incomplete-period.webp",
+      "generatedFile": "exec-ea99efc8-2e9e-49ab-8365-0122454d3074.png",
+      "generatedAt": "2026-09-10"
+    },
+    {
+      "slug": "debt-evidence-reconstruction",
+      "prompt": "Use case: illustration-story. Asset type: second inline editorial illustration for ELEGSO legal-company article about proving contract debt in arbitration. Scene: refined lawyer-economist workspace, side-by-side two organized case folders opened on a desk, three neat stacks of supporting documents linked by modest brass paperclips, a laptop showing only a clear abstract spreadsheet grid without any text or digits, a mechanical calculator with blank keys, a fountain pen, a small brass justice scale. The full chronological paper ledger is now neatly straightened and aligned with the source documents. Background a softly lit classical courthouse doorway, no identifiable actual courthouse. Editorial architectural drawing in fine ink with soft gouache washes and warm paper grain. Palette warm ivory #f7f3ec, sand #e5dcd0, forest green #355a56, muted terracotta #a04b38 and brass gold. Wide 3:2 composition, ordered and calm, distinctly different viewing angle from a desk with magnifying glass. No people, no cash, no vehicles, no written text, no letters, no numbers, no logos, no watermarks. Conceptual illustration only, not a purported real case photograph, no victory symbolism.",
+      "source": "assets-source/publications/debt-evidence-reconstruction.png",
+      "web": "/assets/publications/debt-evidence-reconstruction.webp",
+      "generatedFile": "exec-54e2d34d-cc5f-44ad-9a95-01c0917cd045.png",
+      "generatedAt": "2026-09-10"
+    },
+    {
       "slug": "leasing-lawyer-when-to-contact",
       "prompt": "Use case: illustration-story. Asset type: landscape editorial cover illustration for the Russian legal company ELEGSO website. Premium hand-drawn architectural editorial illustration, precise fine ink lines with soft gouache washes and paper grain, contemporary and restrained. Palette exclusively warm ivory #f7f3ec, sand #e5dcd0, deep forest green #355a56, muted terracotta #a04b38, small golden-yellow #ffde41 highlights. Landscape 3:2 framing, elegant coherent central composition, safe crop margin, rich but uncluttered. No text, no letters, no numbers, no logos, no watermarks. This is an illustration, not evidence or a photo of a real case. A balanced brass justice scale on a lawyer's desk beside a signed-looking blank contract, a fountain pen and a finely drawn miniature excavator, distant calm architectural arches. Visual theme: timely legal analysis protects a business leasing industrial equipment.",
       "source": "assets-source/publications/leasing-lawyer-when-to-contact.png",

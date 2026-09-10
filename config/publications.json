@@ -25,6 +25,26 @@
   },
   "publications": [
     {
+      "slug": "debt-recovery-reconciliation",
+      "url": "/articles/debt-recovery-reconciliation/",
+      "publishedAt": "2026-09-10T08:45:00+03:00",
+      "modifiedAt": "2026-09-10T08:45:00+03:00",
+      "author": {"name": "Тимченко Тимур Васильевич", "url": "/our_team/"},
+      "source": {
+        "platform": "Авторский материал",
+        "url": "https://elegso.ru/articles/debt-recovery-reconciliation/",
+        "originalTitle": "Взыскание задолженности: ошибка неполного расчёта и риск отказа в иске",
+        "originalExcerpt": "История из практики автора: восстановление полной хронологии начислений и оплат по двум договорам, уточнение требований и устранение реального риска отказа.",
+        "originalPublishedAt": "2026-09-10 08:45:00",
+        "legacyUid": "elegso-debt-recovery-reconciliation"
+      },
+      "image": "/assets/publications/debt-recovery-reconciliation.webp",
+      "imageAlt": "Хронологический расчёт задолженности, договоры, весы правосудия и молоток на столе юриста",
+      "inlineImage": "/assets/publications/debt-incomplete-period.webp",
+      "inlineImageAlt": "Лупа над неполной таблицей расчётов: скрытая часть истории обязательств и платёжные документы",
+      "status": "original-author-source"
+    },
+    {
       "slug": "leasing-lawyer-when-to-contact",
       "url": "/articles/leasing-lawyer-when-to-contact/",
       "source": {
