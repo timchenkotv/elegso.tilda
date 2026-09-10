@@ -278,9 +278,24 @@ class PublicationsTest(unittest.TestCase):
         table = re.search(r"<table\b.*?</table>", result, re.S).group()
         amounts = [Decimal(re.sub(r"\s", "", value).replace(",", "."))
                    for value in re.findall(r"(?<!\d)(?:\d{1,3}(?:\s\d{3})+|\d+)[,.]\d{2}(?!\d)", visible(table))]
-        self.assertEqual(amounts, [Decimal("950000.52"), Decimal("950000.52"),
-                                   Decimal("70772.69"), Decimal("1970773.73")])
-        self.assertEqual(sum(amounts[:3]), amounts[3])
+        self.assertEqual(amounts, [Decimal("1741415.65"), Decimal("950000.52"),
+                                   Decimal("282282.51"), Decimal("950000.52"),
+                                   Decimal("70772.69"), Decimal("282282.51"),
+                                   Decimal("1020773.21"), Decimal("1970773.73")])
+        self.assertEqual(amounts[3] + amounts[4], amounts[6])
+        self.assertEqual(amounts[1] + amounts[6], amounts[7])
+        self.assertEqual(amounts[6] - amounts[2], Decimal("738490.70"))
+        self.assertIn("738 490,70 руб.", visible(result))
+        self.assertIn("3,62 раза", visible(result))
+        self.assertEqual(article["sections"][0]["id"], "full-history")
+        full_history = visible(article["sections"][0]["html"])
+        self.assertIn("все начисления и все оплаты", full_history)
+        self.assertIn("Независимо от того", full_history)
+        self.assertNotIn("при спорной или непрозрачной истории", full_history)
+        self.assertIn('id="previous-judgment"',
+                      (WWW / article["url"].strip("/") / "index.html").read_text())
+        self.assertIn("Все документы были подписаны", article["lead"])
+        self.assertIn("950 000,52 руб.", result)
         self.assertIn('href="/calc_nst/"', content)
         for number in (65, 9):
             sources = [source for source in article["sources"]
