@@ -237,6 +237,20 @@ class PublicationsTest(unittest.TestCase):
         self.assert_original_author_source(slug)
         self.assert_three_illustrations(slug)
         html = (WWW / "articles" / slug / "index.html").read_text()
+        article = publication(next(a for a in CONFIG["publications"] if a["slug"] == slug))
+        content = " ".join(s["html"] for s in article["sections"])
+        for rejected_phrase in ("чужая подпись", "автоматически появилась",
+                                "ставить подпись за заказчика",
+                                "подписывать документ за заказчика",
+                                "волшебной бумагой", "формально красивый акт"):
+            self.assertNotIn(rejected_phrase, content)
+            self.assertNotIn(rejected_phrase, html)
+        self.assertIn("услуги считаются принятыми и подлежат оплате", visible(content))
+        self.assertIn("Если договор предусматривает", visible(content))
+        for fragment in ("1cd43e51fbd4129343b325971a466ec5cd32a425",
+                         "33c65ab7522b599d12e61cc848aebcd09e651f9c",
+                         "b4e192e502ea85e2cf31e682d6dbd8ad395a5012"):
+            self.assertTrue(any(fragment in source["url"] for source in article["sources"]))
         canonical = ORIGIN + "/articles/" + slug + "/"
         self.assertIn('<link rel="canonical" href="' + canonical + '">', html)
         self.assertIn('name="robots" content="index, follow', html)
