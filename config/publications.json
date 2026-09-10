@@ -25,6 +25,26 @@
   },
   "publications": [
     {
+      "slug": "customer-refuses-to-sign-act",
+      "url": "/articles/customer-refuses-to-sign-act/",
+      "publishedAt": "2026-09-10T09:15:00+03:00",
+      "modifiedAt": "2026-09-10T09:15:00+03:00",
+      "author": {"name": "Тимченко Тимур Васильевич", "url": "/our_team/"},
+      "source": {
+        "platform": "Авторский материал",
+        "url": "https://elegso.ru/articles/customer-refuses-to-sign-act/",
+        "originalTitle": "Заказчик не подписывает акт: рекомендации по приёмке и взысканию оплаты",
+        "originalExcerpt": "Авторские рекомендации: неподписанный акт не исключает защиту; подготовка доказательств, направление письма с описью, ЭДО, реакция на возражения и контроль сроков.",
+        "originalPublishedAt": "2026-09-10 09:15:00",
+        "legacyUid": "elegso-customer-refuses-to-sign-act"
+      },
+      "image": "/assets/publications/customer-refuses-to-sign-act.webp",
+      "imageAlt": "Неподписанные акты, фотографии выполненных работ, пустое кресло заказчика, весы правосудия и судейский молоток",
+      "inlineImage": "/assets/publications/act-postal-inventory.webp",
+      "inlineImageAlt": "Открытый конверт, два экземпляра описи, акты и подтверждающие материалы для почтового отправления",
+      "status": "original-author-source"
+    },
+    {
       "slug": "debt-recovery-reconciliation",
       "url": "/articles/debt-recovery-reconciliation/",
       "publishedAt": "2026-09-10T08:45:00+03:00",

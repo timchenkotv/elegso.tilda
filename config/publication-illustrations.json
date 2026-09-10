@@ -5,6 +5,30 @@
   "note": "Редакционные иллюстрации; не фотографии реальных судебных дел. PNG originals retained; web delivery resized/compressed to WebP.",
   "images": [
     {
+      "slug": "customer-refuses-to-sign-act",
+      "prompt": "Use case: illustration-story. Asset type: landscape editorial cover for ELEGSO Russian legal-company article about a customer refusing to sign an acceptance act after completed work. Scene: refined business meeting table in a contemporary office with restrained classical arches; an open dark forest-green folder holds two matching neat acceptance documents with empty signature lines, an unused fountain pen rests beside them, supporting work photographs show a completed interior installation without text. A modest brass justice balance and small dark wooden gavel establish the legal theme. The empty chair opposite implies unanswered acceptance, no people shown. Premium fine-ink architectural editorial drawing with soft gouache washes and tactile warm paper grain, coherent with an elegant law firm's existing articles. Palette warm ivory #f7f3ec, sand #e5dcd0, forest green #355a56, muted terracotta #a04b38 and brass gold. 3:2 wide composition with safe crop margins, uncluttered focal hierarchy. No text, no letters, no numbers, no logos, no watermarks, no vehicles, no cash. This is a conceptual editorial illustration, not real case evidence; no automatic-signature or victory symbolism.",
+      "source": "assets-source/publications/customer-refuses-to-sign-act.png",
+      "web": "/assets/publications/customer-refuses-to-sign-act.webp",
+      "generatedFile": "exec-2ffe0c22-5ae5-4e69-830a-fdd7a9bfac72.png",
+      "generatedAt": "2026-09-10"
+    },
+    {
+      "slug": "act-postal-inventory",
+      "prompt": "Use case: illustration-story. Asset type: first inline illustration for ELEGSO legal article explaining how to send an acceptance act with proof of contents. Scene: close top-down three-quarter view of a well-organized lawyer's desk. An OPEN unsealed thick cream envelope, two matching sheets with simple inventory grid lines, two neat copies of acceptance documents, a cover letter, several small supporting photographs of completed work, a modest postal stamp device beside a brass paperclip tray. The open envelope clearly allows the contents to be checked before sealing. Premium architectural editorial ink drawing and soft gouache wash, tactile warm paper. Brand palette warm ivory #f7f3ec, sand #e5dcd0, forest green #355a56, terracotta #a04b38 and muted brass. Calm precise practical mood, 3:2 wide composition, distinct from a generic courtroom image. No people, no lettering, no numbers, no logos, no legible stamps, no watermarks, no sealed envelope, no cash. Conceptual editorial illustration, not an actual completed postal form, not evidence.",
+      "source": "assets-source/publications/act-postal-inventory.png",
+      "web": "/assets/publications/act-postal-inventory.webp",
+      "generatedFile": "exec-cf842ea2-7daf-4829-9a5b-1a86f3fe3f1f.png",
+      "generatedAt": "2026-09-10"
+    },
+    {
+      "slug": "act-electronic-delivery",
+      "prompt": "Use case: illustration-story. Asset type: second inline editorial illustration for an ELEGSO Russian legal article about electronic document exchange and proving completed work. Scene: elegant contemporary lawyer's workstation, a laptop and a tablet placed at different angles with minimal abstract document cards on screens; two distinct visual stages are suggested by one envelope symbol and one separate fountain-pen symbol, no ticks and no claim that delivery equals signature. Beside them a carefully organised archive folder, a slim electronic signature USB token, two paper document copies and a small brass justice balance. Architectural ink drawing with subtle gouache washes, premium editorial illustration, natural paper grain, calm soft daylight. Warm ivory #f7f3ec, sand #e5dcd0, forest green #355a56, terracotta #a04b38 and muted brass gold. Wide 3:2 framing, clean safe margins, technologically contemporary but in the same elegant style as a law firm's paper-document illustrations. No people, no writing, no letters, no numbers, no branded interfaces, no logos or watermarks. Not a screenshot, not actual evidence, not an infographic with legal assertions.",
+      "source": "assets-source/publications/act-electronic-delivery.png",
+      "web": "/assets/publications/act-electronic-delivery.webp",
+      "generatedFile": "exec-2848384a-dd50-4277-bf5f-e6ec4846d9a7.png",
+      "generatedAt": "2026-09-10"
+    },
+    {
       "slug": "debt-recovery-reconciliation",
       "prompt": "Use case: illustration-story. Asset type: landscape editorial cover for the Russian legal company ELEGSO website article about debt recovery and reconstructing a complete history of charges and payments. Scene: an elegant lawyer-economist desk beneath restrained classical architectural arches, a long unfolded accounting ledger with fine grid lines, orderly bank payment sheets and contract folders, a precise brass balance scale, a small dignified dark wooden gavel and fountain pen. Visual idea: separate documents become one coherent chronological calculation, not piles of cash or a victory celebration. Premium hand-drawn architectural editorial illustration with precise fine ink lines, soft gouache washes, warm paper grain. Brand palette warm ivory #f7f3ec, sand #e5dcd0, forest green #355a56, muted terracotta #a04b38 and restrained brass gold. Landscape 3:2 aspect ratio, balanced uncluttered composition with safe crop margins, detailed enough to read at small thumbnail scale. No people, no vehicles, no text, no letters, no numbers, no logos, no watermarks. Decorative editorial illustration, not a real case photograph or evidentiary document.",
       "source": "assets-source/publications/debt-recovery-reconciliation.png",

@@ -24,7 +24,7 @@ function absoluteFeedHtml(html) {
 const date = iso => new Date(iso).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Moscow'});
 const files = (await fs.readdir(path.join(root, 'content/publications'))).filter(f=>f.endsWith('.json')).sort();
 const content = (await Promise.all(files.map(async f=>JSON.parse(await fs.readFile(path.join(root,'content/publications',f),'utf8'))))).flat();
-const articles = config.publications.map(meta => {
+const registeredArticles = config.publications.map(meta => {
   const item = content.find(a=>a.slug===meta.slug);
   if (!item) throw new Error('Missing article '+meta.slug);
   if (!item.sections?.length || !item.sources?.length) throw new Error('Incomplete article '+meta.slug);
@@ -37,12 +37,15 @@ const articles = config.publications.map(meta => {
   const text = plain(item.lead+' '+item.sections.map(s=>s.html).join(' '));
   return {...article,publishedAt,modifiedAt,words:text.split(/\s+/).length,minutes:Math.max(3,Math.ceil(text.split(/\s+/).length/180))};
 });
+// Array.sort is stable: equal publication dates keep their registry order.
+const articles = [...registeredArticles].sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt));
 if(new Set(articles.map(a=>a.slug)).size!==articles.length || content.length!==articles.length) throw new Error('Duplicate or extra articles');
 const collectionModifiedAt = [config.section.modifiedAt,...articles.map(a=>a.modifiedAt)].reduce((latest,current)=>Date.parse(current)>Date.parse(latest)?current:latest);
 function author(a){return a.author ?? {name:config.section.publisher,url:'/our_team/'};}
 function authorSchema(a){const person=author(a);return {'@type':a.author?'Person':'Organization',name:person.name,url:new URL(person.url,origin).href};}
 function articleBySlug(slug){const article=articles.find(a=>a.slug===slug);if(!article)throw new Error('Missing selected article '+slug);return article;}
 const catalogueCover=articleBySlug('leasing-lawyer-when-to-contact');
+function homepageArticles(){const preferred=[articles[0],...['leasing-lawyer-when-to-contact','messenger-correspondence-preservation'].map(articleBySlug),...articles];return [...new Map(preferred.map(a=>[a.slug,a])).values()].slice(0,3);}
 
 function nav(html) {
   html=html.replace(/<li class="t228__list_item" style="padding:0 15px;"><a class="t-menu__link-item" href="\/articles\/" data-elegso-articles-nav>Статьи<\/a><\/li>/g,'');
@@ -127,7 +130,7 @@ feed.posts=articles.map(a=>({uid:a.source.legacyUid,title:a.title,descr:a.descri
 await fs.writeFile(path.join(web,'api/getfeed/index.html'),JSON.stringify(feed)+'\n');
 for(const route of config.migration.sourcePages){const file=path.join(web,route==='/'?'index.html':route.slice(1)+'index.html');let html=await fs.readFile(file,'utf8');
   const marker=/<!--elegso-publications:start-->[\s\S]*?<!--elegso-publications:end-->/;
-  const selected=route==='/'?['debt-recovery-reconciliation','leasing-lawyer-when-to-contact','messenger-correspondence-preservation'].map(articleBySlug):articles.filter(a=>a.category==='Лизинг').slice(0,3);
+  const selected=route==='/'?homepageArticles():registeredArticles.filter(a=>a.category==='Лизинг').slice(0,3);
   if(marker.test(html)) html=html.replace(marker,responsive(block(selected)));
   else {const feedMatch=html.match(/<div id="rec(?:1282040271|1345693691|1345701461)"/);if(!feedMatch) throw new Error('Old feed block missing: '+route);const next=html.indexOf('<div id="rec',feedMatch.index+1);if(next<0) throw new Error('Next block missing: '+route);html=html.slice(0,feedMatch.index)+responsive(block(selected))+html.slice(next);}
   html=html.replace(/<script\b[^>]*src="[^"]*tilda-feed-1\.1\.min\.js"[^>]*><\/script>/g,'');

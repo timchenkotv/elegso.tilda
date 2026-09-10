@@ -26,6 +26,11 @@ def publication(item):
     return article
 
 
+def newest_publications():
+    return sorted((publication(item) for item in CONFIG["publications"]),
+                  key=lambda item: datetime.fromisoformat(item["publishedAt"]), reverse=True)
+
+
 def article_schema(html):
     schemas = [json.loads(schema) for schema in re.findall(
         r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', html, re.S)]
@@ -71,8 +76,10 @@ def image_attributes(html):
 
 class PublicationsTest(unittest.TestCase):
     def test_publication_preview_selection(self):
-        homepage = ["debt-recovery-reconciliation", "leasing-lawyer-when-to-contact",
-                    "messenger-correspondence-preservation"]
+        newest = newest_publications()
+        homepage = list(dict.fromkeys([newest[0]["slug"], "leasing-lawyer-when-to-contact",
+                                      "messenger-correspondence-preservation",
+                                      *(item["slug"] for item in newest)]))[:3]
         leasing = [item["slug"] for item in CONFIG["publications"]
                    if publication(item)["category"] == "Лизинг"][:3]
         self.assertEqual(len(leasing), 3)
@@ -83,6 +90,7 @@ class PublicationsTest(unittest.TestCase):
             links = re.findall(r'<a href="([^"]+)" class="ep-card-image"', preview)
             expected = homepage if route == "/" else leasing
             self.assertEqual(links, ["/articles/" + slug + "/" for slug in expected], route)
+            self.assertEqual(len(links), len(set(links)), route)
 
         catalogue = (WWW / "articles/index.html").read_text()
         cover_article = next(item for item in CONFIG["publications"]
@@ -90,6 +98,8 @@ class PublicationsTest(unittest.TestCase):
         hero = re.search(r'<figure class="ep-hero-art">(.*?)</figure>', catalogue, re.S).group(1)
         self.assertEqual(image_attributes(hero)[0]["src"], cover_article["image"])
         self.assertIn('property="og:image" content="' + ORIGIN + cover_article["image"] + '"', catalogue)
+        cards = re.findall(r'<a href="([^"]+)" class="ep-card-image"', catalogue)
+        self.assertEqual(cards, [item["url"] for item in newest])
 
     def test_articles_navigation_location(self):
         for file in WWW.rglob("*.html"):
@@ -176,6 +186,11 @@ class PublicationsTest(unittest.TestCase):
         self.assertEqual(len(full_items), len(CONFIG["publications"]))
         self.assertEqual(len(short_items), len(CONFIG["publications"]))
         registered = {ORIGIN + item["url"]: publication(item) for item in CONFIG["publications"]}
+        expected_order = [ORIGIN + item["url"] for item in newest_publications()]
+        for items in (full_items, short_items):
+            guids = [item.findtext("guid") for item in items]
+            self.assertEqual(guids, expected_order)
+            self.assertEqual(len(guids), len(set(guids)))
         for a, b in zip(full_items, short_items):
             self.assertEqual(a.findtext("guid"), b.findtext("guid"))
             self.assertEqual(a.findtext("guid"), a.findtext("link"))
@@ -198,8 +213,11 @@ class PublicationsTest(unittest.TestCase):
             self.assertEqual(parsedate_to_datetime(feed.findtext("channel/lastBuildDate")), latest)
 
     def test_original_author_source(self):
-        item = next((a for a in CONFIG["publications"] if a["slug"] == "debt-recovery-reconciliation"), None)
-        self.assertIsNotNone(item, "Original debt-recovery article must be registered")
+        self.assert_original_author_source("debt-recovery-reconciliation")
+
+    def assert_original_author_source(self, slug):
+        item = next((a for a in CONFIG["publications"] if a["slug"] == slug), None)
+        self.assertIsNotNone(item, "Original article must be registered: " + slug)
         article = publication(item)
         self.assertEqual(article["status"], "original-author-source")
         self.assertEqual(article["source"]["platform"], "Авторский материал")
@@ -212,8 +230,23 @@ class PublicationsTest(unittest.TestCase):
         self.assertEqual(article_schema(html)["author"]["@type"], "Person")
 
     def test_original_article_illustrations(self):
-        article = publication(next(a for a in CONFIG["publications"]
-                                   if a["slug"] == "debt-recovery-reconciliation"))
+        self.assert_three_illustrations("debt-recovery-reconciliation")
+
+    def test_customer_refuses_to_sign_act(self):
+        slug = "customer-refuses-to-sign-act"
+        self.assert_original_author_source(slug)
+        self.assert_three_illustrations(slug)
+        html = (WWW / "articles" / slug / "index.html").read_text()
+        canonical = ORIGIN + "/articles/" + slug + "/"
+        self.assertIn('<link rel="canonical" href="' + canonical + '">', html)
+        self.assertIn('name="robots" content="index, follow', html)
+        self.assertNotIn('content="noindex', html)
+        for name in ("rss.xml", "announcements.xml"):
+            items = ET.parse(WWW / "articles" / name).findall("channel/item")
+            self.assertEqual(sum(item.findtext("guid") == canonical for item in items), 1)
+
+    def assert_three_illustrations(self, slug):
+        article = publication(next(a for a in CONFIG["publications"] if a["slug"] == slug))
         embedded = image_attributes("".join(section["html"] for section in article["sections"]))
         self.assertEqual(len(embedded), 1, "One embedded image complements the cover and inline illustration")
         images = [article["image"], article["inlineImage"], embedded[0]["src"]]
@@ -276,6 +309,8 @@ class PublicationsTest(unittest.TestCase):
             self.assertNotRegex(html, r'href=["\']https?://(?:dzen\.ru|zen\.yandex\.ru)')
         feed = json.loads((WWW / "api/getfeed/index.html").read_text())
         self.assertEqual(len(feed["posts"]), len(CONFIG["publications"]))
+        self.assertEqual([post["url"] for post in feed["posts"]],
+                         [item["url"] for item in newest_publications()])
         self.assertTrue(all(p["directlink"].startswith("/articles/") for p in feed["posts"]))
         posts = {post["url"]: post for post in feed["posts"]}
         for item in CONFIG["publications"]:
