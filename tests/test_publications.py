@@ -232,6 +232,18 @@ class PublicationsTest(unittest.TestCase):
     def test_original_article_illustrations(self):
         self.assert_three_illustrations("debt-recovery-reconciliation")
 
+    def test_articles_explain_without_copyable_document_templates(self):
+        for article in ARTICLES:
+            content = visible(" ".join(s["html"] for s in article["sections"]))
+            with self.subTest(slug=article["slug"]):
+                self.assertNotRegex(content, r"\[(?:номер|дата|дату|сумма|краткое описание|указать)[^\]]*\]")
+                self.assertNotIn("Пример сопроводительного письма", content)
+                self.assertNotIn("Образец предложения о досрочном закрытии", content)
+        debt = next(a for a in ARTICLES if a["slug"] == "debt-recovery-reconciliation")
+        example = next(s["html"] for s in debt["sections"] if s["id"] == "example")
+        self.assertIn("Учебный пример", example)
+        self.assertIn("450 000 руб.", example)
+
     def test_customer_refuses_to_sign_act(self):
         slug = "customer-refuses-to-sign-act"
         self.assert_original_author_source(slug)
@@ -247,6 +259,19 @@ class PublicationsTest(unittest.TestCase):
             self.assertNotIn(rejected_phrase, html)
         self.assertIn("услуги считаются принятыми и подлежат оплате", visible(content))
         self.assertIn("Если договор предусматривает", visible(content))
+        letter = next(s["html"] for s in article["sections"] if s["id"] == "cover-letter")
+        self.assertNotIn("Пример сопроводительного письма", letter)
+        self.assertNotIn("структура письма для адаптации", letter)
+        self.assertNotRegex(visible(letter), r"\[[^\]]+\]")
+        self.assertNotIn("<aside", letter)
+        for subject in ("приёмк", "оплат", "замечани", "приложени", "307"):
+            self.assertIn(subject, letter)
+        objections = visible(next(s["html"] for s in article["sections"]
+                                  if s["id"] == "motivated-refusal"))
+        self.assertNotIn("десять страниц", objections)
+        self.assertNotIn("Короткое сообщение", objections)
+        self.assertIn("установить конкретные недостатки", objections)
+        self.assertIn("подтверждающие материалы", objections)
         for fragment in ("1cd43e51fbd4129343b325971a466ec5cd32a425",
                          "33c65ab7522b599d12e61cc848aebcd09e651f9c",
                          "b4e192e502ea85e2cf31e682d6dbd8ad395a5012"):
