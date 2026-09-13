@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "origin": "https://elegso.ru",
+  "publisher": {
+    "name": "ООО «ЮК ЭЛЕГСО»",
+    "brand": "ЭЛЕГСО",
+    "logo": "/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+  },
+  "offers": [
+    {
+      "id": "business",
+      "url": "/oferta/",
+      "historyUrl": "/oferta/history/",
+      "currentVersion": "2026-09-13",
+      "label": "Для организаций и ИП"
+    },
+    {
+      "id": "individual",
+      "url": "/oferta-fiz/",
+      "historyUrl": "/oferta-fiz/history/",
+      "currentVersion": "2026-09-13",
+      "label": "Для физических лиц"
+    }
+  ]
+}

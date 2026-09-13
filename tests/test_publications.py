@@ -386,6 +386,12 @@ class PublicationsTest(unittest.TestCase):
                 continue
             old = subprocess.check_output(["git", "show", f"{baseline}:{name}"], cwd=ROOT).decode()
             new = (ROOT / name).read_text()
+            if name == "www/soglashenie/index.html":
+                amendments = json.loads((ROOT / "config/privacy-policy-changes-2026-09-13.json").read_text())
+                for amendment in amendments["replacements"]:
+                    self.assertEqual(old.count(amendment["before"]), amendment["expectedOccurrences"],
+                                     "Approved privacy amendment no longer matches: " + amendment["label"])
+                    old = old.replace(amendment["before"], amendment["after"])
             match = re.search(r'<div id="rec(?:1282040271|1345693691|1345701461)"', old)
             if match:
                 end = old.index('<div id="rec', match.start() + 1)
@@ -393,8 +399,14 @@ class PublicationsTest(unittest.TestCase):
             new = re.sub(r"<!--elegso-publications:start-->.*?<!--elegso-publications:end-->", "", new, flags=re.S)
             new = re.sub(r'<li\b[^>]*>(?:(?!</li>).)*data-elegso-articles-nav(?:(?!</li>).)*</li>', "", new, flags=re.S)
             new = re.sub(r'<!--elegso-articles-footer:start-->.*?<!--elegso-articles-footer:end-->', "", new, flags=re.S)
+            new = re.sub(r'<!--elegso-offers-footer:start-->.*?<!--elegso-offers-footer:end-->', "", new, flags=re.S)
+            # The old blanket disclaimer cannot cover the two actual offers.
+            # Normalize only this approved sentence replacement, not any surrounding copy.
+            disclaimer_before = 'Любая информация на сайте не является публичной офертой.'
+            disclaimer_after = 'Информационные материалы сайта не являются публичной офертой. Условия заключения договоров приведены в соответствующих офертах.'
             with self.subTest(file=name):
-                self.assertEqual(visible(old), visible(new))
+                self.assertEqual(visible(old).replace(disclaimer_before, disclaimer_after),
+                                 visible(new).replace(disclaimer_before, disclaimer_after))
 
 
 if __name__ == "__main__":

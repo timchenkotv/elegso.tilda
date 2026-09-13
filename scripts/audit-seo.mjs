@@ -35,6 +35,10 @@ function isTechnical(rel) {
     || /^page\d+\.html$/.test(rel);
 }
 
+function isOfferArchive(rel) {
+  return /^(?:oferta|oferta-fiz)\/versions\/[^/]+\/index\.html$/.test(rel);
+}
+
 function decodeEntities(value = '') {
   return value
     .replaceAll('&quot;', '"')
@@ -152,7 +156,8 @@ for (const file of files) {
   }
 
   const expectedCanonical = `${productionOrigin}${canonicalAliases.get(rel) || route}`;
-  const indexable = !technical;
+  const offerArchive = isOfferArchive(rel);
+  const indexable = !technical && !offerArchive;
   const errors = [];
   if (!title) errors.push('missing-title');
   if (indexable && !description) errors.push('missing-description');
@@ -161,6 +166,7 @@ for (const file of files) {
   if (!htmlLang) errors.push('missing-html-lang');
   if (indexable && /noindex/i.test(robots)) errors.push('unexpected-noindex');
   if (technical && !/noindex/i.test(robots)) errors.push('missing-noindex');
+  if (offerArchive && (!/noindex/i.test(robots) || /nofollow/i.test(robots))) errors.push('offer-archive-robots');
   if (indexable && h1.length !== 1) errors.push(`h1-count:${h1.length}`);
   if (indexable && !ogTitle) errors.push('missing-og-title');
   if (indexable && !ogDescription) errors.push('missing-og-description');
@@ -180,6 +186,7 @@ for (const file of files) {
     route,
     file: rel,
     indexable,
+    offerArchive,
     title,
     description,
     robots,
@@ -217,7 +224,8 @@ const report = {
   summary: {
     htmlPages: pages.length,
     indexablePages: pages.filter((page) => page.indexable).length,
-    technicalNoindexPages: pages.filter((page) => !page.indexable).length,
+    technicalNoindexPages: pages.filter((page) => !page.indexable && !page.offerArchive).length,
+    archivedOfferNoindexPages: pages.filter((page) => page.offerArchive).length,
     pagesWithErrors: pages.filter((page) => page.errors.length).length,
     absoluteInternalReferences: allAbsoluteInternal.length,
     documentRelativeReferences: allDocumentRelative.length,

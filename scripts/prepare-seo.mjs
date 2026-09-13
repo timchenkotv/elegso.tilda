@@ -44,6 +44,10 @@ function isTechnical(rel) {
     || /^page\d+\.html$/.test(rel);
 }
 
+function isOfferArchive(rel) {
+  return /^(?:oferta|oferta-fiz)\/versions\/[^/]+\/index\.html$/.test(rel);
+}
+
 function escapeAttribute(value) {
   return value.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
 }
@@ -219,7 +223,8 @@ for (const file of files) {
   const rel = path.relative(root, file).split(path.sep).join('/');
   if (rel.startsWith('_external/') || rel.startsWith('api/')) continue;
   const route = routeFor(rel);
-  const indexable = !isTechnical(rel);
+  const offerArchive = isOfferArchive(rel);
+  const indexable = !isTechnical(rel) && !offerArchive;
   const canonicalRoute = canonicalAliases.get(rel) || route;
   const canonical = `${productionOrigin}${canonicalRoute}`;
   let html = await fs.readFile(file, 'utf8');
@@ -229,9 +234,10 @@ for (const file of files) {
   html = ensureLazyloadCompatibility(html);
   html = html.replace(/<html(?!\b[^>]*\blang=)(\b[^>]*)>/i, '<html lang="ru"$1>');
   html = setCanonical(html, canonical);
-  html = setMeta(html, 'name', 'robots', indexable
-    ? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-    : 'noindex, nofollow, noarchive');
+  html = setMeta(html, 'name', 'robots', offerArchive
+    ? 'noindex, follow'
+    : indexable ? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+      : 'noindex, nofollow, noarchive');
   if (description) html = setMeta(html, 'name', 'description', description);
   html = setMeta(html, 'property', 'og:title', contentOfMeta(html, 'property', 'og:title') || pageTitle);
   html = setMeta(html, 'property', 'og:description', contentOfMeta(html, 'property', 'og:description') || description);
