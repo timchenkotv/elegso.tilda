@@ -54,7 +54,7 @@
 .eo-toc summary { padding:0 0 17px; color:var(--eo-forest); font-size:12px; font-weight:500; line-height:1.7; text-transform:uppercase; letter-spacing:.07em; cursor:pointer; }
 .eo-toc summary::marker { color:var(--eo-clay); font-size:10px; }
 .eo-toc nav { display:grid; border-top:1px solid var(--eo-line); }
-#allrecords .eo-toc a { display:grid; grid-template-columns:23px minmax(0,1fr); gap:8px; padding:12px 9px 12px 0; border-bottom:1px solid var(--eo-line); color:var(--eo-muted); font-size:12px; line-height:1.65; }
+#allrecords .eo-toc a { display:grid; grid-template-columns:23px minmax(0,1fr); gap:8px; min-height:44px; padding:12px 9px 12px 0; border-bottom:1px solid var(--eo-line); color:var(--eo-muted); font-size:12px; line-height:1.65; }
 .eo-toc a > span { color:var(--eo-clay); font-size:10px; padding-top:2px; }
 #allrecords .eo-toc a[aria-current=location] { color:var(--eo-ink); font-weight:700; background:linear-gradient(90deg,transparent,rgba(229,220,208,.65)); }
 .eo-document { min-width:0; max-width:920px; font-size:15px; line-height:1.85; }
@@ -81,6 +81,30 @@
 .eo-hash span { display:block; margin-top:4px; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:10px; word-break:break-all; }
 .eo-proof-note { font-size:10px; }
 .eo-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px 32px; padding:35px 0 0; font-size:13px; line-height:1.7; }
+.eo-practice { width:calc(100% - 250px - clamp(34px,5vw,70px)); max-width:920px; margin:28px 0 0 calc(250px + clamp(34px,5vw,70px)); border:1px solid var(--eo-line); border-radius:6px; background:rgba(255,253,249,.6); font-size:12px; line-height:1.8; }
+.eo-practice summary { display:list-item; min-height:46px; padding:12px 18px; color:var(--eo-forest); cursor:pointer; font-size:12px; font-weight:500; line-height:1.8; }
+.eo-practice summary::marker { color:var(--eo-clay); font-size:11px; }
+.eo-practice summary:hover { background:rgba(229,220,208,.25); }
+.eo-practice details[open] > summary { border-bottom:1px solid var(--eo-line); }
+.eo-practice__content { padding:19px 21px 22px; }
+.eo-practice__content p { margin:0 0 12px; }
+.eo-practice__content strong { font-weight:500; }
+.eo-practice__disclaimer { color:var(--eo-muted); }
+.eo-practice__disclaimer strong { display:block; color:var(--eo-ink); margin-bottom:4px; }
+.eo-practice__reviewed { color:var(--eo-muted); }
+.eo-practice__group { padding-top:20px; margin-top:19px; border-top:1px solid var(--eo-line); }
+.eo-practice__group h2 { margin:0 0 8px; font:500 14px/1.6 Ubuntu,Arial,sans-serif; letter-spacing:0; text-wrap:pretty; }
+.eo-practice__clauses { color:var(--eo-muted); }
+#allrecords .eo-practice a { text-decoration:underline; text-decoration-color:#9cafa5; text-underline-offset:3px; }
+.eo-practice__source { margin-top:17px; }
+.eo-practice__source-meta { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 10px; margin-bottom:9px; }
+.eo-practice__kind { display:inline-block; padding:2px 8px; border:1px solid var(--eo-line); border-radius:12px; color:var(--eo-muted); font-size:11px; }
+.eo-practice cite { font-style:normal; }
+.eo-practice blockquote { margin:0 0 10px; padding:11px 14px; border-left:2px solid #b5a082; background:rgba(229,220,208,.3); color:#435c51; }
+.eo-practice blockquote p { margin:0; }
+.eo-practice__note { color:var(--eo-muted); }
+.eo-practice__interpretation { margin:15px 0 0!important; }
+.eo-practice__interpretation strong { display:block; margin-bottom:4px; }
 .eo-history .eo-hero h1 { max-width:780px; }
 .eo-version-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:34px; }
 .eo-version { min-width:0; padding:27px 30px 28px; border:1px solid var(--eo-line); border-radius:7px; background:var(--eo-paper); }
@@ -101,6 +125,7 @@
   .eo-document-meta { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .eo-hero { grid-template-columns:minmax(0,1fr) 150px; gap:30px; }
   .eo-hero__seal { min-height:185px; }
+  .eo-practice { width:calc(100% - 256px); margin-left:256px; }
 }
 @media(max-width:980px) {
   .eo-main { --eo-anchor-offset:86px; --eo-sticky-top:8px; padding-top:24px; }
@@ -116,6 +141,8 @@
   .eo-toc a:last-child { border:0; }
   .eo-document { max-width:none; }
   .eo-document section { padding-top:25px; }
+  .eo-practice { width:100%; max-width:none; margin-left:0; font-size:13px; }
+  .eo-practice summary { font-size:13px; }
 }
 @media(max-width:640px) {
   .eo-main { padding-bottom:48px; }
@@ -144,6 +171,8 @@
   .eo-version { padding:23px; }
   .eo-version h2 { font-size:25px; }
   .eo-bottom { align-items:flex-start; flex-direction:column; }
+  .eo-practice__content { padding:17px; }
+  .eo-practice summary { padding-inline:17px; }
 }
 @media(prefers-reduced-motion:reduce) { .eo-main *, .eo-skip { transition:none!important; animation:none!important; scroll-behavior:auto!important; } }
 @media print {
@@ -154,7 +183,7 @@
   body.elegso-offers-page > :not(#allrecords),
   body.elegso-offers-page #allrecords > :not(.eo-main):not(#t-main-content),
   body.elegso-offers-page #t-main-content > :not(.eo-main),
-  .eo-skip,.eo-crumbs,.eo-audiences,.eo-hero,.eo-progress,.eo-notice,.eo-document-meta,.eo-base-date,.eo-actions,.eo-toc,.eo-bottom { display:none!important; }
+  .eo-skip,.eo-crumbs,.eo-audiences,.eo-hero,.eo-progress,.eo-notice,.eo-document-meta,.eo-base-date,.eo-actions,.eo-toc,.eo-bottom,.eo-practice { display:none!important; }
   body.elegso-offers-page #allrecords, body.elegso-offers-page #t-main-content,
   .eo-main,.eo-wrap,.eo-reading,.eo-document { display:block!important; width:auto!important; max-width:none!important; height:auto!important; max-height:none!important; overflow:visible!important; margin:0!important; padding:0!important; border:0!important; background:#fff!important; color:#000!important; }
   .eo-print-identity { display:flex!important; align-items:center; justify-content:space-between; gap:12pt; border-bottom:1px solid #999; padding-bottom:9pt; margin-bottom:15pt; }

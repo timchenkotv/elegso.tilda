@@ -14,6 +14,7 @@
   let fixedBottom = 0;
   let frame = 0;
   let activeId = '';
+  let checkTocVisibility = false;
 
   function measureHeader() {
     fixedBottom = 0;
@@ -33,8 +34,25 @@
     main.style.setProperty('--eo-sticky-top', `${Math.ceil(fixedBottom + (desktop.matches ? 24 : 8))}px`);
     main.style.setProperty('--eo-anchor-offset', `${Math.ceil(fixedBottom + (desktop.matches ? 32 : 86))}px`);
   }
+  function ensureActiveTocLinkVisible() {
+    if (!details?.open || !activeId) return;
+    const viewport = desktop.matches ? toc : toc?.querySelector('nav');
+    const link = links.find(item => item.hash === `#${activeId}`);
+    if (!viewport || !link || viewport.clientHeight <= 0 || viewport.scrollHeight <= viewport.clientHeight) return;
+    const bounds = viewport.getBoundingClientRect();
+    const target = link.getBoundingClientRect();
+    const inset = Math.min(8, viewport.clientHeight / 4);
+    let next = viewport.scrollTop;
+    if (target.top < bounds.top + inset) next -= bounds.top + inset - target.top;
+    else if (target.bottom > bounds.bottom - inset) next += target.bottom - bounds.bottom + inset;
+    // Move only the contents scroller, never the document. Do not continuously
+    // override a reader who scrolls the contents independently of the article.
+    viewport.scrollTop = Math.max(0, Math.min(viewport.scrollHeight - viewport.clientHeight, next));
+  }
   function update() {
     frame = 0;
+    const requestedTocCheck = checkTocVisibility;
+    checkTocVisibility = false;
     measureHeader();
     if (!sections.length || !documentBody) return;
     const readingLine = fixedBottom + (desktop.matches ? 95 : 98);
@@ -44,13 +62,15 @@
       else break;
     }
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 3) current = sections.at(-1);
-    if (current.id !== activeId) {
+    const activeChanged = current.id !== activeId;
+    if (activeChanged) {
       activeId = current.id;
       for (const link of links) {
         if (link.hash === `#${activeId}`) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
       }
     }
+    if (activeChanged || requestedTocCheck) ensureActiveTocLinkVisible();
     if (progress) {
       const rect = documentBody.getBoundingClientRect();
       const span = Math.max(1, rect.height - window.innerHeight + fixedBottom);
@@ -59,9 +79,13 @@
     }
   }
   function requestUpdate() { if (!frame) frame = window.requestAnimationFrame(update); }
+  function requestTocViewportUpdate() {
+    checkTocVisibility = true;
+    requestUpdate();
+  }
   function setTocMode() {
     if (details) details.open = desktop.matches;
-    requestUpdate();
+    requestTocViewportUpdate();
   }
   for (const link of links) {
     link.addEventListener('click', event => {
@@ -80,14 +104,15 @@
   main.querySelector('[data-eo-print]')?.addEventListener('click', () => window.print());
   const printButton = main.querySelector('[data-eo-print]');
   if (printButton && typeof window.print === 'function') printButton.hidden = false;
+  details?.addEventListener('toggle', () => { if (details.open) requestTocViewportUpdate(); });
   window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestTocViewportUpdate, { passive: true });
   window.addEventListener('hashchange', requestUpdate);
   window.addEventListener('load', requestUpdate, { once: true });
   if (desktop.addEventListener) desktop.addEventListener('change', setTocMode);
   else desktop.addListener(setTocMode);
   if (window.ResizeObserver) {
-    const observer = new ResizeObserver(requestUpdate);
+    const observer = new ResizeObserver(requestTocViewportUpdate);
     if (header) observer.observe(header);
     if (documentBody) observer.observe(documentBody);
   }

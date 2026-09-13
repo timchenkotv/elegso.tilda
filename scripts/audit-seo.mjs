@@ -5,6 +5,14 @@ import path from 'node:path';
 const root = path.resolve(process.argv[2] || 'www');
 const reportPath = path.resolve(process.argv[3] || 'reports/seo-audit.json');
 const productionOrigin = 'https://elegso.ru';
+// Exact routes produced outside the source www tree. The publisher's service
+// writes to /srv/www/elegso.ru/generated; this is NOT a /cases/* exemption.
+const configuredRuntimeRoutes = new Map([['/cases/', {
+  producer: 'elegso-case-publisher.service',
+  configuration: 'ops/case-publisher/elegso-case-publisher.service',
+  implementation: 'ops/case-publisher/publish.py#write_release',
+  generatedFile: '/srv/www/elegso.ru/generated/current/cases/index.html',
+}]]);
 const canonicalAliases = new Map([
   ['page28912341.html', '/header/'],
   ['page28912345.html', '/footer/'],
@@ -120,6 +128,7 @@ const pages = [];
 const allBroken = [];
 const allAbsoluteInternal = [];
 const allDocumentRelative = [];
+const allRuntimeReferences = [];
 
 for (const file of files) {
   const rel = path.relative(root, file).split(path.sep).join('/');
@@ -149,9 +158,15 @@ for (const file of files) {
   const absoluteInternal = [...new Set([...hrefs, ...assetUrls].filter((url) => url !== canonical && /^(?:https?:)?\/\/(?:www\.|site\.)?elegso\.ru(?:[\/:?#]|$)/i.test(url)))];
   const documentRelative = [...new Set(hrefs.filter((url) => url && !/^(?:[a-z][a-z0-9+.-]*:|\/|#|\?|\{)/i.test(url)))];
   const broken = [];
+  const runtimeReferences = [];
   for (const url of [...new Set([...hrefs, ...assetUrls])]) {
     const localPath = localPathFromUrl(url);
     if (!localPath || localPath.startsWith('/api/') || localPath.startsWith('/calculator-data/') || localPath.startsWith('/calc_nst/service/')) continue;
+    const runtime = configuredRuntimeRoutes.get(localPath);
+    if (runtime && hrefs.includes(url) && !assetUrls.includes(url)) {
+      runtimeReferences.push({ url, path: localPath, validation: 'live-check-required', ...runtime });
+      continue;
+    }
     if (!await targetExists(localPath)) broken.push(url);
   }
 
@@ -182,6 +197,7 @@ for (const file of files) {
   allBroken.push(...broken.map((url) => ({ route, url })));
   allAbsoluteInternal.push(...absoluteInternal.map((url) => ({ route, url })));
   allDocumentRelative.push(...documentRelative.map((url) => ({ route, url })));
+  allRuntimeReferences.push(...runtimeReferences.map(reference => ({ route, ...reference })));
   pages.push({
     route,
     file: rel,
@@ -205,6 +221,7 @@ for (const file of files) {
     absoluteInternal,
     documentRelative,
     broken,
+    runtimeReferences,
     errors,
   });
 }
@@ -230,11 +247,14 @@ const report = {
     absoluteInternalReferences: allAbsoluteInternal.length,
     documentRelativeReferences: allDocumentRelative.length,
     brokenLocalReferences: allBroken.length,
+    runtimeReferences: allRuntimeReferences.length,
+    runtimeValidationRequired: [...new Set(allRuntimeReferences.map(reference => reference.path))],
     images: pages.reduce((sum, page) => sum + page.images.total, 0),
     imagesWithoutAlt: pages.reduce((sum, page) => sum + page.images.withoutAlt, 0),
   },
   duplicateTitles: duplicateGroups('title'),
   duplicateDescriptions: duplicateGroups('description'),
+  runtimeReferences: allRuntimeReferences,
   pages,
 };
 

@@ -55,6 +55,23 @@ def sample(offer_id):
     }
 
 
+def sample_practice():
+    # Synthetic wording and example domains are fixtures, not published legal quotations.
+    return {
+        "schemaVersion": 1, "reviewedAt": "2026-09-14", "intro": "Справочные пояснения к отдельным положениям.",
+        "groups": [{
+            "id": "acceptance", "title": "Заключение договора",
+            "appliesTo": [{"offer": "business", "clauses": ["1.1", "1.2"]},
+                          {"offer": "individual", "clauses": ["1.1"]}],
+            "interpretation": "Вывод зависит от обстоятельств конкретного обращения.",
+            "cases": [{"court": "Суд для тестирования", "caseNumber": "ТЕСТ-123",
+                       "decisionDate": "2025-03-04", "url": "https://example.org/decision/123",
+                       "quotes": ["Тестовая цитата & обозначение 5 < 10."], "sourcekind": "judgment",
+                       "note": "Тестовая аннотация, не описание реального дела."}],
+        }],
+    }
+
+
 class OfferBuildTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(prefix="elegso-offer-test-")
@@ -102,6 +119,9 @@ class OfferBuildTests(unittest.TestCase):
         directory = self.root / "content/offers" / document["id"]
         directory.mkdir(parents=True, exist_ok=True)
         (directory / (document["version"] + ".json")).write_text(json.dumps(document, ensure_ascii=False))
+
+    def write_practice(self, content):
+        (self.root / "content/offers/practice.json").write_text(json.dumps(content, ensure_ascii=False))
 
     def build(self, *args, success=True):
         result = subprocess.run(["node", str(SCRIPT), "--root", str(self.root), *args], capture_output=True, text=True)
@@ -314,6 +334,18 @@ class OfferBuildTests(unittest.TestCase):
         self.build("--seal", success=False)
         self.assertFalse((self.root / "config/offer-version-hashes.json").exists())
 
+    def test_publication_date_preserved_without_legacy_base_form(self):
+        self.build("--seal")
+        registry = (self.root / "config/offer-version-hashes.json").read_bytes()
+        archive = self.page("/oferta/versions/2026-09-13/")
+        self.build()
+        current = self.page("/oferta/")
+        self.assertNotIn("Базовая форма</span>", current)
+        self.assertNotIn("20 августа 2025", current)
+        self.assertIn('"datePublished":"2026-09-13T12:30:00+03:00"', current)
+        self.assertEqual(registry, (self.root / "config/offer-version-hashes.json").read_bytes())
+        self.assertEqual(archive, self.page("/oferta/versions/2026-09-13/"))
+
     def test_active_html_rejected(self):
         for html in ('<script>alert(1)</script>', '<img src="/x" onerror="alert(1)">', '<a href="javascript:alert(1)">x</a>', '<form><input></form>'):
             document = sample("business")
@@ -344,6 +376,120 @@ class OfferBuildTests(unittest.TestCase):
         self.assertIn("window.addEventListener('scroll', requestUpdate, { passive: true })", script)
         self.assertIn("link.setAttribute('aria-current', 'location')", script)
         self.assertIn("window.print()", script)
+
+    def test_missing_practice_file_keeps_pages_unchanged(self):
+        self.build("--seal")
+        self.assertNotIn('class="eo-practice"', self.page("/oferta/"))
+        self.assertNotIn('class="eo-practice"', self.page("/oferta-fiz/"))
+
+    def test_practice_is_static_closed_and_outside_current_contract_only(self):
+        self.write_practice(sample_practice())
+        self.build("--seal")
+        for route in ("/oferta/", "/oferta-fiz/"):
+            html = self.page(route)
+            block = re.search(r'<section class="eo-practice".*?</section>', html, re.S).group(0)
+            self.assertIn('<details><summary>Посмотреть судебную практику</summary>', block)
+            self.assertNotIn("<details open", block)
+            self.assertNotIn(" hidden", block)
+            self.assertNotIn('aria-hidden="true"', block)
+            self.assertIn("Справочный обзор, а не условия договора.", block)
+            self.assertIn("не означают, что суд проверил или одобрил всю оферту", block)
+            self.assertIn("Тестовая цитата &amp; обозначение 5 &lt; 10.", block)
+            self.assertIn('<blockquote><p>', block)
+            self.assertIn('<cite>Источник:', block)
+            self.assertIn('href="https://example.org/decision/123"', block)
+            self.assertIn('href="#clause-1-1"', block)
+            self.assertLess(html.index('</article></div>'), html.index('class="eo-practice"'))
+            self.assertLess(html.index('class="eo-practice"'), html.index('class="eo-bottom"'))
+            self.assertLess(block.index('<blockquote>'), block.index('class="eo-practice__interpretation"'))
+            self.assertNotIn("data-eo-section", block)
+        for route in ("/oferta/history/", "/oferta-fiz/history/",
+                      "/oferta/versions/2026-09-13/", "/oferta-fiz/versions/2026-09-13/"):
+            self.assertNotIn('class="eo-practice"', self.page(route))
+
+    def test_practice_filters_audiences_and_keeps_law_source_label(self):
+        practice = sample_practice()
+        practice["groups"][0]["appliesTo"] = [{"offer": "business", "clauses": ["1.1"]}]
+        source = practice["groups"][0]["cases"][0]
+        source.update(sourcekind="law", court="Федеральный закон", caseNumber="ТЕСТ-ФЗ")
+        self.write_practice(practice)
+        self.build("--seal")
+        business = self.page("/oferta/")
+        self.assertIn("Норма закона", business)
+        self.assertIn("Источник:", business)
+        self.assertIn("Федеральный закон · ТЕСТ-ФЗ", business)
+        self.assertNotIn('class="eo-practice"', self.page("/oferta-fiz/"))
+
+    def test_practice_update_does_not_change_sealed_content_or_document_dates(self):
+        self.build("--seal")
+        registry = (self.root / "config/offer-version-hashes.json").read_bytes()
+        archive = self.page("/oferta/versions/2026-09-13/")
+        original_document = re.search(r'<article class="eo-document">.*?</article>', self.page("/oferta/"), re.S).group(0)
+        self.write_practice(sample_practice())
+        self.build()
+        self.assertEqual(registry, (self.root / "config/offer-version-hashes.json").read_bytes())
+        self.assertEqual(archive, self.page("/oferta/versions/2026-09-13/"))
+        current = self.page("/oferta/")
+        self.assertEqual(original_document, re.search(r'<article class="eo-document">.*?</article>', current, re.S).group(0))
+        schema = json.loads(re.search(r'<script type="application/ld\+json" data-elegso-offers-schema>(.*?)</script>', current, re.S).group(1))
+        page = next(item for item in schema["@graph"] if item["@type"] == "WebPage")
+        self.assertEqual(page["dateModified"], "2026-09-14T00:00:00+03:00")
+        self.assertEqual(page["datePublished"], "2026-09-13T12:30:00+03:00")
+        self.assertEqual(page["mainEntity"]["dateModified"], "2026-09-13T12:30:00+03:00")
+        self.assertEqual(page["mainEntity"]["version"], VERSION)
+        ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        rows = ET.parse(self.root / "www/sitemap.xml").findall("s:url", ns)
+        dates = {row.findtext("s:loc", namespaces=ns): row.findtext("s:lastmod", namespaces=ns) for row in rows}
+        self.assertEqual(dates[ORIGIN + "/oferta/"], "2026-09-14")
+        self.assertEqual(dates[ORIGIN + "/oferta/history/"], VERSION)
+
+    def test_earlier_practice_review_never_backdates_current_page(self):
+        practice = sample_practice()
+        practice["reviewedAt"] = "2026-09-12"
+        self.write_practice(practice)
+        self.build("--seal")
+        self.assertNotIn('"dateModified":"2026-09-12', self.page("/oferta/"))
+        self.assertIn('"dateModified":"2026-09-13T12:30:00+03:00"', self.page("/oferta/"))
+
+    def test_invalid_practice_and_unknown_clauses_fail_before_writes(self):
+        examples = [None, {}, {"schemaVersion": 1, "reviewedAt": VERSION, "groups": []}]
+        bad_reference = sample_practice()
+        bad_reference["groups"][0]["appliesTo"][0]["clauses"] = ["999.1"]
+        examples.append(bad_reference)
+        bad_url = sample_practice()
+        bad_url["groups"][0]["cases"][0]["url"] = "javascript:alert(1)"
+        examples.append(bad_url)
+        bad_html = sample_practice()
+        bad_html["groups"][0]["interpretation"] = "<script>alert(1)</script>"
+        examples.append(bad_html)
+        for content in examples:
+            self.write_practice(content)
+            self.build("--seal", success=False)
+            self.assertFalse((self.root / "config/offer-version-hashes.json").exists())
+            self.assertFalse((self.root / "www/oferta").exists())
+
+    def test_practice_limits_total_quotes_per_source_to_25_words(self):
+        practice = sample_practice()
+        practice["groups"][0]["cases"][0]["quotes"] = [" ".join(["слово"] * 26)]
+        self.write_practice(practice)
+        result = self.build("--seal", success=False)
+        self.assertIn("exceed 25 words", result.stderr)
+        practice["groups"][0]["cases"][0]["quotes"] = [" ".join(["слово"] * 20)]
+        practice["groups"][0]["cases"].append({
+            "court": "Тест", "caseNumber": "Тест", "decisionDate": VERSION,
+            "url": "https://example.org/decision/123#another-fragment",
+            "quotes": [" ".join(["другое"] * 6)],
+        })
+        self.write_practice(practice)
+        result = self.build("--seal", success=False)
+        self.assertIn("exceed 25 words", result.stderr)
+
+    def test_practice_is_excluded_from_print_and_compact_on_mobile(self):
+        css = (ROOT / "www/assets/offers.css").read_text()
+        print_css = css.split("@media print {", 1)[1]
+        self.assertIn(".eo-bottom,.eo-practice { display:none!important; }", print_css)
+        self.assertIn(".eo-practice summary { display:list-item; min-height:46px;", css)
+        self.assertIn(".eo-practice summary { font-size:13px; }", css)
 
 
 class PublishedOfferContentTests(unittest.TestCase):

@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { casesFooterRuntime } from './footer-cards.mjs';
+import { contactPopupAssetVersion, disableAutomaticContactPopups } from './disable-contact-autopopups.mjs';
 
 const root = path.resolve('www');
 const assetVersion = '20260719-2';
@@ -324,8 +326,9 @@ for (const file of await walk(root)) {
     const calcPrintDocument = route === '/calc_nst'
       ? `<script src="/assets/calc-print-document.js?v=${calcPrintDocumentVersion}" defer></script>`
       : '';
-    html = `${html.slice(0, bodyEnd)}${cbrImporter}${calcReportCutoff}${calcPrintDocument}<script src="/assets/migration.js?v=${assetVersion}" defer></script>${html.slice(bodyEnd)}`;
+    html = `${html.slice(0, bodyEnd)}${cbrImporter}${calcReportCutoff}${calcPrintDocument}<script src="/assets/migration.js?v=${contactPopupAssetVersion}" defer></script>${html.slice(bodyEnd)}`;
   }
+  html = disableAutomaticContactPopups(html);
   html = html.replace(/[ \t]+$/gm, '');
   await fs.writeFile(file, html);
 }
@@ -576,13 +579,6 @@ function migrationInitContactPopups() {
   if (!popups.length) return;
 
   const popupByHook = (hook) => popups.find((popup) => popup.getAttribute('data-tooltip-hook') === hook);
-  const storageKeyFor = (popup) => 'elegso-contact-popup-shown:' + popup.getAttribute('data-tooltip-hook');
-  const wasShown = (popup) => {
-    try { return window.sessionStorage.getItem(storageKeyFor(popup)) === '1'; } catch { return false; }
-  };
-  const markShown = (popup) => {
-    try { window.sessionStorage.setItem(storageKeyFor(popup), '1'); } catch {}
-  };
   const closePopup = (popup) => {
     popup.classList.remove('t-popup_show', 'elegso-contact-popup--visible');
     popup.setAttribute('aria-hidden', 'true');
@@ -595,7 +591,6 @@ function migrationInitContactPopups() {
     popup.classList.add('t-popup_show', 'elegso-contact-popup--visible');
     popup.setAttribute('aria-hidden', 'false');
     document.body.classList.add('t-body_popupshowed', 'elegso-contact-popup-open');
-    markShown(popup);
     window.setTimeout(() => {
       const closeButton = popup.querySelector('.t-popup__close-wrapper');
       if (closeButton) closeButton.focus({ preventScroll: true });
@@ -603,6 +598,8 @@ function migrationInitContactPopups() {
   };
 
   document.querySelectorAll('a[href^="#popup:"]').forEach((trigger) => {
+    // Hidden Tilda openers are automatic triggers, never user contact buttons.
+    if (trigger.classList.contains('t724__opener') || trigger.hasAttribute('data-elegso-contact-auto-disabled')) return;
     const popup = popupByHook(trigger.getAttribute('href'));
     if (!popup) return;
     trigger.addEventListener('click', (event) => {
@@ -627,19 +624,8 @@ function migrationInitContactPopups() {
       .forEach(closePopup);
   });
 
-  const hashPopup = popupByHook(window.location.hash);
-  if (hashPopup) openPopup(hashPopup);
-
-  document.querySelectorAll('.t724__opener[href^="#popup:"]').forEach((opener) => {
-    const popup = popupByHook(opener.getAttribute('href'));
-    if (!popup) return;
-    const delay = Math.max(0, Number(opener.getAttribute('data-timeout') || 0) * 1000);
-    if (wasShown(popup)) return;
-    window.setTimeout(() => {
-      if (wasShown(popup)) return;
-      openPopup(popup);
-    }, delay);
-  });
+  // No timer, scroll, exit-intent or initial URL-hash opening. Contacts are
+  // shown only by the explicit click handlers above.
 }
 function migrationInitLeaseBalanceCalculator() {
   const page = document.querySelector('[data-tilda-page-alias="calculator_of_the_balance_of_counter_obligations_in_leasing"]');
@@ -663,12 +649,14 @@ function migrationInitLeaseBalanceCalculator() {
     document.body.appendChild(script);
   }
 }
+${casesFooterRuntime()}
 window.t_lazyload_update = migrationHydrateImages;
 window.t_lazyload_updateResize_elem = migrationHydrateImages;
 document.addEventListener('DOMContentLoaded', () => {
   migrationHydrateImages();
   migrationInitContactPopups();
   migrationInitLeaseBalanceCalculator();
+  migrationInitCasesFooterCard();
 });
 `, 'utf8');
 

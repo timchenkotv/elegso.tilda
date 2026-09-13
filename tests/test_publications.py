@@ -399,14 +399,15 @@ class PublicationsTest(unittest.TestCase):
             new = re.sub(r"<!--elegso-publications:start-->.*?<!--elegso-publications:end-->", "", new, flags=re.S)
             new = re.sub(r'<li\b[^>]*>(?:(?!</li>).)*data-elegso-articles-nav(?:(?!</li>).)*</li>', "", new, flags=re.S)
             new = re.sub(r'<!--elegso-articles-footer:start-->.*?<!--elegso-articles-footer:end-->', "", new, flags=re.S)
+            new = re.sub(r'<!--elegso-cases-footer:start-->.*?<!--elegso-cases-footer:end-->', "", new, flags=re.S)
             new = re.sub(r'<!--elegso-offers-footer:start-->.*?<!--elegso-offers-footer:end-->', "", new, flags=re.S)
             # The old blanket disclaimer cannot cover the two actual offers.
             # Normalize only this approved sentence replacement, not any surrounding copy.
             disclaimer_before = 'Любая информация на сайте не является публичной офертой.'
             disclaimer_after = 'Информационные материалы сайта не являются публичной офертой. Условия заключения договоров приведены в соответствующих офертах.'
             with self.subTest(file=name):
-                self.assertEqual(visible(old).replace(disclaimer_before, disclaimer_after),
-                                 visible(new).replace(disclaimer_before, disclaimer_after))
+                self.assertEqual(visible(old).replace(disclaimer_before, disclaimer_after).replace('Информация для исполнителей.', 'Присоединение исполнителей'),
+                                 visible(new).replace(disclaimer_before, disclaimer_after).replace('Информация для исполнителей.', 'Присоединение исполнителей'))
 
 
 if __name__ == "__main__":

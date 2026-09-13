@@ -2,6 +2,7 @@
 /** Static, versioned offers. Legal content is authored in content/offers, never here. */
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { footerCard } from './footer-cards.mjs';
 import { createHash } from 'node:crypto';
 
 const args = process.argv.slice(2);
@@ -112,11 +113,68 @@ for (const offer of config.offers) {
 }
 for (const key of sealed.keys()) assert(allKeys.has(key), `SEALED VERSION DELETED: ${key}. Published versions must remain available.`);
 
+let practice = null;
+let practiceFound = false;
+try { practice = JSON.parse(await fs.readFile(path.join(root, 'content/offers/practice.json'), 'utf8')); practiceFound = true; }
+catch (error) { if (error.code !== 'ENOENT') throw error; }
+if (practiceFound) {
+  assert(practice && practice.schemaVersion === 1 && isoDay(practice.reviewedAt), 'Invalid legal-practice schema or reviewedAt');
+  assert(Array.isArray(practice.groups) && practice.groups.length > 0, 'Legal-practice groups must not be empty');
+  const plainText = (value, ref) => {
+    assert(typeof value === 'string' && value.trim().length > 0 && value.length <= 15000, `Invalid legal-practice text: ${ref}`);
+    assert(!/<\/?[a-z][^>]*>/i.test(value), `Legal-practice fields must be plain text: ${ref}`);
+  };
+  if (practice.intro != null) plainText(practice.intro, 'intro');
+  const groupIds = new Set();
+  const sourceQuotes = new Map();
+  for (const group of practice.groups) {
+    assert(/^[a-z][a-z0-9-]*$/.test(group.id || '') && !groupIds.has(group.id), 'Invalid or duplicate legal-practice group ID');
+    groupIds.add(group.id);
+    plainText(group.title, `${group.id}/title`);
+    plainText(group.interpretation, `${group.id}/interpretation`);
+    assert(Array.isArray(group.appliesTo) && group.appliesTo.length > 0, `Missing legal-practice audience: ${group.id}`);
+    const audienceIds = new Set();
+    for (const reference of group.appliesTo) {
+      const offer = offers.find(item => item.id === reference.offer);
+      assert(offer && !audienceIds.has(reference.offer), `Invalid or duplicate legal-practice audience: ${group.id}`);
+      audienceIds.add(reference.offer);
+      const clauseNumbers = new Set(offer.current.sections.flatMap(section => section.clauses.map(clause => clause.number)));
+      assert(Array.isArray(reference.clauses) && reference.clauses.length > 0 && new Set(reference.clauses).size === reference.clauses.length, `Missing or duplicate legal-practice clause references: ${group.id}`);
+      for (const number of reference.clauses) assert(clauseNumbers.has(number), `Unknown legal-practice clause: ${group.id}/${reference.offer}/${number}`);
+    }
+    assert(Array.isArray(group.cases) && group.cases.length > 0, `Missing legal-practice sources: ${group.id}`);
+    for (const source of group.cases) {
+      for (const field of ['court', 'caseNumber']) plainText(source[field], `${group.id}/${field}`);
+      assert(isoDay(source.decisionDate), `Invalid legal-practice source date: ${group.id}`);
+      assert(source.sourcekind == null || ['judgment', 'plenum', 'law'].includes(source.sourcekind), `Invalid legal-practice source kind: ${group.id}`);
+      let url;
+      try { url = new URL(source.url); } catch { throw new Error(`Invalid legal-practice source URL: ${group.id}`); }
+      assert(url.protocol === 'https:' && !url.username && !url.password && url.hostname && typeof source.url === 'string', `Legal-practice source URL must be public HTTPS: ${group.id}`);
+      assert(Array.isArray(source.quotes) && source.quotes.length > 0, `Missing legal-practice quotations: ${group.id}`);
+      const sourceKey = `${url.origin}${url.pathname}${url.search}`;
+      const quotations = sourceQuotes.get(sourceKey) || new Set();
+      for (const quotation of source.quotes) {
+        plainText(quotation, `${group.id}/quotation`);
+        quotations.add(quotation.trim());
+      }
+      sourceQuotes.set(sourceKey, quotations);
+      if (source.note != null) plainText(source.note, `${group.id}/note`);
+    }
+  }
+  for (const [url, quotations] of sourceQuotes) {
+    const words = [...quotations].reduce((total, quotation) => total + quotation.split(/\s+/).length, 0);
+    assert(words <= 25, `Legal-practice quotations exceed 25 words from one source: ${url}`);
+  }
+}
+const practiceGroups = offer => practice?.groups.filter(group => group.appliesTo.some(reference => reference.offer === offer.id)) || [];
+function pageModifiedAt(offer) {
+  const reviewedAt = practiceGroups(offer).length ? `${practice.reviewedAt}T00:00:00+03:00` : null;
+  return reviewedAt && Date.parse(reviewedAt) > Date.parse(offer.current.publishedAt) ? reviewedAt : offer.current.publishedAt;
+}
+
 const footerMarker = /<!--elegso-offers-footer:start-->[\s\S]*?<!--elegso-offers-footer:end-->/g;
 function footerLinks() {
-  return `<!--elegso-offers-footer:start--><div class="r t-rec" data-elegso-offers-footer><style>
-#t-footer .eo-footer{box-sizing:border-box;width:min(1160px,calc(100% - 40px));display:flex;align-items:center;justify-content:space-between;gap:18px 32px;flex-wrap:wrap;margin:0 auto 30px;padding:21px 24px;border:1px solid rgba(53,90,86,.25);border-radius:6px;background:#f4efe6;color:#203f3c;font:14px/1.5 Ubuntu,Arial,sans-serif}#t-footer .eo-footer__label{display:flex;align-items:center;gap:13px;font-weight:500}#t-footer .eo-footer svg{width:24px;height:28px;flex:none;color:#a04b38}#t-footer .eo-footer__links{display:flex;flex-wrap:wrap;gap:12px 24px}#t-footer .eo-footer a{color:#355a56!important;text-decoration:underline!important;text-underline-offset:4px;text-decoration-color:#9cafa5!important}#t-footer .eo-footer a:hover{color:#a04b38!important}#t-footer .eo-footer a:focus-visible{outline:2px solid #a04b38;outline-offset:5px}@media(max-width:640px){#t-footer .eo-footer{padding:18px;gap:16px}#t-footer .eo-footer__links{flex-direction:column;gap:12px}}@media print{[data-elegso-offers-footer]{display:none!important}}
-</style><nav class="eo-footer" aria-label="Условия оказания юридических услуг"><span class="eo-footer__label">${documentIcon}Условия сотрудничества</span><span class="eo-footer__links">${offers.map(offer => `<a href="${offer.url}">${offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц'}</a>`).join('')}</span></nav></div><!--elegso-offers-footer:end-->`;
+  return footerCard('offers', offers);
 }
 function applyFooter(html) {
   html = html.replaceAll(
@@ -162,7 +220,7 @@ function shell({ title, description, url, body, document, archived = false, hist
   ]) head = meta(head, attribute, name, value);
   const crumbs = [{ '@type': 'ListItem', position: 1, name: 'Главная', item: origin + '/' }, { '@type': 'ListItem', position: 2, name: offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц', item: origin + offer.url }];
   if (history || archived) crumbs.push({ '@type': 'ListItem', position: 3, name: history ? 'История редакций' : `Редакция ${document.version}`, item: origin + url });
-  const page = { '@type': history ? 'CollectionPage' : 'WebPage', '@id': origin + url + '#webpage', url: origin + url, name: title, description, inLanguage: 'ru-RU', isPartOf: { '@id': origin + '/#website' }, datePublished: document.publishedAt, dateModified: document.publishedAt };
+  const page = { '@type': history ? 'CollectionPage' : 'WebPage', '@id': origin + url + '#webpage', url: origin + url, name: title, description, inLanguage: 'ru-RU', isPartOf: { '@id': origin + '/#website' }, datePublished: document.publishedAt, dateModified: !history && !archived ? pageModifiedAt(offer) : document.publishedAt };
   if (!history) page.mainEntity = { '@type': 'DigitalDocument', name: document.title, version: document.version, datePublished: document.publishedAt, dateModified: document.publishedAt, inLanguage: 'ru-RU', url: origin + document.url, encodingFormat: 'text/html', publisher: { '@id': origin + '/#organization' } };
   const graph = [{ '@type': 'Organization', '@id': origin + '/#organization', name: config.publisher.name, url: origin + '/', logo: origin + config.publisher.logo }, { '@type': 'WebSite', '@id': origin + '/#website', name: config.publisher.brand, url: origin + '/' }, page, { '@type': 'BreadcrumbList', itemListElement: crumbs }];
   head = head.replace('</head>', `<link rel="canonical" href="${origin}${url}"><link rel="stylesheet" href="/assets/offers.css?v=${assetVersion}"><script src="/assets/offers.js?v=${assetVersion}" defer></script><script type="application/ld+json" data-elegso-offers-schema>${json({ '@context': 'https://schema.org', '@graph': graph })}</script></head>`);
@@ -173,6 +231,15 @@ function audienceSwitch(offer) {
 }
 function crumbs(offer, suffix = '') {
   return `<nav class="eo-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-hidden="true">/</span>${suffix ? `<a href="${offer.url}">${offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц'}</a><span aria-hidden="true">/</span><span>${esc(suffix)}</span>` : `<span>${offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц'}</span>`}</nav>`;
+}
+function practiceBlock(offer) {
+  const groups = practiceGroups(offer);
+  if (!groups.length) return '';
+  const sourceLabels = { judgment: 'Судебный акт', plenum: 'Разъяснение Пленума', law: 'Норма закона' };
+  return `<section class="eo-practice" aria-label="Справочный обзор судебной практики"><details><summary>Посмотреть судебную практику</summary><div class="eo-practice__content"><p class="eo-practice__disclaimer"><strong>Справочный обзор, а не условия договора.</strong> Приведённые акты относятся к отдельным правовым вопросам и не означают, что суд проверил или одобрил всю оферту. Применимость выводов зависит от обстоятельств конкретного спора и действующей редакции закона.</p>${practice.intro ? `<p>${esc(practice.intro)}</p>` : ''}<p class="eo-practice__reviewed">Обзор проверен <time datetime="${practice.reviewedAt}">${esc(date(practice.reviewedAt))}</time>.</p>${groups.map(group => {
+    const reference = group.appliesTo.find(item => item.offer === offer.id);
+    return `<article class="eo-practice__group" id="eo-practice-${group.id}"><h2>${esc(group.title)}</h2><p class="eo-practice__clauses">Пункты оферты: ${reference.clauses.map(number => `<a href="#clause-${number.replaceAll('.', '-')}">${esc(number)}</a>`).join(', ')}.</p>${group.cases.map(source => `<div class="eo-practice__source"><div class="eo-practice__source-meta">${source.sourcekind ? `<span class="eo-practice__kind">${sourceLabels[source.sourcekind]}</span>` : ''}<cite>Источник: <a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.court)} · ${esc(source.caseNumber)} · ${esc(date(source.decisionDate))}</a></cite></div>${source.quotes.map(quotation => `<blockquote><p>${esc(quotation)}</p></blockquote>`).join('')}${source.note ? `<p class="eo-practice__note">${esc(source.note)}</p>` : ''}</div>`).join('')}<p class="eo-practice__interpretation"><strong>Что это означает для условий оферты.</strong> ${esc(group.interpretation)}</p></article>`;
+  }).join('')}</div></details></section>`;
 }
 function documentBody(offer, document, archived) {
   const isCurrent = offer.currentVersion === document.version;
@@ -192,7 +259,7 @@ function documentBody(offer, document, archived) {
   <div class="eo-print-heading"><h2>${esc(document.title)}</h2><p>Редакция ${esc(document.version)} · Опубликована ${esc(actualPublication)} · Вступает в силу ${esc(date(document.effectiveDate))}</p><p>${esc(document.audience)}. Постоянный адрес: ${origin}${document.url}</p></div>
   ${document.sections.map(section => `<section id="${section.id}" data-eo-section><h2>${esc(section.title)}</h2>${section.clauses.map(clause => `<div class="eo-clause" id="clause-${clause.number.replaceAll('.', '-')}"><span class="eo-clause__number">${esc(clause.number)}</span><div class="eo-clause__text">${clause.html}</div></div>`).join('')}</section>`).join('')}
   <footer class="eo-document-proof"><p><strong>Идентификатор редакции:</strong> ${esc(offer.id)}/${esc(document.version)}</p><p><strong>Постоянный адрес:</strong> <a href="${document.url}">${origin}${document.url}</a></p><p class="eo-hash"><strong>Контрольная сумма текста и реквизитов редакции (SHA-256):</strong> <span>${document.hash}</span></p><p class="eo-proof-note">Контрольная сумма позволяет проверить неизменность исходного содержания редакции. Она не является электронной подписью или независимым подтверждением времени публикации.</p></footer>
-  </article></div><div class="eo-bottom"><a href="${offer.historyUrl}">Все редакции оферты <span aria-hidden="true">↗</span></a><a href="/contacts/">Задать вопрос об условиях</a></div></div></main>`;
+  </article></div>${archived ? '' : practiceBlock(offer)}<div class="eo-bottom"><a href="${offer.historyUrl}">Все редакции оферты <span aria-hidden="true">↗</span></a><a href="/contacts/">Задать вопрос об условиях</a></div></div></main>`;
 }
 function historyBody(offer) {
   return `<main class="eo-main eo-history" id="offer-content"><div class="eo-wrap">${crumbs(offer, 'История редакций')}${audienceSwitch(offer)}<header class="eo-hero"><div class="eo-hero__copy"><p class="eo-kicker">Открытый архив условий</p><h1>История редакций оферты</h1><p class="eo-lead">${esc(offer.label)}. Здесь сохраняются редакции договора, их даты и постоянные ссылки. Старые тексты не заменяются новыми: каждое изменение публикуется отдельной редакцией.</p></div><div class="eo-hero__seal" aria-hidden="true">${documentIcon}<span>Версии<br>и даты</span></div></header><aside class="eo-notice"><p>По <a href="${offer.url}">основной ссылке</a> всегда доступна текущая редакция. Применимость изменений к ранее заключённому договору определяется самим договором и законом. Новая публикация сама по себе не означает замену условий уже согласованного задания.</p></aside><div class="eo-version-list">${offer.versions.map(document => `<article class="eo-version"><div class="eo-version__top"><span class="eo-version__status${document.version === offer.currentVersion ? ' eo-version__status--current' : ''}">${document.version === offer.currentVersion ? 'Текущая редакция' : 'Архивная редакция'}</span><time datetime="${document.revisionDate}">${esc(date(document.revisionDate))}</time></div><h2><a href="${document.url}">Редакция ${esc(document.version)} <span aria-hidden="true">↗</span></a></h2><p>${esc(document.description)}</p><dl><div><dt>Вступает в силу</dt><dd>${esc(date(document.effectiveDate))}</dd></div><div><dt>Идентификатор</dt><dd>${esc(offer.id)}/${esc(document.version)}</dd></div></dl><a class="eo-link" href="${document.url}">Открыть текст и распечатать</a></article>`).join('')}</div><div class="eo-bottom"><a href="${offer.url}">← Текущая оферта</a><a href="/contacts/">Контакты компании</a></div></div></main>`;
@@ -243,7 +310,7 @@ for (const name of ['sitemap.xml', 'sitemap.base.xml']) {
   catch (error) { if (error.code !== 'ENOENT') throw error; if (name === 'sitemap.base.xml') continue; sitemap = ''; }
   const rows = [...sitemap.matchAll(/<url>[\s\S]*?<\/url>/g)].map(match => match[0]).filter(row => !offers.some(offer => row.includes(`<loc>${origin}${offer.url}`)));
   for (const offer of offers) {
-    for (const url of [offer.url, offer.historyUrl]) rows.push(`<url><loc>${origin}${url}</loc><lastmod>${offer.current.publishedAt.slice(0, 10)}</lastmod></url>`);
+    for (const url of [offer.url, offer.historyUrl]) rows.push(`<url><loc>${origin}${url}</loc><lastmod>${(url === offer.url ? pageModifiedAt(offer) : offer.current.publishedAt).slice(0, 10)}</lastmod></url>`);
   }
   await fs.writeFile(filename, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows.join('\n')}\n</urlset>\n`);
 }

@@ -20,13 +20,6 @@ function migrationInitContactPopups() {
   if (!popups.length) return;
 
   const popupByHook = (hook) => popups.find((popup) => popup.getAttribute('data-tooltip-hook') === hook);
-  const storageKeyFor = (popup) => 'elegso-contact-popup-shown:' + popup.getAttribute('data-tooltip-hook');
-  const wasShown = (popup) => {
-    try { return window.sessionStorage.getItem(storageKeyFor(popup)) === '1'; } catch { return false; }
-  };
-  const markShown = (popup) => {
-    try { window.sessionStorage.setItem(storageKeyFor(popup), '1'); } catch {}
-  };
   const closePopup = (popup) => {
     popup.classList.remove('t-popup_show', 'elegso-contact-popup--visible');
     popup.setAttribute('aria-hidden', 'true');
@@ -39,7 +32,6 @@ function migrationInitContactPopups() {
     popup.classList.add('t-popup_show', 'elegso-contact-popup--visible');
     popup.setAttribute('aria-hidden', 'false');
     document.body.classList.add('t-body_popupshowed', 'elegso-contact-popup-open');
-    markShown(popup);
     window.setTimeout(() => {
       const closeButton = popup.querySelector('.t-popup__close-wrapper');
       if (closeButton) closeButton.focus({ preventScroll: true });
@@ -47,6 +39,8 @@ function migrationInitContactPopups() {
   };
 
   document.querySelectorAll('a[href^="#popup:"]').forEach((trigger) => {
+    // Hidden Tilda openers are automatic triggers, never user contact buttons.
+    if (trigger.classList.contains('t724__opener') || trigger.hasAttribute('data-elegso-contact-auto-disabled')) return;
     const popup = popupByHook(trigger.getAttribute('href'));
     if (!popup) return;
     trigger.addEventListener('click', (event) => {
@@ -71,19 +65,8 @@ function migrationInitContactPopups() {
       .forEach(closePopup);
   });
 
-  const hashPopup = popupByHook(window.location.hash);
-  if (hashPopup) openPopup(hashPopup);
-
-  document.querySelectorAll('.t724__opener[href^="#popup:"]').forEach((opener) => {
-    const popup = popupByHook(opener.getAttribute('href'));
-    if (!popup) return;
-    const delay = Math.max(0, Number(opener.getAttribute('data-timeout') || 0) * 1000);
-    if (wasShown(popup)) return;
-    window.setTimeout(() => {
-      if (wasShown(popup)) return;
-      openPopup(popup);
-    }, delay);
-  });
+  // No timer, scroll, exit-intent or initial URL-hash opening. Contacts are
+  // shown only by the explicit click handlers above.
 }
 function migrationInitLeaseBalanceCalculator() {
   const page = document.querySelector('[data-tilda-page-alias="calculator_of_the_balance_of_counter_obligations_in_leasing"]');
@@ -212,83 +195,13 @@ function migrationEnsureCasesExperienceStyles() {
       0%, 48% { left: -38%; }
       72%, 100% { left: 126%; }
     }
-    #t-footer .elegso-cases-footer-card {
-      box-sizing: border-box;
-      width: min(1160px, calc(100% - 40px));
-      min-height: 104px;
-      display: grid;
-      grid-template-columns: 96px minmax(130px, .45fr) minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 24px;
-      margin: 0 auto 30px;
-      padding: 20px 24px;
-      overflow: hidden;
-      color: #fff !important;
-      background:
-        linear-gradient(105deg, #203f3c 0%, #355a56 72%, #416862 100%);
-      border: 1px solid rgba(53, 90, 86, .24);
-      border-radius: 6px;
-      box-shadow: 0 12px 30px rgba(32, 63, 60, .14);
-      font-family: Ubuntu, sans-serif;
-      text-decoration: none !important;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    #t-footer .elegso-cases-footer-card:hover,
-    #t-footer .elegso-cases-footer-card:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px rgba(32, 63, 60, .2);
-    }
-    .elegso-cases-footer-card__image {
-      display: block;
-      width: 96px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 4px;
-      background: #e5dcd0;
-    }
-    .elegso-cases-footer-card__title {
-      min-width: 0;
-      color: #e7c77e;
-      font: 400 25px/1.15 Prata, Georgia, serif;
-    }
-    .elegso-cases-footer-card__text {
-      min-width: 0;
-      color: rgba(255, 255, 255, .74);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-    .elegso-cases-footer-card__action {
-      min-width: 170px;
-      padding: 13px 18px;
-      color: #fff;
-      background: #a04b38;
-      border-radius: 5px;
-      font-size: 12px;
-      font-weight: 600;
-      text-align: center;
-    }
     @media (max-width: 980px) {
       #t-header .elegso-cases-nav-hint { display: none; }
       .elegso-cases-cta-row { gap: 9px; }
-      #t-footer .elegso-cases-footer-card {
-        grid-template-columns: 96px minmax(0, 1fr) auto;
-      }
-      .elegso-cases-footer-card__image { grid-column: 1; grid-row: 1; }
-      .elegso-cases-footer-card__title { grid-column: 2; grid-row: 1; }
-      .elegso-cases-footer-card__text { grid-column: 1 / -1; grid-row: 2; }
-      .elegso-cases-footer-card__action { grid-column: 3; grid-row: 1; }
     }
     @media (max-width: 640px) {
       .elegso-cases-cta-row { flex-direction: column; align-items: stretch; }
       .elegso-cases-cta-row > .t-btn { width: 100% !important; }
-      #t-footer .elegso-cases-footer-card {
-        grid-template-columns: 72px minmax(0, 1fr);
-        gap: 10px;
-        padding: 20px;
-      }
-      .elegso-cases-footer-card__image { width: 72px; height: 60px; }
-      .elegso-cases-footer-card__text { grid-column: 1 / -1; grid-row: 2; }
-      .elegso-cases-footer-card__action { grid-column: 1 / -1; grid-row: 3; min-width: 0; margin-top: 5px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .elegso-cases-cta::after { animation: none; }
@@ -367,18 +280,9 @@ function migrationInitCasesHeroButton() {
   row.appendChild(button);
 }
 function migrationInitCasesFooterCard() {
-  migrationEnsureCasesExperienceStyles();
-  if (document.querySelector('#t-footer .elegso-cases-footer-card')) return;
   const footer = document.getElementById('t-footer');
-  const mount = footer && (footer.querySelector('.t344') || footer.firstElementChild);
-  if (!mount) return;
-
-  const card = document.createElement('a');
-  card.className = 'elegso-cases-footer-card';
-  card.href = '/cases/';
-  card.setAttribute('aria-label', 'Наши кейсы: решённые юридические задачи и подтверждённые результаты');
-  card.innerHTML = '<img class="elegso-cases-footer-card__image" src="/assets/publications/leasing-lawyer-when-to-contact-600.webp" alt="" width="96" height="70" loading="lazy" decoding="async"><strong class="elegso-cases-footer-card__title">Наши кейсы</strong><span class="elegso-cases-footer-card__text">Решённые юридические задачи и подтверждённые результаты</span><span class="elegso-cases-footer-card__action">Смотреть дела&nbsp;→</span>';
-  mount.insertAdjacentElement('afterbegin', card);
+  if (!footer || footer.querySelector('.elegso-cases-footer-card')) return;
+  footer.insertAdjacentHTML('afterbegin', "<!--elegso-cases-footer:start--><div class=\"r t-rec elegso-footer-tile-wrap\" data-elegso-cases-footer><link rel=\"stylesheet\" href=\"/assets/footer-cards.css?v=20260913-unified-1\" data-elegso-footer-styles><a class=\"elegso-cases-footer-card elegso-footer-tile\" href=\"/cases/\"><img class=\"elegso-cases-footer-card__image\" src=\"/assets/publications/leasing-lawyer-when-to-contact-600.webp\" alt=\"\" width=\"96\" height=\"96\" loading=\"lazy\" decoding=\"async\"><span class=\"elegso-footer-tile__copy\"><strong class=\"elegso-cases-footer-card__title\">Наши кейсы</strong><span class=\"elegso-cases-footer-card__text\">Решённые юридические задачи и подтверждённые результаты</span></span><span class=\"elegso-cases-footer-card__action elegso-footer-tile__button\" aria-hidden=\"true\">Смотреть дела<span>→</span></span></a></div><!--elegso-cases-footer:end-->");
 }
 window.t_lazyload_update = migrationHydrateImages;
 window.t_lazyload_updateResize_elem = migrationHydrateImages;
