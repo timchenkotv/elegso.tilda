@@ -181,6 +181,41 @@ class OfferBuildTests(unittest.TestCase):
         self.write_document(document)
         self.build()
 
+    def test_same_day_versions_sort_by_publication_time(self):
+        self.build("--seal")
+        for suffix, published_at in (("2", "2026-09-13T15:00:00+03:00"),
+                                     ("10", "2026-09-13T14:00:00+03:00")):
+            document = sample("business")
+            document.update(version=VERSION + "-" + suffix, publishedAt=published_at)
+            self.write_document(document)
+        self.config["offers"][0]["currentVersion"] = VERSION + "-2"
+        self.write_config()
+        self.build("--seal")
+        links = re.findall(r'<h2><a href="(/oferta/versions/[^\"]+/)"', self.page("/oferta/history/"))
+        self.assertEqual(links, ["/oferta/versions/2026-09-13-2/",
+                                 "/oferta/versions/2026-09-13-10/",
+                                 "/oferta/versions/2026-09-13/"])
+
+    def test_same_day_suffix_2_and_10_sort_numerically_when_time_equal(self):
+        self.build("--seal")
+        original_registry = json.loads((self.root / "config/offer-version-hashes.json").read_text())
+        for suffix in ("2", "10"):
+            document = sample("business")
+            document.update(version=VERSION + "-" + suffix, publishedAt="2026-09-13T14:00:00+03:00")
+            self.write_document(document)
+        self.config["offers"][0]["currentVersion"] = VERSION + "-10"
+        self.write_config()
+        self.build("--seal")
+        links = re.findall(r'<h2><a href="(/oferta/versions/[^\"]+/)"', self.page("/oferta/history/"))
+        self.assertEqual(links, ["/oferta/versions/2026-09-13-10/",
+                                 "/oferta/versions/2026-09-13-2/",
+                                 "/oferta/versions/2026-09-13/"])
+        self.assertIn('data-offer-version="2026-09-13-10"', self.page("/oferta/"))
+        updated_registry = json.loads((self.root / "config/offer-version-hashes.json").read_text())
+        for original_entry in original_registry["versions"]:
+            self.assertIn(original_entry, updated_registry["versions"])
+        self.assertIn('data-offer-version="2026-09-13"', self.page("/oferta/versions/2026-09-13/"))
+
     def test_generated_pages_have_full_text_without_javascript(self):
         self.build("--seal")
         for route in ("/oferta/", "/oferta-fiz/", "/oferta/versions/2026-09-13/", "/oferta-fiz/versions/2026-09-13/"):

@@ -9,6 +9,12 @@
       "sealedAt": "2026-09-13T16:05:35.733Z"
     },
     {
+      "id": "business",
+      "version": "2026-09-13-3",
+      "sha256": "3604dcc6bb9706c082340693494ec3d5846beff6dfdb09758654dc1ea7a597d6",
+      "sealedAt": "2026-09-13T16:35:25.627Z"
+    },
+    {
       "id": "individual",
       "version": "2026-09-13",
       "sha256": "8da014c0a82c7b72a617e754356e1ed3821cc0a3ec1de67e13f976785b344610",

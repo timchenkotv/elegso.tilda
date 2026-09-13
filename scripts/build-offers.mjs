@@ -106,7 +106,8 @@ for (const offer of config.offers) {
     versions.push({ ...document, hash, url: `${offer.url}versions/${document.version}/` });
   }
   assert(versions.some(document => document.version === offer.currentVersion), `Current version missing: ${offer.id}/${offer.currentVersion}`);
-  versions.sort((a, b) => b.revisionDate.localeCompare(a.revisionDate) || b.version.localeCompare(a.version));
+  versions.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
+    || b.version.localeCompare(a.version, 'en', { numeric: true }));
   offers.push({ ...offer, versions, current: versions.find(document => document.version === offer.currentVersion) });
 }
 for (const key of sealed.keys()) assert(allKeys.has(key), `SEALED VERSION DELETED: ${key}. Published versions must remain available.`);
