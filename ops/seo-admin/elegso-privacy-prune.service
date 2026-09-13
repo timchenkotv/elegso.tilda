@@ -1,0 +1,16 @@
+[Unit]
+Description=Remove expired ELEGSO analytics consent events only
+
+[Service]
+Type=oneshot
+User=elegso-seo-admin
+Group=www-data
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/elegso-seo-admin/current/privacy_consent.py --prune
+EnvironmentFile=-/etc/elegso-seo-admin/admin.env
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/elegso-seo-admin/access

@@ -387,11 +387,20 @@ class PublicationsTest(unittest.TestCase):
             old = subprocess.check_output(["git", "show", f"{baseline}:{name}"], cwd=ROOT).decode()
             new = (ROOT / name).read_text()
             if name == "www/soglashenie/index.html":
-                amendments = json.loads((ROOT / "config/privacy-policy-changes-2026-09-13.json").read_text())
-                for amendment in amendments["replacements"]:
-                    self.assertEqual(old.count(amendment["before"]), amendment["expectedOccurrences"],
-                                     "Approved privacy amendment no longer matches: " + amendment["label"])
-                    old = old.replace(amendment["before"], amendment["after"])
+                # The owner requested a complete modular privacy-policy rewrite.
+                # Require every authored clause verbatim, then compare the old
+                # shared header/footer independently of the replaced document.
+                policy = json.loads((ROOT / "content/legal/privacy.json").read_text())
+                for section in policy["sections"]:
+                    self.assertIn(section["title"], new)
+                    for clause in section["clauses"]:
+                        self.assertEqual(new.count(clause["html"]), 1)
+                def shell_only(html):
+                    header = html.index("<!--header-->")
+                    end = html.index("</header>", header) + 9
+                    start = html.index("<!--footer-->", end)
+                    return html[header:end] + html[start:]
+                old, new = shell_only(old), shell_only(new)
             match = re.search(r'<div id="rec(?:1282040271|1345693691|1345701461)"', old)
             if match:
                 end = old.index('<div id="rec', match.start() + 1)
@@ -401,6 +410,7 @@ class PublicationsTest(unittest.TestCase):
             new = re.sub(r'<!--elegso-articles-footer:start-->.*?<!--elegso-articles-footer:end-->', "", new, flags=re.S)
             new = re.sub(r'<!--elegso-cases-footer:start-->.*?<!--elegso-cases-footer:end-->', "", new, flags=re.S)
             new = re.sub(r'<!--elegso-offers-footer:start-->.*?<!--elegso-offers-footer:end-->', "", new, flags=re.S)
+            new = re.sub(r'<!--elegso-footer-documents:start-->.*?<!--elegso-footer-documents:end-->', "", new, flags=re.S)
             # The old blanket disclaimer cannot cover the two actual offers.
             # Normalize only this approved sentence replacement, not any surrounding copy.
             disclaimer_before = 'Любая информация на сайте не является публичной офертой.'

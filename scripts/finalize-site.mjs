@@ -3,8 +3,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { casesFooterRuntime } from './footer-cards.mjs';
 import { contactPopupAssetVersion, disableAutomaticContactPopups } from './disable-contact-autopopups.mjs';
+import { applyPrivacyAnalytics, loadPrivacyBuild } from './privacy-analytics.mjs';
 
 const root = path.resolve('www');
+const privacyBuild = await loadPrivacyBuild(path.resolve('.'));
 const assetVersion = '20260719-2';
 const cbrImporterVersion = '20260723-1';
 const calcReportCutoffVersion = '20260723-1';
@@ -211,19 +213,9 @@ for (const file of await walk(root)) {
       '',
     );
 
-  // Analytics must load current vendor code; local snapshots would silently
-  // stop receiving fixes and can break dynamic query-string construction.
+  // Feed assets remain local. Analytics is installed only by the separate
+  // opt-in privacy loader below; legacy Tilda/Google/Mail snippets are removed.
   html = html
-    .replaceAll('/_external/mc.yandex.ru/metrika/tag.js', 'https://mc.yandex.ru/metrika/tag.js')
-    .replaceAll('/_external/top-fwz1.mail.ru/js/code.js', 'https://top-fwz1.mail.ru/js/code.js')
-    .replace(
-      /\/_external\/www\.googletagmanager\.com\/gtm__q_[a-f0-9]+\.js/g,
-      'https://www.googletagmanager.com/gtm.js?id=',
-    )
-    .replace(
-      /\/_external\/www\.googletagmanager\.com\/ns__q_[a-f0-9]+\.html/g,
-      'https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8',
-    )
     .replace(
       /\/_external\/static\.tildacdn\.com\/js\/tilda-feed-1\.1\.min\.js(?:\?v=[^"']*)?/g,
       '/_external/static.tildacdn.com/js/tilda-feed-1.1.min.js?v=20260712-3',
@@ -329,6 +321,7 @@ for (const file of await walk(root)) {
     html = `${html.slice(0, bodyEnd)}${cbrImporter}${calcReportCutoff}${calcPrintDocument}<script src="/assets/migration.js?v=${contactPopupAssetVersion}" defer></script>${html.slice(bodyEnd)}`;
   }
   html = disableAutomaticContactPopups(html);
+  html = applyPrivacyAnalytics(html, privacyBuild);
   html = html.replace(/[ \t]+$/gm, '');
   await fs.writeFile(file, html);
 }

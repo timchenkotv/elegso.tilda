@@ -1,24 +1,21 @@
 /** Shared footer presentation only; never authors article or contract content. */
-export const footerCardsVersion = '20260913-unified-1';
+export const footerCardsVersion = '20260913-privacy-1';
 export const footerStylesHref = `/assets/footer-cards.css?v=${footerCardsVersion}`;
-const esc = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
-const defaultOffers = [{id:'business',url:'/oferta/'},{id:'individual',url:'/oferta-fiz/'}];
+const defaultOffers = [{id:'business',url:'/oferta/'}];
 
 export function footerCard(kind, offers = defaultOffers) {
   const data = {
     cases: {title:'Наши кейсы',description:'Решённые юридические задачи и подтверждённые результаты',image:'leasing-lawyer-when-to-contact',action:'Смотреть дела',url:'/cases/'},
     articles: {title:'Статьи',description:'Юридические разборы и рекомендации для бизнеса',image:'electronic-documents-court-evidence',action:'Читать статьи',url:'/articles/'},
-    offers: {title:'Условия сотрудничества',description:'Порядок работы, условия оказания услуг и действующие оферты',image:'cooperation-terms'},
+    offers: {title:'Условия сотрудничества',description:'Условия оказания услуг, оплаты и обработки персональных данных',image:'cooperation-terms'},
   }[kind];
   if (!data) throw new Error(`Unknown footer card: ${kind}`);
   const prefix = kind === 'offers' ? 'eo-footer' : `elegso-${kind}-footer-card`;
   const image = `<img class="${prefix}__image" src="/assets/publications/${data.image}-600.webp" alt="" width="96" height="96" loading="lazy" decoding="async">`;
   const copy = `<span class="elegso-footer-tile__copy"><strong class="${prefix}__title">${data.title}</strong><span class="${prefix}__text">${data.description}</span></span>`;
+  if (kind === 'offers' && offers.some(offer => !/^\/(?!\/)[a-z0-9_/-]*\/$/.test(offer.url))) throw new Error('Unsafe footer offer URL');
   const content = kind === 'offers'
-    ? `<nav class="eo-footer elegso-footer-tile elegso-footer-tile--offers" aria-label="Условия сотрудничества">${image}${copy}<span class="elegso-footer-tile__actions eo-footer__links">${offers.map(offer => {
-      if (!/^\/(?!\/)[a-z0-9_/-]*\/$/.test(offer.url)) throw new Error('Unsafe footer offer URL');
-      return `<a class="elegso-footer-tile__button" href="${esc(offer.url)}">${offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц'}<span aria-hidden="true">→</span></a>`;
-    }).join('')}</span></nav>`
+    ? `<nav class="eo-footer elegso-footer-tile elegso-footer-tile--offers" aria-label="Условия сотрудничества">${image}${copy}<span class="elegso-footer-tile__actions eo-footer__links"><a class="elegso-footer-tile__button" href="/oferta/">Публичная оферта<span aria-hidden="true">→</span></a><a class="elegso-footer-tile__button" href="/soglashenie/">Персональные данные<span aria-hidden="true">→</span></a></span></nav>`
     : `<a class="${prefix} elegso-footer-tile" href="${data.url}">${image}${copy}<span class="${prefix}__action elegso-footer-tile__button" aria-hidden="true">${data.action}<span>→</span></span></a>`;
   return `<!--elegso-${kind}-footer:start--><div class="r t-rec elegso-footer-tile-wrap" data-elegso-${kind}-footer><link rel="stylesheet" href="${footerStylesHref}" data-elegso-footer-styles>${content}</div><!--elegso-${kind}-footer:end-->`;
 }
@@ -52,6 +49,10 @@ export function enhanceFooterDetails(body) {
   body = body.replace(/<div\b(?=[^>]*\bid="rec1169591771")[^>]*>/, tag => tag.includes('data-elegso-footer-legal') ? tag : tag.replace(/>$/, ' data-elegso-footer-legal>'));
   // The one requested label correction retains the original href and styling.
   body = body.replace(/(<a\b[^>]*href="\/offer_for_lawyer_20231103\/"[^>]*>)Информация<\/a>\s*для исполнителей\./g, '$1Присоединение исполнителей</a>');
+  // Keep the existing contractor URL; the marked companion link is removable
+  // independently during content-preservation audits and never accumulates.
+  body = body.replace(/<!--elegso-footer-documents:start-->[\s\S]*?<!--elegso-footer-documents:end-->/g, '');
+  body = body.replace(/<a\b[^>]*href="\/offer_for_lawyer_20231103\/"[^>]*>Присоединение исполнителей<\/a>/, link => `${link}<!--elegso-footer-documents:start--><span class="elegso-footer-legal-separator" aria-hidden="true"> · </span><a href="/documents/" class="elegso-footer-documents-link">Правовые документы</a><span class="elegso-footer-legal-separator" aria-hidden="true"> · </span><button type="button" class="elegso-footer-cookie-settings" data-elegso-cookie-settings>Настроить cookie</button><!--elegso-footer-documents:end-->`);
   return body;
 }
 

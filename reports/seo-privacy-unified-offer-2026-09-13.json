@@ -1,0 +1,3104 @@
+{
+  "generatedAt": "2026-09-13T18:56:21.911Z",
+  "root": "/Users/timchenko.t.v/Projects/elegso.tilda/www",
+  "summary": {
+    "htmlPages": 55,
+    "indexablePages": 42,
+    "technicalNoindexPages": 7,
+    "archivedOfferNoindexPages": 6,
+    "pagesWithErrors": 0,
+    "absoluteInternalReferences": 0,
+    "documentRelativeReferences": 0,
+    "brokenLocalReferences": 0,
+    "runtimeReferences": 50,
+    "runtimeValidationRequired": [
+      "/cases/"
+    ],
+    "images": 674,
+    "imagesWithoutAlt": 0
+  },
+  "duplicateTitles": [],
+  "duplicateDescriptions": [],
+  "runtimeReferences": [
+    {
+      "route": "/accident_lawyer/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/appeal_of_judicial_acts/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/arbitration_lawyer/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/customer-refuses-to-sign-act/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/debt-recovery-reconciliation/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/director-subsidiary-liability/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/electronic-documents-court-evidence/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/lease-termination-action-plan/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/leasing-lawyer-when-to-contact/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/leasing-payment-crisis/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/messenger-correspondence-preservation/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/articles/self-employed-employment-risks/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/calc_nst/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/cancellation_of_the_court_order/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/collect_the_debt/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/consent/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/contacts/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/contract_drafting_service/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/contract_modification/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/cookies/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/documents/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/drafting_an_agreement/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/error404/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/judicial_protection/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/leasing_lawyer/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/mission/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/oferta/history/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/oferta/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/oferta/versions/2026-09-13/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/oferta/versions/2026-09-13-3/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/oferta/versions/2026-09-13-4/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/oferta-fiz/history/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/oferta-fiz/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/oferta-fiz/versions/2026-09-13/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/offer_for_lawyer_20231103/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/our_team/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/page32088114.html",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/page52312037.html",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/property_law/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/reduction_of_the_penalty_amount/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/refund_of_the_penalty/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/representation_in_the_arbitration_court/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/restoring_the_contract/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/soglashenie/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/termination_and_restoration_of_contracts/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/termination_of_the_lease_agreement/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    },
+    {
+      "route": "/trial_lawyer/",
+      "url": "/cases/",
+      "path": "/cases/",
+      "validation": "live-check-required",
+      "producer": "elegso-case-publisher.service",
+      "configuration": "ops/case-publisher/elegso-case-publisher.service",
+      "implementation": "ops/case-publisher/publish.py#write_release",
+      "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+    }
+  ],
+  "pages": [
+    {
+      "route": "/accident_lawyer/",
+      "file": "accident_lawyer/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Юрист по ДТП — защита прав после аварии и споры со страховщиками",
+      "description": "Юрист по ДТП: профессиональная помощь при спорах, связанных с дорожно-транспортными происшествиями. Оспаривание требований страховых, защита имущества и прав после ДТП.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "expectedCanonical": "https://elegso.ru/accident_lawyer/",
+      "h1": [
+        "Юрист по ДТП"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Юрист по ДТП",
+        "description": "Юрист по ДТП: профессиональная помощь при спорах, связанных с дорожно-транспортными происшествиями. Оспаривание требований страховых, защита имущества и прав после ДТП.",
+        "url": "https://elegso.ru/accident_lawyer/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3733-6435-4330-a135-323663316363/--.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 16,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/appeal_of_judicial_acts/",
+      "file": "appeal_of_judicial_acts/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Обжалование судебных актов: апелляция и кассация в арбитраже",
+      "description": "Обжалование судебных актов в арбитраже: апелляция и кассация по корпоративным и экономическим спорам (дела до 5 томов). Без общей юрисдикции. Возврат средств при неудаче.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "expectedCanonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "h1": [
+        "Обжалование судебных актов"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Обжалование судебных актов",
+        "description": "Обжалование судебных актов в арбитраже: апелляция и кассация по корпоративным и экономическим спорам (дела до 5 томов). Без общей юрисдикции. Возврат средств при неудаче.",
+        "url": "https://elegso.ru/appeal_of_judicial_acts/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6535-6638-4162-b263-343231313138/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 16,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/arbitration_lawyer/",
+      "file": "arbitration_lawyer/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Арбитражный юрист — профессиональная помощь в арбитражных спорах",
+      "description": "Арбитражный юрист — представительство в арбитражном суде, разрешение споров, защита бизнеса. Опытные арбитражные юристы для компаний и предпринимателей.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "expectedCanonical": "https://elegso.ru/arbitration_lawyer/",
+      "h1": [
+        "Арбитражный юрист"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Арбитражный юрист",
+        "description": "Арбитражный юрист — представительство в арбитражном суде, разрешение споров, защита бизнеса. Опытные арбитражные юристы для компаний и предпринимателей.",
+        "url": "https://elegso.ru/arbitration_lawyer/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3366-3866-4739-a662-653263333965/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 21,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/customer-refuses-to-sign-act/",
+      "file": "articles/customer-refuses-to-sign-act/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Заказчик не подписывает акт: как взыскать оплату | ЭЛЕГСО",
+      "description": "Что делать, если заказчик не подписывает акт услуг или выполненных работ: доказательства, письмо, опись вложения, ЭДО, мотивированный отказ и взыскание оплаты.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/customer-refuses-to-sign-act/",
+      "expectedCanonical": "https://elegso.ru/articles/customer-refuses-to-sign-act/",
+      "h1": [
+        "Заказчик не подписывает акт и не платит: как защитить выполненную работу"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Заказчик не подписывает акт: как взыскать оплату | ЭЛЕГСО",
+        "description": "Что делать, если заказчик не подписывает акт услуг или выполненных работ: доказательства, письмо, опись вложения, ЭДО, мотивированный отказ и взыскание оплаты.",
+        "url": "https://elegso.ru/articles/customer-refuses-to-sign-act/",
+        "image": "https://elegso.ru/assets/publications/customer-refuses-to-sign-act.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 10,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/debt-recovery-reconciliation/",
+      "file": "articles/debt-recovery-reconciliation/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Взыскание задолженности: ошибка в расчёте и риск отказа | ЭЛЕГСО",
+      "description": "Почему для взыскания долга нужен полный период начислений и оплат, даже после нулевого остатка. Реальный спор ЭЛЕГСО, уточнение иска и результат перерасчёта.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/debt-recovery-reconciliation/",
+      "expectedCanonical": "https://elegso.ru/articles/debt-recovery-reconciliation/",
+      "h1": [
+        "Взыскание задолженности: как ошибка в расчёте едва не привела к отказу в иске"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Взыскание задолженности: ошибка в расчёте и риск отказа | ЭЛЕГСО",
+        "description": "Почему для взыскания долга нужен полный период начислений и оплат, даже после нулевого остатка. Реальный спор ЭЛЕГСО, уточнение иска и результат перерасчёта.",
+        "url": "https://elegso.ru/articles/debt-recovery-reconciliation/",
+        "image": "https://elegso.ru/assets/publications/debt-recovery-reconciliation.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 10,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/director-subsidiary-liability/",
+      "file": "articles/director-subsidiary-liability/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Субсидиарная ответственность директора: риски и защита | ЭЛЕГСО",
+      "description": "Семь ошибок директора, повышающих риск субсидиарной ответственности: платежи в кризис, сделки с активами, документы и налоги. Практика ВС и чек-лист защиты.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/director-subsidiary-liability/",
+      "expectedCanonical": "https://elegso.ru/articles/director-subsidiary-liability/",
+      "h1": [
+        "Субсидиарная ответственность директора: семь рисков и документы для защиты"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Субсидиарная ответственность директора: риски и защита | ЭЛЕГСО",
+        "description": "Семь ошибок директора, повышающих риск субсидиарной ответственности: платежи в кризис, сделки с активами, документы и налоги. Практика ВС и чек-лист защиты.",
+        "url": "https://elegso.ru/articles/director-subsidiary-liability/",
+        "image": "https://elegso.ru/assets/publications/director-subsidiary-liability.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 8,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/electronic-documents-court-evidence/",
+      "file": "articles/electronic-documents-court-evidence/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Электронная переписка и ЭДО как доказательства в суде | ЭЛЕГСО",
+      "description": "Как представить в арбитражном суде письма, документы ЭДО, сообщения и записи. Электронная подпись, полномочия, квитанции, исходные файлы и проверка достоверности.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/electronic-documents-court-evidence/",
+      "expectedCanonical": "https://elegso.ru/articles/electronic-documents-court-evidence/",
+      "h1": [
+        "Электронная переписка и ЭДО в суде: как подготовить надёжные доказательства"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Электронная переписка и ЭДО как доказательства в суде | ЭЛЕГСО",
+        "description": "Как представить в арбитражном суде письма, документы ЭДО, сообщения и записи. Электронная подпись, полномочия, квитанции, исходные файлы и проверка достоверности.",
+        "url": "https://elegso.ru/articles/electronic-documents-court-evidence/",
+        "image": "https://elegso.ru/assets/publications/electronic-documents-court-evidence.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 8,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/",
+      "file": "articles/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Статьи и судебная практика для бизнеса — ЭЛЕГСО",
+      "description": "Экспертные статьи о лизинге, защите бизнеса и судебных доказательствах. Проверенные источники, разборы ситуаций и практические списки документов.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/",
+      "expectedCanonical": "https://elegso.ru/articles/",
+      "h1": [
+        "Право, которое помогает бизнесу."
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Статьи и судебная практика для бизнеса — ЭЛЕГСО",
+        "description": "Экспертные статьи о лизинге, защите бизнеса и судебных доказательствах. Проверенные источники, разборы ситуаций и практические списки документов.",
+        "url": "https://elegso.ru/articles/",
+        "image": "https://elegso.ru/assets/publications/leasing-fleet.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 14,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/lease-termination-action-plan/",
+      "file": "articles/lease-termination-action-plan/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Расторжение договора лизинга: пошаговый план для бизнеса",
+      "description": "Как выбрать между расторжением, реструктуризацией и выкупом лизинга. Уведомления, возврат имущества, расчёт сальдо, неустойка и подготовка к суду.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/lease-termination-action-plan/",
+      "expectedCanonical": "https://elegso.ru/articles/lease-termination-action-plan/",
+      "h1": [
+        "Расторжение договора лизинга: порядок действий и проверка взаиморасчётов"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Расторжение договора лизинга: пошаговый план для бизнеса",
+        "description": "Как выбрать между расторжением, реструктуризацией и выкупом лизинга. Уведомления, возврат имущества, расчёт сальдо, неустойка и подготовка к суду.",
+        "url": "https://elegso.ru/articles/lease-termination-action-plan/",
+        "image": "https://elegso.ru/assets/publications/leasing-passenger-cars.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 9,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/leasing-lawyer-when-to-contact/",
+      "file": "articles/leasing-lawyer-when-to-contact/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Когда обращаться к юристу по лизингу: документы, риски и план защиты",
+      "description": "Как действовать при просрочке, изъятии техники и завышенном расчёте лизингодателя. Подготовка документов и переписки, проверка сальдо и юридическая помощь.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/leasing-lawyer-when-to-contact/",
+      "expectedCanonical": "https://elegso.ru/articles/leasing-lawyer-when-to-contact/",
+      "h1": [
+        "Когда нужен юрист по лизингу: от первой просрочки до расчёта сальдо"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Когда обращаться к юристу по лизингу: документы, риски и план защиты",
+        "description": "Как действовать при просрочке, изъятии техники и завышенном расчёте лизингодателя. Подготовка документов и переписки, проверка сальдо и юридическая помощь.",
+        "url": "https://elegso.ru/articles/leasing-lawyer-when-to-contact/",
+        "image": "https://elegso.ru/assets/publications/leasing-fleet.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 9,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/leasing-payment-crisis/",
+      "file": "articles/leasing-payment-crisis/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Лизинговый спор: требования 60,3 млн и взыскание 9,4 млн — разбор ЭЛЕГСО",
+      "description": "Обезличенная история из практики ЭЛЕГСО: возврат спецтехники, поздняя продажа, спор о расходах и проверка сальдо. Что помогло обосновать контррасчёт.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/leasing-payment-crisis/",
+      "expectedCanonical": "https://elegso.ru/articles/leasing-payment-crisis/",
+      "h1": [
+        "После возврата техники потребовали 60,3 млн рублей: разбор лизингового спора"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Лизинговый спор: требования 60,3 млн и взыскание 9,4 млн — разбор ЭЛЕГСО",
+        "description": "Обезличенная история из практики ЭЛЕГСО: возврат спецтехники, поздняя продажа, спор о расходах и проверка сальдо. Что помогло обосновать контррасчёт.",
+        "url": "https://elegso.ru/articles/leasing-payment-crisis/",
+        "image": "https://elegso.ru/assets/publications/leasing-payment-crisis.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 8,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/messenger-correspondence-preservation/",
+      "file": "articles/messenger-correspondence-preservation/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Переписка в мессенджерах как доказательство в суде | ЭЛЕГСО",
+      "description": "Как сохранить переписку для арбитражного суда, подтвердить участников и контекст. Когда нужен нотариус, что делать при удалении сообщений и какие ходатайства готовить.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/messenger-correspondence-preservation/",
+      "expectedCanonical": "https://elegso.ru/articles/messenger-correspondence-preservation/",
+      "h1": [
+        "Переписка в мессенджерах: как сохранить доказательства и что делать при удалении сообщений"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Переписка в мессенджерах как доказательство в суде | ЭЛЕГСО",
+        "description": "Как сохранить переписку для арбитражного суда, подтвердить участников и контекст. Когда нужен нотариус, что делать при удалении сообщений и какие ходатайства готовить.",
+        "url": "https://elegso.ru/articles/messenger-correspondence-preservation/",
+        "image": "https://elegso.ru/assets/publications/messenger-correspondence-preservation.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 8,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/articles/self-employed-employment-risks/",
+      "file": "articles/self-employed-employment-risks/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Самозанятые и ИП: риск подмены трудовых отношений | ЭЛЕГСО",
+      "description": "Признаки подмены трудовых отношений в договорах с самозанятыми и ИП: правило двух лет, судебная практика, организация работы, документы и налоговые риски.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/articles/self-employed-employment-risks/",
+      "expectedCanonical": "https://elegso.ru/articles/self-employed-employment-risks/",
+      "h1": [
+        "Самозанятые и ИП: как отличить подрядчика от работника и проверить риски"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Самозанятые и ИП: риск подмены трудовых отношений | ЭЛЕГСО",
+        "description": "Признаки подмены трудовых отношений в договорах с самозанятыми и ИП: правило двух лет, судебная практика, организация работы, документы и налоговые риски.",
+        "url": "https://elegso.ru/articles/self-employed-employment-risks/",
+        "image": "https://elegso.ru/assets/publications/self-employed-employment-risks.webp"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 8,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/calc_nst/",
+      "file": "calc_nst/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Расчёт неустойки по договору онлайн — калькулятор неустойки бесплатно",
+      "description": "Онлайн‑калькулятор неустойки: быстро рассчитайте сумму неустойки по любому договору. Точный расчёт, учёт ключевой ставки и условий договора. Бесплатный расчёт специалистом, если вы затрудняетесь заполнить калькулятор.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/calc_nst/",
+      "expectedCanonical": "https://elegso.ru/calc_nst/",
+      "h1": [
+        "Калькулятор расчёта неустойки"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Калькулятор расчета неустойки",
+        "description": "Онлайн‑калькулятор неустойки: быстро рассчитайте сумму неустойки по любому договору. Точный расчёт, учёт ключевой ставки и условий договора. Бесплатный расчёт специалистом, если вы затрудняетесь заполнить калькулятор.",
+        "url": "https://elegso.ru/calc_nst/",
+        "image": "https://elegso.ru/_external/thb.tildacdn.com/tild6636-3964-4461-b137-336337656463/-/resize/504x/---2.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 13,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/calc_nst/instruction/",
+      "file": "calc_nst/instruction/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Инструкция по калькулятору неустойки — ЭЛЕГСО",
+      "description": "Подробная пошаговая инструкция по калькулятору ЭЛЕГСО: начисления, оплаты, неустойка, ключевая ставка, доходность, средняя ставка, формирование и печать отчёта.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "expectedCanonical": "https://elegso.ru/calc_nst/instruction/",
+      "h1": [
+        "Калькулятор неустойки: от документов до готового отчёта"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Инструкция по калькулятору неустойки ЭЛЕГСО",
+        "description": "От исходных документов до готового печатного отчёта — понятная инструкция с примерами.",
+        "url": "https://elegso.ru/calc_nst/instruction/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
+      },
+      "schemaCount": 2,
+      "images": {
+        "total": 2,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [],
+      "errors": []
+    },
+    {
+      "route": "/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "file": "calculator_of_the_balance_of_counter_obligations_in_leasing/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Калькулятор сальдо встречных обязательств",
+      "description": "Калькулятор сальдо встречных обязательств по договору лизинга, составленный в соответствии с Постановлением Пленума ВАС РФ от 14.03.2014 N 17",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "expectedCanonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "h1": [
+        "Калькулятор сальдо лизинга"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Калькулятор сальдо встречных обязательств",
+        "description": "Калькулятор сальдо встречных обязательств по договору лизинга, составленный в соответствии с Постановлением Пленума ВАС РФ от 14.03.2014 N 17",
+        "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3861-6265-4731-b637-366162346662/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 28,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/cancellation_of_the_court_order/",
+      "file": "cancellation_of_the_court_order/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Отмена судебного приказа - подготовка возражения и сопровождение",
+      "description": "Отмена судебного приказа — профессиональная юридическая помощь. Подготовим документы, подадим возражение и добьёмся отмены судебного приказа быстро и законно.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "expectedCanonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "h1": [
+        "Отмена судебного приказа"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Отмена судебного приказа",
+        "description": "Отмена судебного приказа — профессиональная юридическая помощь. Подготовим документы, подадим возражение и добьёмся отмены судебного приказа быстро и законно.",
+        "url": "https://elegso.ru/cancellation_of_the_court_order/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6237-3439-4833-b232-656632353763/_20.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 16,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/collect_the_debt/",
+      "file": "collect_the_debt/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Взыскание долга с юрлиц и физлиц – профессионально и законно",
+      "description": "Взыскание долга под ключ: работаем с юрлицами и физлицами, сложные и «безнадёжные» случаи, оплата только за результат, возможен выкуп долга до 80% от номинала.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "expectedCanonical": "https://elegso.ru/collect_the_debt/",
+      "h1": [
+        "Взыскание долга"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Взыскание долга",
+        "description": "Взыскание долга под ключ: работаем с юрлицами и физлицами, сложные и «безнадёжные» случаи, оплата только за результат, возможен выкуп долга до 80% от номинала.",
+        "url": "https://elegso.ru/collect_the_debt/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3734-3364-4336-a264-346230323063/--.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 16,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/consent/",
+      "file": "consent/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Согласие на обработку данных для аналитики — ЭЛЕГСО",
+      "description": "Отдельные условия добровольного согласия посетителя сайта ЭЛЕГСО на Яндекс Метрику: цель, данные, срок, получатель и отзыв.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "canonical": "https://elegso.ru/consent/",
+      "expectedCanonical": "https://elegso.ru/consent/",
+      "h1": [
+        "Согласие на обработку данных для аналитики"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Согласие на обработку данных для аналитики",
+        "description": "Отдельные условия добровольного согласия посетителя сайта ЭЛЕГСО на Яндекс Метрику: цель, данные, срок, получатель и отзыв.",
+        "url": "https://elegso.ru/consent/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/contacts/",
+      "file": "contacts/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Контакты юридической компании «ЭЛЕГСО»",
+      "description": "Телефон, e‑mail, адрес офиса на карте, часы приема. Прямая связь по телефону и электронной почте. Помогаем бизнесу и частным клиентам.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/contacts/",
+      "expectedCanonical": "https://elegso.ru/contacts/",
+      "h1": [
+        "Контакты юридической компании «ЭЛЕГСО»"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Контакты",
+        "description": "Телефон, e‑mail, адрес офиса на карте, часы приема. Прямая связь по телефону и электронной почте. Помогаем бизнесу и частным клиентам.",
+        "url": "https://elegso.ru/contacts/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3635-3939-4563-b032-313961396162/photo.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 6,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/contract_drafting_service/",
+      "file": "contract_drafting_service/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Юрист по договорам - составление, проверка и сопровождение",
+      "description": "Юрист по договорам для бизнеса и частных лиц - составление и тщательная проверка договоров, изменение и расторжение, восстановление документов, консультации и сопровождение сделок. Защитим ваши интересы на каждом этапе.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "expectedCanonical": "https://elegso.ru/contract_drafting_service/",
+      "h1": [
+        "Юрист по договорам"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Юрист по договорам",
+        "description": "Юрист по договорам для бизнеса и частных лиц - составление и тщательная проверка договоров, изменение и расторжение, восстановление документов, консультации и сопровождение сделок. Защитим ваши интересы на каждом этапе.",
+        "url": "https://elegso.ru/contract_drafting_service/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6664-3336-4634-b631-363066303864/--.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 17,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/contract_modification/",
+      "file": "contract_modification/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Изменение договора лизинга - подготовка допсоглашений и согласование правок",
+      "description": "Изменение договора лизинга: анализ рисков, подготовка допсоглашения, согласование редакции и подписание. Обновим суммы, сроки, обязанности и обеспечим юридическую защиту.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/contract_modification/",
+      "expectedCanonical": "https://elegso.ru/contract_modification/",
+      "h1": [
+        "Изменение договора лизинга"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Изменение договора лизинга",
+        "description": "Изменение договора лизинга: анализ рисков, подготовка допсоглашения, согласование редакции и подписание. Обновим суммы, сроки, обязанности и обеспечим юридическую защиту.",
+        "url": "https://elegso.ru/contract_modification/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6638-3762-4637-b138-323638323533/--.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 33,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/cookies/",
+      "file": "cookies/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Файлы cookie и настройки приватности — ЭЛЕГСО",
+      "description": "Какие cookie и локальные данные использует сайт ЭЛЕГСО, как разрешить или отключить Яндекс Метрику и сохранить работу калькуляторов.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "canonical": "https://elegso.ru/cookies/",
+      "expectedCanonical": "https://elegso.ru/cookies/",
+      "h1": [
+        "Файлы cookie и настройки приватности"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Файлы cookie и настройки приватности",
+        "description": "Какие cookie и локальные данные использует сайт ЭЛЕГСО, как разрешить или отключить Яндекс Метрику и сохранить работу калькуляторов.",
+        "url": "https://elegso.ru/cookies/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/documents/",
+      "file": "documents/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Правовые документы — ЭЛЕГСО",
+      "description": "Публичная оферта ЭЛЕГСО, политика обработки персональных данных, документы о файлах cookie и условия для исполнителей.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "canonical": "https://elegso.ru/documents/",
+      "expectedCanonical": "https://elegso.ru/documents/",
+      "h1": [
+        "Правовые документы"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Правовые документы",
+        "description": "Публичная оферта ЭЛЕГСО, политика обработки персональных данных, документы о файлах cookie и условия для исполнителей.",
+        "url": "https://elegso.ru/documents/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/drafting_an_agreement/",
+      "file": "drafting_an_agreement/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Составление договора - подготовка и правовая экспертиза для бизнеса",
+      "description": "Составление договора любой сложности - разработка, правовая экспертиза, согласование условий и снижение рисков. Учтём налоги, ответственность, подсудность и практику. Надёжно защитим ваши интересы.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "expectedCanonical": "https://elegso.ru/drafting_an_agreement/",
+      "h1": [
+        "Составление договора"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Составление договора",
+        "description": "Составление договора любой сложности - разработка, правовая экспертиза, согласование условий и снижение рисков. Учтём налоги, ответственность, подсудность и практику. Надёжно защитим ваши интересы.",
+        "url": "https://elegso.ru/drafting_an_agreement/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6339-3862-4338-b030-343734646361/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 16,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/error404/",
+      "file": "error404/index.html",
+      "indexable": false,
+      "offerArchive": false,
+      "title": "Ошибка 404",
+      "description": "",
+      "robots": "noindex, nofollow, noarchive",
+      "canonical": "https://elegso.ru/error404/",
+      "expectedCanonical": "https://elegso.ru/error404/",
+      "h1": [],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Ошибка 404",
+        "description": "",
+        "url": "https://elegso.ru/error404/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6463-6564-4563-b661-336631646533/sg_pic_685ea82bb13b7.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/footer/",
+      "file": "footer/index.html",
+      "indexable": false,
+      "offerArchive": false,
+      "title": "Подвал сайта юридической помощи гражданам и юрлицам",
+      "description": "",
+      "robots": "noindex, nofollow, noarchive",
+      "canonical": "https://elegso.ru/footer/",
+      "expectedCanonical": "https://elegso.ru/footer/",
+      "h1": [],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Подвал сайта юридической помощи гражданам и юрлицам",
+        "description": "",
+        "url": "https://elegso.ru/footer/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 2,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [],
+      "errors": []
+    },
+    {
+      "route": "/header/",
+      "file": "header/index.html",
+      "indexable": false,
+      "offerArchive": false,
+      "title": "Шапка сайта юридической помощи гражданам и юридическим лицам",
+      "description": "",
+      "robots": "noindex, nofollow, noarchive",
+      "canonical": "https://elegso.ru/header/",
+      "expectedCanonical": "https://elegso.ru/header/",
+      "h1": [],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Шапка сайта юридической помощи гражданам и юридическим лицам",
+        "description": "",
+        "url": "https://elegso.ru/header/",
+        "image": "https://elegso.ru/_external/thb.tildacdn.com/tild6636-3836-4134-b236-373062316464/-/resize/504x/_v6_.png"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 1,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [],
+      "errors": []
+    },
+    {
+      "route": "/",
+      "file": "index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Юридическое сопровождение бизнеса в Москве и РФ - комплексные услуги для юридических лиц",
+      "description": "Профессиональное юридическое сопровождение бизнеса - анализ ситуации, разработка стратегии, договорная работа, представительство в судах и госорганах. Бесплатная консультация профильного юриста и индивидуальные решения под задачи вашей компании.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/",
+      "expectedCanonical": "https://elegso.ru/",
+      "h1": [
+        "Юридическое сопровождение бизнеса"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Юридическое сопровождение бизнеса",
+        "description": "Профессиональное юридическое сопровождение бизнеса - анализ ситуации, разработка стратегии, договорная работа, представительство в судах и госорганах. Бесплатная консультация профильного юриста и индивидуальные решения под задачи вашей компании.",
+        "url": "https://elegso.ru/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 27,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/judicial_protection/",
+      "file": "judicial_protection/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Защита в арбитражном суде — юристы по экономическим спорам",
+      "description": "Защита в арбитражном суде: представительство, подготовка документов и стратегии спора. Снижаем риски, возвращаем активы, сопровождаем на всех этапах процесса.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "expectedCanonical": "https://elegso.ru/judicial_protection/",
+      "h1": [
+        "Судебная защита в арбитражном суде"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Судебная защита",
+        "description": "Защита в арбитражном суде: представительство, подготовка документов и стратегии спора. Снижаем риски, возвращаем активы, сопровождаем на всех этапах процесса.",
+        "url": "https://elegso.ru/judicial_protection/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3237-3762-4531-a532-643637646335/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/leasing_lawyer/",
+      "file": "leasing_lawyer/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Юрист по лизингу — профессиональная юридическая помощь в лизинговых спорах",
+      "description": "Юристы по лизингу — вернём максимальную сумму платежей, уменьшаем неустойки, штрафы и пени. Помогаем успешно решать споры с лизинговыми компаниями и защищать ваши имущественные интересы.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "expectedCanonical": "https://elegso.ru/leasing_lawyer/",
+      "h1": [
+        "Юрист по лизингу"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Юрист по лизингу",
+        "description": "Юристы по лизингу — вернём максимальную сумму платежей, уменьшаем неустойки, штрафы и пени. Помогаем успешно решать споры с лизинговыми компаниями и защищать ваши имущественные интересы.",
+        "url": "https://elegso.ru/leasing_lawyer/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3662-3364-4662-a439-616539306333/--.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 43,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/mission/",
+      "file": "mission/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Миссия нашей компании «ЭЛЕГСО»",
+      "description": "Наша цель — защитить интересы бизнеса, добиваясь торжества закона и справедливости там, где другие опускают руки. В сложной среде предпринимательства мы — крепкий тыл.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/mission/",
+      "expectedCanonical": "https://elegso.ru/mission/",
+      "h1": [
+        "Миссия нашей компании «ЭЛЕГСО»"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Миссия нашей компании",
+        "description": "Наша цель — защитить интересы бизнеса, добиваясь торжества закона и справедливости там, где другие опускают руки. В сложной среде предпринимательства мы — крепкий тыл.",
+        "url": "https://elegso.ru/mission/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3834-6336-4961-a636-313937366533/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 6,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/oferta/history/",
+      "file": "oferta/history/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "История редакций: публичная оферта — ЭЛЕГСО",
+      "description": "История изменений условий юридических услуг ЭЛЕГСО. Для заказчиков юридических услуг: даты редакций, постоянные ссылки и сохранённые тексты оферты.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "canonical": "https://elegso.ru/oferta/history/",
+      "expectedCanonical": "https://elegso.ru/oferta/history/",
+      "h1": [
+        "История редакций оферты"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "История редакций: публичная оферта — ЭЛЕГСО",
+        "description": "История изменений условий юридических услуг ЭЛЕГСО. Для заказчиков юридических услуг: даты редакций, постоянные ссылки и сохранённые тексты оферты.",
+        "url": "https://elegso.ru/oferta/history/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/oferta/",
+      "file": "oferta/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Публичная оферта — юридические услуги ЭЛЕГСО",
+      "description": "Публичная оферта ЭЛЕГСО: условия оказания юридических услуг, оплаты, приёмки и электронного обмена документами.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "canonical": "https://elegso.ru/oferta/",
+      "expectedCanonical": "https://elegso.ru/oferta/",
+      "h1": [
+        "Договор-оферта об оказании юридических услуг"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Публичная оферта — юридические услуги ЭЛЕГСО",
+        "description": "Публичная оферта ЭЛЕГСО: условия оказания юридических услуг, оплаты, приёмки и электронного обмена документами.",
+        "url": "https://elegso.ru/oferta/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/oferta/versions/2026-09-13/",
+      "file": "oferta/versions/2026-09-13/index.html",
+      "indexable": false,
+      "offerArchive": true,
+      "title": "Публичная оферта: редакция 2026-09-13 — ЭЛЕГСО",
+      "description": "Публичная оферта ЭЛЕГСО: условия оказания юридических услуг, оплаты, приёмки и электронного обмена документами. Сохранённая редакция 2026-09-13.",
+      "robots": "noindex, follow",
+      "canonical": "https://elegso.ru/oferta/versions/2026-09-13/",
+      "expectedCanonical": "https://elegso.ru/oferta/versions/2026-09-13/",
+      "h1": [
+        "Договор-оферта об оказании юридических услуг"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Публичная оферта: редакция 2026-09-13 — ЭЛЕГСО",
+        "description": "Публичная оферта ЭЛЕГСО: условия оказания юридических услуг, оплаты, приёмки и электронного обмена документами. Сохранённая редакция 2026-09-13.",
+        "url": "https://elegso.ru/oferta/versions/2026-09-13/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/oferta/versions/2026-09-13-3/",
+      "file": "oferta/versions/2026-09-13-3/index.html",
+      "indexable": false,
+      "offerArchive": true,
+      "title": "Публичная оферта: редакция 2026-09-13-3 — ЭЛЕГСО",
+      "description": "Публичная оферта ЭЛЕГСО: условия оказания юридических услуг, оплаты, приёмки и электронного обмена документами. Сохранённая редакция 2026-09-13-3.",
+      "robots": "noindex, follow",
+      "canonical": "https://elegso.ru/oferta/versions/2026-09-13-3/",
+      "expectedCanonical": "https://elegso.ru/oferta/versions/2026-09-13-3/",
+      "h1": [
+        "Договор-оферта об оказании юридических услуг"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Публичная оферта: редакция 2026-09-13-3 — ЭЛЕГСО",
+        "description": "Публичная оферта ЭЛЕГСО: условия оказания юридических услуг, оплаты, приёмки и электронного обмена документами. Сохранённая редакция 2026-09-13-3.",
+        "url": "https://elegso.ru/oferta/versions/2026-09-13-3/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/oferta/versions/2026-09-13-4/",
+      "file": "oferta/versions/2026-09-13-4/index.html",
+      "indexable": false,
+      "offerArchive": true,
+      "title": "Публичная оферта: редакция 2026-09-13-4 — ЭЛЕГСО",
+      "description": "Публичная оферта ЭЛЕГСО: условия оказания юридических услуг, оплаты, приёмки и электронного обмена документами. Сохранённая редакция 2026-09-13-4.",
+      "robots": "noindex, follow",
+      "canonical": "https://elegso.ru/oferta/versions/2026-09-13-4/",
+      "expectedCanonical": "https://elegso.ru/oferta/versions/2026-09-13-4/",
+      "h1": [
+        "Договор-оферта об оказании юридических услуг"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Публичная оферта: редакция 2026-09-13-4 — ЭЛЕГСО",
+        "description": "Публичная оферта ЭЛЕГСО: условия оказания юридических услуг, оплаты, приёмки и электронного обмена документами. Сохранённая редакция 2026-09-13-4.",
+        "url": "https://elegso.ru/oferta/versions/2026-09-13-4/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/oferta-fiz/history/",
+      "file": "oferta-fiz/history/index.html",
+      "indexable": false,
+      "offerArchive": true,
+      "title": "История редакций: архив оферты для физических лиц — ЭЛЕГСО",
+      "description": "История изменений условий юридических услуг ЭЛЕГСО. Прежняя оферта для физических лиц: даты редакций, постоянные ссылки и сохранённые тексты оферты.",
+      "robots": "noindex, follow",
+      "canonical": "https://elegso.ru/oferta-fiz/history/",
+      "expectedCanonical": "https://elegso.ru/oferta-fiz/history/",
+      "h1": [
+        "Архив оферты для физических лиц"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "История редакций: архив оферты для физических лиц — ЭЛЕГСО",
+        "description": "История изменений условий юридических услуг ЭЛЕГСО. Прежняя оферта для физических лиц: даты редакций, постоянные ссылки и сохранённые тексты оферты.",
+        "url": "https://elegso.ru/oferta-fiz/history/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/oferta-fiz/",
+      "file": "oferta-fiz/index.html",
+      "indexable": false,
+      "offerArchive": true,
+      "title": "Публичная оферта — ЭЛЕГСО",
+      "description": "Переход к единой публичной оферте юридической компании ЭЛЕГСО.",
+      "robots": "noindex, follow",
+      "canonical": "https://elegso.ru/oferta/",
+      "expectedCanonical": "https://elegso.ru/oferta/",
+      "h1": [
+        "Публичная оферта находится по единому адресу"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Публичная оферта — ЭЛЕГСО",
+        "description": "Переход к единой публичной оферте юридической компании ЭЛЕГСО.",
+        "url": "https://elegso.ru/oferta-fiz/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/oferta-fiz/versions/2026-09-13/",
+      "file": "oferta-fiz/versions/2026-09-13/index.html",
+      "indexable": false,
+      "offerArchive": true,
+      "title": "Архив оферты для физических лиц: редакция 2026-09-13 — ЭЛЕГСО",
+      "description": "Условия оказания юридических услуг гражданам: согласование заданий, стоимость, электронный обмен, приёмка, отказ от услуг, конфиденциальность и персональные данные. Сохранённая редакция 2026-09-13.",
+      "robots": "noindex, follow",
+      "canonical": "https://elegso.ru/oferta-fiz/versions/2026-09-13/",
+      "expectedCanonical": "https://elegso.ru/oferta-fiz/versions/2026-09-13/",
+      "h1": [
+        "Оферта на оказание юридических услуг физическим лицам"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Архив оферты для физических лиц: редакция 2026-09-13 — ЭЛЕГСО",
+        "description": "Условия оказания юридических услуг гражданам: согласование заданий, стоимость, электронный обмен, приёмка, отказ от услуг, конфиденциальность и персональные данные. Сохранённая редакция 2026-09-13.",
+        "url": "https://elegso.ru/oferta-fiz/versions/2026-09-13/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 5,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/offer_for_lawyer_20231103/",
+      "file": "offer_for_lawyer_20231103/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Публичная оферта присоединения исполнителей от 03.11.2023",
+      "description": "Общество приглашает исполнителей за плату выполнять юридические заказы",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "expectedCanonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "h1": [
+        "Публичная оферта присоединения исполнителей от 03.11.2023"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Публичная оферта присоединения исполнителей от 03.11.2023",
+        "description": "Общество приглашает исполнителей за плату выполнять юридические заказы",
+        "url": "https://elegso.ru/offer_for_lawyer_20231103/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3339-3236-4064-a438-636635643339/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/our_team/",
+      "file": "our_team/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Наша команда «ЭЛЕГСО»",
+      "description": "Мы существуем, чтобы защищать интересы предпринимателей, восстанавливая справедливость и силу закона там, где другие отступают. Мы - опора для тех, кто ведет бизнес в сложной реальности.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/our_team/",
+      "expectedCanonical": "https://elegso.ru/our_team/",
+      "h1": [
+        "Наша команда «ЭЛЕГСО»"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Наша команда",
+        "description": "Мы существуем, чтобы защищать интересы предпринимателей, восстанавливая справедливость и силу закона там, где другие отступают. Мы - опора для тех, кто ведет бизнес в сложной реальности.",
+        "url": "https://elegso.ru/our_team/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6165-6337-4130-a461-326335613539/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 6,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/page28912341.html",
+      "file": "page28912341.html",
+      "indexable": false,
+      "offerArchive": false,
+      "title": "Шапка сайта юридической помощи гражданам и юридическим лицам",
+      "description": "",
+      "robots": "noindex, nofollow, noarchive",
+      "canonical": "https://elegso.ru/header/",
+      "expectedCanonical": "https://elegso.ru/header/",
+      "h1": [],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Шапка сайта юридической помощи гражданам и юридическим лицам",
+        "description": "",
+        "url": "https://elegso.ru/header/",
+        "image": "https://elegso.ru/_external/thb.tildacdn.com/tild6636-3836-4134-b236-373062316464/-/resize/504x/_v6_.png"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 1,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [],
+      "errors": []
+    },
+    {
+      "route": "/page28912345.html",
+      "file": "page28912345.html",
+      "indexable": false,
+      "offerArchive": false,
+      "title": "Подвал сайта юридической помощи гражданам и юрлицам",
+      "description": "",
+      "robots": "noindex, nofollow, noarchive",
+      "canonical": "https://elegso.ru/footer/",
+      "expectedCanonical": "https://elegso.ru/footer/",
+      "h1": [],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Подвал сайта юридической помощи гражданам и юрлицам",
+        "description": "",
+        "url": "https://elegso.ru/footer/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 2,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [],
+      "errors": []
+    },
+    {
+      "route": "/page32088114.html",
+      "file": "page32088114.html",
+      "indexable": false,
+      "offerArchive": false,
+      "title": "Ошибка 404",
+      "description": "",
+      "robots": "noindex, nofollow, noarchive",
+      "canonical": "https://elegso.ru/error404/",
+      "expectedCanonical": "https://elegso.ru/error404/",
+      "h1": [],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Ошибка 404",
+        "description": "",
+        "url": "https://elegso.ru/error404/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6463-6564-4563-b661-336631646533/sg_pic_685ea82bb13b7.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 4,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/page52312037.html",
+      "file": "page52312037.html",
+      "indexable": false,
+      "offerArchive": false,
+      "title": "Калькулятор сальдо встречных обязательств",
+      "description": "Калькулятор сальдо встречных обязательств по договору лизинга, составленный в соответствии с Постановлением Пленума ВАС РФ от 14.03.2014 N 17",
+      "robots": "noindex, nofollow, noarchive",
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "expectedCanonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "h1": [
+        "Калькулятор сальдо лизинга"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Калькулятор сальдо встречных обязательств",
+        "description": "Калькулятор сальдо встречных обязательств по договору лизинга, составленный в соответствии с Постановлением Пленума ВАС РФ от 14.03.2014 N 17",
+        "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3861-6265-4731-b637-366162346662/-.jpg"
+      },
+      "schemaCount": 0,
+      "images": {
+        "total": 28,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/property_law/",
+      "file": "property_law/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Юрист по имуществу — защита имущества, взыскание ущерба",
+      "description": "Юрист по имуществу — профессиональная помощь при спорах о долгах, взыскании ущерба, возврате неустойки и защите имущества. Консультация и сопровождение опытного юриста по имуществу.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/property_law/",
+      "expectedCanonical": "https://elegso.ru/property_law/",
+      "h1": [
+        "Юрист по имуществу"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Юрист по имуществу",
+        "description": "Юрист по имуществу — профессиональная помощь при спорах о долгах, взыскании ущерба, возврате неустойки и защите имущества. Консультация и сопровождение опытного юриста по имуществу.",
+        "url": "https://elegso.ru/property_law/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6261-6666-4234-b463-336333653136/--.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 18,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/reduction_of_the_penalty_amount/",
+      "file": "reduction_of_the_penalty_amount/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Снижение неустойки и начисленных штрафов по лизингу",
+      "description": "Снижение неустойки за счёт доказанной несоразмерности последствий нарушения. Юристы по 333 ГК РФ: анализ договора, стратегия и представительство в суде",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "expectedCanonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "h1": [
+        "Снижение неустойки и начисленных штрафов"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Снижение неустойки и начисленных штрафов",
+        "description": "Снижение неустойки за счёт доказанной несоразмерности последствий нарушения. Юристы по 333 ГК РФ: анализ договора, стратегия и представительство в суде",
+        "url": "https://elegso.ru/reduction_of_the_penalty_amount/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3161-3535-4031-a130-653535306362/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 33,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/refund_of_the_penalty/",
+      "file": "refund_of_the_penalty/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Возврат неустойки - снизим до нуля пени и штрафы по ст. 333 ГК РФ",
+      "description": "Возврат неустойки - уменьшим пени и штрафы по ст. 333 ГК РФ и вернем излишне уплаченное по ст. 1102. Оценка шансов, подготовка документов, представительство в суде.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "expectedCanonical": "https://elegso.ru/refund_of_the_penalty/",
+      "h1": [
+        "Возврат неустойки"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Возврат неустойки",
+        "description": "Возврат неустойки - уменьшим пени и штрафы по ст. 333 ГК РФ и вернем излишне уплаченное по ст. 1102. Оценка шансов, подготовка документов, представительство в суде.",
+        "url": "https://elegso.ru/refund_of_the_penalty/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3835-3161-4233-b062-653966646463/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 19,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/representation_in_the_arbitration_court/",
+      "file": "representation_in_the_arbitration_court/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Представительство в арбитражном суде — опытные юристы для бизнеса",
+      "description": "Представительство в арбитражном суде: стратегия, подготовка и участие на всех стадиях. Защита интересов компаний и ИП. Оценка перспектив и смета за 1 день.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "expectedCanonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "h1": [
+        "Представительство в арбитражном суде"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Представительство в арбитражном суде",
+        "description": "Представительство в арбитражном суде: стратегия, подготовка и участие на всех стадиях. Защита интересов компаний и ИП. Оценка перспектив и смета за 1 день.",
+        "url": "https://elegso.ru/representation_in_the_arbitration_court/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild3130-6139-4536-b565-316230393733/--.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 17,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/restoring_the_contract/",
+      "file": "restoring_the_contract/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Восстановление договора - оспаривание расторжения и возврат к исходным условиям",
+      "description": "Восстановление договора - оспорим незаконное расторжение или изменение, вернём договор к первоначальным условиям. Анализ, доказательства, переговоры и судебное представительство. Защита ваших прав.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "expectedCanonical": "https://elegso.ru/restoring_the_contract/",
+      "h1": [
+        "Восстановление договора"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Восстановление договора",
+        "description": "Восстановление договора - оспорим незаконное расторжение или изменение, вернём договор к первоначальным условиям. Анализ, доказательства, переговоры и судебное представительство. Защита ваших прав.",
+        "url": "https://elegso.ru/restoring_the_contract/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6430-3436-4631-a233-636461653737/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 16,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/soglashenie/",
+      "file": "soglashenie/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Политика обработки персональных данных — ЭЛЕГСО",
+      "description": "Политика ООО «ЮК ЭЛЕГСО»: цели и основания обработки персональных данных, обращения, юридические услуги, калькуляторы, Яндекс Метрика и права субъектов данных.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "canonical": "https://elegso.ru/soglashenie/",
+      "expectedCanonical": "https://elegso.ru/soglashenie/",
+      "h1": [
+        "Политика обработки персональных данных"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Политика обработки персональных данных",
+        "description": "Политика ООО «ЮК ЭЛЕГСО»: цели и основания обработки персональных данных, обращения, юридические услуги, калькуляторы, Яндекс Метрика и права субъектов данных.",
+        "url": "https://elegso.ru/soglashenie/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 6,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/termination_and_restoration_of_contracts/",
+      "file": "termination_and_restoration_of_contracts/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Расторжение договора - безопасное прекращение обязательств для бизнеса и частных лиц",
+      "description": "Расторжение договора без рисков - анализ оснований, уведомления, соглашение о расторжении или односторонний отказ, переговоры и судебное сопровождение. Минимизируем убытки и неустойки, соблюдаем сроки и процедуру.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "expectedCanonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "h1": [
+        "Расторжение договора"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Расторжение договора",
+        "description": "Расторжение договора без рисков - анализ оснований, уведомления, соглашение о расторжении или односторонний отказ, переговоры и судебное сопровождение. Минимизируем убытки и неустойки, соблюдаем сроки и процедуру.",
+        "url": "https://elegso.ru/termination_and_restoration_of_contracts/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6437-3233-4338-b766-386562643364/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 16,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/termination_of_the_lease_agreement/",
+      "file": "termination_of_the_lease_agreement/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Расторжение договора лизинга — возврат платежей, защита интересов",
+      "description": "Расторжение договора лизинга — защищаем лизингополучателей в суде, возвращаем максимальную сумму лизинговых платежей, уменьшаем неустойки, штрафы и пени, помогаем в спорах с лизинговыми компаниями.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "expectedCanonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "h1": [
+        "Расторжение договора лизинга"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Расторжение договора лизинга",
+        "description": "Расторжение договора лизинга — защищаем лизингополучателей в суде, возвращаем максимальную сумму лизинговых платежей, уменьшаем неустойки, штрафы и пени, помогаем в спорах с лизинговыми компаниями.",
+        "url": "https://elegso.ru/termination_of_the_lease_agreement/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6165-3164-4532-b636-396135623530/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 42,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/trial_lawyer/",
+      "file": "trial_lawyer/index.html",
+      "indexable": true,
+      "offerArchive": false,
+      "title": "Юрист в арбитражный суд — сопровождение споров и защита бизнеса",
+      "description": "Юрист в арбитражный суд: анализ спора, подготовка и подача документов, представительство на всех стадиях процесса. Минимизируем риски и защищаем бизнес.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "expectedCanonical": "https://elegso.ru/trial_lawyer/",
+      "h1": [
+        "Юрист в арбитражный суд"
+      ],
+      "htmlLang": "ru",
+      "openGraph": {
+        "title": "Судебный юрист",
+        "description": "Юрист в арбитражный суд: анализ спора, подготовка и подача документов, представительство на всех стадиях процесса. Минимизируем риски и защищаем бизнес.",
+        "url": "https://elegso.ru/trial_lawyer/",
+        "image": "https://elegso.ru/_external/static.tildacdn.com/tild6664-6636-4962-a639-356137643063/-.jpg"
+      },
+      "schemaCount": 1,
+      "images": {
+        "total": 17,
+        "withoutAlt": 0
+      },
+      "analytics": {
+        "yandexMetrika": true,
+        "requiresOptIn": true,
+        "googleTagManager": false,
+        "mailRu": false,
+        "legacyTildaStats": false
+      },
+      "absoluteInternal": [],
+      "documentRelative": [],
+      "broken": [],
+      "runtimeReferences": [
+        {
+          "url": "/cases/",
+          "path": "/cases/",
+          "validation": "live-check-required",
+          "producer": "elegso-case-publisher.service",
+          "configuration": "ops/case-publisher/elegso-case-publisher.service",
+          "implementation": "ops/case-publisher/publish.py#write_release",
+          "generatedFile": "/srv/www/elegso.ru/generated/current/cases/index.html"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

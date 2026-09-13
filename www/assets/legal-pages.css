@@ -1,0 +1,23 @@
+/* Legal document shell composes the offer reading/print system. */
+.el-main .el-hero{display:block;padding:30px 0 24px}
+.el-main .el-hero--art{display:grid;grid-template-columns:minmax(0,1fr) 96px;align-items:center;gap:28px}
+.el-main .el-privacy-art{display:block;width:96px;height:96px;object-fit:cover;border-radius:6px}
+.el-main .el-hero h1{max-width:1060px;font-size:clamp(30px,3.3vw,46px)}
+.el-main .eo-kicker{margin-bottom:13px!important}
+.el-revision{margin-top:21px!important;color:var(--eo-muted);font-size:13px;line-height:1.7}
+.el-main .el-actions{padding:0 0 28px}
+.el-related{justify-content:flex-start;gap:12px 28px}
+.el-related a{max-width:100%;font-size:12px}
+.el-document-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:6px}
+.el-document-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:15px;padding:29px;border:1px solid var(--eo-line);border-radius:7px;background:var(--eo-paper)}
+.el-document-card>svg{display:block;width:34px;height:40px;color:var(--eo-clay)}
+.el-document-card h2{font-size:clamp(23px,2.1vw,29px);line-height:1.45}
+.el-document-card p{font-size:14px;line-height:1.8;color:var(--eo-muted)}
+.el-document-card .el-card-date{font-size:11px}
+#allrecords .el-document-card .el-card-link{display:inline-flex;gap:15px;align-items:center;min-height:44px;margin-top:auto;border-bottom:1px solid var(--eo-line);font-size:13px;font-weight:500}
+.el-card-link>span{color:var(--eo-clay)}
+.el-main .el-hub-actions{padding-top:25px}
+@media(max-width:640px){.el-main .el-hero{padding-top:27px}.el-main .el-hero h1{font-size:clamp(28px,7.5vw,36px)}.el-document-grid{grid-template-columns:1fr;gap:16px}.el-document-card{padding:23px}.el-related{align-items:flex-start}.el-revision{margin-top:17px!important}.el-main .el-actions{gap:12px 20px}}
+@media(max-width:640px){.el-main .el-hero--art{grid-template-columns:1fr;gap:17px}.el-main .el-hero--art>.el-privacy-art{grid-row:1}.el-main .el-privacy-art{width:72px;height:72px}}
+@media print{.el-revision,.el-related,.el-hub-actions{display:none!important}.el-hub .el-hero{display:block!important}.el-hub .eo-kicker{display:none}.el-hub .el-hero h1{font-size:18pt}.el-document-grid{display:block}.el-document-card{padding:12pt;margin:0 0 10pt;break-inside:avoid}.el-document-card>svg{display:none}.el-document-card h2{font-size:13pt}.el-document-card p,.el-card-link{font-size:9pt!important}.el-hub .el-card-date{font-size:8pt!important}}
+@media print{.el-main .el-privacy-art{display:none!important}}

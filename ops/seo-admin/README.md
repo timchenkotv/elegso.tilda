@@ -56,6 +56,23 @@ stores aggregate reports only.
 - `elegso-seo-monitor.timer`: daily independent ranking snapshot;
 - `elegso-seo-wordstat-enqueue.timer`: weekly demand-discovery enqueue;
 - `elegso-seo-wordstat-worker.timer`: quota-aware queue worker.
+- `elegso-privacy-prune.timer`: daily expiry of isolated public consent events.
+
+## Public analytics consent receipts
+
+The exact `POST /api/privacy/consent` route is the sole unauthenticated JSON
+write route. It requires a matching Origin, <=1 KiB JSON and exactly a random
+UUIDv4 choice ID, consent version and boolean analytics choice. It cannot
+read or change users, SEO settings or calculator data. Existing `/admin/`
+authentication and role checks are unchanged.
+
+`privacy_consent.py` stores events in the separate mode-0600 database
+`/var/lib/elegso-seo-admin/access/privacy-consent.sqlite3`, with 180-day choice
+expiry and 365-day evidence retention. Retries preserve the original times;
+withdrawn choices cannot be reactivated. No names, IPs, user agents or URLs
+are collected in that table. These receipts do not establish identity or an
+electronic signature. See `docs/privacy-analytics.md` for privacy limits and
+deployment checks, including edge logs/backups.
 
 OAuth tokens must be created for an account that can read counter `87831358`
 and the `elegso.ru` Webmaster host. The Search API key is separate and does not

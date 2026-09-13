@@ -19,6 +19,7 @@ const canonicalAliases = new Map([
   ['page28912345.html', '/footer/'],
   ['page32088114.html', '/error404/'],
   ['page52312037.html', '/calculator_of_the_balance_of_counter_obligations_in_leasing/'],
+  ['oferta-fiz/index.html', '/oferta/'],
 ]);
 
 async function walk(dir) {
@@ -45,7 +46,8 @@ function isTechnical(rel) {
 }
 
 function isOfferArchive(rel) {
-  return /^(?:oferta|oferta-fiz)\/versions\/[^/]+\/index\.html$/.test(rel);
+  return /^(?:oferta|oferta-fiz)\/versions\/[^/]+\/index\.html$/.test(rel)
+    || ['oferta-fiz/index.html', 'oferta-fiz/history/index.html'].includes(rel);
 }
 
 function escapeAttribute(value) {

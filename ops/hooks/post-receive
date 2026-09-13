@@ -172,7 +172,7 @@ while read -r old new ref; do
         admin_release="$seo_admin/releases/$(printf '%s' "$new" | cut -c1-12)"
         sudo /usr/bin/install -d -o root -g root -m 0755 \
             "$admin_release" "$admin_release/static"
-        for program in app.py traffic_aggregate.py yandex_sync.py; do
+        for program in app.py traffic_aggregate.py yandex_sync.py privacy_consent.py; do
             sudo /usr/bin/install -o root -g root -m 0755 \
                 "$release/ops/seo-admin/$program" "$admin_release/$program"
         done
@@ -240,7 +240,9 @@ while read -r old new ref; do
             elegso-seo-traffic.service \
             elegso-seo-traffic.timer \
             elegso-yandex-analytics.service \
-            elegso-yandex-analytics.timer
+            elegso-yandex-analytics.timer \
+            elegso-privacy-prune.service \
+            elegso-privacy-prune.timer
         do
             sudo /usr/bin/install -o root -g root -m 0644 \
                 "$release/ops/seo-admin/$unit" "/etc/systemd/system/$unit"
@@ -328,6 +330,7 @@ while read -r old new ref; do
     if [ -f "$release/ops/seo-admin/app.py" ]; then
         sudo /bin/systemctl enable --now elegso-seo-traffic.timer
         sudo /bin/systemctl enable --now elegso-yandex-analytics.timer
+        sudo /bin/systemctl enable --now elegso-privacy-prune.timer
         sudo /bin/systemctl start --no-block elegso-seo-traffic.service
     fi
 

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "consentVersion": "2026-09-13.1",
+  "storageKey": "elegso.cookie-preferences.v1",
+  "maxAgeDays": 180,
+  "receiptUrl": "/api/privacy/consent",
+  "receiptRetentionDays": 365,
+  "policyUrl": "/soglashenie/",
+  "cookiesUrl": "/cookies/",
+  "consentUrl": "/consent/",
+  "analytics": {
+    "provider": "yandex-metrika",
+    "counterId": 87831358,
+    "defaultEnabled": false,
+    "webvisor": false,
+    "clickmap": false,
+    "trackLinks": false,
+    "accurateTrackBounce": false,
+    "ecommerce": false,
+    "trackHash": false
+  }
+}

@@ -20,8 +20,9 @@ test('three footer tiles share styles, grouped copy, local art and real actions'
   assert.match(footerCard('articles'),/Читать статьи/);
   const offer=footerCard('offers');
   assert.equal((offer.match(/class="elegso-footer-tile__button"/g)||[]).length,2);
-  assert.match(offer,/href="\/oferta\/">Оферта для бизнеса/);
-  assert.match(offer,/href="\/oferta-fiz\/">Оферта для физических лиц/);
+  assert.match(offer,/href="\/oferta\/">Публичная оферта/);
+  assert.match(offer,/href="\/soglashenie\/">Персональные данные/);
+  assert.doesNotMatch(offer,/href="\/oferta-fiz\//);
 });
 test('footer-only update preserves all surrounding bytes and is idempotent',()=>{
   const head='<html><head><meta property="article:modified_time" content="2020-01-01"><title>Текст</title></head><body><main>Текст статьи <footer>Подпись автора</footer></main>';
@@ -53,6 +54,9 @@ test('service decoration preserves all service labels and URLs; legal label chan
   for(let i=0;i<4;i++)assert.ok(next.includes(`<a href="/service-${i}/">Услуга ${i}</a>`));
   assert.match(next,/<p>Юридический текст<\/p>/);
   assert.match(next,/href="\/offer_for_lawyer_20231103\/">Присоединение исполнителей<\/a>/);
+  assert.match(next,/href="\/documents\/"[^>]*>Правовые документы<\/a>/);
+  assert.equal((next.match(/data-elegso-cookie-settings/g)||[]).length,1);
+  assert.match(next,/<button type="button"[^>]*data-elegso-cookie-settings>Настроить cookie<\/button>/);
   assert.match(next,/data-elegso-footer-services/);assert.match(next,/data-elegso-footer-legal/);
 });
 test('runtime fallback matches static cards and does not duplicate an existing card',()=>{
@@ -71,6 +75,8 @@ test('mobile actions remain visible and styles respect reduced motion and print'
   assert.match(css,/@media\(max-width:640px\)/);
   assert.match(css,/flex-direction:column/);
   assert.match(css,/background:#a04b38/);
+  assert.match(css,/\.elegso-footer-cookie-settings[^}]*cursor:pointer/);
+  assert.match(css,/\.elegso-footer-featured \.elegso-footer-tile__actions\{[^}]*grid-template-columns:1fr/);
   assert.match(css,/prefers-reduced-motion:reduce/);
   assert.match(css,/@media print/);
   assert.doesNotMatch(css,/action-label[^}]*display:none/);

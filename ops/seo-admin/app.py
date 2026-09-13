@@ -24,6 +24,10 @@ from typing import Any, Iterator, Mapping, Sequence
 
 
 HERE = Path(__file__).resolve().parent
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
+import privacy_consent  # noqa: E402
+
 MONITOR_DIR = Path(os.environ.get("SEO_MONITOR_PROGRAM_DIR", str(HERE)))
 if str(MONITOR_DIR) not in sys.path:
     sys.path.insert(0, str(MONITOR_DIR))
@@ -468,6 +472,8 @@ class Application:
         self.static_dir = Path(
             os.environ.get("SEO_ADMIN_STATIC_DIR", str(HERE / "static"))
         )
+        self.privacy_db_path = Path(os.environ.get("PRIVACY_CONSENT_DB", str(self.access_db_path.parent / "privacy-consent.sqlite3")))
+        self.privacy_version = os.environ.get("PRIVACY_CONSENT_VERSION", privacy_consent.CURRENT_VERSION)
         self.allowed_origin = os.environ.get(
             "SEO_ADMIN_ALLOWED_ORIGIN", "https://elegso.ru"
         ).rstrip("/")
@@ -1065,6 +1071,8 @@ class Handler(BaseHTTPRequestHandler):
         super().end_headers()
 
     def log_message(self, fmt: str, *args: Any) -> None:
+        if urllib.parse.urlsplit(self.path).path == "/api/privacy/consent":
+            return  # No request metadata or receipt identifiers in logs.
         sys.stderr.write(
             "%s %s\n" % (self.log_date_time_string(), fmt % args)
         )
@@ -1178,6 +1186,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         parsed = urllib.parse.urlsplit(self.path)
+        if parsed.path == "/api/privacy/consent":
+            privacy_consent.handle(self)
+            return
         if parsed.path != "/api/users":
             self.send_json({"error": "not_found"}, HTTPStatus.NOT_FOUND)
             return

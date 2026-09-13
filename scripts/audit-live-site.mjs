@@ -93,9 +93,8 @@ for (const pageUrl of sitemapUrls) {
   if (!html.includes('data-elegso-seo-schema') && !html.includes('data-elegso-cases-schema')) {
     pageErrors.push('missing-structured-data');
   }
-  if (!html.includes('87831358')) pageErrors.push('missing-yandex-metrika');
-  if (!html.includes('GTM-PBV2TC8')) pageErrors.push('missing-gtm');
-  if (!html.includes('3662487')) pageErrors.push('missing-mailru');
+  if (!html.includes('data-elegso-privacy-config') || !html.includes('/assets/site-privacy.js?') || !html.includes('"counterId":87831358') || !html.includes('"defaultEnabled":false')) pageErrors.push('missing-consent-based-yandex-loader');
+  if (/GTM-PBV2TC8|G-69ER87XHQK|G-LXDMXM8QTX|top-fwz1\.mail\.ru|https:\/\/mc\.yandex\.ru\/watch\//.test(html)) pageErrors.push('unexpected-legacy-analytics');
   if (absoluteInternalAnchors.length) pageErrors.push(`absolute-internal-anchors:${absoluteInternalAnchors.length}`);
   pages.push({
     url: pageUrl,
@@ -143,9 +142,8 @@ const report = {
     uniqueInternalReferences: checkedReferences.length,
     brokenInternalReferences: checkedReferences.filter((item) => item.error).length,
     analyticsCoverage: {
-      yandexMetrika: pages.filter((page) => !page.errors.includes('missing-yandex-metrika')).length,
-      googleTagManager: pages.filter((page) => !page.errors.includes('missing-gtm')).length,
-      mailRu: pages.filter((page) => !page.errors.includes('missing-mailru')).length,
+      consentBasedYandex: pages.filter((page) => !page.errors.includes('missing-consent-based-yandex-loader')).length,
+      legacyAnalytics: pages.filter((page) => page.errors.includes('unexpected-legacy-analytics')).length,
     },
   },
   robots,

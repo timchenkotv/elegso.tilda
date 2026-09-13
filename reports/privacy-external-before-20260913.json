@@ -1,0 +1,6112 @@
+{
+  "mode": "inventory",
+  "generatedAt": "2026-09-13T18:14:59.220Z",
+  "pages": [
+    {
+      "file": "accident_lawyer/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "appeal_of_judicial_acts/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "arbitration_lawyer/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/customer-refuses-to-sign-act/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/debt-recovery-reconciliation/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/director-subsidiary-liability/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/electronic-documents-court-evidence/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/lease-termination-action-plan/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/leasing-lawyer-when-to-contact/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/leasing-payment-crisis/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/messenger-correspondence-preservation/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "articles/self-employed-employment-risks/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "calc_nst/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "calc_nst/instruction/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;600;700&display=swap"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "calculator_of_the_balance_of_counter_obligations_in_leasing/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "cancellation_of_the_court_order/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "collect_the_debt/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "contacts/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "contract_drafting_service/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "contract_modification/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "drafting_an_agreement/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "error404/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "footer/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "header/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "judicial_protection/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "leasing_lawyer/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "mission/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "oferta/history/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "oferta/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "oferta/versions/2026-09-13/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "oferta/versions/2026-09-13-3/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "oferta-fiz/history/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "oferta-fiz/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "oferta-fiz/versions/2026-09-13/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "offer_for_lawyer_20231103/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "our_team/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "page28912341.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "page28912345.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "page32088114.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "page52312037.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "property_law/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "reduction_of_the_penalty_amount/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "refund_of_the_penalty/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "representation_in_the_arbitration_court/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "restoring_the_contract/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "soglashenie/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "termination_and_restoration_of_contracts/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "termination_of_the_lease_agreement/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    },
+    {
+      "file": "trial_lawyer/index.html",
+      "resources": [
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "ws.tildacdn.com",
+          "url": "https://ws.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "static.tildacdn.com",
+          "url": "https://static.tildacdn.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.gstatic.com",
+          "url": "https://fonts.gstatic.com/"
+        },
+        {
+          "tag": "link",
+          "attribute": "href",
+          "host": "fonts.googleapis.com",
+          "url": "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&subset=latin,cyrillic"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "script",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-69ER87XHQK"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "mc.yandex.ru",
+          "url": "https://mc.yandex.ru/watch/87831358"
+        },
+        {
+          "tag": "img",
+          "attribute": "src",
+          "host": "top-fwz1.mail.ru",
+          "url": "https://top-fwz1.mail.ru/counter?id=3662487;js=na"
+        },
+        {
+          "tag": "iframe",
+          "attribute": "src",
+          "host": "www.googletagmanager.com",
+          "url": "https://www.googletagmanager.com/ns.html?id=GTM-PBV2TC8"
+        }
+      ],
+      "inlineTrackers": [
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": true,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": true,
+          "tilda": false
+        },
+        {
+          "google": false,
+          "mailRu": false,
+          "yandex": false,
+          "tilda": true
+        },
+        {
+          "google": false,
+          "mailRu": true,
+          "yandex": false,
+          "tilda": false
+        }
+      ]
+    }
+  ],
+  "changed": []
+}

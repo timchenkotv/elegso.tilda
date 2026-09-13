@@ -78,14 +78,15 @@ class OfferBuildTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         (self.root / "config").mkdir()
         (self.root / "www/assets").mkdir(parents=True)
-        for asset in ("offers.css", "offers.js"):
+        for asset in ("offers.css", "offers.js", "site-privacy.css", "site-privacy.js", "site-fonts.css"):
             shutil.copyfile(ROOT / "www/assets" / asset, self.root / "www/assets" / asset)
+        shutil.copyfile(ROOT / "config/site-privacy.json", self.root / "config/site-privacy.json")
         self.config = {
             "schemaVersion": 1, "origin": ORIGIN,
             "publisher": {"name": "ООО «ЮК ЭЛЕГСО»", "brand": "ЭЛЕГСО", "logo": "/logo.png"},
             "offers": [
                 {"id": "business", "url": "/oferta/", "historyUrl": "/oferta/history/", "currentVersion": VERSION, "label": "Для организаций и ИП"},
-                {"id": "individual", "url": "/oferta-fiz/", "historyUrl": "/oferta-fiz/history/", "currentVersion": VERSION, "label": "Для физических лиц"},
+                {"id": "individual", "url": "/oferta-fiz/", "historyUrl": "/oferta-fiz/history/", "currentVersion": VERSION, "label": "Прежняя оферта для физических лиц", "retired": True, "replacedBy": "/oferta/"},
             ],
         }
         self.write_config()
@@ -154,6 +155,24 @@ class OfferBuildTests(unittest.TestCase):
         result = self.build()
         self.assertEqual(json.loads(result.stdout)["footerChanged"], 0)
         self.assertEqual(snapshot, {str(file.relative_to(self.root)): file.read_bytes() for file in self.root.rglob("*") if file.is_file()})
+
+    def test_generated_offers_already_match_final_privacy_cleanup(self):
+        self.build("--seal")
+        routes = ["/oferta/", "/oferta/history/", "/oferta/versions/2026-09-13/",
+                  "/oferta-fiz/", "/oferta-fiz/history/", "/oferta-fiz/versions/2026-09-13/"]
+        before = {route: self.page(route) for route in routes}
+        registry = (self.root / "config/offer-version-hashes.json").read_bytes()
+        result = subprocess.run(["node", str(ROOT / "scripts/privacy-analytics.mjs"), "--root", str(self.root), "--apply"], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for route, html in before.items():
+            self.assertEqual(self.page(route), html, route)
+            self.assertIn('data-tilda-cookie="no"', html)
+            self.assertEqual(html.count('data-elegso-privacy-config'), 1)
+        self.assertEqual((self.root / "config/offer-version-hashes.json").read_bytes(), registry)
+        # Future builds inherit the now-clean mission shell without moving
+        # the marker or changing any contract content, metadata or hashes.
+        self.build()
+        self.assertEqual({route: self.page(route) for route in routes}, before)
 
     def test_sealed_content_change_is_rejected_even_with_seal(self):
         self.build("--seal")
@@ -238,7 +257,7 @@ class OfferBuildTests(unittest.TestCase):
 
     def test_generated_pages_have_full_text_without_javascript(self):
         self.build("--seal")
-        for route in ("/oferta/", "/oferta-fiz/", "/oferta/versions/2026-09-13/", "/oferta-fiz/versions/2026-09-13/"):
+        for route in ("/oferta/", "/oferta/versions/2026-09-13/", "/oferta-fiz/versions/2026-09-13/"):
             html = self.page(route)
             self.assertIn("Полный юридический текст должен оставаться доступным без JavaScript", html)
             self.assertIn("ИНН 7733472977", html)
@@ -252,11 +271,11 @@ class OfferBuildTests(unittest.TestCase):
 
     def test_current_history_indexable_and_archives_noindex_self_canonical(self):
         self.build("--seal")
-        for route in ("/oferta/", "/oferta/history/", "/oferta-fiz/", "/oferta-fiz/history/"):
+        for route in ("/oferta/", "/oferta/history/"):
             html = self.page(route)
             self.assertIn('name="robots" content="index, follow', html)
             self.assertIn('rel="canonical" href="' + ORIGIN + route + '"', html)
-        for route in ("/oferta/versions/2026-09-13/", "/oferta-fiz/versions/2026-09-13/"):
+        for route in ("/oferta/versions/2026-09-13/", "/oferta-fiz/versions/2026-09-13/", "/oferta-fiz/history/"):
             html = self.page(route)
             self.assertIn('name="robots" content="noindex, follow"', html)
             self.assertIn('rel="canonical" href="' + ORIGIN + route + '"', html)
@@ -266,17 +285,18 @@ class OfferBuildTests(unittest.TestCase):
         ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
         rows = ET.parse(self.root / "www/sitemap.xml").findall("s:url", ns)
         dates = {row.findtext("s:loc", namespaces=ns): row.findtext("s:lastmod", namespaces=ns) for row in rows}
-        self.assertEqual(len(rows), 5)
+        self.assertEqual(len(rows), 3)
         self.assertEqual(dates[ORIGIN + "/mission/"], "2020-01-02")
         self.assertFalse(any("/versions/" in url for url in dates))
-        for route in ("/oferta/", "/oferta/history/", "/oferta-fiz/", "/oferta-fiz/history/"):
+        for route in ("/oferta/", "/oferta/history/"):
             self.assertEqual(dates[ORIGIN + route], VERSION)
+        self.assertFalse(any('/oferta-fiz/' in url for url in dates))
 
     def test_global_seo_preparation_preserves_archive_policy(self):
         self.build("--seal")
         result = subprocess.run(["node", str(ROOT / "scripts/prepare-seo.mjs")], cwd=self.root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
-        for route in ("/oferta/versions/2026-09-13/", "/oferta-fiz/versions/2026-09-13/"):
+        for route in ("/oferta/versions/2026-09-13/", "/oferta-fiz/versions/2026-09-13/", "/oferta-fiz/", "/oferta-fiz/history/"):
             self.assertIn('name="robots" content="noindex, follow"', self.page(route))
         sitemap = (self.root / "www/sitemap.xml").read_text()
         self.assertNotIn("/versions/", sitemap)
@@ -290,8 +310,9 @@ class OfferBuildTests(unittest.TestCase):
                 continue
             html = file.read_text()
             self.assertEqual(html.count(MARKER), 1)
-            self.assertIn("Оферта для бизнеса", html)
-            self.assertIn("Оферта для физических лиц", html)
+            self.assertIn('href="/oferta/">Публичная оферта', html)
+            self.assertIn('href="/soglashenie/">Персональные данные', html)
+            self.assertNotIn('class="eo-audiences"', html)
             self.assertIn("<!--elegso-articles-footer:start-->", html)
             self.assertNotIn("Любая информация на сайте не является публичной офертой.", html)
             self.assertIn("Информационные материалы сайта не являются публичной офертой. Условия заключения договоров приведены в соответствующих офертах.", html)
@@ -355,7 +376,8 @@ class OfferBuildTests(unittest.TestCase):
         self.build("--seal")
         registry = (self.root / "config/offer-version-hashes.json").read_bytes()
         for base in ("/oferta/", "/oferta-fiz/"):
-            for route in (base, base + "versions/2026-09-13/"):
+            routes = (base, base + "versions/2026-09-13/") if base == '/oferta/' else (base + "versions/2026-09-13/",)
+            for route in routes:
                 html = self.page(route)
                 self.assertNotIn('class="eo-lead"', html)
                 self.assertNotIn("Лишнее вступительное пояснение", html)
@@ -434,7 +456,7 @@ class OfferBuildTests(unittest.TestCase):
     def test_practice_is_static_closed_and_outside_current_contract_only(self):
         self.write_practice(sample_practice())
         self.build("--seal")
-        for route in ("/oferta/", "/oferta-fiz/"):
+        for route in ("/oferta/",):
             html = self.page(route)
             block = re.search(r'<section class="eo-practice".*?</section>', html, re.S).group(0)
             self.assertIn('<details><summary>Посмотреть судебную практику</summary>', block)
@@ -468,6 +490,45 @@ class OfferBuildTests(unittest.TestCase):
         self.assertIn("Источник:", business)
         self.assertIn("Федеральный закон · ТЕСТ-ФЗ", business)
         self.assertNotIn('class="eo-practice"', self.page("/oferta-fiz/"))
+
+    def test_retired_offer_is_redirect_only_and_history_retains_exact_old_text(self):
+        self.build('--seal')
+        registry = (self.root / 'config/offer-version-hashes.json').read_bytes()
+        redirect = self.page('/oferta-fiz/')
+        self.assertIn('http-equiv="refresh" content="0; url=/oferta/"', redirect)
+        self.assertIn('rel="canonical" href="https://elegso.ru/oferta/"', redirect)
+        self.assertIn('name="robots" content="noindex, follow"', redirect)
+        self.assertNotIn('data-offer-version=', redirect)
+        history = self.page('/oferta-fiz/history/')
+        self.assertNotIn('eo-version__status--current', history)
+        self.assertNotIn('>Текущая редакция<', history)
+        archive = self.page('/oferta-fiz/versions/' + VERSION + '/')
+        self.assertNotIn('Эта редакция сейчас указана как действующая.', archive)
+        for section in sample('individual')['sections']:
+            for clause in section['clauses']:
+                self.assertIn(clause['html'], archive)
+        unified_history = self.page('/oferta/history/')
+        self.assertIn('href="/oferta-fiz/history/"', unified_history)
+        self.assertIn('href="/oferta-fiz/versions/' + VERSION + '/"', unified_history)
+        self.build()
+        self.assertEqual(registry, (self.root / 'config/offer-version-hashes.json').read_bytes())
+
+    def test_retired_registry_cannot_be_removed_or_reactivated_and_content_remains_sealed(self):
+        self.build('--seal')
+        original = json.loads(json.dumps(self.config))
+        self.config['offers'][1]['retired'] = False
+        self.write_config()
+        self.assertIn('Exactly one active', self.build('--seal', success=False).stderr)
+        self.config = json.loads(json.dumps(original))
+        self.config['offers'].pop()
+        self.write_config()
+        self.assertIn('registries', self.build('--seal', success=False).stderr)
+        self.config = original
+        self.write_config()
+        document = sample('individual')
+        document['sections'][0]['clauses'][0]['html'] = '<p>Подмена архивного текста</p>'
+        self.write_document(document)
+        self.assertIn('IMMUTABLE VERSION CHANGED', self.build('--seal', success=False).stderr)
 
     def test_practice_update_does_not_change_sealed_content_or_document_dates(self):
         self.build("--seal")
@@ -547,7 +608,9 @@ class PublishedOfferContentTests(unittest.TestCase):
         config = json.loads((ROOT / "config/offers.json").read_text())
         for offer in config["offers"]:
             content = json.loads((ROOT / "content/offers" / offer["id"] / (offer["currentVersion"] + ".json")).read_text())
-            for route in (offer["url"], offer["url"] + "versions/" + offer["currentVersion"] + "/"):
+            archive = offer["url"] + "versions/" + offer["currentVersion"] + "/"
+            routes = (archive,) if offer.get('retired') else (offer["url"], archive)
+            for route in routes:
                 file = ROOT / "www" / route.strip("/") / "index.html"
                 self.assertTrue(file.exists(), f"Run build-offers.mjs first: {route}")
                 html = file.read_text()

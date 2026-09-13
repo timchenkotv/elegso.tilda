@@ -3,6 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { footerCard } from './footer-cards.mjs';
+import { applyPrivacyAnalytics, loadPrivacyBuild } from './privacy-analytics.mjs';
 import { createHash } from 'node:crypto';
 
 const args = process.argv.slice(2);
@@ -19,6 +20,7 @@ if (seal && preview) throw new Error('--seal and --preview-unsealed are mutually
 const web = path.join(root, 'www');
 const registryPath = path.join(root, 'config/offer-version-hashes.json');
 const config = JSON.parse(await fs.readFile(path.join(root, 'config/offers.json'), 'utf8'));
+const privacyBuild = await loadPrivacyBuild(root);
 const esc = (s = '') => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 const json = value => JSON.stringify(value).replaceAll('<', '\\u003c');
 const stable = value => value === null || typeof value !== 'object' ? JSON.stringify(value)
@@ -36,9 +38,11 @@ const assert = (condition, message) => { if (!condition) throw new Error(message
 
 assert(config.schemaVersion === 1 && config.origin === 'https://elegso.ru', 'Unsupported offers config/origin');
 assert(config.publisher?.name && config.publisher?.brand && /^\/(?!\/)/.test(config.publisher?.logo || ''), 'Incomplete publisher');
-assert(Array.isArray(config.offers) && config.offers.length === 2, 'Exactly two audience offers must be configured');
+assert(Array.isArray(config.offers) && config.offers.length === 2, 'Both permanent offer registries must be retained');
 assert(new Set(config.offers.map(item => item.id)).size === config.offers.length, 'Duplicate offer IDs');
 assert(config.offers.some(item => item.id === 'business') && config.offers.some(item => item.id === 'individual'), 'Both business and individual offers are required');
+assert(config.offers.filter(item => !item.retired).length === 1 && !config.offers.find(item => item.id === 'business').retired, 'Exactly one active public offer is required');
+assert(config.offers.find(item => item.id === 'individual').retired === true && config.offers.find(item => item.id === 'individual').replacedBy === '/oferta/', 'Retired individual offer must point to the current /oferta/');
 assert(new Set(config.offers.flatMap(item => [item.url, item.historyUrl])).size === config.offers.length * 2, 'Duplicate offer routes');
 const origin = config.origin;
 let registry;
@@ -207,7 +211,9 @@ function meta(head, attribute, name, value) {
   const expression = new RegExp(`<meta\\b(?=[^>]*\\b${attribute}=["']${name}["'])[^>]*>`, 'gi');
   return expression.test(head) ? head.replace(expression, tag) : head.replace('</head>', `${tag}\n</head>`);
 }
-function shell({ title, description, url, body, document, archived = false, history = false, offer }) {
+const offerLabel = offer => offer.retired ? 'Архив оферты для физических лиц' : 'Публичная оферта';
+const currentUrl = offer => offer.replacedBy || offer.url;
+function shell({ title, description, url, body, document, archived = false, history = false, offer, redirectTarget = null }) {
   let head = template.slice(0, bodyStart)
     .replace(/<html\b/i, '<html data-elegso-offers-document')
     .replace(/<title\b[^>]*>[\s\S]*?<\/title>/i, `<title>${esc(title)}</title>`)
@@ -222,19 +228,16 @@ function shell({ title, description, url, body, document, archived = false, hist
     ['property', 'og:type', 'website'], ['property', 'og:image', origin + config.publisher.logo], ['property', 'og:locale', 'ru_RU'],
     ['name', 'twitter:card', 'summary'],
   ]) head = meta(head, attribute, name, value);
-  const crumbs = [{ '@type': 'ListItem', position: 1, name: 'Главная', item: origin + '/' }, { '@type': 'ListItem', position: 2, name: offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц', item: origin + offer.url }];
+  const crumbs = [{ '@type': 'ListItem', position: 1, name: 'Главная', item: origin + '/' }, { '@type': 'ListItem', position: 2, name: 'Публичная оферта', item: origin + currentUrl(offer) }];
   if (history || archived) crumbs.push({ '@type': 'ListItem', position: 3, name: history ? 'История редакций' : `Редакция ${document.version}`, item: origin + url });
   const page = { '@type': history ? 'CollectionPage' : 'WebPage', '@id': origin + url + '#webpage', url: origin + url, name: title, description, inLanguage: 'ru-RU', isPartOf: { '@id': origin + '/#website' }, datePublished: document.publishedAt, dateModified: !history && !archived ? pageModifiedAt(offer) : document.publishedAt };
-  if (!history) page.mainEntity = { '@type': 'DigitalDocument', name: document.pageTitle, version: document.version, datePublished: document.publishedAt, dateModified: document.publishedAt, inLanguage: 'ru-RU', url: origin + document.url, encodingFormat: 'text/html', publisher: { '@id': origin + '/#organization' } };
+  if (!history && !redirectTarget) page.mainEntity = { '@type': 'DigitalDocument', name: document.pageTitle, version: document.version, datePublished: document.publishedAt, dateModified: document.publishedAt, inLanguage: 'ru-RU', url: origin + document.url, encodingFormat: 'text/html', publisher: { '@id': origin + '/#organization' } };
   const graph = [{ '@type': 'Organization', '@id': origin + '/#organization', name: config.publisher.name, url: origin + '/', logo: origin + config.publisher.logo }, { '@type': 'WebSite', '@id': origin + '/#website', name: config.publisher.brand, url: origin + '/' }, page, { '@type': 'BreadcrumbList', itemListElement: crumbs }];
-  head = head.replace('</head>', `<link rel="canonical" href="${origin}${url}"><link rel="stylesheet" href="/assets/offers.css?v=${assetVersion}"><script src="/assets/offers.js?v=${assetVersion}" defer></script><script type="application/ld+json" data-elegso-offers-schema>${json({ '@context': 'https://schema.org', '@graph': graph })}</script></head>`);
-  return (head + `<body class="t-body elegso-offers-page" style="margin:0"><a class="eo-skip" href="#offer-content">К тексту оферты</a><div id="allrecords" class="t-records" data-tilda-project-id="3964517" data-tilda-lazy="yes" data-tilda-root-zone="com">${header}${body}${tail}`).replace(/[ \t]+$/gm, '');
-}
-function audienceSwitch(offer) {
-  return `<nav class="eo-audiences" aria-label="Для кого предназначена оферта">${offers.map(item => `<a href="${item.url}"${item.id === offer.id ? ' aria-current="page"' : ''}>${esc(item.label)}</a>`).join('')}</nav>`;
+  head = head.replace('</head>', `${redirectTarget ? `<meta http-equiv="refresh" content="0; url=${esc(redirectTarget)}">` : ''}<link rel="canonical" href="${origin}${redirectTarget || url}"><link rel="stylesheet" href="/assets/offers.css?v=${assetVersion}"><script src="/assets/offers.js?v=${assetVersion}" defer></script><script type="application/ld+json" data-elegso-offers-schema>${json({ '@context': 'https://schema.org', '@graph': graph })}</script></head>`);
+  return applyPrivacyAnalytics((head + `<body class="t-body elegso-offers-page" style="margin:0"><a class="eo-skip" href="#offer-content">К тексту оферты</a><div id="allrecords" class="t-records" data-tilda-project-id="3964517" data-tilda-lazy="yes" data-tilda-root-zone="com">${header}${body}${tail}`).replace(/[ \t]+$/gm, ''), privacyBuild);
 }
 function crumbs(offer, suffix = '') {
-  return `<nav class="eo-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-hidden="true">/</span>${suffix ? `<a href="${offer.url}">${offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц'}</a><span aria-hidden="true">/</span><span>${esc(suffix)}</span>` : `<span>${offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц'}</span>`}</nav>`;
+  return `<nav class="eo-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-hidden="true">/</span>${suffix ? `<a href="${currentUrl(offer)}">Публичная оферта</a><span aria-hidden="true">/</span><span>${esc(suffix)}</span>` : '<span>Публичная оферта</span>'}</nav>`;
 }
 function practiceBlock(offer) {
   const groups = practiceGroups(offer);
@@ -246,14 +249,14 @@ function practiceBlock(offer) {
   }).join('')}</div></details></section>`;
 }
 function documentBody(offer, document, archived) {
-  const isCurrent = offer.currentVersion === document.version;
+  const isCurrent = !offer.retired && offer.currentVersion === document.version;
   const actualPublication = new Date(document.publishedAt).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Moscow' });
   return `<main class="eo-main" id="offer-content" data-offer-id="${offer.id}" data-offer-version="${document.version}" data-offer-sha256="${document.hash}">
   <div class="eo-progress" aria-hidden="true"><i data-eo-progress></i></div><div class="eo-wrap">
-  ${crumbs(offer, archived ? `Редакция ${document.version}` : '')}${audienceSwitch(offer)}
+  ${crumbs(offer, archived ? `Редакция ${document.version}` : '')}
   <header class="eo-hero"><div class="eo-hero__copy"><p class="eo-kicker">Юридическая компания «ЭЛЕГСО»</p><h1>${esc(document.pageTitle)}</h1></div><div class="eo-hero__seal" aria-hidden="true">${documentIcon}<span>Условия<br>сотрудничества</span></div></header>
   ${preview ? '<aside class="eo-notice eo-notice--preview" role="status">Предварительный просмотр: редакция ещё не закреплена в реестре. Не использовать эту сборку для публикации.</aside>' : ''}
-  ${archived ? `<aside class="eo-notice"><strong>Неизменяемая копия редакции ${esc(document.version)}</strong><p>${isCurrent ? 'Эта редакция сейчас указана как действующая.' : 'Это архивная редакция. Она сохранена для проверки условий, относящихся к конкретному договору.'} <a href="${offer.url}">Открыть текущую оферту</a> или <a href="${offer.historyUrl}">посмотреть историю</a>. Действующая редакция определяется условиями заключённого договора, а не только датой просмотра сайта.</p></aside>` : ''}
+  ${archived ? `<aside class="eo-notice"><strong>Неизменяемая копия редакции ${esc(document.version)}</strong><p>${isCurrent ? 'Эта редакция сейчас указана как действующая.' : 'Это архивная редакция. Она сохранена для проверки условий, относящихся к конкретному договору.'} <a href="${currentUrl(offer)}">Открыть текущую оферту</a> или <a href="${offer.historyUrl}">посмотреть историю</a>. Действующая редакция определяется условиями заключённого договора, а не только датой просмотра сайта.</p></aside>` : ''}
   <div class="eo-document-meta"><div><span>Редакция</span><strong>${esc(document.version)}</strong></div><div><span>Опубликована</span><strong>${esc(actualPublication)}</strong></div><div><span>Вступает в силу</span><strong>${esc(date(document.effectiveDate))}</strong></div><div><span>Кому адресована</span><strong>${esc(document.audience)}</strong></div></div>
   ${document.baseApprovalDate ? `<p class="eo-base-date">Дата утверждения базового документа: ${esc(date(document.baseApprovalDate))}. Дата публикации и вступления в силу настоящей редакции указана выше.</p>` : ''}
   <div class="eo-actions"><button type="button" class="eo-button" data-eo-print hidden>${documentIcon}<span>Печать</span></button><a class="eo-link" href="${offer.historyUrl}">История редакций <span aria-hidden="true">↗</span></a>${!archived ? `<a class="eo-link" href="${document.url}">Постоянная ссылка на редакцию</a>` : ''}<p>Распечатайте договор кнопкой „Печать“ или через меню браузера. В печатный вид входит полный текст выбранной редакции без меню и подвала сайта.</p></div>
@@ -265,14 +268,21 @@ function documentBody(offer, document, archived) {
   </article></div>${archived ? '' : practiceBlock(offer)}<div class="eo-bottom"><a href="${offer.historyUrl}">Все редакции оферты <span aria-hidden="true">↗</span></a><a href="/contacts/">Задать вопрос об условиях</a></div></div></main>`;
 }
 function historyBody(offer) {
-  return `<main class="eo-main eo-history" id="offer-content"><div class="eo-wrap">${crumbs(offer, 'История редакций')}${audienceSwitch(offer)}<header class="eo-hero"><div class="eo-hero__copy"><p class="eo-kicker">Открытый архив условий</p><h1>История редакций оферты</h1><p class="eo-lead">${esc(offer.label)}. Здесь сохраняются редакции договора, их даты и постоянные ссылки. Старые тексты не заменяются новыми: каждое изменение публикуется отдельной редакцией.</p></div><div class="eo-hero__seal" aria-hidden="true">${documentIcon}<span>Версии<br>и даты</span></div></header><aside class="eo-notice"><p>По <a href="${offer.url}">основной ссылке</a> всегда доступна текущая редакция. Применимость изменений к ранее заключённому договору определяется самим договором и законом. Новая публикация сама по себе не означает замену условий уже согласованного задания.</p></aside><div class="eo-version-list">${offer.versions.map(document => `<article class="eo-version"><div class="eo-version__top"><span class="eo-version__status${document.version === offer.currentVersion ? ' eo-version__status--current' : ''}">${document.version === offer.currentVersion ? 'Текущая редакция' : 'Архивная редакция'}</span><time datetime="${document.revisionDate}">${esc(date(document.revisionDate))}</time></div><h2><a href="${document.url}">Редакция ${esc(document.version)} <span aria-hidden="true">↗</span></a></h2><p>${esc(document.pageDescription)}</p><dl><div><dt>Вступает в силу</dt><dd>${esc(date(document.effectiveDate))}</dd></div><div><dt>Идентификатор</dt><dd>${esc(offer.id)}/${esc(document.version)}</dd></div></dl><a class="eo-link" href="${document.url}">Открыть текст и распечатать</a></article>`).join('')}</div><div class="eo-bottom"><a href="${offer.url}">← Текущая оферта</a><a href="/contacts/">Контакты компании</a></div></div></main>`;
+  const retiredArchives = offer.retired ? '' : offers.filter(item => item.retired).map(item => `<section class="eo-notice eo-retired-archive"><strong>Ранее опубликованные условия для физических лиц</strong><p>Прежние редакции сохранены с исходным содержанием и датами. Они не предлагаются для новых присоединений. <a href="${item.historyUrl}">Открыть архив прежней оферты для физических лиц</a>.</p><p>${item.versions.map(document => `<a href="${document.url}">Редакция ${esc(document.version)}</a>`).join(' · ')}</p></section>`).join('');
+  return `<main class="eo-main eo-history" id="offer-content"><div class="eo-wrap">${crumbs(offer, offer.retired ? 'Архив прежней оферты' : 'История редакций')}<header class="eo-hero"><div class="eo-hero__copy"><p class="eo-kicker">Открытый архив условий</p><h1>${offer.retired ? 'Архив оферты для физических лиц' : 'История редакций оферты'}</h1><p class="eo-lead">${offer.retired ? 'Прежняя отдельная оферта больше не используется для новых присоединений. Её редакции сохранены для проверки условий ранее заключённых договоров.' : 'Здесь сохраняются редакции договора, их даты и постоянные ссылки. Старые тексты не заменяются новыми: каждое изменение публикуется отдельной редакцией.'}</p></div><div class="eo-hero__seal" aria-hidden="true">${documentIcon}<span>Версии<br>и даты</span></div></header><aside class="eo-notice"><p>По <a href="${currentUrl(offer)}">основной ссылке</a> доступна единая публичная оферта. Применимость изменений к ранее заключённому договору определяется самим договором и законом. Новая публикация сама по себе не означает замену условий уже согласованного задания.</p></aside><div class="eo-version-list">${offer.versions.map(document => {
+    const current = !offer.retired && document.version === offer.currentVersion;
+    return `<article class="eo-version"><div class="eo-version__top"><span class="eo-version__status${current ? ' eo-version__status--current' : ''}">${current ? 'Текущая редакция' : 'Архивная редакция'}</span><time datetime="${document.revisionDate}">${esc(date(document.revisionDate))}</time></div><h2><a href="${document.url}">Редакция ${esc(document.version)} <span aria-hidden="true">↗</span></a></h2><p>${esc(document.pageDescription)}</p><dl><div><dt>Вступает в силу</dt><dd>${esc(date(document.effectiveDate))}</dd></div><div><dt>Идентификатор</dt><dd>${esc(offer.id)}/${esc(document.version)}</dd></div></dl><a class="eo-link" href="${document.url}">Открыть текст и распечатать</a></article>`;
+  }).join('')}</div>${retiredArchives}<div class="eo-bottom"><a href="${currentUrl(offer)}">← Текущая оферта</a>${offer.retired ? '<a href="/oferta/history/">Общая история редакций</a>' : ''}<a href="/contacts/">Контакты компании</a></div></div></main>`;
 }
 
 const output = new Map();
 for (const offer of offers) {
-  const titleSuffix = offer.id === 'business' ? 'Оферта для бизнеса' : 'Оферта для физических лиц';
-  output.set(offer.url, shell({ title: `${titleSuffix} — юридические услуги ЭЛЕГСО`, description: offer.current.pageDescription, url: offer.url, body: documentBody(offer, offer.current, false), document: offer.current, offer }));
-  output.set(offer.historyUrl, shell({ title: `История редакций: ${titleSuffix.toLocaleLowerCase('ru')} — ЭЛЕГСО`, description: `История изменений условий юридических услуг ЭЛЕГСО. ${offer.label}: даты редакций, постоянные ссылки и сохранённые тексты оферты.`, url: offer.historyUrl, body: historyBody(offer), document: offer.current, history: true, offer }));
+  const titleSuffix = offerLabel(offer);
+  if (offer.retired) {
+    const redirectBody = `<main class="eo-main" id="offer-content" data-elegso-retired-offer><div class="eo-wrap">${crumbs(offer)}<header class="eo-hero"><div><h1>Публичная оферта находится по единому адресу</h1></div></header><div class="eo-notice"><p><a href="${offer.replacedBy}">Открыть публичную оферту</a>. Ранее опубликованные условия для физических лиц сохранены в <a href="${offer.historyUrl}">архиве редакций</a>.</p></div></div></main>`;
+    output.set(offer.url, shell({ title: 'Публичная оферта — ЭЛЕГСО', description: 'Переход к единой публичной оферте юридической компании ЭЛЕГСО.', url: offer.url, body: redirectBody, document: offer.current, archived: true, offer, redirectTarget: offer.replacedBy }));
+  } else output.set(offer.url, shell({ title: `${titleSuffix} — юридические услуги ЭЛЕГСО`, description: offer.current.pageDescription, url: offer.url, body: documentBody(offer, offer.current, false), document: offer.current, offer }));
+  output.set(offer.historyUrl, shell({ title: `История редакций: ${titleSuffix.toLocaleLowerCase('ru')} — ЭЛЕГСО`, description: `История изменений условий юридических услуг ЭЛЕГСО. ${offer.label}: даты редакций, постоянные ссылки и сохранённые тексты оферты.`, url: offer.historyUrl, body: historyBody(offer), document: offer.current, history: true, archived: Boolean(offer.retired), offer }));
   for (const document of offer.versions) output.set(document.url, shell({ title: `${titleSuffix}: редакция ${document.version} — ЭЛЕГСО`, description: `${document.pageDescription} Сохранённая редакция ${document.version}.`, url: document.url, body: documentBody(offer, document, true), document, archived: true, offer }));
 }
 
@@ -312,9 +322,9 @@ for (const name of ['sitemap.xml', 'sitemap.base.xml']) {
   try { sitemap = await fs.readFile(filename, 'utf8'); }
   catch (error) { if (error.code !== 'ENOENT') throw error; if (name === 'sitemap.base.xml') continue; sitemap = ''; }
   const rows = [...sitemap.matchAll(/<url>[\s\S]*?<\/url>/g)].map(match => match[0]).filter(row => !offers.some(offer => row.includes(`<loc>${origin}${offer.url}`)));
-  for (const offer of offers) {
+  for (const offer of offers.filter(item => !item.retired)) {
     for (const url of [offer.url, offer.historyUrl]) rows.push(`<url><loc>${origin}${url}</loc><lastmod>${(url === offer.url ? pageModifiedAt(offer) : offer.current.publishedAt).slice(0, 10)}</lastmod></url>`);
   }
   await fs.writeFile(filename, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows.join('\n')}\n</urlset>\n`);
 }
-console.log(JSON.stringify({ offers: offers.map(offer => ({ id: offer.id, url: offer.url, history: offer.historyUrl, currentVersion: offer.currentVersion, versions: offer.versions.length, sha256: offer.current.hash })), pages: output.size, footerChanged, newlySealed, previewUnsealed: preview }, null, 2));
+console.log(JSON.stringify({ offers: offers.map(offer => ({ id: offer.id, url: offer.url, history: offer.historyUrl, retired: Boolean(offer.retired), replacedBy: offer.replacedBy || null, currentVersion: offer.retired ? null : offer.currentVersion, retainedVersion: offer.currentVersion, versions: offer.versions.length, sha256: offer.current.hash })), pages: output.size, footerChanged, newlySealed, previewUnsealed: preview }, null, 2));

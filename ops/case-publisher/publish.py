@@ -412,9 +412,7 @@ def customise_head(
     )
     schema_json = json.dumps(schema, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     extras = (
-        '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
-        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-        '<link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">\n'
+        '<link rel="stylesheet" href="/assets/site-fonts.css?v=20260913-local-fonts-1">\n'
         f'<link rel="stylesheet" href="/assets/cases.css?v={ASSET_VERSION}">\n'
         f'<script src="/assets/cases.js?v={ASSET_VERSION}" defer></script>\n'
         '<script type="application/ld+json" data-elegso-cases-schema>'

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { privacyInventory } from './privacy-analytics.mjs';
 
 const root = path.resolve(process.argv[2] || 'www');
 const reportPath = path.resolve(process.argv[3] || 'reports/seo-audit.json');
@@ -18,6 +19,7 @@ const canonicalAliases = new Map([
   ['page28912345.html', '/footer/'],
   ['page32088114.html', '/error404/'],
   ['page52312037.html', '/calculator_of_the_balance_of_counter_obligations_in_leasing/'],
+  ['oferta-fiz/index.html', '/oferta/'],
 ]);
 
 async function walk(dir) {
@@ -44,7 +46,8 @@ function isTechnical(rel) {
 }
 
 function isOfferArchive(rel) {
-  return /^(?:oferta|oferta-fiz)\/versions\/[^/]+\/index\.html$/.test(rel);
+  return /^(?:oferta|oferta-fiz)\/versions\/[^/]+\/index\.html$/.test(rel)
+    || ['oferta-fiz/index.html', 'oferta-fiz/history/index.html'].includes(rel);
 }
 
 function decodeEntities(value = '') {
@@ -187,9 +190,11 @@ for (const file of files) {
   if (indexable && !ogDescription) errors.push('missing-og-description');
   if (indexable && !ogUrl) errors.push('missing-og-url');
   if (indexable && !ogImage) errors.push('missing-og-image');
-  if (!html.includes('87831358')) errors.push('missing-yandex-metrika');
-  if (!html.includes('GTM-PBV2TC8')) errors.push('missing-gtm');
-  if (!html.includes('3662487')) errors.push('missing-mailru');
+  const privacy = privacyInventory(html);
+  const consentLoader = /<script\b[^>]*src=["']\/assets\/site-privacy\.js\?[^"']+["']/i.test(html)
+    && html.includes('data-elegso-privacy-config') && html.includes('"counterId":87831358') && html.includes('"defaultEnabled":false');
+  if (!consentLoader) errors.push('missing-consent-based-yandex-loader');
+  if (privacy.inlineTrackers.length || privacy.resources.some(item => /googletagmanager|google-analytics|fonts\.google|fonts\.gstatic|top-fwz1\.mail|mc\.yandex/.test(item.host))) errors.push('unexpected-unconsented-external-analytics');
   if (absoluteInternal.length) errors.push(`absolute-internal:${absoluteInternal.length}`);
   if (documentRelative.length) errors.push(`document-relative:${documentRelative.length}`);
   if (broken.length) errors.push(`broken-local:${broken.length}`);
@@ -214,9 +219,11 @@ for (const file of files) {
     schemaCount,
     images: { total: imgTags.length, withoutAlt: imagesWithoutAlt },
     analytics: {
-      yandexMetrika: html.includes('87831358'),
-      googleTagManager: html.includes('GTM-PBV2TC8'),
-      mailRu: html.includes('3662487'),
+      yandexMetrika: consentLoader,
+      requiresOptIn: true,
+      googleTagManager: privacy.inlineTrackers.some(item => item.google),
+      mailRu: privacy.inlineTrackers.some(item => item.mailRu),
+      legacyTildaStats: privacy.inlineTrackers.some(item => item.tilda),
     },
     absoluteInternal,
     documentRelative,

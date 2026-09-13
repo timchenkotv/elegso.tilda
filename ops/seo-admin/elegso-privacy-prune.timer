@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily expiry of ELEGSO analytics consent receipts
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=15m
+Unit=elegso-privacy-prune.service
+
+[Install]
+WantedBy=timers.target
