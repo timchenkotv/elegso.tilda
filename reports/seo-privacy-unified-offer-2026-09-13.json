@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T18:56:21.911Z",
+  "generatedAt": "2026-09-13T19:25:57.662Z",
   "root": "/Users/timchenko.t.v/Projects/elegso.tilda/www",
   "summary": {
     "htmlPages": 55,
@@ -543,6 +543,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3733-6435-4330-a135-323663316363/--.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 16,
         "withoutAlt": 0
@@ -591,6 +617,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6535-6638-4162-b263-343231313138/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 16,
         "withoutAlt": 0
@@ -639,6 +691,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3366-3866-4739-a662-653263333965/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 21,
         "withoutAlt": 0
@@ -687,6 +765,30 @@
         "image": "https://elegso.ru/assets/publications/customer-refuses-to-sign-act.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 10,
         "withoutAlt": 0
@@ -735,6 +837,30 @@
         "image": "https://elegso.ru/assets/publications/debt-recovery-reconciliation.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 10,
         "withoutAlt": 0
@@ -783,6 +909,30 @@
         "image": "https://elegso.ru/assets/publications/director-subsidiary-liability.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 8,
         "withoutAlt": 0
@@ -831,6 +981,30 @@
         "image": "https://elegso.ru/assets/publications/electronic-documents-court-evidence.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 8,
         "withoutAlt": 0
@@ -879,6 +1053,30 @@
         "image": "https://elegso.ru/assets/publications/leasing-fleet.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "CollectionPage"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "CollectionPage"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 14,
         "withoutAlt": 0
@@ -927,6 +1125,30 @@
         "image": "https://elegso.ru/assets/publications/leasing-passenger-cars.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 9,
         "withoutAlt": 0
@@ -975,6 +1197,30 @@
         "image": "https://elegso.ru/assets/publications/leasing-fleet.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 9,
         "withoutAlt": 0
@@ -1023,6 +1269,30 @@
         "image": "https://elegso.ru/assets/publications/leasing-payment-crisis.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 8,
         "withoutAlt": 0
@@ -1071,6 +1341,30 @@
         "image": "https://elegso.ru/assets/publications/messenger-correspondence-preservation.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 8,
         "withoutAlt": 0
@@ -1119,6 +1413,30 @@
         "image": "https://elegso.ru/assets/publications/self-employed-employment-risks.webp"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 8,
         "withoutAlt": 0
@@ -1167,6 +1485,32 @@
         "image": "https://elegso.ru/_external/thb.tildacdn.com/tild6636-3964-4461-b137-336337656463/-/resize/504x/---2.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 13,
         "withoutAlt": 0
@@ -1215,6 +1559,41 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
       },
       "schemaCount": 2,
+      "structuredData": {
+        "count": 2,
+        "validCount": 2,
+        "types": [
+          "HowTo",
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "HowTo"
+            ]
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 2,
         "withoutAlt": 0
@@ -1253,6 +1632,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3861-6265-4731-b637-366162346662/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 28,
         "withoutAlt": 0
@@ -1301,6 +1706,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6237-3439-4833-b232-656632353763/_20.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 16,
         "withoutAlt": 0
@@ -1349,6 +1780,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3734-3364-4336-a264-346230323063/--.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 16,
         "withoutAlt": 0
@@ -1397,6 +1854,28 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 5,
         "withoutAlt": 0
@@ -1445,6 +1924,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3635-3939-4563-b032-313961396162/photo.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 6,
         "withoutAlt": 0
@@ -1493,6 +1998,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6664-3336-4634-b631-363066303864/--.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 17,
         "withoutAlt": 0
@@ -1541,6 +2072,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6638-3762-4637-b138-323638323533/--.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 33,
         "withoutAlt": 0
@@ -1589,6 +2146,28 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 5,
         "withoutAlt": 0
@@ -1637,6 +2216,28 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "CollectionPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "CollectionPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 5,
         "withoutAlt": 0
@@ -1685,6 +2286,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6339-3862-4338-b030-343734646361/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 16,
         "withoutAlt": 0
@@ -1731,6 +2358,15 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6463-6564-4563-b661-336631646533/sg_pic_685ea82bb13b7.jpg"
       },
       "schemaCount": 0,
+      "structuredData": {
+        "count": 0,
+        "validCount": 0,
+        "types": [],
+        "blocks": [],
+        "errors": [
+          "missing-structured-data"
+        ]
+      },
       "images": {
         "total": 4,
         "withoutAlt": 0
@@ -1777,6 +2413,15 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
       },
       "schemaCount": 0,
+      "structuredData": {
+        "count": 0,
+        "validCount": 0,
+        "types": [],
+        "blocks": [],
+        "errors": [
+          "missing-structured-data"
+        ]
+      },
       "images": {
         "total": 2,
         "withoutAlt": 0
@@ -1813,6 +2458,15 @@
         "image": "https://elegso.ru/_external/thb.tildacdn.com/tild6636-3836-4134-b236-373062316464/-/resize/504x/_v6_.png"
       },
       "schemaCount": 0,
+      "structuredData": {
+        "count": 0,
+        "validCount": 0,
+        "types": [],
+        "blocks": [],
+        "errors": [
+          "missing-structured-data"
+        ]
+      },
       "images": {
         "total": 1,
         "withoutAlt": 0
@@ -1851,6 +2505,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 27,
         "withoutAlt": 0
@@ -1899,6 +2577,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3237-3762-4531-a532-643637646335/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 18,
         "withoutAlt": 0
@@ -1947,6 +2651,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3662-3364-4662-a439-616539306333/--.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 43,
         "withoutAlt": 0
@@ -1995,6 +2725,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3834-6336-4961-a636-313937366533/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 6,
         "withoutAlt": 0
@@ -2043,6 +2799,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "CollectionPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 4,
         "withoutAlt": 0
@@ -2091,6 +2871,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 5,
         "withoutAlt": 0
@@ -2139,6 +2943,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 5,
         "withoutAlt": 0
@@ -2187,6 +3015,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 5,
         "withoutAlt": 0
@@ -2235,6 +3087,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 5,
         "withoutAlt": 0
@@ -2283,6 +3159,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "CollectionPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 4,
         "withoutAlt": 0
@@ -2331,6 +3231,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 4,
         "withoutAlt": 0
@@ -2379,6 +3303,30 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 5,
         "withoutAlt": 0
@@ -2427,6 +3375,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3339-3236-4064-a438-636635643339/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 4,
         "withoutAlt": 0
@@ -2475,6 +3449,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6165-6337-4130-a461-326335613539/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 6,
         "withoutAlt": 0
@@ -2521,6 +3521,15 @@
         "image": "https://elegso.ru/_external/thb.tildacdn.com/tild6636-3836-4134-b236-373062316464/-/resize/504x/_v6_.png"
       },
       "schemaCount": 0,
+      "structuredData": {
+        "count": 0,
+        "validCount": 0,
+        "types": [],
+        "blocks": [],
+        "errors": [
+          "missing-structured-data"
+        ]
+      },
       "images": {
         "total": 1,
         "withoutAlt": 0
@@ -2557,6 +3566,15 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3235-6433-4364-a535-643564626636/---.jpg"
       },
       "schemaCount": 0,
+      "structuredData": {
+        "count": 0,
+        "validCount": 0,
+        "types": [],
+        "blocks": [],
+        "errors": [
+          "missing-structured-data"
+        ]
+      },
       "images": {
         "total": 2,
         "withoutAlt": 0
@@ -2593,6 +3611,15 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6463-6564-4563-b661-336631646533/sg_pic_685ea82bb13b7.jpg"
       },
       "schemaCount": 0,
+      "structuredData": {
+        "count": 0,
+        "validCount": 0,
+        "types": [],
+        "blocks": [],
+        "errors": [
+          "missing-structured-data"
+        ]
+      },
       "images": {
         "total": 4,
         "withoutAlt": 0
@@ -2641,6 +3668,15 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3861-6265-4731-b637-366162346662/-.jpg"
       },
       "schemaCount": 0,
+      "structuredData": {
+        "count": 0,
+        "validCount": 0,
+        "types": [],
+        "blocks": [],
+        "errors": [
+          "missing-structured-data"
+        ]
+      },
       "images": {
         "total": 28,
         "withoutAlt": 0
@@ -2689,6 +3725,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6261-6666-4234-b463-336333653136/--.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 18,
         "withoutAlt": 0
@@ -2737,6 +3799,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3161-3535-4031-a130-653535306362/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 33,
         "withoutAlt": 0
@@ -2785,6 +3873,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3835-3161-4233-b062-653966646463/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 19,
         "withoutAlt": 0
@@ -2833,6 +3947,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild3130-6139-4536-b565-316230393733/--.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 17,
         "withoutAlt": 0
@@ -2881,6 +4021,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6430-3436-4631-a233-636461653737/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 16,
         "withoutAlt": 0
@@ -2929,6 +4095,28 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 6,
         "withoutAlt": 0
@@ -2977,6 +4165,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6437-3233-4338-b766-386562643364/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 16,
         "withoutAlt": 0
@@ -3025,6 +4239,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6165-3164-4532-b636-396135623530/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 42,
         "withoutAlt": 0
@@ -3073,6 +4313,32 @@
         "image": "https://elegso.ru/_external/static.tildacdn.com/tild6664-6636-4962-a639-356137643063/-.jpg"
       },
       "schemaCount": 1,
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
       "images": {
         "total": 17,
         "withoutAlt": 0

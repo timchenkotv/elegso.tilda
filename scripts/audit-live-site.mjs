@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { inspectStructuredData } from './structured-data.mjs';
 
 const origin = (process.argv[2] || 'https://elegso.ru').replace(/\/$/, '');
 const reportPath = path.resolve(process.argv[3] || 'reports/seo-live-audit.json');
@@ -90,9 +91,8 @@ for (const pageUrl of sitemapUrls) {
   if (!/<title\b[^>]*>[^<]+<\/title>/i.test(html)) pageErrors.push('missing-title');
   if (!meta(html, 'name', 'description')) pageErrors.push('missing-description');
   if (!/<html\b[^>]*\blang=["']ru["']/i.test(html)) pageErrors.push('missing-lang');
-  if (!html.includes('data-elegso-seo-schema') && !html.includes('data-elegso-cases-schema')) {
-    pageErrors.push('missing-structured-data');
-  }
+  const structuredData = inspectStructuredData(html);
+  pageErrors.push(...structuredData.errors);
   if (!html.includes('data-elegso-privacy-config') || !html.includes('/assets/site-privacy.js?') || !html.includes('"counterId":87831358') || !html.includes('"defaultEnabled":false')) pageErrors.push('missing-consent-based-yandex-loader');
   if (/GTM-PBV2TC8|G-69ER87XHQK|G-LXDMXM8QTX|top-fwz1\.mail\.ru|https:\/\/mc\.yandex\.ru\/watch\//.test(html)) pageErrors.push('unexpected-legacy-analytics');
   if (absoluteInternalAnchors.length) pageErrors.push(`absolute-internal-anchors:${absoluteInternalAnchors.length}`);
@@ -103,6 +103,7 @@ for (const pageUrl of sitemapUrls) {
     xRobotsTag: response.headers.get('x-robots-tag'),
     canonical: canonical(html),
     robots: meta(html, 'name', 'robots'),
+    structuredData,
     absoluteInternalAnchors,
     errors: pageErrors,
   });

@@ -2,6 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { privacyInventory } from './privacy-analytics.mjs';
+import { inspectStructuredData } from './structured-data.mjs';
 
 const root = path.resolve(process.argv[2] || 'www');
 const reportPath = path.resolve(process.argv[3] || 'reports/seo-audit.json');
@@ -153,7 +154,8 @@ for (const file of files) {
   const ogDescription = meta(html, 'property', 'og:description');
   const ogUrl = meta(html, 'property', 'og:url');
   const ogImage = meta(html, 'property', 'og:image');
-  const schemaCount = (html.match(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>/gi) || []).length;
+  const structuredData = inspectStructuredData(html);
+  const schemaCount = structuredData.count;
   const imgTags = allMatches(structural, /<img\b[^>]*>/gi, 0);
   const imagesWithoutAlt = imgTags.filter((tag) => !/\balt=["'][^"']*["']/i.test(tag)).length;
   const hrefs = allMatches(html, /<a\b[^>]*\bhref=["']([^"']*)["']/gi);
@@ -190,6 +192,7 @@ for (const file of files) {
   if (indexable && !ogDescription) errors.push('missing-og-description');
   if (indexable && !ogUrl) errors.push('missing-og-url');
   if (indexable && !ogImage) errors.push('missing-og-image');
+  if (indexable) errors.push(...structuredData.errors);
   const privacy = privacyInventory(html);
   const consentLoader = /<script\b[^>]*src=["']\/assets\/site-privacy\.js\?[^"']+["']/i.test(html)
     && html.includes('data-elegso-privacy-config') && html.includes('"counterId":87831358') && html.includes('"defaultEnabled":false');
@@ -217,6 +220,7 @@ for (const file of files) {
     htmlLang,
     openGraph: { title: ogTitle, description: ogDescription, url: ogUrl, image: ogImage },
     schemaCount,
+    structuredData,
     images: { total: imgTags.length, withoutAlt: imagesWithoutAlt },
     analytics: {
       yandexMetrika: consentLoader,

@@ -1,0 +1,1678 @@
+{
+  "generatedAt": "2026-09-13T19:26:20.691Z",
+  "origin": "https://elegso.ru",
+  "summary": {
+    "robotsStatus": 200,
+    "sitemapStatus": 200,
+    "sitemapPages": 47,
+    "pagesChecked": 47,
+    "pagesWithErrors": 0,
+    "uniqueInternalReferences": 236,
+    "brokenInternalReferences": 0,
+    "analyticsCoverage": {
+      "consentBasedYandex": 47,
+      "legacyAnalytics": 0
+    }
+  },
+  "robots": "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /calculator-data/\nDisallow: /calc_nst/service/\nDisallow: /tilda/\nDisallow: /members/\n\nUser-agent: Yandex\nAllow: /\nDisallow: /api/\nDisallow: /calculator-data/\nDisallow: /calc_nst/service/\nDisallow: /tilda/\nDisallow: /members/\nClean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&utm_place&utm_referer&utm_referrer&utm_ya_campaign&utm_etext&utm_media&utm_group&utm_expid&utm_candidate&etext&ysclid&yclid&yrclid&yabizcmpgn&ybaip&gclid&fbclid&erid\n\nSitemap: https://elegso.ru/sitemap.xml\n",
+  "pages": [
+    {
+      "url": "https://elegso.ru/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/accident_lawyer/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/accident_lawyer/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/appeal_of_judicial_acts/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/appeal_of_judicial_acts/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/arbitration_lawyer/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/arbitration_lawyer/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/calc_nst/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/calc_nst/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/calc_nst/instruction/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/calc_nst/instruction/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 2,
+        "validCount": 2,
+        "types": [
+          "HowTo",
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "HowTo"
+            ]
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/calculator_of_the_balance_of_counter_obligations_in_leasing/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/cancellation_of_the_court_order/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/cancellation_of_the_court_order/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/collect_the_debt/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/collect_the_debt/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/contacts/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/contacts/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/contract_drafting_service/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/contract_drafting_service/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/contract_modification/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/contract_modification/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/drafting_an_agreement/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/drafting_an_agreement/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/judicial_protection/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/judicial_protection/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/leasing_lawyer/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/leasing_lawyer/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/mission/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/mission/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/offer_for_lawyer_20231103/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/our_team/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/our_team/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/property_law/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/property_law/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/reduction_of_the_penalty_amount/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/refund_of_the_penalty/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/refund_of_the_penalty/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/representation_in_the_arbitration_court/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/restoring_the_contract/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/restoring_the_contract/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/termination_and_restoration_of_contracts/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/termination_of_the_lease_agreement/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/trial_lawyer/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/trial_lawyer/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "CollectionPage"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "CollectionPage"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/customer-refuses-to-sign-act/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/customer-refuses-to-sign-act/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/debt-recovery-reconciliation/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/debt-recovery-reconciliation/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/leasing-lawyer-when-to-contact/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/leasing-lawyer-when-to-contact/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/lease-termination-action-plan/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/lease-termination-action-plan/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/leasing-payment-crisis/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/leasing-payment-crisis/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/director-subsidiary-liability/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/director-subsidiary-liability/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/self-employed-employment-risks/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/self-employed-employment-risks/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/messenger-correspondence-preservation/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/messenger-correspondence-preservation/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/articles/electronic-documents-court-evidence/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/articles/electronic-documents-court-evidence/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "Article"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "BreadcrumbList",
+              "Article"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/oferta/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/oferta/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/oferta/history/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/oferta/history/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebSite",
+          "CollectionPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebSite",
+              "CollectionPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/soglashenie/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/soglashenie/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/cookies/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/cookies/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/consent/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/consent/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "WebPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "WebPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/documents/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/documents/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "Organization",
+          "CollectionPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "Organization",
+              "CollectionPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/cases/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/cases/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "CollectionPage",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "CollectionPage",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/cases/peredacha-avtomobiley-po-dogovoram-lizinga-do-suda/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebPage",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebPage",
+              "Article",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/cases/otmena-otkaza-vzyskanie-ubytkov-perevozchik-a40-307288-2024/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebPage",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebPage",
+              "Article",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/cases/nichtozhnoe-uslovie-gazprombank-avtolizing-saldo-a40-101392-2023/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebPage",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebPage",
+              "Article",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    },
+    {
+      "url": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "xRobotsTag": "index, follow, max-image-preview:large",
+      "canonical": "https://elegso.ru/cases/otmena-dvuh-sudebnyh-aktov-lizing-a40-117474-2023/",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "structuredData": {
+        "count": 1,
+        "validCount": 1,
+        "types": [
+          "LegalService",
+          "Organization",
+          "WebPage",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "blocks": [
+          {
+            "index": 0,
+            "valid": true,
+            "error": null,
+            "types": [
+              "LegalService",
+              "Organization",
+              "WebPage",
+              "Article",
+              "BreadcrumbList"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "absoluteInternalAnchors": [],
+      "errors": []
+    }
+  ],
+  "brokenReferences": []
+}
