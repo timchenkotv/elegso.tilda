@@ -346,12 +346,61 @@ class OfferBuildTests(unittest.TestCase):
         self.assertEqual(registry, (self.root / "config/offer-version-hashes.json").read_bytes())
         self.assertEqual(archive, self.page("/oferta/versions/2026-09-13/"))
 
+    def test_introductory_copy_removed_without_changing_contract_content(self):
+        for offer_id in ("business", "individual"):
+            document = sample(offer_id)
+            document["lead"] = "Лишнее вступительное пояснение к договору."
+            document["notice"] = "Дополнительное пояснение о выбранном типе заказчика."
+            self.write_document(document)
+        self.build("--seal")
+        registry = (self.root / "config/offer-version-hashes.json").read_bytes()
+        for base in ("/oferta/", "/oferta-fiz/"):
+            for route in (base, base + "versions/2026-09-13/"):
+                html = self.page(route)
+                self.assertNotIn('class="eo-lead"', html)
+                self.assertNotIn("Лишнее вступительное пояснение", html)
+                self.assertNotIn("Дополнительное пояснение", html)
+                self.assertIn("Полный юридический текст должен оставаться доступным без JavaScript.", html)
+                self.assertIn("Содержание оферты", html)
+                self.assertIn("Печать", html)
+                self.assertIn("13 сентября 2026", html)
+            self.assertIn("Неизменяемая копия редакции", self.page(base + "versions/2026-09-13/"))
+            self.assertIn('class="eo-lead"', self.page(base + "history/"))
+        self.build()
+        self.assertEqual(registry, (self.root / "config/offer-version-hashes.json").read_bytes())
+
     def test_active_html_rejected(self):
         for html in ('<script>alert(1)</script>', '<img src="/x" onerror="alert(1)">', '<a href="javascript:alert(1)">x</a>', '<form><input></form>'):
             document = sample("business")
             document["sections"][0]["clauses"][0]["html"] = html
             self.write_document(document)
             self.build("--seal", success=False)
+
+    def test_page_presentation_does_not_advertise_contract_details_or_reseal(self):
+        document = sample("business")
+        document["title"] = "Исходное полное название договора"
+        document["description"] = "Старое рекламное описание о подборе персонала"
+        self.write_document(document)
+        self.build("--seal")
+        registry = (self.root / "config/offer-version-hashes.json").read_bytes()
+        self.config["offers"][0]["pageTitle"] = "Оферта на юридические услуги"
+        self.config["offers"][0]["pageDescription"] = "Условия юридических услуг для бизнеса."
+        self.write_config()
+        self.build()
+        for route in ("/oferta/", "/oferta/versions/2026-09-13/"):
+            html = self.page(route)
+            self.assertIn("<h1>Оферта на юридические услуги</h1>", html)
+            self.assertIn("Условия юридических услуг для бизнеса.", html)
+            self.assertNotIn("Старое рекламное описание", html)
+            self.assertIn("<h2>Исходное полное название договора</h2>", html)
+        self.assertNotIn("Старое рекламное описание", self.page("/oferta/history/"))
+        self.assertEqual(registry, (self.root / "config/offer-version-hashes.json").read_bytes())
+        self.assertEqual(json.loads((self.root / "content/offers/business/2026-09-13.json").read_text()), document)
+
+    def test_page_presentation_rejects_active_markup(self):
+        self.config["offers"][0]["pageTitle"] = "<script>alert(1)</script>"
+        self.write_config()
+        self.build("--seal", success=False)
 
     def test_document_relative_and_absolute_internal_links_rejected(self):
         for link in ("contacts/", "../contacts/", ORIGIN + "/contacts/", "//example.com/"):
