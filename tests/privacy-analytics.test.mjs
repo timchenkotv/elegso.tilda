@@ -306,14 +306,35 @@ test('all current pages can be cleaned idempotently in memory with no article te
 
 test('configuration rejects extra providers and behavioral tracking; banner has accessible alternatives', () => {
   for (const analytics of [{ ...config.analytics, provider: 'google' }, { ...config.analytics, webvisor: true }, { ...config.analytics, defaultEnabled: true }]) assert.throws(() => validatePrivacyConfig({ ...config, analytics }));
-  assert.ok(runtimeCode.includes('Разрешить аналитику'));
-  assert.ok(runtimeCode.includes('Без аналитики'));
+  assert.ok(runtimeCode.includes('data-esp-accept>Разрешить</button>'));
+  assert.ok(runtimeCode.includes('data-esp-reject>Отклонить</button>'));
   assert.ok(runtimeCode.includes('href="/consent/"'));
   assert.ok(runtimeCode.includes('data-elegso-cookie-settings'));
   assert.ok(runtimeCode.includes('setAttribute(\'role\', \'region\')'));
   assert.ok(!runtimeCode.includes('aria-modal'));
   assert.match(css, /min-height:44px/);
   assert.match(css, /@media print \{ \.esp-panel \{ display:none!important; \} \}/);
+});
+
+test('compact notice keeps explicit purpose and puts detailed links inside settings', () => {
+  const state = runtime();
+  const markup = state.panel.innerHTML;
+  assert.match(markup, /Разрешить cookie для статистики сайта\?/);
+  assert.match(markup, /href="\/consent\/">Подробнее<\/a>/);
+  assert.ok(!markup.includes('Яндекс'));
+  const initial = markup.split('<div class="esp-options"')[0];
+  assert.ok(!initial.includes('Политика обработки данных'));
+  assert.ok(initial.includes('data-esp-accept>Разрешить'));
+  assert.ok(initial.includes('data-esp-reject>Отклонить'));
+  state.click('settings');
+  assert.equal(state.controls.get('[id="esp-options"]').hidden, false);
+  state.click('settings');
+  assert.equal(state.controls.get('[id="esp-options"]').hidden, true);
+  assert.equal(state.requests.length, 0);
+  assert.match(css, /width:min\(520px,calc\(100% - 24px\)\)/);
+  assert.match(css, /grid-template-columns:repeat\(2,minmax\(0,1fr\)\) auto/);
+  assert.match(css, /max-height:calc\(100dvh/);
+  assert.match(css, /safe-area-inset-bottom/);
 });
 
 test('local fonts and future case/finalize generators cannot reintroduce Google Fonts', () => {

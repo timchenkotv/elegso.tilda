@@ -148,14 +148,15 @@
   panel.setAttribute('role', 'region');
   panel.setAttribute('aria-labelledby', 'esp-title');
   panel.setAttribute('tabindex', '-1');
-  panel.innerHTML = `<div class="esp-panel__heading"><h2 id="esp-title">Файлы cookie и статистика</h2><button type="button" class="esp-close" data-esp-close aria-label="Закрыть настройки без изменения выбора">×</button></div>
-    <p class="esp-intro">Необходимое хранение в браузере помогает работе сайта и сохраняет ваш выбор. Яндекс Метрику включаем только с вашего разрешения. Отказ не ограничивает доступ к сайту.</p>
-    <div class="esp-actions"><button type="button" data-esp-accept>Разрешить аналитику</button><button type="button" data-esp-reject>Без аналитики</button><button type="button" class="esp-settings-button" data-esp-settings aria-expanded="false" aria-controls="esp-options">Настроить</button></div>
-    <div class="esp-options" id="esp-options" hidden><p><strong>Необходимое хранение — всегда включено.</strong> Для работы калькуляторов и сохранения настроек сайта.</p>
-      <label class="esp-choice"><input type="checkbox" data-esp-analytics><span><strong>Яндекс Метрика</strong><span>Базовая статистика посещений и страниц. Код сайта не включает Вебвизор, запись полей, карты кликов и рекламные события.</span></span></label>
-      <p class="esp-note">Снять отметку и сохранить — отозвать согласие. Удаляются доступные сайту аналитические cookie. Уже отправленные данные и cookie сторонних доменов это действие не удаляет; последние можно очистить в настройках браузера.</p>
-      <button type="button" class="esp-save" data-esp-save>Сохранить выбор</button></div>
-    <div class="esp-links"><a href="/consent/">Согласие на аналитику</a><a href="/cookies/">О файлах cookie</a><a href="/soglashenie/">Политика обработки данных</a></div><p class="esp-status" data-esp-status role="status" aria-live="polite"></p>`;
+  panel.innerHTML = `<h2 id="esp-title">Файлы cookie</h2><button type="button" class="esp-close" data-esp-close aria-label="Закрыть уведомление без изменения выбора">×</button>
+    <p class="esp-intro">Разрешить cookie для статистики сайта? <a href="/consent/">Подробнее</a></p>
+    <div class="esp-actions"><button type="button" data-esp-accept>Разрешить</button><button type="button" data-esp-reject>Отклонить</button><button type="button" class="esp-settings-button" data-esp-settings aria-expanded="false" aria-controls="esp-options">Настройки</button></div>
+    <div class="esp-options" id="esp-options" hidden><p><strong>Необходимые cookie</strong> сохраняют настройки и работу калькуляторов. Они остаются включёнными.</p>
+      <label class="esp-choice"><input type="checkbox" data-esp-analytics><span><strong>Статистика посещений</strong><span>Помогает улучшать сайт. Без записи полей и содержимого расчётов.</span></span></label>
+      <p class="esp-note">Чтобы отозвать согласие, снимите отметку и сохраните выбор. Данные калькуляторов останутся. Удаление ранее переданных данных — по обращению к нам.</p>
+      <button type="button" class="esp-save" data-esp-save>Сохранить выбор</button>
+      <div class="esp-links"><a href="/cookies/">О файлах cookie</a><a href="/soglashenie/">Политика обработки данных</a></div></div>
+    <p class="esp-status" data-esp-status role="status" aria-live="polite"></p>`;
   document.body.appendChild(panel);
   const checkbox = panel.querySelector('[data-esp-analytics]');
   const options = panel.querySelector('[id="esp-options"]');
