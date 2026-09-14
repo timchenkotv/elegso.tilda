@@ -1,0 +1,32 @@
+[Unit]
+Description=Publish ELEGSO legal-document snapshots
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=elegso-seo-admin
+Group=elegso-seo-admin
+UMask=0027
+Environment=TZ=Europe/Moscow
+ExecStart=/usr/bin/python3 /opt/elegso-seo-admin/current/legal_publish.py
+TimeoutStartSec=180
+Nice=10
+CPUQuota=75%
+MemoryMax=512M
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+InaccessiblePaths=/var/lib/elegso-seo-admin/access /var/lib/elegso-seo-admin/auth /var/lib/elegso-seo-admin/config /etc/elegso-seo-admin
+ReadWritePaths=/var/lib/elegso-seo-admin/legal /srv/www/elegso.ru/generated-legal

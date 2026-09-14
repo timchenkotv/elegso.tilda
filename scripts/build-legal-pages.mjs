@@ -16,6 +16,76 @@ const date = value => new Date(`${value}T12:00:00+03:00`).toLocaleDateString('ru
 const icon = '<svg viewBox="0 0 32 36" fill="none" aria-hidden="true" focusable="false"><path d="M6 2h13l7 7v24H6zM19 2v8h7M11 16h10M11 21h10M11 26h6" stroke="currentColor" stroke-width="1.5"/></svg>';
 const reservedRoutes = new Set(['/documents/', '/oferta/', '/oferta-fiz/', '/offer_for_lawyer_20231103/']);
 
+// Presentation is separate from sealed contractual content. Omitted settings retain
+// the exact pre-CMS wording; the CMS can export this object without inventing labels.
+export const DEFAULT_LEGAL_PRESENTATION = Object.freeze({
+  hubTitle: 'Правовые документы',
+  hubDescription: 'Публичная оферта ЭЛЕГСО, политика обработки персональных данных, документы о файлах cookie и условия для исполнителей.',
+  printLabel: 'Печать документа',
+  offerPrintLabel: 'Печать',
+  allDocumentsLabel: 'Все правовые документы',
+  relatedAllDocumentsLabel: 'Все документы',
+  openDocumentLabel: 'Открыть документ',
+  cookieSettingsLabel: 'Настроить cookie',
+  offerProof: Object.freeze({
+    identifierLabel: 'Идентификатор редакции:',
+    permanentUrlLabel: 'Постоянный адрес:',
+    checksumLabel: 'Контрольная сумма текста и реквизитов редакции (SHA-256):',
+    checksumNote: 'Контрольная сумма позволяет проверить неизменность исходного содержания редакции. Она не является электронной подписью или независимым подтверждением времени публикации.',
+  }),
+});
+
+const presentationText = (value, label) => {
+  assert(typeof value === 'string' && value.trim() && value.length <= 10000 && !/[\u0000-\u001f\u007f]/.test(value), `Invalid legal presentation text: ${label}`);
+};
+
+export function normalizeLegalPresentation(value = {}) {
+  assert(value && typeof value === 'object' && !Array.isArray(value), 'Invalid legal presentation configuration');
+  assert(value.schemaVersion == null || value.schemaVersion === 1, 'Unsupported legal presentation schema');
+  const keys = new Set([...Object.keys(DEFAULT_LEGAL_PRESENTATION), 'schemaVersion', 'hubCards']);
+  for (const key of Object.keys(value)) assert(keys.has(key), `Unknown legal presentation setting: ${key}`);
+  const result = { ...DEFAULT_LEGAL_PRESENTATION, ...value, offerProof: { ...DEFAULT_LEGAL_PRESENTATION.offerProof } };
+  for (const key of Object.keys(DEFAULT_LEGAL_PRESENTATION).filter(key => key !== 'offerProof')) presentationText(result[key], key);
+  if (value.offerProof !== undefined) {
+    assert(value.offerProof && typeof value.offerProof === 'object' && !Array.isArray(value.offerProof), 'Invalid offer proof presentation');
+    for (const [key, text] of Object.entries(value.offerProof)) {
+      assert(Object.hasOwn(DEFAULT_LEGAL_PRESENTATION.offerProof, key), `Unknown offer proof setting: ${key}`);
+      presentationText(text, `offerProof.${key}`);
+      result.offerProof[key] = text;
+    }
+  }
+  if (value.hubCards !== undefined) {
+    assert(Array.isArray(value.hubCards) && value.hubCards.length > 0 && value.hubCards.length <= 100, 'Invalid legal hub cards');
+    const urls = new Set();
+    result.hubCards = value.hubCards.map(card => {
+      assert(card && typeof card === 'object' && !Array.isArray(card), 'Invalid legal hub card');
+      for (const key of Object.keys(card)) assert(['url', 'title', 'description', 'date', 'privacy'].includes(key), `Unknown legal hub card setting: ${key}`);
+      assert(typeof card.url === 'string' && /^\/(?:[a-z0-9_-]+\/)+$/.test(card.url) && !urls.has(card.url), `Invalid or duplicate legal hub card URL: ${card.url}`);
+      urls.add(card.url);
+      for (const key of ['title', 'description']) presentationText(card[key], `hubCards.${key}`);
+      assert(card.date === undefined || day(card.date), 'Invalid legal hub card date');
+      assert(card.privacy === undefined || typeof card.privacy === 'boolean', 'Invalid legal hub card illustration');
+      return { ...card };
+    });
+  }
+  return result;
+}
+
+export async function loadLegalPresentation(root) {
+  let value = {};
+  try { value = JSON.parse(await fs.readFile(path.join(root, 'config/legal-presentation.json'), 'utf8')); }
+  catch (error) { if (error.code !== 'ENOENT') throw error; }
+  return normalizeLegalPresentation(value);
+}
+
+export function defaultLegalHubCards(documents) {
+  return [
+    { url: '/oferta/', title: 'Публичная оферта', description: 'Условия оказания юридических услуг и история редакций.' },
+    ...documents.map(item => ({ url: item.url, title: item.title, description: item.description, date: item.revisionDate, privacy: item.id === 'privacy' })),
+    { url: '/offer_for_lawyer_20231103/', title: 'Присоединение исполнителей', description: 'Условия сотрудничества для исполнителей.' },
+  ];
+}
+
 export function validateLegalDocument(document) {
   assert(document && /^[a-z][a-z0-9-]*$/.test(document.id || ''), 'Invalid legal document id');
   assert(/^\/(?:[a-z0-9_-]+\/)+$/.test(document.url || '') && !reservedRoutes.has(document.url), `Invalid or reserved legal URL: ${document.url}`);
@@ -44,22 +114,20 @@ export function validateLegalDocument(document) {
   return document;
 }
 
-function breadcrumbs(label = '') {
-  return `<nav class="eo-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-hidden="true">/</span>${label ? `<a href="/documents/">Правовые документы</a><span aria-hidden="true">/</span><span>${esc(label)}</span>` : '<span>Правовые документы</span>'}</nav>`;
+function breadcrumbs(label = '', presentation = DEFAULT_LEGAL_PRESENTATION) {
+  return `<nav class="eo-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-hidden="true">/</span>${label ? `<a href="/documents/">${esc(presentation.hubTitle)}</a><span aria-hidden="true">/</span><span>${esc(label)}</span>` : `<span>${esc(presentation.hubTitle)}</span>`}</nav>`;
 }
 
-export function renderLegalBody(document, publisher, documents = [document]) {
+export function renderLegalBody(document, publisher, documents = [document], settings = {}) {
+  const presentation = normalizeLegalPresentation(settings);
   const title = esc(document.title);
-  return `<main class="eo-main el-main" id="legal-content"><div class="eo-progress" aria-hidden="true"><i data-eo-progress></i></div><div class="eo-wrap">${breadcrumbs(document.title)}<div class="eo-hero el-hero${document.id === 'privacy' ? ' el-hero--art' : ''}"><div><p class="eo-kicker">Правовые документы · ${esc(publisher.brand)}</p><h1>${title}</h1><p class="el-revision">Редакция от <time datetime="${document.revisionDate}">${esc(date(document.revisionDate))}</time></p></div>${document.id === 'privacy' ? '<img class="el-privacy-art" src="/assets/publications/privacy-data-600.webp" alt="" width="96" height="96" decoding="async">' : ''}</div><div class="eo-actions el-actions"><button type="button" class="eo-button" data-eo-print hidden>${icon}Печать документа</button>${document.id === 'cookies' ? '<button type="button" class="eo-button el-cookie-button" data-elegso-cookie-settings>Настроить cookie</button>' : ''}<a class="eo-link" href="/documents/">Все правовые документы</a><p>Для сохранения документа в PDF выберите «Сохранить как PDF» в окне печати браузера.</p></div><div class="eo-reading"><aside class="eo-toc"><details open><summary>Содержание документа</summary><nav aria-label="Разделы документа">${document.sections.map((section, index) => `<a href="#${section.id}"><span>${index + 1}</span>${esc(section.title.replace(/^\d+\.\s*/, ''))}</a>`).join('')}</nav></details></aside><article class="eo-document"><div class="eo-print-identity"><img src="${esc(publisher.logo)}" alt="${esc(publisher.brand)}"><p>${esc(publisher.name)}<br>${origin}${document.url}</p></div><div class="eo-print-heading"><h2>${title}</h2><p>Редакция от ${esc(date(document.revisionDate))}</p></div>${document.sections.map(section => `<section id="${section.id}" data-eo-section><h2>${esc(section.title)}</h2>${section.clauses.map(clause => `<div class="eo-clause" id="clause-${clause.number.replaceAll('.', '-')}"><span class="eo-clause__number">${esc(clause.number)}</span><div class="eo-clause__text">${clause.html}</div></div>`).join('')}</section>`).join('')}</article></div><nav class="eo-bottom el-related" aria-label="Связанные правовые документы"><a href="/oferta/">Публичная оферта →</a>${documents.filter(item => item.id !== document.id).map(item => `<a href="${item.url}">${esc(item.title)} →</a>`).join('')}<a href="/documents/">Все документы →</a></nav></div></main>`;
+  return `<main class="eo-main el-main" id="legal-content"><div class="eo-progress" aria-hidden="true"><i data-eo-progress></i></div><div class="eo-wrap">${breadcrumbs(document.title, presentation)}<div class="eo-hero el-hero${document.id === 'privacy' ? ' el-hero--art' : ''}"><div><p class="eo-kicker">${esc(presentation.hubTitle)} · ${esc(publisher.brand)}</p><h1>${title}</h1><p class="el-revision">Редакция от <time datetime="${document.revisionDate}">${esc(date(document.revisionDate))}</time></p></div>${document.id === 'privacy' ? '<img class="el-privacy-art" src="/assets/publications/privacy-data-600.webp" alt="" width="96" height="96" decoding="async">' : ''}</div><div class="eo-actions el-actions"><button type="button" class="eo-button" data-eo-print hidden>${icon}${esc(presentation.printLabel)}</button>${document.id === 'cookies' ? `<button type="button" class="eo-button el-cookie-button" data-elegso-cookie-settings>${esc(presentation.cookieSettingsLabel)}</button>` : ''}<a class="eo-link" href="/documents/">${esc(presentation.allDocumentsLabel)}</a><p>Для сохранения документа в PDF выберите «Сохранить как PDF» в окне печати браузера.</p></div><div class="eo-reading"><aside class="eo-toc"><details open><summary>Содержание документа</summary><nav aria-label="Разделы документа">${document.sections.map((section, index) => `<a href="#${section.id}"><span>${index + 1}</span>${esc(section.title.replace(/^\d+\.\s*/, ''))}</a>`).join('')}</nav></details></aside><article class="eo-document"><div class="eo-print-identity"><img src="${esc(publisher.logo)}" alt="${esc(publisher.brand)}"><p>${esc(publisher.name)}<br>${origin}${document.url}</p></div><div class="eo-print-heading"><h2>${title}</h2><p>Редакция от ${esc(date(document.revisionDate))}</p></div>${document.sections.map(section => `<section id="${section.id}" data-eo-section><h2>${esc(section.title)}</h2>${section.clauses.map(clause => `<div class="eo-clause" id="clause-${clause.number.replaceAll('.', '-')}"><span class="eo-clause__number">${esc(clause.number)}</span><div class="eo-clause__text">${clause.html}</div></div>`).join('')}</section>`).join('')}</article></div><nav class="eo-bottom el-related" aria-label="Связанные правовые документы"><a href="/oferta/">Публичная оферта →</a>${documents.filter(item => item.id !== document.id).map(item => `<a href="${item.url}">${esc(item.title)} →</a>`).join('')}<a href="/documents/">${esc(presentation.relatedAllDocumentsLabel)} →</a></nav></div></main>`;
 }
 
-export function renderLegalHub(documents) {
-  const cards = [
-    { url: '/oferta/', title: 'Публичная оферта', description: 'Условия оказания юридических услуг и история редакций.' },
-    ...documents.map(item => ({ url: item.url, title: item.title, description: item.description, date: item.revisionDate, privacy: item.id === 'privacy' })),
-    { url: '/offer_for_lawyer_20231103/', title: 'Присоединение исполнителей', description: 'Условия сотрудничества для исполнителей.' },
-  ];
-  return `<main class="eo-main el-main el-hub" id="legal-content"><div class="eo-wrap">${breadcrumbs()}<div class="eo-hero el-hero"><div><p class="eo-kicker">ЭЛЕГСО</p><h1>Правовые документы</h1></div></div><div class="el-document-grid">${cards.map(card => `<article class="el-document-card">${card.privacy ? '<img class="el-privacy-art" src="/assets/publications/privacy-data-600.webp" alt="" width="96" height="96" loading="lazy" decoding="async">' : icon}<h2><a href="${card.url}">${esc(card.title)}</a></h2><p>${esc(card.description)}</p>${card.date ? `<p class="el-card-date">Редакция от <time datetime="${card.date}">${esc(date(card.date))}</time></p>` : ''}<a class="el-card-link" href="${card.url}">Открыть документ <span aria-hidden="true">→</span></a></article>`).join('')}</div><div class="eo-actions el-hub-actions"><button type="button" class="eo-button" data-elegso-cookie-settings>Настроить cookie</button></div></div></main>`;
+export function renderLegalHub(documents, settings = {}) {
+  const presentation = normalizeLegalPresentation(settings);
+  const cards = presentation.hubCards || defaultLegalHubCards(documents);
+  return `<main class="eo-main el-main el-hub" id="legal-content"><div class="eo-wrap">${breadcrumbs('', presentation)}<div class="eo-hero el-hero"><div><p class="eo-kicker">ЭЛЕГСО</p><h1>${esc(presentation.hubTitle)}</h1></div></div><div class="el-document-grid">${cards.map(card => `<article class="el-document-card">${card.privacy ? '<img class="el-privacy-art" src="/assets/publications/privacy-data-600.webp" alt="" width="96" height="96" loading="lazy" decoding="async">' : icon}<h2><a href="${card.url}">${esc(card.title)}</a></h2><p>${esc(card.description)}</p>${card.date ? `<p class="el-card-date">Редакция от <time datetime="${card.date}">${esc(date(card.date))}</time></p>` : ''}<a class="el-card-link" href="${card.url}">${esc(presentation.openDocumentLabel)} <span aria-hidden="true">→</span></a></article>`).join('')}</div><div class="eo-actions el-hub-actions"><button type="button" class="eo-button" data-elegso-cookie-settings>${esc(presentation.cookieSettingsLabel)}</button></div></div></main>`;
 }
 
 function meta(head, attribute, name, value) {
@@ -72,6 +140,7 @@ export async function buildLegalPages({ root = path.join(import.meta.dirname, '.
   root = path.resolve(root);
   const web = path.join(root, 'www');
   const privacyBuild = await loadPrivacyBuild(root);
+  const presentation = await loadLegalPresentation(root);
   const content = path.join(root, 'content/legal');
   const names = (await fs.readdir(content)).filter(name => name.endsWith('.json')).sort();
   assert(names.length, 'No content/legal documents; refusing to build an empty legal hub');
@@ -107,7 +176,7 @@ export async function buildLegalPages({ root = path.join(import.meta.dirname, '.
       ['property', 'og:title', title], ['property', 'og:description', description], ['property', 'og:url', origin + url],
       ['property', 'og:type', 'website'], ['property', 'og:locale', 'ru_RU'], ['property', 'og:image', origin + publisher.logo], ['name', 'twitter:card', 'summary'],
     ]) head = meta(head, attribute, name, value);
-    const crumbs = [{ '@type': 'ListItem', position: 1, name: 'Главная', item: origin + '/' }, { '@type': 'ListItem', position: 2, name: 'Правовые документы', item: origin + '/documents/' }];
+    const crumbs = [{ '@type': 'ListItem', position: 1, name: 'Главная', item: origin + '/' }, { '@type': 'ListItem', position: 2, name: presentation.hubTitle, item: origin + '/documents/' }];
     if (!hub) crumbs.push({ '@type': 'ListItem', position: 3, name: title, item: origin + url });
     const graph = [
       { '@type': 'Organization', '@id': origin + '/#organization', name: publisher.name, url: origin + '/', logo: origin + publisher.logo },
@@ -119,8 +188,8 @@ export async function buildLegalPages({ root = path.join(import.meta.dirname, '.
   }
   const output = new Map();
   const latestDate = documents.map(item => item.revisionDate).sort().at(-1);
-  for (const document of documents) output.set(path.join(web, document.url, 'index.html'), shell({ ...document, body: renderLegalBody(document, publisher, documents) }));
-  output.set(path.join(web, 'documents/index.html'), shell({ title: 'Правовые документы', description: 'Публичная оферта ЭЛЕГСО, политика обработки персональных данных, документы о файлах cookie и условия для исполнителей.', url: '/documents/', revisionDate: latestDate, hub: true, body: renderLegalHub(documents) }));
+  for (const document of documents) output.set(path.join(web, document.url, 'index.html'), shell({ ...document, body: renderLegalBody(document, publisher, documents, presentation) }));
+  output.set(path.join(web, 'documents/index.html'), shell({ title: presentation.hubTitle, description: presentation.hubDescription, url: '/documents/', revisionDate: latestDate, hub: true, body: renderLegalHub(documents, presentation) }));
   const routes = [...documents.map(item => ({ url: item.url, revisionDate: item.revisionDate })), { url: '/documents/', revisionDate: latestDate }];
   const urls = new Set(routes.map(item => origin + item.url));
   for (const name of ['sitemap.xml', 'sitemap.base.xml']) {

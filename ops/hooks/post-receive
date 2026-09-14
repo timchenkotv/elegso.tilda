@@ -12,6 +12,26 @@ seo_admin_config=/etc/elegso-seo-admin
 seo_admin_state=/var/lib/elegso-seo-admin
 nginx_site=/etc/nginx/sites-available/elegso.conf
 nginx_admin_limit=/etc/nginx/conf.d/elegso-admin-limit.conf
+legal_changed=0
+legal_previous=
+legal_timer_was_active=0
+legal_timer_stopped=0
+rollback_legal_projection() {
+    status=$?
+    if [ "$status" -ne 0 ] && [ "$legal_changed" -eq 1 ]; then
+        if [ -n "$legal_previous" ] && [ -d "$legal_previous" ]; then
+            sudo /bin/ln -sfn "$legal_previous" "$site/generated-legal/current.rollback"
+            sudo /bin/mv -Tf "$site/generated-legal/current.rollback" "$site/generated-legal/current"
+        else
+            sudo /bin/rm -f "$site/generated-legal/current"
+        fi
+    fi
+    if [ "$status" -ne 0 ] && [ "$legal_timer_stopped" -eq 1 ] && [ "$legal_timer_was_active" -eq 1 ]; then
+        sudo /bin/systemctl start elegso-legal-publisher.timer || :
+    fi
+    exit "$status"
+}
+trap rollback_legal_projection EXIT
 
 while read -r old new ref; do
     [ "$ref" = "refs/heads/main" ] || continue
@@ -172,11 +192,11 @@ while read -r old new ref; do
         admin_release="$seo_admin/releases/$(printf '%s' "$new" | cut -c1-12)"
         sudo /usr/bin/install -d -o root -g root -m 0755 \
             "$admin_release" "$admin_release/static"
-        for program in app.py traffic_aggregate.py yandex_sync.py privacy_consent.py; do
+        for program in app.py traffic_aggregate.py yandex_sync.py privacy_consent.py legal_documents.py legal_publish.py; do
             sudo /usr/bin/install -o root -g root -m 0755 \
                 "$release/ops/seo-admin/$program" "$admin_release/$program"
         done
-        for asset in index.html app.css app.js; do
+        for asset in index.html app.css app.js legal-documents.css legal-documents.js; do
             sudo /usr/bin/install -o root -g root -m 0644 \
                 "$release/ops/seo-admin/static/$asset" \
                 "$admin_release/static/$asset"
@@ -192,6 +212,10 @@ while read -r old new ref; do
             "$seo_admin_state"
         sudo /usr/bin/install -d -o elegso-seo-admin -g elegso-seo-admin -m 0700 \
             "$seo_admin_state/access"
+        sudo /usr/bin/install -d -o elegso-seo-admin -g elegso-seo-admin -m 0700 \
+            "$seo_admin_state/legal" "$seo_admin_state/legal/backups"
+        sudo /usr/bin/install -d -o elegso-seo-admin -g www-data -m 0755 \
+            "$site/generated-legal"
         sudo /usr/bin/install -d -o elegso-seo-admin -g seo-monitor -m 2750 \
             "$seo_admin_state/config"
         sudo /usr/bin/install -d -o elegso-seo-admin -g www-data -m 2750 \
@@ -242,11 +266,45 @@ while read -r old new ref; do
             elegso-yandex-analytics.service \
             elegso-yandex-analytics.timer \
             elegso-privacy-prune.service \
-            elegso-privacy-prune.timer
+            elegso-privacy-prune.timer \
+            elegso-legal-publisher.service \
+            elegso-legal-publisher.timer
         do
             sudo /usr/bin/install -o root -g root -m 0644 \
                 "$release/ops/seo-admin/$unit" "/etc/systemd/system/$unit"
         done
+        # SQLite is seeded only once; subsequent releases rebuild from the
+        # published database, never overwrite edits with the Git seed files.
+        if [ ! -x /usr/bin/node ]; then
+            echo "Install Debian nodejs before deploying legal publishing" >&2
+            exit 1
+        fi
+        /usr/bin/node -e 'const [a,b]=process.versions.node.split(".").map(Number);if(a<20||(a===20&&b<11))process.exit(1)'
+        if sudo /bin/systemctl is-active --quiet elegso-legal-publisher.timer; then
+            legal_timer_was_active=1
+        fi
+        sudo /bin/systemctl stop elegso-legal-publisher.timer 2>/dev/null || :
+        legal_timer_stopped=1
+        # Let an already-running publication finish before recording the
+        # rollback pointer. Stopping the timer alone does not stop its service.
+        legal_wait=0
+        while :; do
+            legal_service_state=$(sudo /bin/systemctl show -p ActiveState --value elegso-legal-publisher.service 2>/dev/null || :)
+            case "$legal_service_state" in
+                active|activating|deactivating) ;;
+                *) break ;;
+            esac
+            legal_wait=$((legal_wait + 1))
+            if [ "$legal_wait" -ge 180 ]; then
+                echo "Legal publisher is still active; deployment postponed" >&2
+                exit 1
+            fi
+            sleep 1
+        done
+        legal_previous=$(/usr/bin/readlink -f "$site/generated-legal/current" || :)
+        legal_changed=1
+        sudo -u elegso-seo-admin /usr/bin/python3 "$admin_release/legal_publish.py" \
+            --source "$release" --force
         admin_previous=
         if sudo /usr/bin/test -L "$seo_admin/current"; then
             admin_previous=$(sudo /usr/bin/readlink -f "$seo_admin/current" || :)
@@ -320,6 +378,7 @@ while read -r old new ref; do
 
     ln -sfn "$release" "$site/current.new"
     mv -Tf "$site/current.new" "$site/current"
+    legal_changed=0
     find "$site/releases" -mindepth 1 -maxdepth 1 -type d | sort -r | tail -n +6 | xargs -r rm -rf
 
     if [ -f "$release/ops/case-publisher/publish.py" ]; then
@@ -331,6 +390,8 @@ while read -r old new ref; do
         sudo /bin/systemctl enable --now elegso-seo-traffic.timer
         sudo /bin/systemctl enable --now elegso-yandex-analytics.timer
         sudo /bin/systemctl enable --now elegso-privacy-prune.timer
+        sudo /bin/systemctl enable --now elegso-legal-publisher.timer
+        legal_timer_stopped=0
         sudo /bin/systemctl start --no-block elegso-seo-traffic.service
     fi
 

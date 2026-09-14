@@ -27,6 +27,7 @@ HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 import privacy_consent  # noqa: E402
+import legal_documents  # noqa: E402
 
 MONITOR_DIR = Path(os.environ.get("SEO_MONITOR_PROGRAM_DIR", str(HERE)))
 if str(MONITOR_DIR) not in sys.path:
@@ -474,6 +475,8 @@ class Application:
         )
         self.privacy_db_path = Path(os.environ.get("PRIVACY_CONSENT_DB", str(self.access_db_path.parent / "privacy-consent.sqlite3")))
         self.privacy_version = os.environ.get("PRIVACY_CONSENT_VERSION", privacy_consent.CURRENT_VERSION)
+        self.legal_db_path = Path(os.environ.get("LEGAL_DOCUMENTS_DB", str(self.access_db_path.parent / "legal-documents.sqlite3")))
+        self.legal_public_root = Path(os.environ.get("LEGAL_PUBLIC_ROOT", "/srv/www/elegso.ru/generated-legal/current"))
         self.allowed_origin = os.environ.get(
             "SEO_ADMIN_ALLOWED_ORIGIN", "https://elegso.ru"
         ).rstrip("/")
@@ -1107,8 +1110,71 @@ class Handler(BaseHTTPRequestHandler):
             return False
         return True
 
+    def legal_request(self, method: str, path: str) -> bool:
+        """Only authenticated administrators can mutate documents or enqueue work."""
+        if path != "/api/legal-documents" and not path.startswith("/api/legal-documents/"):
+            return False
+        try:
+            actor = self.actor()
+            self.app.require_authenticated(actor)
+            store = legal_documents.Store(self.app.legal_db_path)
+            parts = path.removeprefix("/api/legal-documents").strip("/").split("/")
+            if method == "GET":
+                if parts == [""]:
+                    self.send_json({"documents": store.list_documents(), "can_edit": self.app.actor_role(actor) == "admin"})
+                elif len(parts) == 2 and parts[0] == "jobs":
+                    self.send_json({"job": store.get_job(parts[1])})
+                elif len(parts) == 1:
+                    document = store.get_document(parts[0])
+                    document["history"] = store.get_history(parts[0])
+                    jobs = store.jobs(document_id=parts[0], limit=1)
+                    document["job"] = jobs[0] if jobs else None
+                    self.send_json({"document": document})
+                else:
+                    self.send_json({"error": "not_found"}, 404)
+                return True
+            self.app.require_admin(actor)
+            if not self.require_valid_origin():
+                return True
+            if self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower() != "application/json":
+                self.send_json({"error": "json_required"}, 415)
+                return True
+            length = int(self.headers.get("Content-Length", "0"))
+            if not 1 <= length <= MAX_BODY:
+                raise ValueError("invalid_body_size")
+            payload = json.loads(self.rfile.read(length).decode("utf-8"))
+            if not isinstance(payload, dict):
+                raise ValueError("JSON body must be an object")
+            revision = payload.get("expected_revision")
+            if type(revision) is not int:
+                raise ValueError("expected_revision is required")
+            if method == "PUT" and len(parts) == 1:
+                self.send_json({"document": store.save_draft(parts[0], payload.get("content"), revision, actor)})
+            elif method == "POST" and len(parts) == 2 and parts[1] == "publish":
+                job = store.request_publish(parts[0], revision, actor)
+                if job["status"] == "failed":
+                    job = store.retry_job(job["id"], actor)
+                self.send_json({"job": job}, 202)
+            elif method == "POST" and len(parts) == 2 and parts[1] == "restore":
+                self.send_json({"document": store.create_from_history(parts[0], payload.get("version_id"), revision, actor)})
+            else:
+                self.send_json({"error": "not_found"}, 404)
+        except PermissionError as exc:
+            self.send_json({"error": str(exc)}, 403)
+        except legal_documents.NotFoundError as exc:
+            self.send_json({"error": str(exc)}, 404)
+        except legal_documents.ConflictError as exc:
+            self.send_json({"error": str(exc)}, 409)
+        except (ValueError, UnicodeError) as exc:
+            self.send_json({"error": str(exc)}, 400)
+        except (OSError, sqlite3.Error):
+            self.send_json({"error": "legal_documents_unavailable"}, 503)
+        return True
+
     def do_GET(self) -> None:  # noqa: N802
         parsed = urllib.parse.urlsplit(self.path)
+        if parsed.path.startswith("/api/legal-documents") and self.legal_request("GET", parsed.path):
+            return
         parameters = urllib.parse.parse_qs(parsed.query, keep_blank_values=False)
         try:
             if parsed.path.startswith("/api/"):
@@ -1124,6 +1190,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_file(
                     self.app.static_dir / "app.js", "application/javascript; charset=utf-8"
                 )
+            elif parsed.path in {"/legal-documents.js", "/legal-documents.css"}:
+                self.send_file(self.app.static_dir / parsed.path[1:], "application/javascript; charset=utf-8" if parsed.path.endswith(".js") else "text/css; charset=utf-8")
             elif parsed.path == "/health":
                 self.send_json({"status": "ok", "time": iso_utc()})
             elif parsed.path == "/api/overview":
@@ -1153,6 +1221,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PUT(self) -> None:  # noqa: N802
         parsed = urllib.parse.urlsplit(self.path)
+        if parsed.path.startswith("/api/legal-documents") and self.legal_request("PUT", parsed.path):
+            return
         if parsed.path != "/api/keywords":
             self.send_json({"error": "not_found"}, HTTPStatus.NOT_FOUND)
             return
@@ -1186,6 +1256,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         parsed = urllib.parse.urlsplit(self.path)
+        if parsed.path.startswith("/api/legal-documents") and self.legal_request("POST", parsed.path):
+            return
         if parsed.path == "/api/privacy/consent":
             privacy_consent.handle(self)
             return

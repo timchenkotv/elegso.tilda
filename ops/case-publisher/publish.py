@@ -1080,6 +1080,11 @@ def render_sitemap(source_root: Path, cases: list[dict[str, Any]]) -> str:
     existing = sitemap_path.read_text(encoding="utf-8") if sitemap_path.exists() else ""
     existing_urls = re.findall(r"<url>[\s\S]*?</url>", existing)
     rows = [row for row in existing_urls if not re.search(r"<loc>https://elegso\.ru/cases(?:/|<)", row)]
+    legal = published_legal_sitemap(source_root)
+    if legal:
+        roots = set(legal["roots"])
+        rows = [row for row in rows if not any(f"<loc>{SITE_ORIGIN}/{root}/" in row for root in roots)]
+        rows.extend(legal["rows"])
     today = datetime.now(timezone.utc).date().isoformat()
     rows.append(
         f"  <url>\n    <loc>{SITE_ORIGIN}/cases/</loc>\n    <lastmod>{today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>"
@@ -1103,8 +1108,28 @@ def content_digest(source_root: Path, cases: list[dict[str, Any]]) -> str:
     sitemap = source_sitemap_path(source_root)
     if sitemap.exists():
         digest.update(sitemap.read_bytes())
+    digest.update(json.dumps(published_legal_sitemap(source_root), sort_keys=True).encode())
     digest.update(json.dumps(cases, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))
     return digest.hexdigest()
+
+
+def published_legal_sitemap(source_root: Path) -> dict[str, Any] | None:
+    # In production source_root is <release>/www; tests/local trees need no
+    # access to the production projection. This file contains public URLs only.
+    override = os.environ.get("LEGAL_SITEMAP_MANIFEST")
+    path = Path(override) if override else Path("/srv/www/elegso.ru/generated-legal/current/sitemap-legal.json")
+    if not override and not str(source_root).startswith("/srv/www/elegso.ru/"):
+        return None
+    if not path.exists():
+        return None
+    value = json.loads(path.read_text(encoding="utf-8"))
+    allowed = {"oferta", "oferta-fiz", "soglashenie", "consent", "cookies", "documents", "offer_for_lawyer_20231103"}
+    if not isinstance(value, dict) or set(value.get("roots", [])) != allowed or not isinstance(value.get("rows"), list):
+        raise ValueError("Invalid published legal sitemap manifest")
+    for row in value["rows"]:
+        if not isinstance(row, str) or not re.fullmatch(r"<url>[\s\S]*</url>", row) or not any(f"<loc>{SITE_ORIGIN}/{root}/" in row for root in allowed):
+            raise ValueError("Invalid legal sitemap row")
+    return value
 
 
 def write_release(

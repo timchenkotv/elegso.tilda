@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Маркетинг и SEO — ЭЛЕГСО</title>
   <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="legal-documents.css">
 </head>
 <body>
   <div class="shell">
@@ -18,6 +19,7 @@
         <button class="nav-item" data-view="keywords"><i>04</i>Ключевые фразы</button>
         <button class="nav-item" data-view="traffic"><i>05</i>Посещаемость</button>
         <button class="nav-item" data-view="system"><i>06</i>Система</button>
+        <button class="nav-item" data-view="documents"><i>07</i>Договоры и документы</button>
       </nav>
       <div class="side-note"><b>Контроль без персонализации</b><span>Россия, Москва и Санкт-Петербург проверяются независимо.</span></div>
     </aside>
@@ -82,6 +84,7 @@
         <article class="panel"><div class="panel-head"><div><p class="eyebrow">Фактические переходы</p><h2>По каким фразам пришли посетители</h2></div></div><div class="table-wrap"><table><thead><tr><th>Фраза</th><th>Визиты</th><th>Посетители</th><th>Период</th></tr></thead><tbody id="metrika-query-rows"></tbody></table></div></article>
       </section>
 
+      <section class="view" id="view-documents"><div id="legal-documents-root"></div></section>
       <section class="view" id="view-system">
         <div class="grid two">
           <article class="panel"><div class="panel-head"><div><p class="eyebrow">Wordstat</p><h2>Очередь и лимиты</h2></div></div><div id="queue-details" class="definition-list"></div></article>
@@ -103,6 +106,7 @@
     </main>
   </div>
   <div class="toast" id="toast" role="status"></div>
+  <script src="legal-documents.js" defer></script>
   <script src="app.js" defer></script>
 </body>
 </html>

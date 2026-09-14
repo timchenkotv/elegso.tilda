@@ -1,0 +1,11 @@
+[Unit]
+Description=Check queued ELEGSO legal publications
+
+[Timer]
+OnBootSec=30s
+OnUnitInactiveSec=5s
+AccuracySec=1s
+Unit=elegso-legal-publisher.service
+
+[Install]
+WantedBy=timers.target

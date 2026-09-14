@@ -5,6 +5,13 @@
   if (!source) return;
   let config;
   try { config = JSON.parse(source.textContent); } catch { return; }
+  if (document.querySelector('script[src="/assets/legal-privacy-config.js"]') && !window.__elegsoPublishedPrivacyConfig) {
+    // A failed current-version fetch must not revive an obsolete permission.
+    return;
+  }
+  // The public configuration is switched atomically with legal documents.
+  // Existing HTML pages therefore never grant consent against an old edition.
+  if (window.__elegsoPublishedPrivacyConfig) config = window.__elegsoPublishedPrivacyConfig;
   if (config.schemaVersion !== 1 || config.analytics?.provider !== 'yandex-metrika' || config.analytics.counterId !== 87831358
     || ['defaultEnabled', 'webvisor', 'clickmap', 'trackLinks', 'accurateTrackBounce', 'ecommerce', 'trackHash'].some(key => config.analytics[key] !== false)
     || !config.consentVersion || !config.storageKey || config.receiptUrl !== '/api/privacy/consent') return;

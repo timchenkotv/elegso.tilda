@@ -87,7 +87,7 @@ export function applyPrivacyAnalytics(original, build) {
   // repeated generation. Do not reformat legal/article/body prose.
   html = html.replace(/<head\b[^>]*>[\s\S]*?<\/head>/i, head => head.replace(/[\t ]+\r?\n/g, '\n').replace(/(?:\r?\n){3,}/g, '\n\n'));
   const encodedConfig = JSON.stringify(build.config).replaceAll('<', '\\u003c');
-  const tags = `<!--elegso-site-privacy:start--><link rel="stylesheet" href="/assets/site-fonts.css?v=${build.assetVersion}" ${assetMarker}>\n<link rel="stylesheet" href="/assets/site-privacy.css?v=${build.assetVersion}" ${assetMarker}>\n<script type="application/json" ${configMarker}>${encodedConfig}</script>\n<script src="/assets/site-privacy.js?v=${build.assetVersion}" defer ${assetMarker}></script><!--elegso-site-privacy:end-->`;
+  const tags = `<!--elegso-site-privacy:start--><link rel="stylesheet" href="/assets/site-fonts.css?v=${build.assetVersion}" ${assetMarker}>\n<link rel="stylesheet" href="/assets/site-privacy.css?v=${build.assetVersion}" ${assetMarker}>\n<script type="application/json" ${configMarker}>${encodedConfig}</script>\n<script src="/assets/legal-privacy-config.js" defer ${assetMarker}></script>\n<script src="/assets/site-privacy.js?v=${build.assetVersion}" defer ${assetMarker}></script><!--elegso-site-privacy:end-->`;
   if (!/<\/head>/i.test(html)) return html;
   return html.replace(/<\/head>/i, `${tags}\n</head>`);
 }

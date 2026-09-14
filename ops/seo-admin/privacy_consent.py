@@ -143,7 +143,18 @@ def handle(handler) -> None:
         if not 1 <= length <= MAX_BODY:
             raise ValueError("invalid_body_size")
         payload = decode(handler.rfile.read(length))
-        receipt = record(handler.app.privacy_db_path, payload, handler.app.privacy_version)
+        version = handler.app.privacy_version
+        public_root = getattr(handler.app, "legal_public_root", None)
+        if public_root and (public_root / "privacy-config.json").exists():
+            try:
+                published = json.loads((public_root / "privacy-config.json").read_text(encoding="utf-8"))
+                version = published["consentVersion"]
+                if not isinstance(version, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}\.\d{1,4}", version):
+                    raise ValueError("invalid published consent version")
+            except (OSError, ValueError, KeyError, TypeError):
+                handler.send_json({"error": "consent_unavailable"}, 503)
+                return
+        receipt = record(handler.app.privacy_db_path, payload, version)
         handler.send_json({"receipt": receipt})
     except WithdrawnChoice:
         handler.send_json({"error": "choice_withdrawn"}, 409)

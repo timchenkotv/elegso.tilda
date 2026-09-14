@@ -43,7 +43,8 @@ SystemCallArchitectures=native
 CapabilityBoundingSet=
 AmbientCapabilities=
 ReadOnlyPaths=/var/lib/elegso-seo-monitor /var/lib/elegso-seo-admin/data
-ReadWritePaths=/var/lib/elegso-seo-admin/access /var/lib/elegso-seo-admin/auth /var/lib/elegso-seo-admin/config
+Environment=LEGAL_DOCUMENTS_DB=/var/lib/elegso-seo-admin/legal/documents.sqlite3
+ReadWritePaths=/var/lib/elegso-seo-admin/access /var/lib/elegso-seo-admin/auth /var/lib/elegso-seo-admin/config /var/lib/elegso-seo-admin/legal
 
 [Install]
 WantedBy=multi-user.target
