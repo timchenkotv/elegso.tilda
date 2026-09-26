@@ -155,20 +155,30 @@
   panel.setAttribute('role', 'region');
   panel.setAttribute('aria-labelledby', 'esp-title');
   panel.setAttribute('tabindex', '-1');
-  panel.innerHTML = `<h2 id="esp-title">Файлы cookie</h2><button type="button" class="esp-close" data-esp-close aria-label="Закрыть уведомление без изменения выбора">×</button>
-    <p class="esp-intro">Разрешить cookie для статистики сайта? <a href="/consent/">Подробнее</a></p>
-    <div class="esp-actions"><button type="button" data-esp-accept>Разрешить</button><button type="button" data-esp-reject>Отклонить</button><button type="button" class="esp-settings-button" data-esp-settings aria-expanded="false" aria-controls="esp-options">Настройки</button></div>
-    <div class="esp-options" id="esp-options" hidden><p><strong>Необходимые cookie</strong> сохраняют настройки и работу калькуляторов. Они остаются включёнными.</p>
-      <label class="esp-choice"><input type="checkbox" data-esp-analytics><span><strong>Статистика посещений</strong><span>Помогает улучшать сайт. Без записи полей и содержимого расчётов.</span></span></label>
-      <p class="esp-note">Чтобы отозвать согласие, снимите отметку и сохраните выбор. Данные калькуляторов останутся. Удаление ранее переданных данных — по обращению к нам.</p>
-      <button type="button" class="esp-save" data-esp-save>Сохранить выбор</button>
-      <div class="esp-links"><a href="/cookies/">О файлах cookie</a><a href="/soglashenie/">Политика обработки данных</a></div></div>
+  panel.innerHTML = `<h2 id="esp-title" data-esp-title>Мы используем cookies</h2><button type="button" class="esp-close" data-esp-close aria-label="Закрыть уведомление без изменения выбора">×</button>
+    <div data-esp-notice><p class="esp-intro">Для работы сайта и статистики посещений.<br>Подробнее — в <a href="/soglashenie/">Политике обработки персональных данных</a>.</p>
+    <div class="esp-actions"><button type="button" class="esp-settings-button" data-esp-settings aria-expanded="false" aria-controls="esp-options"><span aria-hidden="true">⚙</span> Настроить</button><button type="button" data-esp-reject>Отклонить</button><button type="button" class="esp-accept" data-esp-accept>Принять все</button></div></div>
+    <div class="esp-options" id="esp-options" hidden>
+      <div class="esp-choice esp-necessary"><div><strong>Технические, всегда активны</strong><span>Обеспечивают работу сайта, сохраняют настройки и данные калькуляторов.</span></div><span class="esp-switch esp-locked" role="img" aria-label="Технические cookie всегда включены"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5a3 3 0 0 1 6 0v2M4 7h8v7H4z"/></svg></span></div>
+      <label class="esp-choice"><span><strong>Аналитические</strong><span>Помогают понять, как используется сайт и что можно улучшить. Без записи полей и содержимого расчётов.</span></span><input type="checkbox" role="switch" aria-label="Аналитические cookie" data-esp-analytics><span class="esp-switch" aria-hidden="true"></span></label>
+      <div class="esp-settings-actions"><button type="button" class="esp-save" data-esp-save>Сохранить и принять</button><button type="button" class="esp-dismiss" data-esp-dismiss>Закрыть</button></div>
+      <div class="esp-links"><a href="/cookies/">О файлах cookie</a><a href="/consent/">Условия согласия</a></div></div>
     <p class="esp-status" data-esp-status role="status" aria-live="polite"></p>`;
   document.body.appendChild(panel);
   const checkbox = panel.querySelector('[data-esp-analytics]');
   const options = panel.querySelector('[id="esp-options"]');
   const settingsButton = panel.querySelector('[data-esp-settings]');
   const status = panel.querySelector('[data-esp-status]');
+  const notice = panel.querySelector('[data-esp-notice]');
+  const title = panel.querySelector('[data-esp-title]');
+
+  function setSettings(settings) {
+    options.hidden = !settings;
+    notice.hidden = settings;
+    panel.setAttribute('data-mode', settings ? 'settings' : 'notice');
+    title.textContent = settings ? 'Настройки файлов cookie' : 'Мы используем cookies';
+    settingsButton.setAttribute('aria-expanded', String(settings));
+  }
 
   function hidePanel() {
     panel.hidden = true;
@@ -179,8 +189,7 @@
     returnFocus = trigger;
     if (!pendingRequest) status.textContent = '';
     checkbox.checked = permitted();
-    options.hidden = !settings;
-    settingsButton.setAttribute('aria-expanded', String(settings));
+    setSettings(settings);
     panel.hidden = false;
     if (trigger) panel.focus({ preventScroll: true });
   }
@@ -264,9 +273,10 @@
   panel.querySelector('[data-esp-reject]').addEventListener('click', () => saveChoice(false));
   panel.querySelector('[data-esp-save]').addEventListener('click', () => saveChoice(checkbox.checked));
   panel.querySelector('[data-esp-close]').addEventListener('click', hidePanel);
+  panel.querySelector('[data-esp-dismiss]').addEventListener('click', hidePanel);
   settingsButton.addEventListener('click', () => {
-    options.hidden = !options.hidden;
-    settingsButton.setAttribute('aria-expanded', String(!options.hidden));
+    setSettings(true);
+    checkbox.focus({ preventScroll: true });
   });
   document.addEventListener('click', event => {
     const trigger = event.target.closest?.('[data-elegso-cookie-settings]');

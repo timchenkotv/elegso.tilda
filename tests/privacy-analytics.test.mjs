@@ -67,7 +67,7 @@ function runtime({ stored = null, storageBlocked = false, receiptFailure = false
     createElement(tag) {
       const result = node(); result.tagName = tag;
       if (tag === 'section') {
-        for (const key of ['analytics', 'settings', 'status', 'accept', 'reject', 'save', 'close']) controls.set(`[data-esp-${key}]`, node());
+        for (const key of ['analytics', 'settings', 'status', 'accept', 'reject', 'save', 'close', 'dismiss', 'notice', 'title']) controls.set(`[data-esp-${key}]`, node());
         controls.set('[id="esp-options"]', Object.assign(node(), { hidden: true }));
         result.querySelector = selector => controls.get(selector);
       }
@@ -141,6 +141,23 @@ test('explicit opt-in loads one counter only after receipt and sends sanitized p
   assert.equal(stored.analytics, true);
   assert.deepEqual(Object.keys(stored).sort(), ['analytics', 'choiceId', 'expiresAt', 'necessary', 'receipt', 'updatedAt', 'version']);
   assert.ok([...state.timers.values()].every(timer => timer.delay <= 2147483647));
+});
+
+test('settings replace notice and closing an unsaved switch never grants consent', () => {
+  const state = runtime();
+  assert.equal(state.panel.attrs['data-mode'], 'notice');
+  assert.equal(state.controls.get('[data-esp-notice]').hidden, false);
+  state.click('settings');
+  assert.equal(state.panel.attrs['data-mode'], 'settings');
+  assert.equal(state.controls.get('[data-esp-notice]').hidden, true);
+  state.controls.get('[data-esp-analytics]').checked = true;
+  state.click('dismiss');
+  assert.equal(state.panel.hidden, true);
+  assert.equal(state.requests.length, 0);
+  assert.equal(state.storage.size, 0);
+  assert.equal(state.document.head.children.length, 0);
+  state.openSettings();
+  assert.equal(state.controls.get('[data-esp-analytics]').checked, false);
 });
 
 test('rejection persists the default-off choice and does not create a remote loader', async () => {
@@ -306,7 +323,7 @@ test('all current pages can be cleaned idempotently in memory with no article te
 
 test('configuration rejects extra providers and behavioral tracking; banner has accessible alternatives', () => {
   for (const analytics of [{ ...config.analytics, provider: 'google' }, { ...config.analytics, webvisor: true }, { ...config.analytics, defaultEnabled: true }]) assert.throws(() => validatePrivacyConfig({ ...config, analytics }));
-  assert.ok(runtimeCode.includes('data-esp-accept>Разрешить</button>'));
+  assert.ok(runtimeCode.includes('data-esp-accept>Принять все</button>'));
   assert.ok(runtimeCode.includes('data-esp-reject>Отклонить</button>'));
   assert.ok(runtimeCode.includes('href="/consent/"'));
   assert.ok(runtimeCode.includes('data-elegso-cookie-settings'));
@@ -319,20 +336,22 @@ test('configuration rejects extra providers and behavioral tracking; banner has 
 test('compact notice keeps explicit purpose and puts detailed links inside settings', () => {
   const state = runtime();
   const markup = state.panel.innerHTML;
-  assert.match(markup, /Разрешить cookie для статистики сайта\?/);
-  assert.match(markup, /href="\/consent\/">Подробнее<\/a>/);
+  assert.match(markup, /Для работы сайта и статистики посещений/);
+  assert.match(markup, /href="\/soglashenie\/">Политике обработки персональных данных<\/a>/);
   assert.ok(!markup.includes('Яндекс'));
   const initial = markup.split('<div class="esp-options"')[0];
   assert.ok(!initial.includes('Политика обработки данных'));
-  assert.ok(initial.includes('data-esp-accept>Разрешить'));
+  assert.ok(initial.includes('data-esp-accept>Принять все'));
   assert.ok(initial.includes('data-esp-reject>Отклонить'));
   state.click('settings');
   assert.equal(state.controls.get('[id="esp-options"]').hidden, false);
-  state.click('settings');
-  assert.equal(state.controls.get('[id="esp-options"]').hidden, true);
+  assert.equal(state.controls.get('[data-esp-notice]').hidden, true);
+  assert.equal(state.controls.get('[data-esp-title]').textContent, 'Настройки файлов cookie');
+  state.click('dismiss');
+  assert.equal(state.panel.hidden, true);
   assert.equal(state.requests.length, 0);
-  assert.match(css, /width:min\(520px,calc\(100% - 24px\)\)/);
-  assert.match(css, /grid-template-columns:repeat\(2,minmax\(0,1fr\)\) auto/);
+  assert.match(css, /width:min\(520px,calc\(100% - 40px\)\)/);
+  assert.match(css, /grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
   assert.match(css, /max-height:calc\(100dvh/);
   assert.match(css, /safe-area-inset-bottom/);
 });
