@@ -211,6 +211,12 @@ class CasePublisherTests(unittest.TestCase):
             sitemap = (output / "current" / "sitemap.xml").read_text(encoding="utf-8")
 
             self.assertIn('data-cases-search', listing)
+            self.assertIn('class="cases-author"', listing)
+            self.assertIn('Тимур Васильевич', listing)
+            self.assertIn('class="cases-author__details"', listing)
+            self.assertIn('Номер дела можно скопировать.', listing)
+            self.assertIn('tild6262-6533-4064-a136-623633626539/photo.jpg', listing)
+            self.assertNotIn('class="cases-author"', detail)
             self.assertIn('href="/cases/"', listing)
             header = listing[listing.index("<!--header-->") : listing.index("</header>")]
             self.assertIn("elegso-cases-nav-item", header)
