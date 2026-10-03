@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261003-4"
+ASSET_VERSION = "20261003-5"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -552,7 +552,7 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
     if not metrics:
         metrics.append(metric("§", "Результат", outcome_label(case.get("outcome_kind"))))
     return f"""
-      <article class="case-card" data-case-card data-category="{escape(category.lower())}" data-search="{escape(search)}" style="--case-order:{index}">
+      <article class="case-card" id="case-{escape(slug)}" tabindex="-1" data-case-card data-category="{escape(category.lower())}" data-search="{escape(search)}" style="--case-order:{index}">
         <a class="case-card__surface" href="/cases/{escape(slug)}/" aria-label="Открыть кейс: {escape(title)}">
           <div class="case-card__top">
             <span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span>
@@ -609,6 +609,25 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
     )
     total = sum((decimal(case.get("protected_interest_amount")) for case in cases), Decimal("0"))
     cards = "".join(render_case_card(case, index) for index, case in enumerate(cases))
+    case_links = "".join(
+        f'<a class="cases-jump__tile" href="#case-{escape(case["public_slug"])}" data-case-jump '
+        f'aria-label="Перейти к карточке дела {escape(number)}" title="Дело № {escape(number)}" style="--jump-order:{index}">'
+        f'<span>№ {escape(number)}</span><i aria-hidden="true">↘</i></a>'
+        for index, case in enumerate(cases)
+        if (number := str(case.get("court_case_number") or "").strip().lstrip("№ ").strip())
+    )
+    case_navigation = (
+        '<nav class="cases-jump" aria-label="Быстрый переход к судебным делам">'
+        '<div class="cases-jump__heading"><span>Навигатор по делам</span><small>Нажмите на номер</small></div>'
+        f'<div class="cases-jump__viewport" data-case-strip><div class="cases-jump__grid">{case_links}</div></div>'
+        '<div class="cases-jump__footer"><small>Листайте или перетаскивайте</small>'
+        '<div class="cases-jump__controls" data-case-strip-controls hidden>'
+        '<button type="button" data-case-strip-prev aria-label="Предыдущие номера дел">←</button>'
+        '<button type="button" data-case-strip-pause aria-label="Приостановить движение номеров дел" aria-pressed="false">Пауза</button>'
+        '<button type="button" data-case-strip-next aria-label="Следующие номера дел">→</button>'
+        '</div></div></nav>'
+        if case_links else ""
+    )
     options = "".join(
         f'<option value="{escape(category.lower())}">{escape(category)}</option>' for category in categories
     )
@@ -631,11 +650,13 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
           <p class="cases-eyebrow">Практика в действии</p>
           <h1>Дела, в которых право<br><em>стало результатом</em></h1>
           <p class="cases-hero__lead">Показываем не обещания, а ход работы: исходную задачу, правовую стратегию, решения судов и имущественный эффект для доверителя.</p>
+          <p class="cases-hero__context">ЭЛЕГСО защищает бизнес в сложных экономических и лизинговых спорах: взыскание задолженности и убытков, сальдо встречных обязательств, защита имущества и пересмотр судебных актов. В этих кейсах — правовая стратегия, экономическая экспертиза и личное участие Тимченко Тимура Васильевича.</p>
           <div class="cases-hero__facts">
             <div><strong>{len(cases)}</strong><span>опубликованных историй</span></div>
             {protected_stat}
             <div><strong>По документам</strong><span>с подтверждающими судебными актами</span></div>
           </div>
+          {case_navigation}
           </div>
           <aside class="cases-author" aria-labelledby="cases-author-name">
             <div class="cases-author__profile">

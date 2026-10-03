@@ -60,6 +60,7 @@ body.elegso-cases-page {
 
 .case-card__excerpt,
 .cases-hero__lead,
+.cases-hero__context,
 .cases-catalog__head > p,
 .cases-method > div p,
 .case-hero__copy > p,
@@ -136,6 +137,138 @@ body.elegso-cases-page {
 .cases-hero__intro {
   min-width: 0;
   padding-top: 12px;
+}
+
+.cases-jump {
+  position: relative;
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid rgba(231, 199, 126, 0.24);
+  border-radius: 12px;
+  background: radial-gradient(ellipse at 80% 0%, rgba(231, 199, 126, 0.12), transparent 65%), rgba(17, 42, 38, 0.22);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.cases-jump__heading {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-bottom: 16px;
+}
+
+.cases-jump__heading > span {
+  color: #e7c77e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cases-jump__heading small { color: #d8e3dc; font-size: 11px; }
+
+.cases-jump__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  cursor: grab;
+  overscroll-behavior-x: contain;
+}
+
+.cases-jump__viewport::-webkit-scrollbar { display: none; }
+
+.cases-jump__viewport.is-dragging { cursor: grabbing; user-select: none; }
+.cases-jump__viewport.is-dragging a { cursor: grabbing; }
+
+.cases-jump__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cases-jump__footer small { font-size: 11px; color: #d8e3dc; }
+.cases-jump__controls { display: flex; gap: 6px; }
+.cases-jump__controls[hidden] { display: none; }
+.cases-jump__controls button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid rgba(231, 199, 126, 0.35);
+  border-radius: 6px;
+  background: #294d46;
+  color: #fff4d8;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.cases-jump__controls button:hover { background: #3f655a; }
+.cases-jump__controls button:focus-visible { outline: 2px solid #e7c77e; outline-offset: 2px; }
+
+.cases-jump__grid {
+  display: flex;
+  width: max-content;
+  align-items: stretch;
+  gap: 12px;
+  padding: 6px 4px 14px;
+  perspective: 900px;
+}
+
+.cases-page .cases-jump__tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 0 0 218px;
+  width: 218px;
+  min-height: 60px;
+  padding: 16px;
+  color: #fff4d8 !important;
+  background: linear-gradient(135deg, #476e65, #2c514b);
+  border: 1px solid rgba(229, 220, 208, 0.3);
+  border-bottom: 3px solid #183a34;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(10, 28, 24, 0.2), inset 0 1px rgba(255, 255, 255, 0.12);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  -webkit-user-drag: none;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  animation: cases-jump-in 650ms backwards;
+  animation-delay: calc(min(var(--jump-order), 8) * 65ms);
+}
+
+.cases-jump__tile span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.cases-jump__tile i { color: #e7c77e; font-size: 20px; font-style: normal; }
+.cases-jump__tile:focus-visible { outline: 2px solid #e7c77e; outline-offset: 4px; }
+
+@keyframes cases-jump-in {
+  from { opacity: 0; transform: translateY(14px) rotateX(9deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cases-page .cases-jump__tile:hover {
+    transform: translateY(-4px) rotateX(5deg) rotateY(-2deg);
+    border-color: #e7c77e;
+    box-shadow: 0 12px 22px rgba(10, 28, 24, 0.3), inset 0 1px rgba(255, 255, 255, 0.16);
+  }
+}
+
+@media (max-width: 520px) {
+  .cases-jump { padding: 18px; }
+  .cases-jump__grid { gap: 10px; }
+  .cases-page .cases-jump__tile { flex-basis: 198px; width: 198px; min-height: 52px; padding: 13px 15px; }
 }
 
 .cases-author {
@@ -323,6 +456,13 @@ body.elegso-cases-page {
   line-height: 1.58;
 }
 
+.cases-hero__context {
+  margin: 20px 0 0;
+  color: #d8e3dc;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
 .cases-hero__facts {
   max-width: 920px;
   display: grid;
@@ -508,8 +648,20 @@ body.elegso-cases-page {
 .case-card {
   min-width: 0;
   display: flex;
+  scroll-margin-top: 190px;
   animation: case-card-in 0.65s both;
   animation-delay: calc(min(var(--case-order), 8) * 70ms);
+}
+
+.case-card:target .case-card__surface,
+.case-card:focus-visible .case-card__surface {
+  border-color: var(--cases-clay);
+  outline: 2px solid var(--cases-clay);
+  outline-offset: 4px;
+}
+
+@media (max-width: 980px) {
+  .case-card { scroll-margin-top: 90px; }
 }
 
 @keyframes case-card-in {
@@ -2080,6 +2232,7 @@ body.elegso-cases-page {
   .case-card { animation: none; }
   .case-card__surface,
   .cases-contact__button { transition: none; }
+  .cases-page .cases-jump__tile { animation: none; transition: none; transform: none; }
 }
 
 @media print {

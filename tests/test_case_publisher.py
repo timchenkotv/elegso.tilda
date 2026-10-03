@@ -170,11 +170,26 @@ def sample_case() -> dict:
 
 
 class CasePublisherTests(unittest.TestCase):
+    def test_case_navigation_is_data_driven_and_omits_unnumbered_cases(self):
+        cases = []
+        for i in range(100):
+            case = sample_case()
+            case['public_slug'] = f'case-{i}'
+            case['court_case_number'] = f'А40-{i}/2026'
+            cases.append(case)
+        cases.append({**sample_case(), 'public_slug': 'pretrial', 'court_case_number': None})
+        page = publisher.render_listing(publisher.load_chrome(ROOT / 'www'), cases)
+        self.assertEqual(page.count('data-case-jump '), 100)
+        self.assertIn('href="#case-case-99"', page)
+        self.assertNotIn('href="#case-pretrial"', page)
+        self.assertIn('data-case-strip-pause', page)
+
     def test_card_case_number_badge(self):
         case = sample_case()
         card = publisher.render_case_card(case, 0)
         self.assertIn('class="case-card__number">Дело № А40-117474/2023</span>', card)
         self.assertIn('Читать историю', card)
+        self.assertIn('id="case-snizhenie-neustoyki-v-kassatsii" tabindex="-1"', card)
         case['court_case_number'] = '№ <test>'
         self.assertIn('Дело № &lt;test&gt;', publisher.render_case_card(case, 0))
         case['court_case_number'] = None
@@ -211,6 +226,8 @@ class CasePublisherTests(unittest.TestCase):
             sitemap = (output / "current" / "sitemap.xml").read_text(encoding="utf-8")
 
             self.assertIn('data-cases-search', listing)
+            self.assertIn('class="cases-jump"', listing)
+            self.assertIn('href="#case-snizhenie-neustoyki-v-kassatsii" data-case-jump', listing)
             self.assertIn('class="cases-author"', listing)
             notice = listing.split('<div class="cases-author__notice">', 1)[1].split('</div>', 1)[0]
             self.assertIn('Будьте бдительны. Обратите на это внимание.', notice)
