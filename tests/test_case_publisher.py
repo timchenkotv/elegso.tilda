@@ -212,6 +212,10 @@ class CasePublisherTests(unittest.TestCase):
 
             self.assertIn('data-cases-search', listing)
             self.assertIn('class="cases-author"', listing)
+            notice = listing.split('<div class="cases-author__notice">', 1)[1].split('</div>', 1)[0]
+            self.assertIn('Будьте бдительны. Обратите на это внимание.', notice)
+            self.assertNotIn('Кейсы этой страницы', notice)
+            self.assertIn('<p class="cases-author__provenance">Кейсы этой страницы', listing)
             self.assertIn('Тимур Васильевич', listing)
             self.assertIn('Эксперт по экономическим спорам · юридический ментор', listing)
             self.assertNotIn('мотиватор', listing.lower())

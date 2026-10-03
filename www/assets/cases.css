@@ -191,6 +191,7 @@ body.elegso-cases-page {
 }
 
 .cases-author__lead,
+.cases-author__provenance,
 .cases-author__story p {
   margin: 22px 0 0;
   font-size: 14px;
@@ -198,6 +199,7 @@ body.elegso-cases-page {
 }
 
 .cases-author__lead,
+.cases-author__provenance,
 .cases-author__notice p,
 .cases-author__story p {
   text-align: justify;
@@ -212,21 +214,23 @@ body.elegso-cases-page {
 .cases-author__notice {
   margin-top: 22px;
   padding: 17px 18px;
-  background: rgba(17, 36, 32, 0.35);
-  border-left: 3px solid #d89479;
-  border-radius: 0 8px 8px 0;
+  background: #fff;
+  color: #7e293b;
+  border: 2px solid #9b3a4d;
+  border-radius: 8px;
+  font-weight: 700;
 }
 
 .cases-author__notice > strong {
   display: block;
-  color: #f0b69e;
+  color: #7e293b;
   font-size: 14px;
   line-height: 1.45;
 }
 
 .cases-author__notice p {
   margin: 9px 0 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
