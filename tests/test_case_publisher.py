@@ -170,6 +170,16 @@ def sample_case() -> dict:
 
 
 class CasePublisherTests(unittest.TestCase):
+    def test_card_case_number_badge(self):
+        case = sample_case()
+        card = publisher.render_case_card(case, 0)
+        self.assertIn('class="case-card__number">Дело № А40-117474/2023</span>', card)
+        self.assertIn('Читать историю', card)
+        case['court_case_number'] = '№ <test>'
+        self.assertIn('Дело № &lt;test&gt;', publisher.render_case_card(case, 0))
+        case['court_case_number'] = None
+        self.assertIn('class="case-card__number">Практика ЭЛЕГСО</span>', publisher.render_case_card(case, 0))
+
     def test_rich_text_uses_one_compact_heading_level(self) -> None:
         self.assertEqual(
             publisher.safe_rich("<h2>Первый</h2><h3>Второй</h3><h4>Третий</h4>"),

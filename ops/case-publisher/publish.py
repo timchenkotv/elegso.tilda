@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20260907-1"
+ASSET_VERSION = "20261003-1"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -540,6 +540,8 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
     duration = case.get("duration_days")
     instances = case.get("court_instance_count")
     search = card_search_text(case)
+    number = str(case.get("court_case_number") or "").strip()
+    number_label = f"Дело № {number.lstrip('№ ').strip()}" if number else "Практика ЭЛЕГСО"
     metrics = []
     if protected > 0:
         metrics.append(metric("₽", "Защищено", case_card_money(protected)))
@@ -560,7 +562,7 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
           <h2>{escape(title)}</h2>
           <p class="case-card__excerpt">{escape(excerpt)}</p>
           <div class="case-card__metrics">{''.join(metrics)}</div>
-          <div class="case-card__foot"><span>{escape(case.get('court_case_number') or 'Практика ЭЛЕГСО')}</span><b>Читать историю <i aria-hidden="true">→</i></b></div>
+          <div class="case-card__foot"><span class="case-card__number">{escape(number_label)}</span><b>Читать историю <i aria-hidden="true">→</i></b></div>
         </a>
       </article>"""
 
