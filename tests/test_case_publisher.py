@@ -213,6 +213,8 @@ class CasePublisherTests(unittest.TestCase):
             self.assertIn('data-cases-search', listing)
             self.assertIn('class="cases-author"', listing)
             self.assertIn('Тимур Васильевич', listing)
+            self.assertIn('Юридический ментор и мотиватор команды', listing)
+            self.assertIn('лично участвовал в судебных заседаниях', listing)
             self.assertIn('class="cases-author__details"', listing)
             self.assertIn('Номер дела можно скопировать.', listing)
             self.assertIn('tild6262-6533-4064-a136-623633626539/photo.jpg', listing)
