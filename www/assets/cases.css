@@ -654,6 +654,7 @@ body.elegso-cases-page {
 }
 
 .case-card:target .case-card__surface,
+.case-card.is-jump-target .case-card__surface,
 .case-card:focus-visible .case-card__surface {
   border-color: var(--cases-clay);
   outline: 2px solid var(--cases-clay);

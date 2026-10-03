@@ -52,9 +52,13 @@
         if (window.location.hash !== link.getAttribute("href")) {
           window.history.pushState(null, "", link.getAttribute("href"));
         }
+        cards.forEach(function (card) { card.classList.toggle("is-jump-target", card === target); });
         target.focus({ preventScroll: true });
         target.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       });
+    });
+    window.addEventListener("hashchange", function () {
+      cards.forEach(function (card) { card.classList.toggle("is-jump-target", window.location.hash === "#" + card.id); });
     });
     document.addEventListener("keydown", function (event) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {

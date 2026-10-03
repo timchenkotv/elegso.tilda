@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261003-5"
+ASSET_VERSION = "20261003-6"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
