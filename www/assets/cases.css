@@ -174,6 +174,9 @@ body.elegso-cases-page {
   scrollbar-width: none;
   cursor: grab;
   overscroll-behavior-x: contain;
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .cases-jump__viewport::-webkit-scrollbar { display: none; }
@@ -268,6 +271,7 @@ body.elegso-cases-page {
 .cases-jump__amount strong { font-size: 12px; font-variant-numeric: tabular-nums; }
 .cases-jump__amount--empty { background: rgba(255,255,255,.08); color: #d8e3dc; }
 .cases-jump__tile:focus-visible { outline: 2px solid #e7c77e; outline-offset: 4px; }
+.cases-page .cases-jump__tile[data-case-strip-copy] { animation: none; }
 
 @keyframes cases-jump-in {
   from { opacity: 0; transform: translateY(14px) rotateX(9deg); }
