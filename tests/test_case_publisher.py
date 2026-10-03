@@ -220,6 +220,8 @@ class CasePublisherTests(unittest.TestCase):
             self.assertNotIn('<p>Тимур Васильевич', listing)
             self.assertIn('делах Тимченко Тимур Васильевич', listing)
             self.assertIn('</strong> Тимченко Тимур Васильевич', listing)
+            self.assertIn('Центральное звено проекта — Тимченко Тимур Васильевич.', listing)
+            self.assertIn('управленческий и менторский талант', listing)
             self.assertNotIn('высшее юридическое образование', listing)
             self.assertIn('лично участвовал в судебных заседаниях', listing)
             self.assertIn('class="cases-author__details"', listing)
