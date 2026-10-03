@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { footerCard, updateFooterCards, casesFooterRuntime, enhanceFooterDetails } from '../scripts/footer-cards.mjs';
+import { prepareContactFooter } from '../scripts/contact-footer.mjs';
 
 const root=path.resolve(import.meta.dirname,'..');
 test('three footer tiles share styles, grouped copy, local art and real actions',()=>{
@@ -33,13 +34,28 @@ test('footer-only update preserves all surrounding bytes and is idempotent',()=>
   assert.ok(next.startsWith(head));assert.ok(next.endsWith(tail));
   const withoutLegalMarker=next.replaceAll(' data-elegso-footer-legal','');
   assert.ok(withoutLegalMarker.includes(oldBody));
-  const cleaned=withoutLegalMarker.replace(/<!--elegso-(?:cases|articles|offers)-footer:start-->[\s\S]*?<!--elegso-(?:cases|articles|offers)-footer:end-->/g,'').replace('<!--elegso-footer-featured:start--><div class="elegso-footer-featured"></div><!--elegso-footer-featured:end-->','');
+  const cleaned=withoutLegalMarker.replace(/<!--elegso-(?:contact|cases|articles|offers)-footer:start-->[\s\S]*?<!--elegso-(?:contact|cases|articles|offers)-footer:end-->/g,'').replace('<!--elegso-footer-featured:start--><div class="elegso-footer-featured"></div><!--elegso-footer-featured:end-->','');
   assert.equal(cleaned,head+'<footer id="t-footer">'+oldBody+'</footer>'+tail);
   assert.equal(updateFooterCards(next),next);
   assert.ok(next.indexOf('elegso-cases-footer:start')<next.indexOf('elegso-articles-footer:start'));
   assert.ok(next.indexOf('elegso-articles-footer:start')<next.indexOf('elegso-offers-footer:start'));
   for(const kind of ['cases','articles','offers'])assert.equal((next.match(new RegExp(`data-elegso-${kind}-footer`,'g'))||[]).length,1);
   assert.equal(updateFooterCards(head+tail),head+tail);
+});
+test('legacy contact migrates once, preserving its headline, anchor and surrounding records',()=>{
+  const before='<main>Body<div id="rec123" data-record-type="712"><div class="t712__title">Профильная <strong>помощь</strong></div><div><section data-elegso-contact-panel>Old panel</section></div><script>const x="<div>";</script></div><div id="rec456">Other record</div></main><footer id="t-footer">Links</footer>';
+  const result=updateFooterCards(before);
+  assert.match(result,/<main>Body<div id="rec456">Other record<\/div><\/main>/);
+  assert.match(result,/data-elegso-contact-alias id="rec123"/);
+  assert.match(result,/Профильная помощь/);
+  assert.doesNotMatch(result,/Old panel/);
+  assert.equal((result.match(/id="elegso-contact"/g)||[]).length,1);
+  assert.equal((result.match(/data-elegso-contact-panel/g)||[]).length,1);
+  assert.equal(updateFooterCards(result),result);
+  assert.throws(()=>prepareContactFooter('<div id="rec123" data-record-type="712">'),/Unclosed/);
+  const headings=prepareContactFooter('<div id="rec123" data-record-type="712"><h3 class="t712__title t-title"><div>Сохраняем заголовок услуги</div></h3><div class="t712__title-second">Свяжитесь с профильным юристом</div><section data-elegso-contact-panel></section></div>');
+  assert.match(headings.context,/Сохраняем заголовок услуги/);
+  assert.doesNotMatch(headings.context,/Свяжитесь с профильным/);
 });
 test('unknown or duplicate footer blocks fail closed',()=>{
   assert.throws(()=>updateFooterCards('<footer id="t-footer">'+footerCard('cases')+footerCard('cases')+'</footer>'),/Duplicate/);

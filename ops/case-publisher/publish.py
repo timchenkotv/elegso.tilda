@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261003-6"
+ASSET_VERSION = "20261003-7"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -602,6 +602,28 @@ def listing_schema(cases: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def render_case_jump(case: dict[str, Any], index: int) -> str:
+    number = str(case.get("court_case_number") or "").strip().lstrip("№ ").strip()
+    if not number:
+        return ""
+    amount = decimal(case.get("protected_interest_amount"))
+    currency = str(case.get("currency_code") or "RUB")
+    exact = re.sub(r"(?<=\d)\.(?=\d)", ",", money(amount, currency))
+    compact = re.sub(r"(?<=\d)\.(?=\d)", ",", money(amount, currency, short=currency == "RUB"))
+    protection = (
+        f'<span class="cases-jump__amount" title="Защищённый имущественный интерес в размере {escape(exact)}">'
+        f'<span>Защищено</span><strong>{escape(compact)}</strong></span>'
+        if amount > 0 else '<span class="cases-jump__amount cases-jump__amount--empty">Результат в истории дела</span>'
+    )
+    accessible_amount = f". Защищённый имущественный интерес — {exact}" if amount > 0 else ""
+    return (
+        f'<a class="cases-jump__tile" href="#case-{escape(case["public_slug"])}" data-case-jump '
+        f'aria-label="Перейти к карточке дела {escape(number + accessible_amount)}" style="--jump-order:{index}">'
+        f'<span class="cases-jump__number">№ {escape(number)}<i aria-hidden="true">↘</i></span>'
+        f'{protection}</a>'
+    )
+
+
 def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
     categories = sorted(
         {str(case.get("case_category") or "Юридическая практика") for case in cases},
@@ -609,13 +631,7 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
     )
     total = sum((decimal(case.get("protected_interest_amount")) for case in cases), Decimal("0"))
     cards = "".join(render_case_card(case, index) for index, case in enumerate(cases))
-    case_links = "".join(
-        f'<a class="cases-jump__tile" href="#case-{escape(case["public_slug"])}" data-case-jump '
-        f'aria-label="Перейти к карточке дела {escape(number)}" title="Дело № {escape(number)}" style="--jump-order:{index}">'
-        f'<span>№ {escape(number)}</span><i aria-hidden="true">↘</i></a>'
-        for index, case in enumerate(cases)
-        if (number := str(case.get("court_case_number") or "").strip().lstrip("№ ").strip())
-    )
+    case_links = "".join(render_case_jump(case, index) for index, case in enumerate(cases))
     case_navigation = (
         '<nav class="cases-jump" aria-label="Быстрый переход к судебным делам">'
         '<div class="cases-jump__heading"><span>Навигатор по делам</span><small>Нажмите на номер</small></div>'
@@ -683,7 +699,7 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
                 <p>Если похожее дело представляют вам как чужой результат, уточните роль конкретной компании и специалистов, этапы их участия и документальные основания таких заявлений. Выбирайте команду, которая способна объяснить свою стратегию и подтвердить свою работу.</p>
               </div>
             </details>
-            <a class="cases-author__contact" href="mailto:mail@elegso.ru">Обсудить сложный спор <span aria-hidden="true">↗</span></a>
+            <a class="cases-author__contact" href="#elegso-contact">Обсудить сложный спор <span aria-hidden="true">↓</span></a>
           </aside>
         </div>
       </section>

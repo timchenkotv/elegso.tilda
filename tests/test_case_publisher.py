@@ -170,6 +170,19 @@ def sample_case() -> dict:
 
 
 class CasePublisherTests(unittest.TestCase):
+    def test_navigation_shows_protected_amount_and_exact_tooltip(self):
+        case = sample_case()
+        tile = publisher.render_case_jump(case, 0)
+        self.assertIn('class="cases-jump__number">№ А40-117474/2023', tile)
+        self.assertIn('Защищено</span><strong>18,4 млн руб.</strong>', tile)
+        self.assertIn('Защищённый имущественный интерес в размере 18 450 000 руб.', tile)
+        case['protected_interest_amount'] = '950000.52'
+        self.assertIn('950 000,52 руб.', publisher.render_case_jump(case, 0))
+        case['protected_interest_amount'] = None
+        tile = publisher.render_case_jump(case, 0)
+        self.assertNotIn('Защищено', tile)
+        self.assertIn('Результат в истории дела', tile)
+
     def test_case_navigation_is_data_driven_and_omits_unnumbered_cases(self):
         cases = []
         for i in range(100):

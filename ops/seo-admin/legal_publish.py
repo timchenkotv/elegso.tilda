@@ -254,6 +254,14 @@ def build_projection(source, stage, documents, job=None, previous=None, node="/u
         (target / "index.html").write_text(history, encoding="utf-8")
     if (stage / "archive-work").exists():
         shutil.rmtree(stage / "archive-work")
+    # Refresh only page chrome, including cached historical pages. Published
+    # legal text, revision dates and their database hashes remain untouched.
+    footer_update = subprocess.run(
+        [node, str(source / "scripts/update-footer-cards.mjs"), "--root", str(web), "--write"],
+        capture_output=True, text=True, timeout=60, env=environment,
+    )
+    if footer_update.returncode:
+        raise ValueError("Ошибка сборки общего подвала: " + footer_update.stderr[-1000:])
     # Only the legal namespaces are exposed by nginx; seed/template copies are
     # removed so this release cannot replace the rest of the website.
     shutil.rmtree(web / "mission")

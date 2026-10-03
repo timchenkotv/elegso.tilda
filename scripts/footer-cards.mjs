@@ -1,5 +1,6 @@
 /** Shared footer presentation only; never authors article or contract content. */
-export const footerCardsVersion = '20260913-privacy-1';
+import { prepareContactFooter, contactFooter } from './contact-footer.mjs';
+export const footerCardsVersion = '20261003-contact-1';
 export const footerStylesHref = `/assets/footer-cards.css?v=${footerCardsVersion}`;
 const defaultOffers = [{id:'business',url:'/oferta/'}];
 
@@ -57,6 +58,9 @@ export function enhanceFooterDetails(body) {
 }
 
 export function updateFooterCards(html, offers = defaultOffers) {
+  if (!/<footer\b[^>]*\bid=["']t-footer["'][^>]*>/i.test(html)) return html;
+  const contact = prepareContactFooter(html);
+  html = contact.html;
   const start = html.search(/<footer\b[^>]*\bid=["']t-footer["'][^>]*>/i);
   if (start < 0) return html;
   const openEnd = html.indexOf('>', start) + 1;
@@ -75,5 +79,5 @@ export function updateFooterCards(html, offers = defaultOffers) {
   // Keep service/link content intact. All three cards have a
   // predictable order, independently of which generator last touched a page.
   const cards = '<!--elegso-footer-featured:start--><div class="elegso-footer-featured">' + ['cases', 'articles', 'offers'].map(kind => footerCard(kind, offers)).join('') + '</div><!--elegso-footer-featured:end-->';
-  return html.slice(0, openEnd) + cards + body + html.slice(end);
+  return html.slice(0, openEnd) + contactFooter(contact) + cards + body + html.slice(end);
 }
