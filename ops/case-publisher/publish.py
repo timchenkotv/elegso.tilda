@@ -501,7 +501,7 @@ def case_excerpt(case: dict[str, Any]) -> str:
         case.get("strategy_html"),
         fallback="Юридическая работа и достигнутый результат по делу.",
     )
-    return text[:460].rstrip()
+    return text.rstrip()
 
 
 def card_search_text(case: dict[str, Any]) -> str:

@@ -207,6 +207,16 @@ class CasePublisherTests(unittest.TestCase):
         self.assertIn('Дело № &lt;test&gt;', publisher.render_case_card(case, 0))
         case['court_case_number'] = None
         self.assertIn('class="case-card__number">Практика ЭЛЕГСО</span>', publisher.render_case_card(case, 0))
+    def test_case_excerpt_keeps_complete_public_text(self) -> None:
+        case = sample_case()
+        case["public_excerpt"] = (
+            "Длинное публичное описание "
+            + "с подробностями дела " * 30
+            + "не должно обрываться посреди заключительной фразы."
+        )
+
+        self.assertEqual(publisher.case_excerpt(case), case["public_excerpt"])
+        self.assertTrue(publisher.case_excerpt(case).endswith("заключительной фразы."))
 
     def test_rich_text_uses_one_compact_heading_level(self) -> None:
         self.assertEqual(
