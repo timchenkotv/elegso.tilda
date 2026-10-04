@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { footerCard, updateFooterCards, casesFooterRuntime, enhanceFooterDetails } from '../scripts/footer-cards.mjs';
+import { footerCard, updateFooterCards, casesFooterRuntime, enhanceFooterDetails, developerCredit } from '../scripts/footer-cards.mjs';
 import { prepareContactFooter } from '../scripts/contact-footer.mjs';
 
 const root=path.resolve(import.meta.dirname,'..');
@@ -34,13 +34,29 @@ test('footer-only update preserves all surrounding bytes and is idempotent',()=>
   assert.ok(next.startsWith(head));assert.ok(next.endsWith(tail));
   const withoutLegalMarker=next.replaceAll(' data-elegso-footer-legal','');
   assert.ok(withoutLegalMarker.includes(oldBody));
-  const cleaned=withoutLegalMarker.replace(/<!--elegso-(?:contact|cases|articles|offers)-footer:start-->[\s\S]*?<!--elegso-(?:contact|cases|articles|offers)-footer:end-->/g,'').replace('<!--elegso-footer-featured:start--><div class="elegso-footer-featured"></div><!--elegso-footer-featured:end-->','');
+  const cleaned=withoutLegalMarker.replace(/<!--elegso-(?:contact|cases|articles|offers)-footer:start-->[\s\S]*?<!--elegso-(?:contact|cases|articles|offers)-footer:end-->/g,'').replace('<!--elegso-footer-featured:start--><div class="elegso-footer-featured"></div><!--elegso-footer-featured:end-->','').replace(developerCredit(),'');
   assert.equal(cleaned,head+'<footer id="t-footer">'+oldBody+'</footer>'+tail);
   assert.equal(updateFooterCards(next),next);
   assert.ok(next.indexOf('elegso-cases-footer:start')<next.indexOf('elegso-articles-footer:start'));
   assert.ok(next.indexOf('elegso-articles-footer:start')<next.indexOf('elegso-offers-footer:start'));
   for(const kind of ['cases','articles','offers'])assert.equal((next.match(new RegExp(`data-elegso-${kind}-footer`,'g'))||[]).length,1);
   assert.equal(updateFooterCards(head+tail),head+tail);
+});
+test('developer signature appears once at the bottom without affecting page indexing',()=>{
+  const original='<html><head><meta name="robots" content="index,follow"></head><body><footer id="t-footer"><p>Existing footer</p></footer></body></html>';
+  const next=updateFooterCards(original);
+  assert.equal(updateFooterCards(next),next);
+  assert.equal((next.match(/data-elegso-developer-credit/g)||[]).length,1);
+  assert.ok(next.includes(developerCredit()+'</footer>'));
+  assert.match(next,/href="https:\/\/inelsibi\.ru\/" target="_blank" rel="nofollow noopener"/);
+  assert.match(next,/Сайт разработан <strong>ИНЕЛСИБИ<\/strong>/);
+  assert.match(next,/<meta name="robots" content="index,follow">/);
+  assert.doesNotMatch(developerCredit(),/<(?:script|img|iframe|h[1-6])\b|noindex/);
+  assert.throws(()=>updateFooterCards('<footer id="t-footer">'+developerCredit()+developerCredit()+'</footer>'),/Duplicate developer credit/);
+  assert.throws(()=>updateFooterCards('<footer id="t-footer"><div data-elegso-developer-credit>legacy</div></footer>'),/Unmarked developer credit/);
+  const css=fs.readFileSync(path.join(root,'www/assets/footer-cards.css'),'utf8');
+  assert.match(css,/@media\(max-width:640px\)\{#t-footer \.elegso-developer-credit/);
+  assert.match(css,/@media print\{#t-footer \.elegso-developer-credit\{display:none!important\}\}/);
 });
 test('legacy contact migrates once, preserving its headline, anchor and surrounding records',()=>{
   const before='<main>Body<div id="rec123" data-record-type="712"><div class="t712__title">Профильная <strong>помощь</strong></div><div><section data-elegso-contact-panel>Old panel</section></div><script>const x="<div>";</script></div><div id="rec456">Other record</div></main><footer id="t-footer">Links</footer>';

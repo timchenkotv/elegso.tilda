@@ -1,8 +1,12 @@
 /** Shared footer presentation only; never authors article or contract content. */
 import { prepareContactFooter, contactFooter } from './contact-footer.mjs';
-export const footerCardsVersion = '20261003-contact-1';
+export const footerCardsVersion = '20261004-credit-1';
 export const footerStylesHref = `/assets/footer-cards.css?v=${footerCardsVersion}`;
 const defaultOffers = [{id:'business',url:'/oferta/'}];
+
+export function developerCredit() {
+  return '<!--elegso-developer-credit:start--><div id="elegso-developer-credit" class="elegso-developer-credit" data-elegso-developer-credit><a href="https://inelsibi.ru/" target="_blank" rel="nofollow noopener" aria-label="Сайт разработан ИНЕЛСИБИ — разработка программного обеспечения (откроется в новой вкладке)"><span class="elegso-developer-credit__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 4l-4 16"/></svg></span><span class="elegso-developer-credit__copy"><span>Сайт разработан <strong>ИНЕЛСИБИ</strong></span><small>Разработка программного обеспечения</small></span><span class="elegso-developer-credit__arrow" aria-hidden="true">↗</span></a></div><!--elegso-developer-credit:end-->';
+}
 
 export function footerCard(kind, offers = defaultOffers) {
   const data = {
@@ -67,6 +71,10 @@ export function updateFooterCards(html, offers = defaultOffers) {
   const end = html.indexOf('</footer>', openEnd);
   if (end < 0) throw new Error('Unclosed site footer');
   let body = html.slice(openEnd, end);
+  const creditMarker = /<!--elegso-developer-credit:start-->[\s\S]*?<!--elegso-developer-credit:end-->/g;
+  if ([...body.matchAll(creditMarker)].length > 1) throw new Error('Duplicate developer credit');
+  body = body.replace(creditMarker, '');
+  if (body.includes('data-elegso-developer-credit')) throw new Error('Unmarked developer credit; inspect before replacement');
   body = body.replace(/<!--elegso-footer-featured:start--><div class="elegso-footer-featured">([\s\S]*?)<\/div><!--elegso-footer-featured:end-->/g, '$1');
   for (const kind of ['cases', 'articles', 'offers']) {
     const marker = new RegExp(`<!--elegso-${kind}-footer:start-->[\\s\\S]*?<!--elegso-${kind}-footer:end-->`, 'g');
@@ -79,5 +87,5 @@ export function updateFooterCards(html, offers = defaultOffers) {
   // Keep service/link content intact. All three cards have a
   // predictable order, independently of which generator last touched a page.
   const cards = '<!--elegso-footer-featured:start--><div class="elegso-footer-featured">' + ['cases', 'articles', 'offers'].map(kind => footerCard(kind, offers)).join('') + '</div><!--elegso-footer-featured:end-->';
-  return html.slice(0, openEnd) + contactFooter(contact) + cards + body + html.slice(end);
+  return html.slice(0, openEnd) + contactFooter(contact) + cards + body + developerCredit() + html.slice(end);
 }

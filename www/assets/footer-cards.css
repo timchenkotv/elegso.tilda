@@ -94,3 +94,18 @@
 @media(max-width:520px){#t-footer .elegso-contact-footer h2{font-size:27px}#t-footer .elegso-contact-footer__lead{font-size:18px}#t-footer .elegso-contact-footer__panel{padding:22px 18px}#t-footer .elegso-contact-footer h3{font-size:22px}#t-footer a.elegso-contact-footer__action{padding:12px;gap:10px}#t-footer .elegso-contact-footer__action strong{font-size:16px}#t-footer .elegso-contact-footer__action svg{flex-basis:20px;width:20px}#t-footer .elegso-contact-footer__eyebrow{letter-spacing:.06em}}
 @media(prefers-reduced-motion:reduce){#t-footer a.elegso-contact-footer__action{transition:none}}
 @media print{#t-footer .elegso-contact-footer{display:none!important}}
+
+/* Small developer signature: no remote assets or scripts. */
+#t-footer .elegso-developer-credit{box-sizing:border-box;width:min(1160px,calc(100% - 40px));margin:0 auto;padding:8px 0 44px;display:flex;justify-content:flex-end}
+#t-footer .elegso-developer-credit a{box-sizing:border-box;display:inline-flex;align-items:center;gap:10px;max-width:100%;min-height:52px;padding:10px 13px;border:1px solid rgba(53,90,86,.22);border-radius:7px;background:rgba(255,255,255,.32);color:#355a56!important;font:400 12px/1.45 Ubuntu,Arial,sans-serif;text-decoration:none!important;transition:background .2s,border-color .2s}
+#t-footer .elegso-developer-credit a:hover{background:rgba(255,255,255,.6);border-color:#a04b38}
+#t-footer .elegso-developer-credit a:focus-visible{outline:2px solid #a04b38;outline-offset:4px}
+#t-footer .elegso-developer-credit__icon{display:flex;flex:0 0 24px;color:#a04b38}
+#t-footer .elegso-developer-credit__icon svg{display:block;width:24px;height:24px}
+#t-footer .elegso-developer-credit__copy{display:grid;gap:2px;min-width:0}
+#t-footer .elegso-developer-credit strong{font-weight:700;white-space:nowrap;color:#203f3c}
+#t-footer .elegso-developer-credit small{font-size:10px;line-height:1.45;color:#526a65}
+#t-footer .elegso-developer-credit__arrow{flex:none;margin-left:2px;color:#a04b38;font-size:18px}
+@media(max-width:640px){#t-footer .elegso-developer-credit{justify-content:flex-start;padding-bottom:20px}#t-footer .elegso-developer-credit a{gap:8px;padding:10px}}
+@media(prefers-reduced-motion:reduce){#t-footer .elegso-developer-credit a{transition:none}}
+@media print{#t-footer .elegso-developer-credit{display:none!important}}
