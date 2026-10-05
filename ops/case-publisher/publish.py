@@ -31,7 +31,7 @@ ASSET_VERSION = "20261003-8"
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
     "won": "Победа",
-    "partial_win": "Частичный успех",
+    "partial_win": "Успех",
     "settlement": "Мировое соглашение",
     "pretrial_success": "Досудебный успех",
     "dismissed": "Требования прекращены",

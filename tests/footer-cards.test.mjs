@@ -49,9 +49,11 @@ test('developer signature appears once at the bottom without affecting page inde
   assert.equal((next.match(/data-elegso-developer-credit/g)||[]).length,1);
   assert.ok(next.includes(developerCredit()+'</footer>'));
   assert.match(next,/href="https:\/\/inelsibi\.ru\/" target="_blank" rel="nofollow noopener"/);
-  assert.match(next,/Сайт разработан <strong>ИНЕЛСИБИ<\/strong>/);
+  assert.match(next,/<strong>ИНЕЛСИБИ<\/strong><small>Разработка сайта и ПО<\/small>/);
   assert.match(next,/<meta name="robots" content="index,follow">/);
-  assert.doesNotMatch(developerCredit(),/<(?:script|img|iframe|h[1-6])\b|noindex/);
+  assert.doesNotMatch(developerCredit(),/<(?:script|iframe|h[1-6])\b|noindex/);
+  assert.match(developerCredit(),/src="\/assets\/brand\/inelsibi-mark-96.png" alt="" width="32" height="32"/);
+  assert.ok(fs.statSync(path.join(root,'www/assets/brand/inelsibi-mark-96.png')).size<20000);
   assert.throws(()=>updateFooterCards('<footer id="t-footer">'+developerCredit()+developerCredit()+'</footer>'),/Duplicate developer credit/);
   assert.throws(()=>updateFooterCards('<footer id="t-footer"><div data-elegso-developer-credit>legacy</div></footer>'),/Unmarked developer credit/);
   const css=fs.readFileSync(path.join(root,'www/assets/footer-cards.css'),'utf8');
@@ -72,6 +74,23 @@ test('legacy contact migrates once, preserving its headline, anchor and surround
   const headings=prepareContactFooter('<div id="rec123" data-record-type="712"><h3 class="t712__title t-title"><div>Сохраняем заголовок услуги</div></h3><div class="t712__title-second">Свяжитесь с профильным юристом</div><section data-elegso-contact-panel></section></div>');
   assert.match(headings.context,/Сохраняем заголовок услуги/);
   assert.doesNotMatch(headings.context,/Свяжитесь с профильным/);
+});
+test('legal footer becomes two compact columns with the original logo and preserved legal copy',()=>{
+  const copyright='<div class="t457__copyright" field="text"><div style="font-size:14px"><p>© 2026 г. Москва</p><p>Юридическая компания «ЭЛЕГСО»</p><p><u>E</u>XPERT <u>LEG</u>AL <u>SO</u>LUTIONS</p><br><p>Все права защищены.</p><p>Информационные материалы сайта не являются публичной офертой. Условия заключения договоров приведены в соответствующих офертах.</p><p><a href="/offer_for_lawyer_20231103/">Присоединение исполнителей</a></p></div></div>';
+  const signature='<div data-elegso-site-signature>ЮК «ЭЛЕГСО» — Мы — опора для тех, кто ведёт бизнес в сложной реальности.</div>';
+  const original='<main>Page text</main><footer id="t-footer"><div id="rec1169591771">'+copyright+'</div>'+developerCredit()+'</footer>'+signature;
+  const next=updateFooterCards(original);
+  assert.ok(next.startsWith('<main>Page text</main>'));
+  assert.ok(next.endsWith(signature));
+  assert.match(next,/class="elegso-footer-meta__legal"/);
+  assert.match(next,/class="elegso-footer-meta__utilities"/);
+  assert.match(next,/data-elegso-footer-credit-slot><!--elegso-developer-credit:start-->/);
+  for(const text of ['© 2026 г. Москва','Юридическая компания «ЭЛЕГСО»','Все права защищены.','Информационные материалы сайта не являются публичной офертой.']) assert.ok(next.includes(text));
+  assert.doesNotMatch(next,/XPERT|LUTIONS/);
+  assert.equal((next.match(/data-elegso-cookie-settings/g)||[]).length,1);
+  assert.equal((next.match(/data-elegso-developer-credit/g)||[]).length,1);
+  assert.equal(updateFooterCards(next),next);
+  assert.throws(()=>updateFooterCards(original.replace('Все права защищены.','Unknown copy')),/Unexpected legal footer copy/);
 });
 test('unknown or duplicate footer blocks fail closed',()=>{
   assert.throws(()=>updateFooterCards('<footer id="t-footer">'+footerCard('cases')+footerCard('cases')+'</footer>'),/Duplicate/);

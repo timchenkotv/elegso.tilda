@@ -1,11 +1,30 @@
 /** Shared footer presentation only; never authors article or contract content. */
 import { prepareContactFooter, contactFooter } from './contact-footer.mjs';
-export const footerCardsVersion = '20261004-credit-1';
+export const footerCardsVersion = '20261005-footer-1';
 export const footerStylesHref = `/assets/footer-cards.css?v=${footerCardsVersion}`;
 const defaultOffers = [{id:'business',url:'/oferta/'}];
 
 export function developerCredit() {
-  return '<!--elegso-developer-credit:start--><div id="elegso-developer-credit" class="elegso-developer-credit" data-elegso-developer-credit><a href="https://inelsibi.ru/" target="_blank" rel="nofollow noopener" aria-label="Сайт разработан ИНЕЛСИБИ — разработка программного обеспечения (откроется в новой вкладке)"><span class="elegso-developer-credit__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 4l-4 16"/></svg></span><span class="elegso-developer-credit__copy"><span>Сайт разработан <strong>ИНЕЛСИБИ</strong></span><small>Разработка программного обеспечения</small></span><span class="elegso-developer-credit__arrow" aria-hidden="true">↗</span></a></div><!--elegso-developer-credit:end-->';
+  return '<!--elegso-developer-credit:start--><div id="elegso-developer-credit" class="elegso-developer-credit" data-elegso-developer-credit><a href="https://inelsibi.ru/" target="_blank" rel="nofollow noopener" aria-label="Сайт разработан ИНЕЛСИБИ — разработка программного обеспечения (откроется в новой вкладке)"><img class="elegso-developer-credit__logo" src="/assets/brand/inelsibi-mark-96.png" alt="" width="32" height="32" loading="lazy" decoding="async"><span class="elegso-developer-credit__copy"><strong>ИНЕЛСИБИ</strong><small>Разработка сайта и ПО</small></span><span class="elegso-developer-credit__arrow" aria-hidden="true">↗</span></a></div><!--elegso-developer-credit:end-->';
+}
+
+/** Reorganize only the known footer copy; leave the green brand strip intact. */
+export function compactFooterLegal(body) {
+  const slot = '<div data-elegso-footer-credit-slot></div>';
+  if (body.includes(slot)) return body.replace(slot, '<div data-elegso-footer-credit-slot>' + developerCredit() + '</div>');
+  if (body.includes('data-elegso-footer-credit-slot')) throw new Error('Unexpected developer credit slot');
+  let converted = false;
+  body = body.replace(/<div class="t457__copyright" field="text"><div[^>]*>([\s\S]*?)<\/div><\/div>/, (original, contents) => {
+    const paragraphs = [...contents.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map(match => match[1]);
+    const text = value => value.replace(/<[^>]*>/g, '').trim();
+    const copy = paragraphs.filter(value => text(value).replace(/\s/g, '') !== 'EXPERTLEGALSOLUTIONS');
+    if (copy.length !== 5 || !text(copy[0]).startsWith('© ') || !text(copy[1]).includes('ЭЛЕГСО') || text(copy[2]) !== 'Все права защищены.' || !text(copy[3]).startsWith('Информационные материалы сайта') || !copy[4].includes('/offer_for_lawyer_20231103/')) {
+      throw new Error('Unexpected legal footer copy; inspect before compacting');
+    }
+    converted = true;
+    return `<div class="t457__copyright" field="text"><div class="elegso-footer-meta" data-elegso-footer-meta><div class="elegso-footer-meta__legal"><p class="elegso-footer-meta__brand">${text(copy[1])}</p><p class="elegso-footer-meta__copyright">${text(copy[0])}<span aria-hidden="true"> · </span>${text(copy[2])}</p><p class="elegso-footer-meta__disclaimer">${text(copy[3])}</p></div><div class="elegso-footer-meta__utilities"><nav class="elegso-footer-meta__links" aria-label="Правовая информация и настройки">${copy[4]}</nav><div data-elegso-footer-credit-slot>${developerCredit()}</div></div></div></div>`;
+  });
+  return converted ? body : body + developerCredit();
 }
 
 export function footerCard(kind, offers = defaultOffers) {
@@ -84,8 +103,9 @@ export function updateFooterCards(html, offers = defaultOffers) {
     if (body.includes(`data-elegso-${kind}-footer`)) throw new Error(`Unmarked legacy ${kind} footer; inspect before replacement`);
   }
   body = enhanceFooterDetails(body);
+  body = compactFooterLegal(body);
   // Keep service/link content intact. All three cards have a
   // predictable order, independently of which generator last touched a page.
   const cards = '<!--elegso-footer-featured:start--><div class="elegso-footer-featured">' + ['cases', 'articles', 'offers'].map(kind => footerCard(kind, offers)).join('') + '</div><!--elegso-footer-featured:end-->';
-  return html.slice(0, openEnd) + contactFooter(contact) + cards + body + developerCredit() + html.slice(end);
+  return html.slice(0, openEnd) + contactFooter(contact) + cards + body + html.slice(end);
 }

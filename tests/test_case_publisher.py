@@ -170,6 +170,16 @@ def sample_case() -> dict:
 
 
 class CasePublisherTests(unittest.TestCase):
+    def test_partial_win_display_label_is_success_without_changing_status(self):
+        case = sample_case()
+        case['outcome_kind'] = 'partial_win'
+        card = publisher.render_case_card(case, 0)
+        self.assertIn('Успех', card)
+        self.assertNotIn('Частичный успех', card)
+        self.assertIn('case-outcome--partial_win', card)
+        self.assertEqual(publisher.OUTCOME_LABELS['won'], 'Победа')
+        self.assertEqual(publisher.OUTCOME_LABELS['settlement'], 'Мировое соглашение')
+
     def test_navigation_shows_protected_amount_and_exact_tooltip(self):
         case = sample_case()
         tile = publisher.render_case_jump(case, 0)
