@@ -262,6 +262,12 @@ def build_projection(source, stage, documents, job=None, previous=None, node="/u
     )
     if footer_update.returncode:
         raise ValueError("Ошибка сборки общего подвала: " + footer_update.stderr[-1000:])
+    brand_update = subprocess.run(
+        [node, str(source / "scripts/update-site-brand.mjs"), "--root", str(web), "--write"],
+        capture_output=True, text=True, timeout=60, env=environment,
+    )
+    if brand_update.returncode:
+        raise ValueError("Ошибка обновления логотипа и шапки: " + brand_update.stderr[-1000:])
     # Only the legal namespaces are exposed by nginx; seed/template copies are
     # removed so this release cannot replace the rest of the website.
     shutil.rmtree(web / "mission")

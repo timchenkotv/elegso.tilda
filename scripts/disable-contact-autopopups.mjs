@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-export const contactPopupAssetVersion = '20260913-contact-manual-1';
+export const contactPopupAssetVersion = '20261005-logo-1';
 
 function attribute(tag, name) {
   return tag.match(new RegExp(`\\b${name}\\s*=\\s*(["'])(.*?)\\1`, 'is'))?.[2] || '';

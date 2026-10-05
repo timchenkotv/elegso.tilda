@@ -1,0 +1,21 @@
+/* Compact shared header. The source logo is contained, never cropped. */
+@media(min-width:981px){
+  #t-header #nav1167116491,#t-header #nav1167116491 .t228__maincontainer{height:140px!important;min-height:140px}
+  #t-header .t228__imgwrapper{display:flex;align-items:center;justify-content:center;height:140px}
+  #t-header .t228__imglogo{display:block!important;width:auto!important;min-width:0!important;max-width:120px!important;height:132px!important;object-fit:contain}
+  #t-header .t228__leftcontainer{padding:0}
+  html body #allrecords>main.cases-page,html body #allrecords>main.case-page{margin-top:140px!important}
+  html body .ep-main{--ep-header-space:140px}
+  html body .eo-main{--eo-header-space:140px}
+}
+@media(max-width:980px){
+  #t-header .tmenu-mobile__container{min-height:64px;padding:8px 16px;gap:12px}
+  #t-header .elegso-mobile-brand{display:flex;flex:0 0 38px;align-items:center;justify-content:center;min-height:48px;text-decoration:none}
+  #t-header .elegso-mobile-brand img{display:block;width:auto;height:48px;max-width:38px;object-fit:contain}
+  #t-header .tmenu-mobile__text{flex:1;min-width:0}
+  #t-header .tmenu-mobile__text div,#t-header .tmenu-mobile__text span{font-size:14px!important;line-height:1.3!important}
+  #t-header .t-menuburger{flex-shrink:0}
+  #t-header .t228__imglogo{width:auto!important;min-width:0!important;max-width:112px!important;max-height:132px;object-fit:contain}
+  #t-header .elegso-mobile-brand:focus-visible{outline:2px solid #a04b38;outline-offset:3px;border-radius:4px}
+}
+@media print{#t-header .elegso-mobile-brand{display:none!important}}

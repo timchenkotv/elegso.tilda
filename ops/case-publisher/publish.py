@@ -466,7 +466,7 @@ def organisation_schema() -> dict[str, Any]:
         "@id": f"{SITE_ORIGIN}/#organization",
         "name": "Юридическая компания «ЭЛЕГСО»",
         "url": f"{SITE_ORIGIN}/",
-        "logo": f"{SITE_ORIGIN}/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png",
+        "logo": f"{SITE_ORIGIN}/assets/brand/elegso-logo-2026-10-05.png",
         "telephone": "+7-495-646-00-02",
         "email": "mail@elegso.ru",
         "address": {

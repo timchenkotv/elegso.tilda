@@ -636,7 +636,7 @@ function migrationInitLeaseBalanceCalculator() {
 
   if (!document.querySelector('script[data-elegso-lease-script]')) {
     const script = document.createElement('script');
-    script.src = '/assets/lease-balance-calculator.js?v=20260719-4';
+    script.src = '/assets/lease-balance-calculator.js?v=20261005-logo-1';
     script.defer = true;
     script.dataset.elegsoLeaseScript = 'true';
     document.body.appendChild(script);
