@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { updateSiteBrand, currentLogo, previousLogo, brandVersion } from '../scripts/site-brand.mjs';
+import { updateSiteBrand, currentLogo, previousLogo, alternateLogo, brandVersion } from '../scripts/site-brand.mjs';
 
 test('logo replacement and compact header are idempotent and preserve page copy',()=>{
   const input=`<html><head><title>Original title</title><meta name="robots" content="index,follow"></head><body><header id="t-header"><div class="tmenu-mobile__text">Company</div><img src="${previousLogo}" alt="ЮК ЭЛЕГСО"></header><main>Original article</main><footer>Original footer</footer><script src="/assets/migration.js?v=old"></script></body></html>`;
@@ -14,7 +14,9 @@ test('logo replacement and compact header are idempotent and preserve page copy'
   assert.ok(next.includes('<main>Original article</main><footer>Original footer</footer>'));
   assert.ok(next.includes('<title>Original title</title><meta name="robots" content="index,follow">'));
   assert.ok(next.includes(`/assets/migration.js?v=${brandVersion}`));
-  assert.ok(!next.includes(previousLogo));
+  assert.ok(!next.includes(alternateLogo));
+  assert.equal(currentLogo, previousLogo);
+  assert.equal(updateSiteBrand(input.replaceAll(previousLogo, alternateLogo)), next);
 });
 test('previous and uploaded original logo files are preserved',()=>{
   const root=new URL('../www',import.meta.url);

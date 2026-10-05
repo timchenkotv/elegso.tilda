@@ -622,7 +622,7 @@
       : calc.resultSide === 'lessor'
         ? `В пользу лизингодателя: лизингополучатель обязан уплатить ${formatMoney(calc.balanceAbs)}`
         : `В пользу лизингополучателя: лизингодатель обязан возвратить ${formatMoney(calc.balanceAbs)}`;
-    const logoUrl = new URL('/assets/brand/elegso-logo-2026-10-05.png', location.origin).href;
+    const logoUrl = new URL('/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png', location.origin).href;
 
     return `<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Расчёт сальдо встречных обязательств</title><style>
       @page { size: A4; margin: 1cm 1cm 1cm 2cm; @bottom-right { content: "стр. " counter(page) " из " counter(pages); color:#355a56; font:8pt Arial,sans-serif; } }

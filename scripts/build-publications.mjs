@@ -78,7 +78,7 @@ const footerStart = template.indexOf('<!--footer-->',headerEnd);
 if(bodyStart<0 || headerStart<0 || footerStart<0) throw new Error('Site template markers missing');
 const header = nav(template.slice(headerStart,headerEnd));
 const tail = footerNav(template.slice(footerStart));
-const organisation = {'@type':'Organization','@id':origin+'/#organization',name:'Юридическая компания «ЭЛЕГСО»',url:origin+'/',logo:origin+'/assets/brand/elegso-logo-2026-10-05.png'};
+const organisation = {'@type':'Organization','@id':origin+'/#organization',name:'Юридическая компания «ЭЛЕГСО»',url:origin+'/',logo:origin+'/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png'};
 function meta(head,attribute,name,value) {
   const tag=`<meta ${attribute}="${name}" content="${esc(value)}">`;
   const re=new RegExp(`<meta\\b(?=[^>]*\\b${attribute}=["']${name}["'])[^>]*>`,'i');
