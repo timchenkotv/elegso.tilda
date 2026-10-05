@@ -226,6 +226,17 @@ def iso_lastmod(value: Any) -> str:
         return text[:10]
 
 
+def case_document_date(case: dict[str, Any]) -> date:
+    """Date shown on the card: the latest judicial act for catalogue ordering."""
+    raw = str(case.get("document_date") or "").strip()
+    if not raw:
+        return date.min
+    try:
+        return date.fromisoformat(raw[:10])
+    except ValueError:
+        return date.min
+
+
 def outcome_label(value: Any) -> str:
     return OUTCOME_LABELS.get(str(value or "other"), OUTCOME_LABELS["other"])
 
@@ -1127,14 +1138,16 @@ def validate_cases(cases: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if not str(case.get("public_title") or "").strip():
             raise RuntimeError(f"У кейса {slug} отсутствует публичный заголовок")
         seen.add(slug)
+    # The catalogue must reflect the chronology of the litigation, not the
+    # chronology of publishing. ``document_date`` is also the date displayed
+    # in the top-right corner of every card and represents the latest judicial
+    # act entered for the case. Missing/invalid dates are deliberately last.
     return sorted(
         cases,
         key=lambda case: (
-            str(case.get("published_at") or ""),
-            str(case.get("document_date") or ""),
-            str(case.get("public_slug") or ""),
+            -case_document_date(case).toordinal(),
+            str(case.get("public_slug") or "").casefold(),
         ),
-        reverse=True,
     )
 
 

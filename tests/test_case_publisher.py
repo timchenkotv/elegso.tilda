@@ -170,6 +170,30 @@ def sample_case() -> dict:
 
 
 class CasePublisherTests(unittest.TestCase):
+    def test_catalogue_is_sorted_by_latest_judicial_act_descending(self):
+        older_published_later = sample_case()
+        older_published_later["public_slug"] = "older-published-later"
+        older_published_later["document_date"] = "2024-12-03"
+        older_published_later["published_at"] = "2026-10-05T12:00:00Z"
+
+        newer_published_earlier = sample_case()
+        newer_published_earlier["public_slug"] = "newer-published-earlier"
+        newer_published_earlier["document_date"] = "2025-10-16"
+        newer_published_earlier["published_at"] = "2026-09-01T12:00:00Z"
+
+        without_date = sample_case()
+        without_date["public_slug"] = "without-date"
+        without_date["document_date"] = None
+
+        ordered = publisher.validate_cases(
+            [older_published_later, without_date, newer_published_earlier]
+        )
+
+        self.assertEqual(
+            [case["public_slug"] for case in ordered],
+            ["newer-published-earlier", "older-published-later", "without-date"],
+        )
+
     def test_partial_win_display_label_is_success_without_changing_status(self):
         case = sample_case()
         case['outcome_kind'] = 'partial_win'
