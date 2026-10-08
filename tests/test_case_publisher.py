@@ -252,6 +252,35 @@ class CasePublisherTests(unittest.TestCase):
         self.assertEqual(publisher.case_excerpt(case), case["public_excerpt"])
         self.assertTrue(publisher.case_excerpt(case).endswith("заключительной фразы."))
 
+    def test_separate_story_changes_only_detail_narrative(self) -> None:
+        case = sample_case()
+        case["public_excerpt"] = "Короткий публичный анонс."
+        case["use_separate_public_story"] = True
+        case["public_story"] = "Большой подробный рассказ о работе команды без сокращений."
+
+        detail = publisher.render_detail(
+            publisher.load_chrome(ROOT / "www"),
+            case,
+            "https://law.elegso.ru/api/v1/public/legal-case-announcements",
+        )
+
+        self.assertIn("<p>Короткий публичный анонс.</p>", detail)
+        self.assertIn(
+            '<p class="case-summary">Большой подробный рассказ о работе команды без сокращений.</p>',
+            detail,
+        )
+        self.assertNotIn('<p class="case-summary">Короткий публичный анонс.</p>', detail)
+        self.assertIn('class="case-card__excerpt is-clamped"', publisher.render_case_card(case, 0))
+
+    def test_old_case_without_separate_story_keeps_previous_rendering(self) -> None:
+        case = sample_case()
+        case.pop("use_separate_public_story", None)
+        case.pop("public_story", None)
+
+        self.assertEqual(publisher.case_story(case), publisher.case_excerpt(case))
+        self.assertIn('class="case-card__excerpt"', publisher.render_case_card(case, 0))
+        self.assertNotIn('case-card__excerpt is-clamped', publisher.render_case_card(case, 0))
+
     def test_rich_text_uses_one_compact_heading_level(self) -> None:
         self.assertEqual(
             publisher.safe_rich("<h2>Первый</h2><h3>Второй</h3><h4>Третий</h4>"),

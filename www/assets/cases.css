@@ -813,6 +813,13 @@ body.elegso-cases-page {
   line-height: 1.62;
 }
 
+.case-card__excerpt.is-clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10;
+  overflow: hidden;
+}
+
 .case-card__metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
@@ -1353,6 +1360,7 @@ body.elegso-cases-page {
   font-family: "Prata", Georgia, serif;
   font-size: clamp(18px, 1.6vw, 23px);
   line-height: 1.58;
+  white-space: pre-line;
 }
 
 .case-overview__grid {

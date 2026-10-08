@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261003-8"
+ASSET_VERSION = "20261008-1"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -515,10 +515,19 @@ def case_excerpt(case: dict[str, Any]) -> str:
     return text.rstrip()
 
 
+def case_story(case: dict[str, Any]) -> str:
+    if case.get("use_separate_public_story"):
+        story = first_text(case.get("public_story"))
+        if story:
+            return story.rstrip()
+    return case_excerpt(case)
+
+
 def card_search_text(case: dict[str, Any]) -> str:
     values: list[Any] = [
         case.get("public_title"),
         case.get("public_excerpt"),
+        case.get("public_story"),
         case.get("case_category"),
         case.get("court_case_number"),
         case.get("strategy_html"),
@@ -547,6 +556,7 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
     title = str(case.get("public_title") or "Дело без названия")
     category = str(case.get("case_category") or "Юридическая практика")
     excerpt = case_excerpt(case)
+    excerpt_class = "case-card__excerpt is-clamped" if case.get("use_separate_public_story") else "case-card__excerpt"
     protected = decimal(case.get("protected_interest_amount"))
     duration = case.get("duration_days")
     instances = case.get("court_instance_count")
@@ -571,7 +581,7 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
           </div>
           <p class="case-card__category">{escape(category)}</p>
           <h2>{escape(title)}</h2>
-          <p class="case-card__excerpt">{escape(excerpt)}</p>
+          <p class="{excerpt_class}">{escape(excerpt)}</p>
           <div class="case-card__metrics">{''.join(metrics)}</div>
           <div class="case-card__foot"><span class="case-card__number">{escape(number_label)}</span><b>Читать историю <i aria-hidden="true">→</i></b></div>
         </a>
@@ -1022,6 +1032,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     category = str(case.get("case_category") or "Юридическая практика")
     canonical = f"{SITE_ORIGIN}/cases/{case['public_slug']}/"
     summary = case_excerpt(case)
+    story = case_story(case)
     metrics = render_metrics(case)
     strategy = safe_rich(case.get("strategy_html"))
     result = safe_rich(case.get("result_html"))
@@ -1055,7 +1066,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     overview = f"""
       <section class="case-section case-overview" id="overview">
         <div class="case-section__label"><span>01</span><p>Суть дела</p></div>
-        <div class="case-section__content"><p class="cases-eyebrow">Задача и решение</p><h2>За сухими формулировками<br>стоит работа команды</h2><p class="case-summary">{escape(summary)}</p>{f'<div class="case-overview__grid">{overview_sections}</div>' if overview_sections else ''}</div>
+        <div class="case-section__content"><p class="cases-eyebrow">Задача и решение</p><h2>За сухими формулировками<br>стоит работа команды</h2><p class="case-summary">{escape(story)}</p>{f'<div class="case-overview__grid">{overview_sections}</div>' if overview_sections else ''}</div>
       </section>"""
     content = f"""
     <main class="case-page" data-case-detail>
