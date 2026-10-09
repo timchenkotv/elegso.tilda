@@ -3,7 +3,7 @@ import { ensureSiteNavigation } from './site-navigation.mjs';
 export const previousLogo = '/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png';
 export const alternateLogo = '/assets/brand/elegso-logo-2026-10-05.png';
 export const currentLogo = previousLogo;
-export const brandVersion = '20261005-logo-2';
+export const brandVersion = '20261010-experience-1';
 
 export function updateSiteBrand(html) {
   html = ensureSiteNavigation(html);

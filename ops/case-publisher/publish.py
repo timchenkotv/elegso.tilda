@@ -339,7 +339,7 @@ def inject_cases_navigation(header: str) -> str:
     contact_item = contact_match.group(0)
     cases_item = contact_item
     cases_item = cases_item.replace('href="/contacts/"', 'href="/cases/"', 1)
-    cases_item = re.sub(r'(>\s*)Контакты(\s*</a>)', r'\1Кейсы\2', cases_item, count=1)
+    cases_item = re.sub(r'(>\s*)Контакты(\s*</a>)', r'\1Успешный опыт\2', cases_item, count=1)
     cases_item = cases_item.replace(
         'class="t228__list_item"',
         'class="t228__list_item elegso-cases-nav-item"',
@@ -355,7 +355,7 @@ def inject_cases_navigation(header: str) -> str:
         'data-menu-item-number="3"',
         'data-menu-item-number="3" data-elegso-cases-nav="true" '
         'title="Юридические проекты и решённые дела" '
-        'aria-label="Кейсы: юридические проекты и решённые дела"',
+        'aria-label="Успешный опыт: юридические проекты и решённые дела"',
         1,
     )
     cases_item = re.sub(
@@ -574,7 +574,7 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
         metrics.append(metric("§", "Результат", outcome_label(case.get("outcome_kind"))))
     return f"""
       <article class="case-card" id="case-{escape(slug)}" tabindex="-1" data-case-card data-category="{escape(category.lower())}" data-search="{escape(search)}" style="--case-order:{index}">
-        <a class="case-card__surface" href="/cases/{escape(slug)}/" aria-label="Открыть кейс: {escape(title)}">
+        <a class="case-card__surface" href="/cases/{escape(slug)}/" aria-label="Открыть историю дела: {escape(title)}">
           <div class="case-card__top">
             <span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span>
             <time datetime="{escape(case.get('document_date') or '')}">{escape(ru_date(case.get('document_date')))}</time>
@@ -598,7 +598,7 @@ def listing_schema(cases: list[dict[str, Any]]) -> dict[str, Any]:
                 "@type": "CollectionPage",
                 "@id": f"{canonical}#page",
                 "url": canonical,
-                "name": "Кейсы юридической компании «ЭЛЕГСО»",
+                "name": "Успешный опыт юридической компании «ЭЛЕГСО»",
                 "description": "Истории судебной и досудебной защиты бизнеса, стратегии и подтверждённые результаты юридической компании «ЭЛЕГСО».",
                 "inLanguage": "ru-RU",
                 "about": {"@id": f"{SITE_ORIGIN}/#organization"},
@@ -617,7 +617,7 @@ def listing_schema(cases: list[dict[str, Any]]) -> dict[str, Any]:
                 },
             },
             breadcrumbs_schema(
-                [("Главная", f"{SITE_ORIGIN}/"), ("Кейсы", canonical)]
+                [("Главная", f"{SITE_ORIGIN}/"), ("Успешный опыт", canonical)]
             ),
         ],
     }
@@ -671,7 +671,7 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
     empty = "" if cases else """
       <section class="case-empty-state">
         <span>§</span>
-        <h2>Первые публичные кейсы готовятся</h2>
+        <h2>Готовим первые истории дел</h2>
         <p>Мы публикуем истории только после юридической проверки, удаления закрытых сведений и подготовки подтверждающих материалов.</p>
       </section>"""
     protected_stat = (
@@ -687,7 +687,7 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
           <p class="cases-eyebrow">Практика в действии</p>
           <h1>Дела, в которых право<br><em>стало результатом</em></h1>
           <p class="cases-hero__lead">Показываем не обещания, а ход работы: исходную задачу, правовую стратегию, решения судов и имущественный эффект для доверителя.</p>
-          <p class="cases-hero__context">ЭЛЕГСО защищает бизнес в сложных экономических и лизинговых спорах: взыскание задолженности и убытков, сальдо встречных обязательств, защита имущества и пересмотр судебных актов. В этих кейсах — правовая стратегия, экономическая экспертиза и личное участие Тимченко Тимура Васильевича.</p>
+          <p class="cases-hero__context">ЭЛЕГСО защищает бизнес в сложных экономических и лизинговых спорах: взыскание задолженности и убытков, сальдо встречных обязательств, защита имущества и пересмотр судебных актов. В этих делах — правовая стратегия, экономическая экспертиза и личное участие Тимченко Тимура Васильевича.</p>
           <div class="cases-hero__facts">
             <div><strong>{len(cases)}</strong><span>опубликованных историй</span></div>
             {protected_stat}
@@ -706,7 +706,7 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
               <p>Мы замечаем, что другие компании недобросовестно представляют наши судебные дела как свои результаты, вводя клиентов в заблуждение.</p>
               <p>Будьте бдительны. Обратите на это внимание.</p>
             </div>
-            <p class="cases-author__provenance">Кейсы этой страницы — работа команды ЭЛЕГСО под руководством и при непосредственном личном участии Тимченко Тимура Васильевича, включая участие в судебных заседаниях. У нас сохраняются договоры с доверителями и материалы дел, подтверждающие участие компании.</p>
+            <p class="cases-author__provenance">Дела на этой странице — работа команды ЭЛЕГСО под руководством и при непосредственном личном участии Тимченко Тимура Васильевича, включая участие в судебных заседаниях. У нас сохраняются договоры с доверителями и материалы дел, подтверждающие участие компании.</p>
             <details class="cases-author__details">
               <summary>Кто выстраивает стратегию этих дел<span aria-hidden="true">+</span></summary>
               <div class="cases-author__story">
@@ -741,7 +741,7 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
       </section>
 
       <section class="cases-method">
-        <p class="cases-eyebrow">Как читать кейсы</p>
+        <p class="cases-eyebrow">Как читать истории дел</p>
         <div><h2>Без рекламной дымки.<br>С юридической логикой.</h2><p>Каждая история разбита на этапы и содержит тот объём сведений, который допустим к публикации. Суммы отражают защищённый имущественный интерес: взысканное, сохранённое имущество, отклонённые или уменьшенные требования оппонента.</p></div>
         <ol><li><span>01</span>Исходная ситуация</li><li><span>02</span>Стратегия и доказательства</li><li><span>03</span>Решения по инстанциям</li><li><span>04</span>Фактический эффект</li></ol>
       </section>
@@ -753,8 +753,8 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
     </main>"""
     return render_page(
         chrome,
-        title="Кейсы и результаты юридической компании «ЭЛЕГСО»",
-        description="Судебные и досудебные кейсы юридической компании «ЭЛЕГСО»: история спора, стратегия, решения судов, защищённый имущественный интерес и материалы дела.",
+        title="Успешный опыт юридической компании «ЭЛЕГСО»",
+        description="Судебные и досудебные дела юридической компании «ЭЛЕГСО»: история спора, стратегия, решения судов, защищённый имущественный интерес и материалы дела.",
         canonical=f"{SITE_ORIGIN}/cases/",
         schema=listing_schema(cases),
         article=False,
@@ -1018,8 +1018,8 @@ def detail_schema(case: dict[str, Any], description: str) -> dict[str, Any]:
             breadcrumbs_schema(
                 [
                     ("Главная", f"{SITE_ORIGIN}/"),
-                    ("Кейсы", f"{SITE_ORIGIN}/cases/"),
-                    (str(case.get("public_title") or "Кейс"), canonical),
+                    ("Успешный опыт", f"{SITE_ORIGIN}/cases/"),
+                    (str(case.get("public_title") or "История дела"), canonical),
                 ]
             ),
         ],
@@ -1070,13 +1070,13 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
       </section>"""
     content = f"""
     <main class="case-page" data-case-detail>
-      <nav class="case-breadcrumbs" aria-label="Навигационная цепочка"><a href="/">Главная</a><span>·</span><a href="/cases/">Кейсы</a><span>·</span><b>{escape(category)}</b></nav>
+      <nav class="case-breadcrumbs" aria-label="Навигационная цепочка"><a href="/">Главная</a><span>·</span><a href="/cases/">Успешный опыт</a><span>·</span><b>{escape(category)}</b></nav>
       <article>
         <header class="case-hero">
           <div class="case-hero__copy"><div class="case-hero__meta"><span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span><span>{escape(category)}</span>{f'<span>Дело № {escape(case.get("court_case_number"))}</span>' if case.get('court_case_number') else ''}</div><h1>{escape(title)}</h1><p>{escape(summary)}</p><div class="case-hero__footer"><div class="case-hero__dates"><time datetime="{escape(case.get('document_date') or '')}">Анонс от {escape(ru_date(case.get('document_date')))}</time>{f'<span>Период спора: {escape(period)}</span>' if period else ''}</div>{materials_link}</div></div>
         </header>
         {f'<section class="case-metrics-strip">{metrics}</section>' if metrics else ''}
-        <nav class="case-anchor-nav" aria-label="Содержание кейса"><a href="#overview">Суть дела</a>{'<a href="#history">История</a>' if case.get('stages') else ''}{'<a href="#project-cost">Стоимость проекта</a>' if project_cost_section else ''}{'<a href="#economics">Имущественный эффект</a>' if economics_section else ''}{f'<a class="case-anchor-nav__materials" href="#materials">Судебные акты · {len(published_files)}</a>' if published_files else ''}</nav>
+        <nav class="case-anchor-nav" aria-label="Содержание истории дела"><a href="#overview">Суть дела</a>{'<a href="#history">История</a>' if case.get('stages') else ''}{'<a href="#project-cost">Стоимость проекта</a>' if project_cost_section else ''}{'<a href="#economics">Имущественный эффект</a>' if economics_section else ''}{f'<a class="case-anchor-nav__materials" href="#materials">Судебные акты · {len(published_files)}</a>' if published_files else ''}</nav>
         {overview}
         {render_stages(case)}
         {project_cost_section}
@@ -1085,11 +1085,11 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
       </article>
       <section class="case-disclaimer"><strong>Важно</strong><p>Опубликованный результат относится к конкретным обстоятельствам дела и не гарантирует такой же исход в другой ситуации. Для правовой оценки нужны документы и фактический контекст.</p></section>
       <section class="cases-contact cases-contact--detail"><div><p class="cases-eyebrow">Есть похожая задача?</p><h2>Разберём факты до того, как они станут риском.</h2><p>Свяжитесь с юристом и расскажите, на какой стадии находится спор.</p></div><div><a href="tel:+74956460002">+7 (495) 646-00-02</a><a class="cases-contact__button" href="mailto:mail@elegso.ru">Написать юристу</a></div></section>
-      <a class="case-back-link" href="/cases/">← Все кейсы</a>
+      <a class="case-back-link" href="/cases/">← Успешный опыт</a>
     </main>"""
     return render_page(
         chrome,
-        title=str(case.get("seo_title") or f"{title} — кейс юридической компании «ЭЛЕГСО»"),
+        title=str(case.get("seo_title") or f"{title} — дело из практики юридической компании «ЭЛЕГСО»"),
         description=description,
         canonical=canonical,
         schema=detail_schema(case, description),

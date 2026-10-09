@@ -227,7 +227,7 @@ function migrationInitCasesNavigation() {
     casesItem.querySelectorAll('[id]').forEach((element) => element.removeAttribute('id'));
     casesLink = casesItem.querySelector('a');
     if (!casesLink) return;
-    casesLink.textContent = 'Кейсы';
+    casesLink.textContent = 'Успешный опыт';
     casesLink.href = '/cases/';
     casesLink.setAttribute('href', '/cases/');
     contactsItem.insertAdjacentElement('beforebegin', casesItem);
@@ -240,7 +240,7 @@ function migrationInitCasesNavigation() {
   casesLink.setAttribute('data-elegso-cases-nav', 'true');
   casesLink.setAttribute('data-menu-item-number', '3');
   casesLink.setAttribute('title', 'Юридические проекты и решённые дела');
-  casesLink.setAttribute('aria-label', 'Кейсы: юридические проекты и решённые дела');
+  casesLink.setAttribute('aria-label', 'Успешный опыт: юридические проекты и решённые дела');
   if (contactsLink) contactsLink.setAttribute('data-menu-item-number', '4');
 
   let hint = casesItem.querySelector('.elegso-cases-nav-hint');
@@ -275,14 +275,14 @@ function migrationInitCasesHeroButton() {
   button.className = 't-btn t-btnflex t-btnflex_type_button2 t-btnflex_md elegso-cases-cta';
   button.href = '/cases/';
   button.setAttribute('title', 'Посмотреть юридические проекты и решённые дела');
-  button.setAttribute('aria-label', 'Наши кейсы: решённые юридические дела');
-  button.innerHTML = '<span class="t-btnflex__text"><strong>Наши кейсы</strong><small>Решённые юридические дела</small></span>';
+  button.setAttribute('aria-label', 'Успешный опыт: решённые юридические дела');
+  button.innerHTML = '<span class="t-btnflex__text"><strong>Успешный опыт</strong><small>Решённые юридические дела</small></span>';
   row.appendChild(button);
 }
 function migrationInitCasesFooterCard() {
   const footer = document.getElementById('t-footer');
   if (!footer || footer.querySelector('.elegso-cases-footer-card')) return;
-  footer.insertAdjacentHTML('afterbegin', "<!--elegso-cases-footer:start--><div class=\"r t-rec elegso-footer-tile-wrap\" data-elegso-cases-footer><link rel=\"stylesheet\" href=\"/assets/footer-cards.css?v=20261005-footer-1\" data-elegso-footer-styles><a class=\"elegso-cases-footer-card elegso-footer-tile\" href=\"/cases/\"><img class=\"elegso-cases-footer-card__image\" src=\"/assets/publications/leasing-lawyer-when-to-contact-600.webp\" alt=\"\" width=\"96\" height=\"96\" loading=\"lazy\" decoding=\"async\"><span class=\"elegso-footer-tile__copy\"><strong class=\"elegso-cases-footer-card__title\">Наши кейсы</strong><span class=\"elegso-cases-footer-card__text\">Решённые юридические задачи и подтверждённые результаты</span></span><span class=\"elegso-cases-footer-card__action elegso-footer-tile__button\" aria-hidden=\"true\">Смотреть дела<span>→</span></span></a></div><!--elegso-cases-footer:end-->");
+  footer.insertAdjacentHTML('afterbegin', "<!--elegso-cases-footer:start--><div class=\"r t-rec elegso-footer-tile-wrap\" data-elegso-cases-footer><link rel=\"stylesheet\" href=\"/assets/footer-cards.css?v=20261005-footer-1\" data-elegso-footer-styles><a class=\"elegso-cases-footer-card elegso-footer-tile\" href=\"/cases/\"><img class=\"elegso-cases-footer-card__image\" src=\"/assets/publications/leasing-lawyer-when-to-contact-600.webp\" alt=\"\" width=\"96\" height=\"96\" loading=\"lazy\" decoding=\"async\"><span class=\"elegso-footer-tile__copy\"><strong class=\"elegso-cases-footer-card__title\">Успешный опыт</strong><span class=\"elegso-cases-footer-card__text\">Решённые юридические задачи и подтверждённые результаты</span></span><span class=\"elegso-cases-footer-card__action elegso-footer-tile__button\" aria-hidden=\"true\">Смотреть дела<span>→</span></span></a></div><!--elegso-cases-footer:end-->");
 }
 window.t_lazyload_update = migrationHydrateImages;
 window.t_lazyload_updateResize_elem = migrationHydrateImages;

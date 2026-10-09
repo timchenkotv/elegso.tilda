@@ -29,7 +29,7 @@ export function compactFooterLegal(body) {
 
 export function footerCard(kind, offers = defaultOffers) {
   const data = {
-    cases: {title:'Наши кейсы',description:'Решённые юридические задачи и подтверждённые результаты',image:'leasing-lawyer-when-to-contact',action:'Смотреть дела',url:'/cases/'},
+    cases: {title:'Успешный опыт',description:'Решённые юридические задачи и подтверждённые результаты',image:'leasing-lawyer-when-to-contact',action:'Смотреть дела',url:'/cases/'},
     articles: {title:'Статьи',description:'Юридические разборы и рекомендации для бизнеса',image:'electronic-documents-court-evidence',action:'Читать статьи',url:'/articles/'},
     offers: {title:'Условия сотрудничества',description:'Условия оказания услуг, оплаты и обработки персональных данных',image:'cooperation-terms'},
   }[kind];
