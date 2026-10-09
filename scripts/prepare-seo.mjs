@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { ensureSiteNavigation } from './site-navigation.mjs';
 
 const root = path.resolve('www');
 const productionOrigin = 'https://elegso.ru';
@@ -251,6 +252,7 @@ for (const file of files) {
   html = setMeta(html, 'property', 'og:locale', 'ru_RU');
   html = setMeta(html, 'name', 'twitter:card', 'summary_large_image');
   html = normalizeInternalAnchors(html, route, directoryRoutes);
+  html = ensureSiteNavigation(html);
   html = ensureH1(html, pageTitle, indexable);
   if (indexable) html = ensureSchema(html, { canonical, description, pageTitle, route });
   html = html.replace(/[ \t]+$/gm, '');

@@ -1,10 +1,12 @@
 /** Shared logo/header presentation. Original and previous image files are retained. */
+import { ensureSiteNavigation } from './site-navigation.mjs';
 export const previousLogo = '/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png';
 export const alternateLogo = '/assets/brand/elegso-logo-2026-10-05.png';
 export const currentLogo = previousLogo;
 export const brandVersion = '20261005-logo-2';
 
 export function updateSiteBrand(html) {
+  html = ensureSiteNavigation(html);
   html = html.replaceAll(alternateLogo, currentLogo);
   html = html.replace(/(src="\/assets\/migration\.js)(?:\?[^"\s]*)?/g, `$1?v=${brandVersion}`);
   if (!/<header\b[^>]*\bid="t-header"/.test(html)) return html;
