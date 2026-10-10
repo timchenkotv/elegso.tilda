@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261010-text-wrap-1"
+ASSET_VERSION = "20261010-text-wrap-2"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -517,10 +517,17 @@ def case_excerpt(case: dict[str, Any]) -> str:
 
 def case_story(case: dict[str, Any]) -> str:
     if case.get("use_separate_public_story"):
-        story = first_text(case.get("public_story"))
+        raw = str(case.get("public_story") or "").replace("\r\n", "\n").replace("\r", "\n")
+        paragraphs = [" ".join(part.split()) for part in re.split(r"\n\s*\n", raw)]
+        story = "\n\n".join(part for part in paragraphs if part)
         if story:
-            return story.rstrip()
+            return story
     return case_excerpt(case)
+
+
+def render_case_story(case: dict[str, Any]) -> str:
+    paragraphs = "".join(f"<p>{escape(part)}</p>" for part in case_story(case).split("\n\n") if part)
+    return f'<div class="case-summary">{paragraphs}</div>'
 
 
 def card_search_text(case: dict[str, Any]) -> str:
@@ -1032,7 +1039,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     category = str(case.get("case_category") or "Юридическая практика")
     canonical = f"{SITE_ORIGIN}/cases/{case['public_slug']}/"
     summary = case_excerpt(case)
-    story = case_story(case)
+    story = render_case_story(case)
     metrics = render_metrics(case)
     strategy = safe_rich(case.get("strategy_html"))
     result = safe_rich(case.get("result_html"))
@@ -1066,7 +1073,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     overview = f"""
       <section class="case-section case-overview" id="overview">
         <div class="case-section__label"><span>01</span><p>Суть дела</p></div>
-        <div class="case-section__content"><p class="cases-eyebrow">Задача и решение</p><h2>За сухими формулировками<br>стоит работа команды</h2><p class="case-summary">{escape(story)}</p>{f'<div class="case-overview__grid">{overview_sections}</div>' if overview_sections else ''}</div>
+        <div class="case-section__content"><p class="cases-eyebrow">Задача и решение</p><h2>За сухими формулировками<br>стоит работа команды</h2>{story}{f'<div class="case-overview__grid">{overview_sections}</div>' if overview_sections else ''}</div>
       </section>"""
     content = f"""
     <main class="case-page" data-case-detail>

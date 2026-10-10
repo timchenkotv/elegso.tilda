@@ -266,11 +266,33 @@ class CasePublisherTests(unittest.TestCase):
 
         self.assertIn("<p>Короткий публичный анонс.</p>", detail)
         self.assertIn(
-            '<p class="case-summary">Большой подробный рассказ о работе команды без сокращений.</p>',
+            '<div class="case-summary"><p>Большой подробный рассказ о работе команды без сокращений.</p></div>',
             detail,
         )
-        self.assertNotIn('<p class="case-summary">Короткий публичный анонс.</p>', detail)
+        self.assertNotIn('<div class="case-summary"><p>Короткий публичный анонс.</p></div>', detail)
         self.assertIn('class="case-card__excerpt is-clamped"', publisher.render_case_card(case, 0))
+
+    def test_separate_story_keeps_paragraphs_but_not_hard_line_wraps(self) -> None:
+        case = sample_case()
+        case["use_separate_public_story"] = True
+        case["public_story"] = "  Первая строка\r\nпродолжается.\r\n \r\nВторой\nабзац.\n\n\nТретий.  "
+
+        self.assertEqual(
+            publisher.render_case_story(case),
+            '<div class="case-summary"><p>Первая строка продолжается.</p><p>Второй абзац.</p><p>Третий.</p></div>',
+        )
+
+    def test_separate_story_is_escaped_as_plain_text(self) -> None:
+        case = sample_case()
+        case["use_separate_public_story"] = True
+        case["public_story"] = '<script>alert("x")</script> & <b>текст</b>\n\nСледующий абзац.'
+
+        rendered = publisher.render_case_story(case)
+        self.assertNotIn("<script>", rendered)
+        self.assertNotIn("<b>", rendered)
+        self.assertNotIn("<br", rendered)
+        self.assertIn('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt; &amp; &lt;b&gt;текст&lt;/b&gt;', rendered)
+        self.assertIn("<p>Следующий абзац.</p>", rendered)
 
     def test_old_case_without_separate_story_keeps_previous_rendering(self) -> None:
         case = sample_case()
