@@ -78,6 +78,21 @@ body.elegso-cases-page {
   text-wrap: pretty;
 }
 
+/* Case narratives should reflow as ordinary paragraphs, without splitting words. */
+.case-card__excerpt,
+.case-hero__copy > p,
+.case-summary,
+.case-prose,
+.case-section__intro,
+.case-effect > p,
+.case-disclaimer p {
+  -webkit-hyphens: none;
+  hyphens: none;
+  overflow-wrap: anywhere;
+  text-align: left;
+  text-wrap: wrap;
+}
+
 .cases-eyebrow {
   margin: 0 0 18px;
   color: var(--cases-clay);
@@ -1365,7 +1380,7 @@ body.elegso-cases-page {
 
 .case-overview__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1px;
   margin-top: 40px;
   background: var(--cases-line);
@@ -1402,6 +1417,10 @@ body.elegso-cases-page {
   color: #536461;
   font-size: 15px;
   line-height: 1.72;
+}
+
+.case-prose p {
+  margin: 0 0 1em;
 }
 
 .case-prose > :first-child {
