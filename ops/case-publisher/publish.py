@@ -1049,10 +1049,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     category = str(case.get("case_category") or "Юридическая практика")
     canonical = f"{SITE_ORIGIN}/cases/{case['public_slug']}/"
     summary = case_excerpt(case)
-<<<<<<< HEAD
     story = render_case_story(case)
-=======
->>>>>>> 173b619 (Collapse long case narratives after three paragraphs)
     metrics = render_metrics(case)
     strategy = safe_rich(case.get("strategy_html"))
     result = safe_rich(case.get("result_html"))
