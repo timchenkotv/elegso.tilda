@@ -304,6 +304,9 @@ class CasePublisherTests(unittest.TestCase):
         self.assertIn("Абзац 4.", tail)
         self.assertIn("Абзац 5.", tail)
         self.assertNotIn(" open", rendered)
+        self.assertIn("Развернуть продолжение рассказа", rendered)
+        self.assertIn("Рассказ продолжается — часть текста скрыта", rendered)
+        self.assertNotIn("Читать дальше", rendered)
         case["public_story"] = "Первый.\n\nВторой.\n\nТретий."
         self.assertNotIn('<details', publisher.render_case_story(case))
 

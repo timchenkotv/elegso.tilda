@@ -1404,6 +1404,16 @@ body.elegso-cases-page {
   font-weight: 700;
   cursor: pointer;
   list-style: none;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.case-story-more__expand small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .case-story-more > summary::-webkit-details-marker { display: none; }

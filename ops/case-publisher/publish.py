@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261011-story-1"
+ASSET_VERSION = "20261011-story-2"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -533,7 +533,8 @@ def render_case_story(case: dict[str, Any]) -> str:
     return f'<div class="case-summary">{opening}</div>' + (
         '<details class="case-story-more">'
         '<summary><span class="case-story-more__dots" aria-hidden="true">…</span>'
-        '<span class="case-story-more__expand">Читать дальше</span>'
+        '<span class="case-story-more__expand">Развернуть продолжение рассказа'
+        '<small>Рассказ продолжается — часть текста скрыта</small></span>'
         '<span class="case-story-more__collapse">Свернуть текст</span>'
         '<span class="case-story-more__arrow" aria-hidden="true">↓</span></summary>'
         '<div class="case-summary case-story-more__text">' + "".join(rendered[3:]) + '</div></details>'
