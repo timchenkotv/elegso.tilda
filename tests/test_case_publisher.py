@@ -293,6 +293,19 @@ class CasePublisherTests(unittest.TestCase):
         self.assertNotIn("<br", rendered)
         self.assertIn('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt; &amp; &lt;b&gt;текст&lt;/b&gt;', rendered)
         self.assertIn("<p>Следующий абзац.</p>", rendered)
+    def test_story_shows_three_paragraphs_and_keeps_full_tail_in_html(self) -> None:
+        case = sample_case()
+        case["use_separate_public_story"] = True
+        case["public_story"] = "\n\n".join(f"Абзац {i}." for i in range(1, 6))
+        rendered = publisher.render_case_story(case)
+        opening, tail = rendered.split('<details class="case-story-more">')
+        self.assertEqual(opening.count('<p>'), 3)
+        self.assertNotIn("Абзац 4.", opening)
+        self.assertIn("Абзац 4.", tail)
+        self.assertIn("Абзац 5.", tail)
+        self.assertNotIn(" open", rendered)
+        case["public_story"] = "Первый.\n\nВторой.\n\nТретий."
+        self.assertNotIn('<details', publisher.render_case_story(case))
 
     def test_old_case_without_separate_story_keeps_previous_rendering(self) -> None:
         case = sample_case()

@@ -1386,6 +1386,36 @@ body.elegso-cases-page {
   margin-top: 1em;
 }
 
+.case-story-more {
+  max-width: none;
+  margin-top: 20px;
+}
+
+.case-story-more > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid #9b3542;
+  border-radius: 8px;
+  color: #8c2735;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.case-story-more > summary::-webkit-details-marker { display: none; }
+.case-story-more > summary:hover { background: #f5e9e9; }
+.case-story-more > summary:focus-visible { outline: 2px solid #8c2735; outline-offset: 4px; }
+.case-story-more__dots { font-size: 22px; line-height: 1; }
+.case-story-more__collapse { display: none; }
+.case-story-more[open] .case-story-more__expand,
+.case-story-more[open] .case-story-more__dots { display: none; }
+.case-story-more[open] .case-story-more__collapse { display: inline; }
+.case-story-more[open] .case-story-more__arrow { transform: rotate(180deg); }
+
 .case-overview__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

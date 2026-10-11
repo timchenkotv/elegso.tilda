@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261010-restore-columns-1"
+ASSET_VERSION = "20261011-story-1"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -526,8 +526,18 @@ def case_story(case: dict[str, Any]) -> str:
 
 
 def render_case_story(case: dict[str, Any]) -> str:
-    paragraphs = "".join(f"<p>{escape(part)}</p>" for part in case_story(case).split("\n\n") if part)
-    return f'<div class="case-summary">{paragraphs}</div>'
+    rendered = [f'<p>{escape(part)}</p>' for part in case_story(case).split("\n\n") if part]
+    opening = "".join(rendered[:3])
+    if len(rendered) <= 3:
+        return f'<div class="case-summary">{opening}</div>'
+    return f'<div class="case-summary">{opening}</div>' + (
+        '<details class="case-story-more">'
+        '<summary><span class="case-story-more__dots" aria-hidden="true">…</span>'
+        '<span class="case-story-more__expand">Читать дальше</span>'
+        '<span class="case-story-more__collapse">Свернуть текст</span>'
+        '<span class="case-story-more__arrow" aria-hidden="true">↓</span></summary>'
+        '<div class="case-summary case-story-more__text">' + "".join(rendered[3:]) + '</div></details>'
+    )
 
 
 def card_search_text(case: dict[str, Any]) -> str:
@@ -1039,7 +1049,10 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     category = str(case.get("case_category") or "Юридическая практика")
     canonical = f"{SITE_ORIGIN}/cases/{case['public_slug']}/"
     summary = case_excerpt(case)
+<<<<<<< HEAD
     story = render_case_story(case)
+=======
+>>>>>>> 173b619 (Collapse long case narratives after three paragraphs)
     metrics = render_metrics(case)
     strategy = safe_rich(case.get("strategy_html"))
     result = safe_rich(case.get("result_html"))
