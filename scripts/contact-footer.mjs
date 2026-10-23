@@ -64,7 +64,7 @@ ${aliases.map(id => `<span data-elegso-contact-alias id="${escape(id)}"></span>`
     <h3>Свяжитесь удобным способом</h3>
     <p>Напишите на электронную почту или позвоните. Мы ответим в рабочее время.</p>
     <a class="elegso-contact-footer__action" href="mailto:mail@elegso.ru"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 6l9 7 9-7"/></svg><span><small>Написать юристу</small><strong>mail@elegso.ru</strong></span><b aria-hidden="true">↗</b></a>
-    <a class="elegso-contact-footer__action" href="tel:+74956460002"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3 4 5c-2 2 1 7 4 10s8 6 10 4l2-3-5-3-2 2-4-4 2-2z"/></svg><span><small>Позвонить</small><strong>+7 (495) 646-00-02</strong></span><b aria-hidden="true">↗</b></a>
+    <a class="elegso-contact-footer__action" href="tel:+74958221920"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3 4 5c-2 2 1 7 4 10s8 6 10 4l2-3-5-3-2 2-4-4 2-2z"/></svg><span><small>Позвонить</small><strong>+7 (495) 822-19-20</strong></span><b aria-hidden="true">↗</b></a>
     <a class="elegso-contact-footer__details" href="/contacts/">Контакты и схема проезда <span aria-hidden="true">→</span></a>
   </div>
 </div></section><!--elegso-contact-footer:end-->`;

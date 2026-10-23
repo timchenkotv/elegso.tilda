@@ -175,7 +175,7 @@ function ensureSchema(html, { canonical, description, pageTitle, route }) {
       url: `${productionOrigin}/`,
       logo: `${productionOrigin}/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png`,
       image: defaultOgImage,
-      telephone: '+7-495-646-00-02',
+      telephone: '+7-495-822-19-20',
       email: 'mail@elegso.ru',
       address: {
         '@type': 'PostalAddress',

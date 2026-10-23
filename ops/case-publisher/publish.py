@@ -478,7 +478,7 @@ def organisation_schema() -> dict[str, Any]:
         "name": "Юридическая компания «ЭЛЕГСО»",
         "url": f"{SITE_ORIGIN}/",
         "logo": f"{SITE_ORIGIN}/_external/static.tildacdn.com/tild6636-3836-4134-b236-373062316464/_v6_.png",
-        "telephone": "+7-495-646-00-02",
+        "telephone": "+7-495-822-19-20",
         "email": "mail@elegso.ru",
         "address": {
             "@type": "PostalAddress",
@@ -766,7 +766,7 @@ def render_listing(chrome: SiteChrome, cases: list[dict[str, Any]]) -> str:
 
       <section class="cases-contact">
         <div><p class="cases-eyebrow">Обсудить вашу ситуацию</p><h2>Похожее дело не означает одинаковый путь.</h2><p>Разберём документы и предложим стратегию с учётом вашей фактической ситуации.</p></div>
-        <div><a href="tel:+74956460002">+7 (495) 646-00-02</a><a class="cases-contact__button" href="mailto:mail@elegso.ru">Написать юристу</a></div>
+        <div><a href="tel:+74958221920">+7 (495) 822-19-20</a><a class="cases-contact__button" href="mailto:mail@elegso.ru">Написать юристу</a></div>
       </section>
     </main>"""
     return render_page(
@@ -1102,7 +1102,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
         {render_materials(case, api_base, materials_number)}
       </article>
       <section class="case-disclaimer"><strong>Важно</strong><p>Опубликованный результат относится к конкретным обстоятельствам дела и не гарантирует такой же исход в другой ситуации. Для правовой оценки нужны документы и фактический контекст.</p></section>
-      <section class="cases-contact cases-contact--detail"><div><p class="cases-eyebrow">Есть похожая задача?</p><h2>Разберём факты до того, как они станут риском.</h2><p>Свяжитесь с юристом и расскажите, на какой стадии находится спор.</p></div><div><a href="tel:+74956460002">+7 (495) 646-00-02</a><a class="cases-contact__button" href="mailto:mail@elegso.ru">Написать юристу</a></div></section>
+      <section class="cases-contact cases-contact--detail"><div><p class="cases-eyebrow">Есть похожая задача?</p><h2>Разберём факты до того, как они станут риском.</h2><p>Свяжитесь с юристом и расскажите, на какой стадии находится спор.</p></div><div><a href="tel:+74958221920">+7 (495) 822-19-20</a><a class="cases-contact__button" href="mailto:mail@elegso.ru">Написать юристу</a></div></section>
       <a class="case-back-link" href="/cases/">← Успешный опыт</a>
     </main>"""
     return render_page(

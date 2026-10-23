@@ -1,0 +1,27 @@
+.elegso-contact-reveal {
+  display: inline-block;
+  filter: blur(3px);
+  transition: filter 180ms ease;
+}
+
+.elegso-contact-reveal:hover,
+a:hover .elegso-contact-reveal,
+a:focus-visible .elegso-contact-reveal,
+.elegso-contact-reveal:focus-visible,
+.elegso-contact-reveal.is-revealed {
+  filter: none;
+}
+
+.elegso-contact-reveal:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@media (hover: none) {
+  .elegso-contact-reveal:active,
+  a:active .elegso-contact-reveal { filter: none; }
+}
+
+@media print, (prefers-reduced-transparency: reduce) {
+  .elegso-contact-reveal { filter: none; }
+}

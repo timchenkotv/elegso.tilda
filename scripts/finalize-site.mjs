@@ -44,9 +44,9 @@ function contactPanel({ popup = false, calculator = false } = {}) {
       <span><small>Электронная почта</small><strong>mail@elegso.ru</strong></span>
       <span class="elegso-contact-card__arrow" aria-hidden="true">→</span>
     </a>
-    <a class="elegso-contact-card__action elegso-contact-card__action--phone" href="tel:+74956460002" aria-label="Позвонить по номеру +7 495 646-00-02">
+    <a class="elegso-contact-card__action elegso-contact-card__action--phone" href="tel:+74958221920" aria-label="Позвонить по номеру +7 495 822-19-20">
       <span class="elegso-contact-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.1 3.75 4.5 5.25c-.9.52-.96 2.1-.15 4.06a19.6 19.6 0 0 0 10.34 10.34c1.96.81 3.54.75 4.06-.15l1.5-2.6-4.35-2.5-1.15 1.65c-.37.53-1.12.67-1.7.37a12.18 12.18 0 0 1-5.52-5.52c-.3-.58-.16-1.33.37-1.7L9.6 8.1z"/></svg></span>
-      <span><small>Телефон</small><strong>+7 (495) 646-00-02</strong></span>
+      <span><small>Телефон</small><strong>+7 (495) 822-19-20</strong></span>
       <span class="elegso-contact-card__arrow" aria-hidden="true">→</span>
     </a>
   </div>
@@ -157,13 +157,13 @@ function updateContactCopy(html) {
     )
     .replace(
       /<a href="" class="t824__phone t-name t-name_lg">\+7 \(495\) 646-00-02<\/a>/g,
-      '<a href="tel:+74956460002" class="t824__phone t-name t-name_lg">+7 (495) 646-00-02</a>',
+      '<a href="tel:+74958221920" class="t824__phone t-name t-name_lg">+7 (495) 822-19-20</a>',
     )
     .replace(/>Отправить заявку</g, '>Связаться с юристом<')
     .replaceAll('mailto:mailto:mail@elegso.ru', 'mailto:mail@elegso.ru')
-    .replaceAll('href="tel: +7(495)646-00-02"', 'href="tel:+74956460002"')
-    .replaceAll('href="tel: +7 (495) 646-00-02"', 'href="tel:+74956460002"')
-    .replaceAll('href="tel:+7 (495) 646-00-02"', 'href="tel:+74956460002"');
+    .replaceAll('href="tel: +7(495)822-19-20"', 'href="tel:+74958221920"')
+    .replaceAll('href="tel: +7 (495) 822-19-20"', 'href="tel:+74958221920"')
+    .replaceAll('href="tel:+7 (495) 822-19-20"', 'href="tel:+74958221920"');
 }
 
 async function walk(dir) {
@@ -711,5 +711,6 @@ await fs.writeFile(path.join(root, 'sitemap.xml'), liveSitemap, 'utf8');
 // prepare-seo also writes the safe on-disk robots.txt fallback; preview hosts
 // must be protected in their own virtual-host configuration.
 await import('./prepare-seo.mjs');
+await import('./apply-contact-reveal.mjs');
 
 console.log('Finalized HTML metadata, branded footer and contact-only communication.');
