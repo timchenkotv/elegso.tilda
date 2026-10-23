@@ -65,6 +65,7 @@
         if (match.index > cursor) fragment.append(document.createTextNode(text.slice(cursor, match.index)));
         const span = document.createElement('span');
         span.className = 'elegso-contact-reveal';
+        if (match[0].includes('@')) span.classList.add('elegso-contact-reveal--email');
         if (!node.parentElement.closest('a')) span.tabIndex = 0;
         span.textContent = match[0];
         enableDisclosure(span);

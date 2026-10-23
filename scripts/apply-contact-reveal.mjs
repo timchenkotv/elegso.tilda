@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve('www');
-const version = '20261023-2';
+const version = '20261023-3';
 const css = `<link rel="stylesheet" href="/assets/contact-reveal.css?v=${version}">`;
 const js = `<script src="/assets/contact-reveal.js?v=${version}" defer></script>`;
 

@@ -5,6 +5,11 @@
   cursor: pointer;
 }
 
+.elegso-contact-reveal--email {
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 58%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 4%, #000 58%, #000 100%);
+}
+
 .elegso-contact-reveal.is-revealed,
 a:focus-visible .elegso-contact-reveal,
 .elegso-contact-reveal:focus-visible {
