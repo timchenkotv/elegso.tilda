@@ -1,15 +1,15 @@
 .elegso-contact-reveal {
   display: inline-block;
-  filter: blur(3px);
-  transition: filter 180ms ease;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 96%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 96%);
+  cursor: pointer;
 }
 
-.elegso-contact-reveal:hover,
-a:hover .elegso-contact-reveal,
+.elegso-contact-reveal.is-revealed,
 a:focus-visible .elegso-contact-reveal,
-.elegso-contact-reveal:focus-visible,
-.elegso-contact-reveal.is-revealed {
-  filter: none;
+.elegso-contact-reveal:focus-visible {
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .elegso-contact-reveal:focus-visible {
@@ -17,11 +17,9 @@ a:focus-visible .elegso-contact-reveal,
   outline-offset: 2px;
 }
 
-@media (hover: none) {
-  .elegso-contact-reveal:active,
-  a:active .elegso-contact-reveal { filter: none; }
-}
-
 @media print, (prefers-reduced-transparency: reduce) {
-  .elegso-contact-reveal { filter: none; }
+  .elegso-contact-reveal {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }

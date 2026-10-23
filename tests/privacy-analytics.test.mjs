@@ -143,6 +143,25 @@ test('explicit opt-in loads one counter only after receipt and sends sanitized p
   assert.ok([...state.timers.values()].every(timer => timer.delay <= 2147483647));
 });
 
+test('contact interest goal sends only category and action after analytics consent', async () => {
+  const state = runtime();
+  assert.equal(state.window.elegsoTrackContactInterest('phone', 'movement'), false);
+  assert.equal(state.calls.length, 0);
+  state.click('accept'); await flush();
+  assert.equal(state.window.elegsoTrackContactInterest('phone', 'movement'), false);
+  state.finishLoad();
+  assert.equal(state.window.elegsoTrackContactInterest('phone', 'movement'), true);
+  assert.equal(state.window.elegsoTrackContactInterest('email', 'click'), true);
+  assert.equal(state.window.elegsoTrackContactInterest('mail@elegso.ru', 'click'), false);
+  assert.deepEqual(state.calls.slice(-2).map(call => [call[1], call[2], call[3].contact_type, call[3].interaction]), [
+    ['reachGoal', 'contact_interest', 'phone', 'movement'],
+    ['reachGoal', 'contact_interest', 'email', 'click'],
+  ]);
+  state.click('reject');
+  assert.equal(state.window.elegsoTrackContactInterest('phone', 'click'), false);
+  assert.equal(state.calls.at(-1)[1], 'destruct');
+});
+
 test('settings replace notice and closing an unsaved switch never grants consent', () => {
   const state = runtime();
   assert.equal(state.panel.attrs['data-mode'], 'notice');

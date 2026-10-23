@@ -64,6 +64,15 @@
     }, Math.max(1, Math.min(remaining, 2147483647)));
   }
   function permitted() { return preferences?.analytics === true && validReceipt(preferences.receipt, preferences.choiceId, true) && Date.parse(preferences.expiresAt) > Date.now(); }
+  // Contact values are never sent: only the channel and interaction are reported.
+  window.elegsoTrackContactInterest = (kind, action) => {
+    if (!active || !permitted() || typeof window.ym !== 'function'
+      || !['phone', 'email'].includes(kind) || !['movement', 'click', 'tap', 'focus'].includes(action)) return false;
+    try {
+      window.ym(counter, 'reachGoal', 'contact_interest', { contact_type: kind, interaction: action });
+      return true;
+    } catch { return false; }
+  };
   function cleanUrl(value) {
     try {
       const url = new URL(value, window.location.origin);

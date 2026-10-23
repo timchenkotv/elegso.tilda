@@ -6,6 +6,39 @@
   const oldDigits = /(?:\+?7[\s()-]*495[\s()-]*646[\s()-]*00[\s()-]*02)/g;
   const excluded = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'INPUT', 'CODE', 'PRE', 'OPTION']);
   const archivedOffer = /^\/oferta(?:-fiz)?\/versions\//.test(location.pathname);
+  const reported = new Set();
+
+  function kindFor(value) { return value.includes('@') ? 'email' : 'phone'; }
+  function report(kind, action) {
+    if (reported.has(kind) || typeof window.elegsoTrackContactInterest !== 'function') return;
+    if (window.elegsoTrackContactInterest(kind, action) === true) reported.add(kind);
+  }
+  function reveal(element, action) {
+    if (!element || element.classList.contains('is-revealed')) return;
+    element.classList.add('is-revealed');
+    report(kindFor(element.textContent), action);
+  }
+
+  function enableDisclosure(element) {
+    let lastX = null;
+    let lastY = null;
+    let travel = 0;
+    element.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      travel = 0;
+    });
+    element.addEventListener('pointermove', event => {
+      if (element.classList.contains('is-revealed') || (event.pointerType !== 'mouse' && event.pointerType !== 'pen')) return;
+      if (lastX !== null) travel += Math.hypot(event.clientX - lastX, event.clientY - lastY);
+      lastX = event.clientX;
+      lastY = event.clientY;
+      if (travel >= 10) reveal(element, 'movement');
+    });
+    element.addEventListener('pointerleave', () => { lastX = null; lastY = null; travel = 0; });
+    element.addEventListener('focus', () => reveal(element, 'focus'));
+  }
 
   function decorate(root) {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -34,6 +67,7 @@
         span.className = 'elegso-contact-reveal';
         if (!node.parentElement.closest('a')) span.tabIndex = 0;
         span.textContent = match[0];
+        enableDisclosure(span);
         fragment.append(span);
         cursor = match.index + match[0].length;
       }
@@ -58,9 +92,14 @@
     decorate(document.body);
     document.body.addEventListener('click', event => {
       const target = event.target.closest?.('.elegso-contact-reveal');
-      if (!target || !window.matchMedia('(hover: none)').matches || target.classList.contains('is-revealed')) return;
-      event.preventDefault();
-      target.classList.add('is-revealed');
+      const link = event.target.closest?.('a[href^="tel:"], a[href^="mailto:"]');
+      if (target && window.matchMedia('(hover: none)').matches && !target.classList.contains('is-revealed')) {
+        event.preventDefault();
+        reveal(target, 'tap');
+        return;
+      }
+      if (target) reveal(target, 'click');
+      if (link) report(link.href.startsWith('mailto:') ? 'email' : 'phone', 'click');
     });
   }
 
