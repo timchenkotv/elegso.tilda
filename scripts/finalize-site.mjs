@@ -4,6 +4,7 @@ import path from 'node:path';
 import { casesFooterRuntime } from './footer-cards.mjs';
 import { contactPopupAssetVersion, disableAutomaticContactPopups } from './disable-contact-autopopups.mjs';
 import { applyPrivacyAnalytics, loadPrivacyBuild } from './privacy-analytics.mjs';
+import { replaceWhatsapp } from './replace-whatsapp.mjs';
 
 const root = path.resolve('www');
 const privacyBuild = await loadPrivacyBuild(path.resolve('.'));
@@ -227,6 +228,7 @@ for (const file of await walk(root)) {
     .replace(/\s*<div class="t678__form-bottom-text\b[^>]*>[\s\S]*?<\/div>/gi, '')
     .replace(/\sdata-tilda-formskey=(?:"[^"]*"|'[^']*')/gi, '');
   html = updateContactCopy(html);
+  html = replaceWhatsapp(html);
   html = replaceTildaLabel(html);
 
   html = html.replace(
