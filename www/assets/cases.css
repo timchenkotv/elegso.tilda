@@ -1194,6 +1194,7 @@ body.elegso-cases-page {
 }
 
 .case-hero__footer {
+  clear: both;
   position: relative;
   z-index: 1;
   display: flex;
@@ -1202,6 +1203,22 @@ body.elegso-cases-page {
   justify-content: space-between;
   gap: 18px 28px;
   margin-top: 27px;
+}
+
+.case-illustration {
+  float: left;
+  width: min(32%, 230px);
+  margin: 0 22px 14px 0;
+}
+.case-illustration a { display: block; }
+.case-illustration img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+@media (max-width: 580px) {
+  .case-illustration { width: 140px; max-width: 42%; margin-right: 14px; }
 }
 
 .case-hero__dates {

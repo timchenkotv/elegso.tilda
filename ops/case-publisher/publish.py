@@ -26,7 +26,7 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261011-story-2"
+ASSET_VERSION = "20261103-illustrations-1"
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -1050,6 +1050,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     category = str(case.get("case_category") or "Юридическая практика")
     canonical = f"{SITE_ORIGIN}/cases/{case['public_slug']}/"
     summary = case_excerpt(case)
+    illustration = render_illustration(case)
     story = render_case_story(case)
     metrics = render_metrics(case)
     strategy = safe_rich(case.get("strategy_html"))
@@ -1091,7 +1092,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
       <nav class="case-breadcrumbs" aria-label="Навигационная цепочка"><a href="/">Главная</a><span>·</span><a href="/cases/">Успешный опыт</a><span>·</span><b>{escape(category)}</b></nav>
       <article>
         <header class="case-hero">
-          <div class="case-hero__copy"><div class="case-hero__meta"><span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span><span>{escape(category)}</span>{f'<span>Дело № {escape(case.get("court_case_number"))}</span>' if case.get('court_case_number') else ''}</div><h1>{escape(title)}</h1><p>{escape(summary)}</p><div class="case-hero__footer"><div class="case-hero__dates"><time datetime="{escape(case.get('document_date') or '')}">Анонс от {escape(ru_date(case.get('document_date')))}</time>{f'<span>Период спора: {escape(period)}</span>' if period else ''}</div>{materials_link}</div></div>
+          <div class="case-hero__copy"><div class="case-hero__meta"><span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span><span>{escape(category)}</span>{f'<span>Дело № {escape(case.get("court_case_number"))}</span>' if case.get('court_case_number') else ''}</div><h1>{escape(title)}</h1>{illustration}<p>{escape(summary)}</p><div class="case-hero__footer"><div class="case-hero__dates"><time datetime="{escape(case.get('document_date') or '')}">Анонс от {escape(ru_date(case.get('document_date')))}</time>{f'<span>Период спора: {escape(period)}</span>' if period else ''}</div>{materials_link}</div></div>
         </header>
         {f'<section class="case-metrics-strip">{metrics}</section>' if metrics else ''}
         <nav class="case-anchor-nav" aria-label="Содержание истории дела"><a href="#overview">Суть дела</a>{'<a href="#history">История</a>' if case.get('stages') else ''}{'<a href="#project-cost">Стоимость проекта</a>' if project_cost_section else ''}{'<a href="#economics">Имущественный эффект</a>' if economics_section else ''}{f'<a class="case-anchor-nav__materials" href="#materials">Судебные акты · {len(published_files)}</a>' if published_files else ''}</nav>
@@ -1115,6 +1116,57 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
         alias=f"case-{case['public_slug']}",
         content=content,
     )
+
+
+def illustration_filename(case: dict[str, Any]) -> str | None:
+    image = case.get("illustration")
+    if not image:
+        return None
+    extensions = {"image/webp": "webp", "image/png": "png", "image/jpeg": "jpg"}
+    digest = str(image.get("sha256") or "")
+    extension = extensions.get(image.get("content_type"))
+    if not re.fullmatch(r"[a-f0-9]{64}", digest) or not extension:
+        raise ValueError("Invalid case illustration metadata")
+    return f"illustration-{digest}.{extension}"
+
+
+def render_illustration(case: dict[str, Any]) -> str:
+    filename = illustration_filename(case)
+    if not filename:
+        return ""
+    href = f"/cases/{case['public_slug']}/{filename}"
+    alt = case["illustration"].get("illustration_alt") or case.get("public_title") or "Иллюстрация дела"
+    return (f'<figure class="case-illustration"><a href="{escape(href)}" target="_blank" rel="noopener" title="Открыть оригинал">'
+        f'<img src="{escape(href)}" alt="{escape(alt)}" decoding="async"></a></figure>')
+
+
+def download_illustration(case: dict[str, Any], api_base: str, destination: Path, previous: Path | None = None) -> None:
+    filename = illustration_filename(case)
+    if not filename:
+        return
+    image = case["illustration"]
+    expected_size = int(image.get("size_bytes") or 0)
+    if not 0 < expected_size <= 32 * 1024 * 1024:
+        raise ValueError("Invalid case illustration size")
+    cached = previous / "cases" / case["public_slug"] / filename if previous else None
+    if cached and cached.is_file():
+        data = cached.read_bytes()
+    else:
+        origin = urllib.parse.urlsplit(api_base)
+        path = f"{origin.path.rstrip('/')}/{case['public_slug']}/illustration"
+        url = urllib.parse.urljoin(api_base, str(image.get("content_url") or ""))
+        parsed = urllib.parse.urlsplit(url)
+        if (parsed.scheme, parsed.netloc, parsed.path) != (origin.scheme, origin.netloc, path):
+            raise ValueError("Illustration URL is outside the public case API")
+        request = urllib.request.Request(url, headers={"User-Agent": "ElegsoCasePublisher/1.0"})
+        with urllib.request.urlopen(request, timeout=45) as response:
+            final = urllib.parse.urlsplit(response.url)
+            if (final.scheme, final.netloc, final.path) != (origin.scheme, origin.netloc, path):
+                raise ValueError("Unexpected illustration redirect")
+            data = response.read(expected_size + 1)
+    if len(data) != expected_size or hashlib.sha256(data).hexdigest() != image["sha256"]:
+        raise ValueError("Illustration SHA-256 or size mismatch; previous release retained")
+    (destination / filename).write_bytes(data)
 
 
 def fetch_json(url: str, timeout: int = 35) -> Any:
@@ -1271,6 +1323,7 @@ def write_release(
             for case in cases:
                 destination = cases_dir / str(case["public_slug"])
                 destination.mkdir()
+                download_illustration(case, api_base, destination, current.resolve() if current.is_symlink() else None)
                 (destination / "index.html").write_text(
                     render_detail(chrome, case, api_base), encoding="utf-8"
                 )

@@ -1,5 +1,15 @@
 # Public case publisher
 
+Case illustrations are selected separately in the announcement's Publication and
+SEO tab in INELSIBI.PRAVO. The publisher receives only an explicitly published
+descriptor, downloads the exact original into the generated case directory and
+checks byte size and SHA-256. It never resizes or re-encodes the binary. A small
+left-aligned image appears at the start of the case summary; clicking opens the
+original. Same-SHA originals are reused from the preceding release, and a failed
+download/check retains the whole previous release. Clearing the selection removes
+the image on the next successful publication. Existing public caches are not a
+confidential-file revocation mechanism.
+
 `publish.py` reads only the anonymous public API of INELSIBI.PRAVO. Drafts,
 unreviewed announcements and unpublished material nodes cannot enter the site
 because the source API does not return them.
