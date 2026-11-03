@@ -1184,7 +1184,8 @@ body.elegso-cases-page {
   letter-spacing: -0.035em;
 }
 
-.case-hero__copy > p {
+.case-hero__copy > p,
+.case-hero__intro > p {
   max-width: 900px;
   margin: 22px 0 0;
   color: rgba(255, 255, 255, 0.76);
@@ -1194,7 +1195,6 @@ body.elegso-cases-page {
 }
 
 .case-hero__footer {
-  clear: both;
   position: relative;
   z-index: 1;
   display: flex;
@@ -1205,6 +1205,8 @@ body.elegso-cases-page {
   margin-top: 27px;
 }
 
+.case-hero__intro { display: flow-root; margin-top: 22px; }
+.case-hero__intro > p { margin-top: 0; }
 .case-illustration {
   float: left;
   width: min(32%, 230px);

@@ -1051,6 +1051,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
     canonical = f"{SITE_ORIGIN}/cases/{case['public_slug']}/"
     summary = case_excerpt(case)
     illustration = render_illustration(case)
+    intro = f'<div class="case-hero__intro">{illustration}<p>{escape(summary)}</p></div>' if illustration else f'<p>{escape(summary)}</p>'
     story = render_case_story(case)
     metrics = render_metrics(case)
     strategy = safe_rich(case.get("strategy_html"))
@@ -1092,7 +1093,7 @@ def render_detail(chrome: SiteChrome, case: dict[str, Any], api_base: str) -> st
       <nav class="case-breadcrumbs" aria-label="Навигационная цепочка"><a href="/">Главная</a><span>·</span><a href="/cases/">Успешный опыт</a><span>·</span><b>{escape(category)}</b></nav>
       <article>
         <header class="case-hero">
-          <div class="case-hero__copy"><div class="case-hero__meta"><span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span><span>{escape(category)}</span>{f'<span>Дело № {escape(case.get("court_case_number"))}</span>' if case.get('court_case_number') else ''}</div><h1>{escape(title)}</h1>{illustration}<p>{escape(summary)}</p><div class="case-hero__footer"><div class="case-hero__dates"><time datetime="{escape(case.get('document_date') or '')}">Анонс от {escape(ru_date(case.get('document_date')))}</time>{f'<span>Период спора: {escape(period)}</span>' if period else ''}</div>{materials_link}</div></div>
+          <div class="case-hero__copy"><div class="case-hero__meta"><span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span><span>{escape(category)}</span>{f'<span>Дело № {escape(case.get("court_case_number"))}</span>' if case.get('court_case_number') else ''}</div><h1>{escape(title)}</h1>{intro}<div class="case-hero__footer"><div class="case-hero__dates"><time datetime="{escape(case.get('document_date') or '')}">Анонс от {escape(ru_date(case.get('document_date')))}</time>{f'<span>Период спора: {escape(period)}</span>' if period else ''}</div>{materials_link}</div></div>
         </header>
         {f'<section class="case-metrics-strip">{metrics}</section>' if metrics else ''}
         <nav class="case-anchor-nav" aria-label="Содержание истории дела"><a href="#overview">Суть дела</a>{'<a href="#history">История</a>' if case.get('stages') else ''}{'<a href="#project-cost">Стоимость проекта</a>' if project_cost_section else ''}{'<a href="#economics">Имущественный эффект</a>' if economics_section else ''}{f'<a class="case-anchor-nav__materials" href="#materials">Судебные акты · {len(published_files)}</a>' if published_files else ''}</nav>
