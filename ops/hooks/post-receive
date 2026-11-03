@@ -84,6 +84,12 @@ while read -r old new ref; do
     # Install the case publisher before switching the public release. It reads
     # only the anonymous API and atomically keeps the last known-good output.
     if [ -f "$release/ops/case-publisher/publish.py" ]; then
+        # The public-IP hairpin is unavailable inside this datacenter. Resolve
+        # only the law API hostname to its normal internal HTTPS edge instead.
+        if [ -f "$release/ops/case-publisher/law-api-hosts.conf" ]; then
+            sudo /usr/bin/python3 "$release/ops/case-publisher/configure-hosts.py" \
+                --hosts /etc/hosts --mapping "$release/ops/case-publisher/law-api-hosts.conf"
+        fi
         sudo /usr/bin/install -d -o root -g root -m 0755 "$publisher"
         sudo /usr/bin/install -o root -g root -m 0755 \
             "$release/ops/case-publisher/publish.py" \

@@ -1,5 +1,12 @@
 # Public case publisher
 
+VM240 resolves `law.elegso.ru` to the internal TLS edge 172.16.8.1 using the narrow
+managed hosts block in `law-api-hosts.conf`. The public-IP hairpin from VM240 is
+not available; direct VM805 HTTP is correctly blocked by its firewall. Deployment
+applies only this hostname mapping, preserves other hosts entries and refuses a
+conflicting unmanaged mapping. HTTPS names, certificate verification, public
+document URLs and firewall policy stay unchanged. No employee/client IP is used.
+
 Case illustrations are selected separately in the announcement's Publication and
 SEO tab in INELSIBI.PRAVO. The publisher receives only an explicitly published
 descriptor, downloads the exact original into the generated case directory and
