@@ -22,9 +22,8 @@ test('living recruitment portraits match saved assets and all earlier artwork an
 test('art update changes only versioned image references and recruiting cache version, not layout or prose', () => {
   for (const baseline of manifest.layoutBaselines) {
     const normalized = read(baseline.path).toString()
-      .replaceAll('recruitment-hero-v2', 'recruitment-hero')
-      .replaceAll('recruitment-assessment-v2', 'recruitment-assessment')
-      .replaceAll('20261104-recruitment-2', '20261104-recruitment-1');
+      .replace(/recruitment-(hero|assessment)-v[23](?=[.-])/g, 'recruitment-$1')
+      .replace(/20261104-recruitment-[23]/g, '20261104-recruitment-1');
     assert.equal(hash(normalized), baseline.sha256, baseline.path);
   }
 });

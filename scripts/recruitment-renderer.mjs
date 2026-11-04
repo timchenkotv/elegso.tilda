@@ -1,6 +1,6 @@
 import { esc, arrow, designHead } from './site-shell.mjs';
 
-const assetVersion = '20261104-recruitment-2';
+const assetVersion = '20261104-recruitment-3';
 const origin = 'https://elegso.ru';
 const money = value => Number(value).toLocaleString('ru-RU', { maximumFractionDigits: 0 }) + ' ₽';
 const paragraphs = values => (values || []).map(value => `<p>${esc(value)}</p>`).join('');
@@ -31,7 +31,7 @@ function specialisations(page, data) {
 }
 
 function approach(page) {
-  return `<section class="section section--white" id="approach"><div class="container recruitment-approach"><div class="recruitment-assessment-art"><img src="/assets/redesign/recruitment-assessment-v2.webp" srcset="/assets/redesign/recruitment-assessment-v2-720.webp 720w, /assets/redesign/recruitment-assessment-v2.webp 1200w" sizes="(max-width:767px) 100vw, 50vw" width="1200" height="675" alt="Объёмная композиция: профессиональные компетенции, оценка и точный выбор специалиста" loading="lazy"></div><div class="recruitment-prose"><p class="eyebrow">Точность выбора</p><h2 class="section-title">${esc(page.intro.title)}</h2>${paragraphs(page.intro.paragraphs)}</div></div><div class="container recruitment-criteria">${page.criteria.map((item, index) => `<article><span class="recruitment-index">${String(index + 1).padStart(2, '0')}</span><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></article>`).join('')}</div></section>`;
+  return `<section class="section section--white" id="approach"><div class="container recruitment-approach"><div class="recruitment-assessment-art"><img src="/assets/redesign/recruitment-assessment-v3.webp" srcset="/assets/redesign/recruitment-assessment-v3-720.webp 720w, /assets/redesign/recruitment-assessment-v3.webp 1200w" sizes="(max-width:767px) 100vw, 50vw" width="1200" height="675" alt="Объёмная композиция: профессиональные компетенции, оценка и точный выбор специалиста" loading="lazy"></div><div class="recruitment-prose"><p class="eyebrow">Точность выбора</p><h2 class="section-title">${esc(page.intro.title)}</h2>${paragraphs(page.intro.paragraphs)}</div></div><div class="container recruitment-criteria">${page.criteria.map((item, index) => `<article><span class="recruitment-index">${String(index + 1).padStart(2, '0')}</span><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></article>`).join('')}</div></section>`;
 }
 
 const steps = [
@@ -83,7 +83,7 @@ export function renderRecruitingPage(page, data) {
     ],
   };
   let head = designHead({ title: page.title, description: page.description, route: page.route, schemas: [graph] });
-  head = head.replace(/(<meta property="og:image" content=")[^"]+(">)/, `$1${origin}/assets/redesign/recruitment-hero-v2.webp$2`)
+  head = head.replace(/(<meta property="og:image" content=")[^"]+(">)/, `$1${origin}/assets/redesign/recruitment-hero-v3.webp$2`)
     .replace('</head>', `<link rel="stylesheet" href="/assets/redesign/recruitment.css?v=${assetVersion}"><script src="/assets/redesign/recruitment.js?v=${assetVersion}" defer></script></head>`);
   return head + `<body class="elegso-redesign recruitment-page" data-page="${esc(page.slug)}"><a class="skip-link" href="#main">К содержанию</a><div class="site-shell" id="allrecords">${recruitmentHeader(page, data)}<main id="main">${recruitmentHero(page, data)}${specialisations(page, data)}${approach(page)}${processBlock()}${contentSections(page)}${pricing(data)}${faq(page)}${related(page, data)}</main>${recruitmentFooter(data)}</div></body></html>`;
 }

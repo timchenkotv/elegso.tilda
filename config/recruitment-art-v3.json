@@ -1,0 +1,95 @@
+{
+  "approvedOn": "2026-11-04",
+  "generator": "built-in image_gen.imagegen (approved preview from previous turn; no regeneration)",
+  "previous": "config/recruitment-art-v2.json",
+  "scope": "Publish the exact approved car/workplace previews; image references and cache version only",
+  "approvalSourceHashes": {
+    "hero": "fa952f7ec17bd8955289330ec15b940aa2c2f3b148395444e4e864481e7a27fd",
+    "assessment": "2aafd0bf6fd03d21a89c62ca766c0a03b37ba96e011854a0cbafdd0701dd2c33"
+  },
+  "prompts": [
+    {
+      "target": "assets-source/redesign/recruitment-hero-v2.png",
+      "preview": "hero-cars-preview.png",
+      "prompt": "Use case: precise-object-edit.\nAsset type: PREVIEW ONLY, focused additions to our approved recruitment hero illustration.\nInput Image 1 is the EDIT TARGET. The user has APPROVED this exact image and does not want it redesigned. Preserve its wide 1816x866 canvas, camera angle, perspective, exact framing, all three living portrait identities and clothing, glass monitor shapes, gold frames, emerald marble columns and plinths, golden spiral, mountains, lighting and dark negative space. The front woman, left man and right woman stay exactly as they are, at exactly the same size. Change ONLY by adding a few small, convincing human-life details at the bottom.\nAdd exactly THREE SMALL photorealistic cars parked naturally around the lower bases on the reflective ground in the RIGHT 55% of the scene: one refined dark graphite Porsche Cayenne SUV, one ordinary modern metallic red/copper Lada Vesta sedan, and one understated pearl-silver Mercedes-Benz C-Class sedan. Show recognizable body shapes and details, not giant brand logos. These are miniature-scale environmental vignettes relative to the existing tall portrait monitors: each car about 8–12% of total image width, placed mainly in the bottom 15–20% of the canvas. They must NOT become the subject, overlap the people's faces, cover the monitor frames, or require moving/resizing the architecture. Keep them fully in frame with comfortable bottom margins, realistic contact shadows and restrained reflections.\nArrange the Lada toward the left side of the architecture's base (not in the empty left text area), Porsche near the front/lower centre of the right architectural grouping, and Mercedes slightly farther to the right. Give one Mercedes door a natural open angle, with ONE tiny adult business professional standing beside that open door, as if just arriving at work. The tiny person is scaled correctly to the car, about one-third its length in height, in restrained business clothing, with ordinary natural anatomy. No crowd.\nMatch the scene's premium photorealistic 3D materials and warm brass / cool green cinematic lighting. The cars have natural colored paint and small human details, conveying a workplace arrival rather than a showroom. No roads, parking stripes, signs, buildings or other new scenery.\nStrict invariants: retain the full LEFT45% as empty dark low-contrast background for HTML text; no car, person or props there. Do not alter, crop, zoom, enlarge or remove any approved element. No new text, readable license plates, slogans, labels, large logos, watermarks, giant cars, cartoon miniatures or toy-like plastic. Original composition remains dominant; additions are small, tasteful and secondary."
+    },
+    {
+      "target": "assets-source/redesign/recruitment-assessment-v2.png",
+      "preview": "assessment-cars-workplace-preview.png",
+      "prompt": "Use case: precise-object-edit.\nAsset type: PREVIEW ONLY, focused miniature workplace additions to our approved recruitment supporting illustration.\nInput Image 1 is the EDIT TARGET. Preserve the exact 1672x941 landscape canvas, camera, framing, object sizes, three futuristic portrait monitor panels with the SAME living man in front and SAME two women behind, their faces and clothing, glowing gold edges, green marble columns and tabletop, golden arc, the large brass magnifying glass and its optical pattern, ivory paper, pen, shadows and lighting. The approved composition must remain unmistakably the same. Do not move or rescale anything.\nAdd small, photorealistic 3D workplace-life vignettes in available space around the bases, as a restrained premium architectural diorama. Keep every addition miniature relative to the existing large panels, magnifier, pen and paper.\nVehicle vignette: exactly three small parked cars around the monitor-base area on the existing emerald surface, fully in frame and without covering the pen or paper: dark graphite Porsche Cayenne SUV, ordinary modern metallic copper/red Lada Vesta sedan, and understated pearl-silver Mercedes-Benz C-Class sedan. Each vehicle only about8–11% of image width; natural perspective, contact shadows and green/gold reflections. One car has a slightly open driver's door and ONE very small adult business person stands beside it, correctly scaled, as if arriving at work. No extra crowd.\nWork vignette: in the currently empty RIGHT-HAND green area beyond/beside the magnifying lens, add ONE compact miniature contemporary office desk with a normal desktop monitor, keyboard, a visible PC system tower beside/under the desk, ONE open laptop and one slim closed laptop. Add ONE small seated adult business professional working at this desk. Desk+person should form one tidy small cluster, no more than about14–18% of the total image width, naturally grounded on the existing surface. Screens may show very subtle abstract interface light, with no readable text. Do not cover the magnifying lens, its handle, the papers or the pen; do not change the large portrait people.\nStyle: retain the original emerald marble / smoked glass / warm brass architectural realism and luxury lighting. Add natural real-world colored paint, cloth and skin to make the scene feel inhabited. Miniature here means small in the composition, NOT cartoon, cheap toys or low-detail icons. All people anatomically natural and all cars correctly shaped.\nStrict invariants: only add these small items; preserve all existing portraits, architecture, monitors, dimensions, layout, lighting and props. No redesign, no crop, no camera move, no new room or backdrop, no replacing the existing large desk/tabletop. No text, readable plates, slogans, badges, logos in focus, watermarks, oversized vehicles, extra laptops, crowds or clutter. The original image remains dominant."
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets-source/redesign/recruitment-hero-v3.png",
+      "bytes": 1799711,
+      "sha256": "fa952f7ec17bd8955289330ec15b940aa2c2f3b148395444e4e864481e7a27fd"
+    },
+    {
+      "path": "assets-source/redesign/recruitment-assessment-v3.png",
+      "bytes": 2059398,
+      "sha256": "2aafd0bf6fd03d21a89c62ca766c0a03b37ba96e011854a0cbafdd0701dd2c33"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-hero-v3.webp",
+      "bytes": 88240,
+      "sha256": "0d7ab2927e63c6e46869bccf761b98aa79ccc532cc30515e11a79d3b1de7833c"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-hero-v3-720.webp",
+      "bytes": 26364,
+      "sha256": "df14ee5b8d0159bffe81067e30b43874e4a09de886f1afc63f819df642858c1b"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-assessment-v3.webp",
+      "bytes": 104558,
+      "sha256": "c81d71371a684fce3082666337b054f0f5650687fdd5691180e1b44dee0a1bd9"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-assessment-v3-720.webp",
+      "bytes": 46686,
+      "sha256": "a94437ea84c01413e594f395a80ee58620285b011c7da7537b53367f16f0a570"
+    }
+  ],
+  "preserved": [
+    {
+      "path": "content/recruitment-pages.json",
+      "sha256": "db2578c17413a0ffaef8d269009dafb9eaac0fa987adebfb2b5ce3a93f00bbe6"
+    },
+    {
+      "path": "assets-source/redesign/recruitment-hero-v2.png",
+      "sha256": "a30bbfe302fc03802f1d72ec1472ddca4a862d84713759af824f52b94b6440db"
+    },
+    {
+      "path": "assets-source/redesign/recruitment-assessment-v2.png",
+      "sha256": "74ca0fef0223d88cd3ca4861038b4dd4a9cb56846783e750f0b592a7d4520f5e"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-hero-v2.webp",
+      "sha256": "3457cc5fefbdf6e05eea16018b9067671a5d7180bf9b3cc92c97243a5b0cb640"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-hero-v2-720.webp",
+      "sha256": "69387b7430957f6bf5fba34b1c6a0afeab232af23e76acfb22b49ac0d947e27e"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-assessment-v2.webp",
+      "sha256": "d8b98083fbdb55d3c0b2414acd53d87157bdf766a7a04d9bb6e4253c81382723"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-assessment-v2-720.webp",
+      "sha256": "f2fd8226645dccd17afb1cc44836a68a7cbbd81194d157a02a377c116e2cb88a"
+    }
+  ],
+  "layoutBaselines": [
+    {
+      "path": "www/assets/redesign/recruitment.css",
+      "sha256": "46c63a2cf815bea49927351972a28fcc5e942dd4cc805301514e51e96b652eb5"
+    },
+    {
+      "path": "scripts/recruitment-renderer.mjs",
+      "sha256": "f89e43ad97ba88746755326fba262fde784a67f5ba20ff884a013d52d487eeaf"
+    }
+  ],
+  "cacheVersion": "20261104-recruitment-3"
+}

@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-04",
+  "scope": "Publish the two exact user-approved car/workplace preview illustrations",
+  "previousCommit": "7211f28442a6",
+  "manifest": "config/recruitment-art-v3.json",
+  "regenerated": false,
+  "contentChanges": false,
+  "layoutChanges": false,
+  "databaseChanges": false,
+  "cacheVersion": "20261104-recruitment-3",
+  "quickRollback": "/var/backups/elegso/before-recruitment-cars-2026-11-04",
+  "quickRollbackLogicalSize": "194 MiB, hard-linked immutable site/case/legal trees",
+  "checks": {
+    "nodeTests": 137,
+    "localSeoErrors": 0,
+    "localBrokenReferences": 0,
+    "browserWidths": [390,1280],
+    "horizontalOverflow": false,
+    "approvedPngHashes": "Exact matches with approved preview files",
+    "preservation": "Previous artwork and source content hashes unchanged; CSS/renderer hashes match after normalizing only new asset references and cache version"
+  }
+}
