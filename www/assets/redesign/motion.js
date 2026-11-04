@@ -25,10 +25,20 @@
   let particles = [];
   const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
   const canAnimate = () => enabled && !reduced.matches && visible && !document.hidden;
+  const airProperties = ['--scene-air-x', '--scene-air-y', '--scene-air-front-x', '--scene-air-opacity'];
 
-  const glints = [[.67,.66], [.81,.39], [.89,.76]].map(([x,y], i) => {
+  // Thin, cool air stays around the architecture and the statue's plinth.
+  // It shares the scene clock; no second animation loop or moving sculpture.
+  for (const depth of ['back', 'front']) {
+    const air = document.createElement('span');
+    air.className = `hero-scene__air hero-scene__air--${depth}`;
+    air.setAttribute('aria-hidden', 'true');
+    scene.append(air);
+  }
+
+  const glints = [[.67,.66], [.81,.39], [.89,.76], [.855,.31]].map(([x,y], i) => {
     const glint = document.createElement('span');
-    glint.className = 'hero-scene__glint';
+    glint.className = `hero-scene__glint${i === 3 ? ' hero-scene__glint--themis' : ''}`;
     glint.setAttribute('aria-hidden', 'true');
     glint.style.left = `${x * 100}%`;
     glint.style.top = `${y * 100}%`;
@@ -96,9 +106,14 @@
       hero.style.setProperty('--scene-ry', `${(pointerX * .8).toFixed(3)}deg`);
       hero.style.setProperty('--scene-light-x', `${(74 + Math.sin(time * .16) * 9 + pointerX * 3).toFixed(2)}%`);
       hero.style.setProperty('--scene-light-y', `${(38 + Math.cos(time * .12) * 10 + pointerY * 3).toFixed(2)}%`);
+      hero.style.setProperty('--scene-air-x', `${(Math.sin(time * .13) * 22 + pointerX * 3).toFixed(2)}px`);
+      hero.style.setProperty('--scene-air-y', `${(Math.cos(time * .11) * 3 + pointerY).toFixed(2)}px`);
+      hero.style.setProperty('--scene-air-front-x', `${(Math.sin(time * .1 + 1.6) * 30 + pointerX * 5).toFixed(2)}px`);
+      hero.style.setProperty('--scene-air-opacity', ((coarse.matches || width < 768 ? .32 : .56) + Math.sin(time * .17) * .06).toFixed(3));
       glints.forEach((glint, index) => {
         const glow = Math.pow(Math.max(0, Math.sin(time * .48 + index * 2.1)), 5);
-        glint.style.opacity = (coarse.matches ? glow * .13 : glow * .3).toFixed(3);
+        const strength = index === 3 ? .18 : .3;
+        glint.style.opacity = (glow * (coarse.matches ? strength * .43 : strength)).toFixed(3);
       });
       drawDust(delta);
     }
@@ -123,6 +138,7 @@
     }
     if (active && !frameId) { previous = performance.now(); frameId = requestAnimationFrame(render); }
     if (!active && frameId) { cancelAnimationFrame(frameId); frameId = 0; }
+    if (!active) airProperties.forEach(name => hero.style.removeProperty(name));
     if (!enabled || reduced.matches) {
       targetX = targetY = pointerX = pointerY = 0;
       for (const name of ['--scene-x','--scene-y','--scene-rx','--scene-ry']) hero.style.removeProperty(name);

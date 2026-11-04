@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-04",
+  "purpose": "Add Themis to the approved shared emerald architecture background",
+  "scope": ["shared hero illustration", "subtle scene atmosphere", "responsive focal points", "asset cache version"],
+  "contentChanges": false,
+  "erpChanges": false,
+  "databaseChanges": false,
+  "generationManifest": "config/architecture-themis-v1.json",
+  "originalPreserved": "www/assets/redesign/architecture-hero.webp",
+  "quickRollback": "/var/backups/elegso/before-themis-2026-11-04",
+  "quickRollbackLogicalSize": "184 MiB (hard-linked immutable site, case and legal publication trees)",
+  "previousProductionCommit": "e448dfa5debf",
+  "verification": {
+    "nodeTests": 123,
+    "pythonTests": 187,
+    "localSeoErrors": 0,
+    "localBrokenReferences": 0,
+    "caseProjection": "46 static pages, existing media reused",
+    "browserWidths": [320, 390, 800, 1024, 1440],
+    "horizontalOverflow": false,
+    "manualMotionToggle": "air and animation pause correctly",
+    "reducedMotion": "covered by automated tests; static scene remains visible"
+  },
+  "animation": "Rendered 3D statue in the existing camera/parallax scene, two low-opacity local air layers and a restrained cool scales glint; no WebGL dependency or separate RAF loop"
+}

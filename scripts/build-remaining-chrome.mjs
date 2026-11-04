@@ -11,10 +11,13 @@ const resources=designHead({title:'',description:'',route:'/'}).match(/<link\b[^
 for(const file of await publicHtmlFiles(web)){
  let html=await fs.readFile(file,'utf8');
  if(html.includes('data-elegso-modern-footer')){
+  const before=html;
+  html=html.replace(/(\/assets\/redesign\/[^"?]+\.(?:css|js)\?v=)\d{8}-emerald-\d+/g,(_m,prefix)=>prefix+designVersion);
   // Retained calculator internals need new chrome behavior without a rewrite.
   const logoAssets=resources.match(/<link\b[^>]*href="[^\"]*logo-showcase\.css[^\"]*"[^>]*>|<script\b[^>]*src="[^\"]*logo-showcase\.js[^\"]*"[^>]*><\/script>/g)||[];
   const missing=logoAssets.filter(tag=>!html.includes(tag.match(/(?:href|src)="([^"?]+)/)[1]));
-  if(missing.length){html=html.replace('</head>',missing.join('')+'</head>');await fs.writeFile(file,html);changed.push(path.relative(web,file));}
+  if(missing.length)html=html.replace('</head>',missing.join('')+'</head>');
+  if(html!==before){await fs.writeFile(file,html);changed.push(path.relative(web,file));}
   continue;
  }
  // Redirect stubs and technical fragments remain non-indexable and retain their semantics.

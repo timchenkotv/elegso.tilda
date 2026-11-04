@@ -23,7 +23,7 @@ body{padding:22px 0 0;background:radial-gradient(ellipse at 45% 6%,#385049 0,#18
 .hero{background:#05281f;color:#eeeade;isolation:isolate;border-inline:1px solid rgba(196,203,179,.15)}
 .hero:before{z-index:1;background:linear-gradient(90deg,rgba(0,27,20,.78),rgba(0,26,19,.49) 31%,rgba(0,22,16,.02) 69%);pointer-events:none}
 .hero-scene{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;perspective:1400px}
-.hero-scene__image{position:absolute;inset:-2%;background-image:url('architecture-hero.webp');background-size:cover;background-position:center;will-change:transform;transform:translate3d(var(--scene-x,0px),var(--scene-y,0px),0) scale(1.035)}
+.hero-scene__image{position:absolute;inset:-2%;background-image:url('architecture-themis-v1.webp');background-size:cover;background-position:center;will-change:transform;transform:translate3d(var(--scene-x,0px),var(--scene-y,0px),0) scale(1.035)}
 .hero-scene__light,.hero-scene__dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .hero>.container{position:relative;z-index:2}
 .hero-art{display:none!important}
@@ -177,6 +177,7 @@ body{padding:22px 0 0;background:radial-gradient(ellipse at 45% 6%,#385049 0,#18
 @media(min-width:1600px){.hero-grid{min-height:470px}.hero-copy{padding-block:34px 42px}.hero h1.source-field{font-size:74px}.hero-tagline{font-size:25px}}
 @media(max-width:1199px){body{padding-top:16px}.site-shell{width:calc(100% - 36px)}.container,.header-inner{width:calc(100% - 76px)}.header-inner{gap:20px}.brand{min-width:165px}.desktop-nav{gap:19px}.hero-copy{width:60%}.hero-grid{min-height:430px}.hero h1.source-field{font-size:53px}.hero-tagline{font-size:22px}.hero-lead{font-size:13px;max-width:440px}.hero-benefits{gap:15px}.hero-rail{right:-12px;font-size:7px;min-width:58px}.outcome-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.outcome-media{aspect-ratio:1.9}.outcome-title{font-size:16px;padding-top:14px}.outcome-details summary{font-size:11px}.proof-media{height:160px}.proof-card h3{font-size:18px}.proof-card>.proof-amount{font-size:25px}.proof-case-badge{font-size:10px;left:12px;top:12px}.proof-card>.proof-top,.proof-card h3,.proof-story,.proof-card>.proof-amount,.proof-card>.text-link{margin-inline:18px}.route-card-art{height:150px}.route-card>span:not(.route-number){font-size:16px;padding-left:16px}.section-title{font-size:35px}}
 @media(max-width:1023px){:root{--header:64px}.site-header{height:64px}.header-phone{display:none}.desktop-nav{font-size:10px;gap:18px}.hero-grid{min-height:415px}.hero-copy{width:63%;padding-top:25px}.hero h1.source-field{font-size:48px}.hero-tagline{font-size:21px}.hero-lead{font-size:12px;max-width:400px}.hero-actions{gap:20px}.hero-actions .button{font-size:11px;padding-inline:18px}.hero-benefits{font-size:8px;gap:12px;max-width:390px}.hero-rail{display:none}.hero-bottom{font-size:7px;letter-spacing:.08em}.page-tabs__inner{gap:23px}.section{padding-block:44px}.proof-grid{gap:15px}.proof-card h3{font-size:17px}.proof-card>.proof-amount{font-size:23px}.proof-tag{font-size:8px;padding-inline:7px}.proof-date{font-size:8px}.proof-case-badge{font-size:9px;padding:6px 9px}.route-grid{gap:17px}.route-card-art{height:132px}.expert-copy .section-title{font-size:34px}.footer-tiles{gap:13px}.footer-tile{grid-template-columns:45px 1fr 15px;padding:13px;gap:11px}.footer-tile img{display:block;width:45px;height:56px}.footer-tile strong{font-size:14px}.footer-tile small{font-size:9px}}
+@media(min-width:768px) and (max-width:1023px){.hero-scene__image{background-position:80% center}}
 @media(max-width:767px){
  body{padding:0;background:#062c24}
  .site-shell{width:100%;margin:0;border:0;border-radius:0;box-shadow:none}
@@ -189,7 +190,7 @@ body{padding:22px 0 0;background:radial-gradient(ellipse at 45% 6%,#385049 0,#18
  .hero{border:0;min-height:0;background:#05291f}
  .hero>.container{width:100%}
  .hero:before{background:linear-gradient(180deg,rgba(1,33,24,.32),rgba(1,33,24,.5) 34%,rgba(1,33,24,0) 80%)}
- .hero-scene__image{inset:0;background-size:auto 300px;background-repeat:no-repeat;background-position:67% bottom;transform:none}
+ .hero-scene__image{inset:0;background-image:url('architecture-themis-v1-720.webp');background-size:auto 300px;background-repeat:no-repeat;background-position:80% bottom;transform:none}
  .hero-scene__light{opacity:.45}
  .breadcrumb{padding:16px 20px 0;font-size:8px;color:#98ad9b;gap:7px}
  .hero-grid{display:block;min-height:0;padding-bottom:190px}

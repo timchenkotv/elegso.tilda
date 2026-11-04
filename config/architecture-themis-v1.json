@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "createdOn": "2026-11-04",
+  "generator": "built-in image_gen.imagegen",
+  "useCase": "precise-object-edit",
+  "purpose": "Add a volumetric Themis statue to the approved shared architectural hero without changing text or page layout",
+  "prompt": "Use case: precise-object-edit.\nAsset type: premium law-firm website hero background, editable existing architectural scene.\nInput Image 1 is the EDIT TARGET. Preserve the existing wide 1600x763 composition, camera, every emerald-marble pillar, glass slab, brushed-brass spiral ribbon, stepped plinths, reflective dark floor, mountain silhouettes, lighting, palette and dark negative space on the left. Do not redesign the scene. Make one focused addition.\nPrimary request: insert one beautifully sculpted, original full-body Lady Justice / Themis statue among and just in front of the right-hand architectural columns. The statue's centre should be approximately 80% of canvas width, standing naturally on the existing lower emerald plinth at approximately 86% of canvas height. Her head should be around 30% of canvas height; keep the full figure, sword, scales and base fully in frame. This placement is required because website text occupies the left half, and the image must crop responsively on phones.\nSubject: a dignified classical adult female statue with a clearly visible blindfold, two anatomically correct arms and hands, balanced scales held in her raised left hand (viewer-right), and a long elegant sword held downwards in her right hand (viewer-left). A graceful sculpted long robe with restrained wind-shaped folds, a noble original face, natural proportions and a calm confident standing pose. It must look truly three-dimensional, not a pasted flat icon, relief, logo, drawing or a living person.\nMaterials: refined pale warm ivory stone / lightly patinated satin bronze with restrained brushed-gold detailing, subtle emerald bounce light and realistic depth in the robe folds. Match the existing scene's premium photorealistic architectural 3D render. Give the statue convincing contact shadows, ambient occlusion, reflected light and a subtle floor reflection. The brass spiral should pass naturally BEHIND the statue where their paths overlap; do not cut through the body, sword or scales.\nLighting: same cinematic warm side/rim light as the existing architecture, cool green-grey ambient atmosphere; gently illuminate face, blindfold, scales and garment edges without brightening the left text area. Extremely subtle cool haze near the statue's feet may be included, but keep the scene crisp.\nConstraints/invariants: keep the architecture recognizable and its scale unchanged. Retain the entire left 45% as clean, dark low-contrast negative space; no statue, props, columns or bright light in the left half. Do not zoom, crop or change the canvas aspect ratio. Only ONE statue. Only two arms, two hands, one sword and one balanced two-pan scale. No extra people, modern clothes, flags, Japanese props, flowers, lettering, labels, words, numbers, watermarks or UI. The source image is our own approved artwork; improve it by adding this statue only.",
+  "editTarget": {
+    "path": "www/assets/redesign/architecture-hero.webp",
+    "width": 1600,
+    "height": 763,
+    "sha256": "77c7f2b9dcfe2f5d4d294959a954d8ebb3e5fc73f9f96082d0c49eab022154fd",
+    "preserved": true
+  },
+  "original": {
+    "path": "assets-source/redesign/architecture-themis-v1.png",
+    "width": 1815,
+    "height": 866,
+    "bytes": 1960950,
+    "sha256": "b443996b71bb94877630cb5b97cddb25b5ab33112566dc97abff1d191c4f343e"
+  },
+  "derivatives": [
+    {
+      "path": "www/assets/redesign/architecture-themis-v1.webp",
+      "width": 1600,
+      "height": 763,
+      "bytes": 100866,
+      "quality": 88,
+      "sha256": "cc565b50c28ef9595830bc35b0e6bcaefd2c832a7b5237f6bba590fe56243da1"
+    },
+    {
+      "path": "www/assets/redesign/architecture-themis-v1-720.webp",
+      "width": 720,
+      "height": 344,
+      "bytes": 27684,
+      "quality": 86,
+      "sha256": "0b01a2d8b07ebf5ad2e3a1408c8ff40045becd3cb41a229edf9073cfd6a1bff6"
+    }
+  ],
+  "integration": {
+    "mobileFocalPoint": "80% bottom",
+    "mobileAsset": "www/assets/redesign/architecture-themis-v1-720.webp",
+    "tabletFocalPoint": "80% center at 768–1023px",
+    "animation": "Existing camera/parallax moves the complete rendered scene; low-opacity cool air and lighting, without deformation of the statue",
+    "reducedMotion": "Static background, no moving fog or glints"
+  }
+}

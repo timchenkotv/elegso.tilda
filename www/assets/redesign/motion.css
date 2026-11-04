@@ -1,12 +1,18 @@
-/* Restrained 2.5D light and depth. No text animation or layout movement. */
+/* Restrained scene depth, light and cool air. No text or layout movement. */
 .motion-toggle{position:absolute;right:0;bottom:17px;z-index:5;border:1px solid rgba(205,194,160,.2);border-radius:3px;background:rgba(4,35,26,.5);color:#b8c1a8;padding:5px 9px;font:400 8px/1.5 Ubuntu,Arial,sans-serif;letter-spacing:.06em;display:flex;align-items:center;gap:10px}
 .motion-toggle:hover{border-color:rgba(205,194,160,.5);color:#e4dfc9}
 .hero-scene{pointer-events:none;perspective:1400px;transform-style:preserve-3d;overflow:hidden}
 .hero-scene__image{transform:translate3d(var(--scene-x,0px),var(--scene-y,0px),0) rotateX(var(--scene-rx,0deg)) rotateY(var(--scene-ry,0deg)) scale(1.035);transform-origin:75% 60%;backface-visibility:hidden;will-change:transform}
 .hero-scene__light{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 24% 47% at var(--scene-light-x,76%) var(--scene-light-y,38%),rgba(222,202,158,.18),rgba(165,181,154,.045) 45%,transparent 74%);mix-blend-mode:screen;opacity:.65}
 .hero-scene__dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.72;mix-blend-mode:screen}
+.hero-scene__air{position:absolute;left:52%;right:-9%;bottom:17%;height:25%;pointer-events:none;opacity:0;visibility:hidden;mix-blend-mode:screen;transform-origin:75% 70%;contain:paint}
+.hero-scene__air--back{background:radial-gradient(ellipse 48% 23% at 40% 62%,rgba(182,214,201,.13),rgba(129,177,160,.045) 43%,transparent 75%),radial-gradient(ellipse 36% 17% at 77% 49%,rgba(224,234,220,.1),transparent 74%);transform:translate3d(var(--scene-air-x,0px),var(--scene-air-y,0px),0) scale(1.09)}
+.hero-scene__air--front{left:59%;right:-12%;bottom:11%;height:18%;background:radial-gradient(ellipse 56% 20% at 48% 51%,rgba(201,225,211,.11),rgba(147,192,172,.035) 48%,transparent 76%);transform:translate3d(var(--scene-air-front-x,0px),var(--scene-air-y,0px),0) scale(1.12)}
+.hero-scene[data-motion="active"] .hero-scene__air{opacity:var(--scene-air-opacity,.56);visibility:visible;will-change:transform,opacity}
+.hero-scene[data-motion="paused"] .hero-scene__air{display:none;will-change:auto}
 .hero-scene__glint{position:absolute;width:38px;height:38px;pointer-events:none;border-radius:50%;background:radial-gradient(ellipse,rgba(255,235,195,.6),rgba(212,177,110,.13) 26%,transparent 67%);filter:blur(2px);transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0}
 .hero-scene__glint:after{content:'';position:absolute;left:-17px;right:-17px;top:49%;height:1px;background:linear-gradient(90deg,transparent,rgba(236,208,156,.4),transparent);filter:blur(.7px)}
+.hero-scene__glint--themis{width:28px;height:28px;background:radial-gradient(ellipse,rgba(236,244,222,.55),rgba(178,208,188,.1) 27%,transparent 66%)}
 .outcome-card,.route-card,.proof-card{position:relative;transform-style:preserve-3d;isolation:isolate}
 html[data-preview-motion="on"] .outcome-card[data-tilt-active],html[data-preview-motion="on"] .route-card[data-tilt-active],html[data-preview-motion="on"] .proof-card[data-tilt-active]{transform:perspective(1100px) rotateX(var(--card-rx,0deg)) rotateY(var(--card-ry,0deg));transition:transform .13s ease-out;will-change:transform}
 .outcome-card:after,.route-card:after,.proof-card:after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse 85% 65% at var(--card-light-x,50%) var(--card-light-y,0%),rgba(255,239,201,.13),transparent 72%);opacity:0;transition:opacity .24s ease}
@@ -17,9 +23,9 @@ html[data-preview-motion="on"] [data-tilt-active]:after{opacity:1}
 [data-motion-toggle]:focus-visible{outline:2px solid #d6bd89;outline-offset:4px}
 [data-motion-toggle][disabled]{cursor:default;opacity:.55}
 html[data-preview-motion="off"] .hero-scene__image{transform:none;will-change:auto}
-html[data-preview-motion="off"] .hero-scene__dust,html[data-preview-motion="off"] .hero-scene__glint{display:none}
+html[data-preview-motion="off"] .hero-scene__dust,html[data-preview-motion="off"] .hero-scene__glint,html[data-preview-motion="off"] .hero-scene__air{display:none}
 .hero-scene[data-motion="paused"] .hero-scene__image{will-change:auto}
-@media(pointer:coarse){.hero-scene__image{transform:none!important;will-change:auto}.hero-scene__dust{opacity:.38}.hero-scene__glint{filter:blur(3px)}.outcome-card:after,.route-card:after,.proof-card:after{display:none}}
-@media(max-width:767px){.motion-toggle{right:20px;bottom:13px;font-size:8px}.hero-scene__light{background:radial-gradient(ellipse 55% 30% at 76% 70%,rgba(222,202,158,.1),transparent 75%)}.hero-scene__glint{display:none}}
-@media(prefers-reduced-motion:reduce){.hero-scene__image{transform:none!important;will-change:auto!important}.hero-scene__dust,.hero-scene__glint{display:none!important}.hero-scene__light{background:radial-gradient(ellipse 24% 47% at 76% 38%,rgba(222,202,158,.08),transparent 74%)}.outcome-card,.route-card,.proof-card{transform:none!important;transition:none!important}.outcome-card:after,.route-card:after,.proof-card:after{display:none!important}}
+@media(pointer:coarse){.hero-scene__image{transform:none!important;will-change:auto}.hero-scene__dust{opacity:.38}.hero-scene__air{left:60%;height:18%}.hero-scene__air--front{left:64%;height:13%}.hero-scene__glint{filter:blur(3px)}.outcome-card:after,.route-card:after,.proof-card:after{display:none}}
+@media(max-width:767px){.motion-toggle{right:20px;bottom:13px;font-size:8px}.hero-scene__light{background:radial-gradient(ellipse 55% 30% at 76% 70%,rgba(222,202,158,.1),transparent 75%)}.hero-scene__air{left:45%;bottom:4%;height:100px}.hero-scene__air--front{left:55%;bottom:0;height:60px}.hero-scene__glint{display:none}}
+@media(prefers-reduced-motion:reduce){.hero-scene__image{transform:none!important;will-change:auto!important}.hero-scene__dust,.hero-scene__glint,.hero-scene__air{display:none!important}.hero-scene__light{background:radial-gradient(ellipse 24% 47% at 76% 38%,rgba(222,202,158,.08),transparent 74%)}.outcome-card,.route-card,.proof-card{transform:none!important;transition:none!important}.outcome-card:after,.route-card:after,.proof-card:after{display:none!important}}
 @media print{.hero-scene,[data-motion-toggle]{display:none!important}.outcome-card,.route-card,.proof-card{transform:none!important}}
