@@ -31,7 +31,7 @@ test('recruiting renderer publishes static full text and unique specialised meta
   assert.match(html, /rel="canonical" href="https:\/\/elegso.ru\/podbor_yuristov\/"/);
   assert.match(html, /Полный статичный текст\./);
   assert.match(html, /<details class="recruitment-details">/);
-  assert.match(html, /recruitment-hero\.webp/);
+  assert.match(html, /recruitment-hero-v2\.webp/);
   assert.match(html, /data-recruitment-calculator/);
   assert.match(html, /Доход в месяц до НДФЛ, ₽/);
   assert.match(html, /оклад и согласованные фиксированные надбавки/);
@@ -40,7 +40,7 @@ test('recruiting renderer publishes static full text and unique specialised meta
   assert.match(html, /Гарантийный период — 60 календарных дней с первого рабочего дня/);
   assert.match(html, /Гарантийный период — 30 календарных дней с первого рабочего дня/);
   assert.match(html, /Один повторный подбор/);
-  assert.match(html, /recruitment-assessment-720\.webp 720w, \/assets\/redesign\/recruitment-assessment\.webp 1200w/);
+  assert.match(html, /recruitment-assessment-v2-720\.webp 720w, \/assets\/redesign\/recruitment-assessment-v2\.webp 1200w/);
   assert.match(html, /sizes="\(max-width:767px\) 100vw, 50vw" width="1200" height="675"/);
   assert.match(html, /<output[^>]*>270 000 ₽<\/output>/);
   const schemas = [...html.matchAll(/<script type="application\/ld\+json">([^]*?)<\/script>/g)].map(match => JSON.parse(match[1]));

@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-04",
+  "scope": "Two recruitment illustrations only",
+  "previousCommit": "1a3091051c56",
+  "manifest": "config/recruitment-art-v2.json",
+  "hero": "Same scene and person order; realistic full-color skin, eyes, hair, suits and tie inside the existing three glass screens",
+  "assessment": "Same desk, lens, pen, paper and architecture; same man moved to front screen, two matching women behind, illuminated monitor edges",
+  "preserved": ["Existing v1 source PNGs and WebPs", "All authored content and pricing", "All layout CSS except image filenames", "Renderer logic except image URLs and asset cache version", "ERP and legal-document storage"],
+  "quickRollback": "/var/backups/elegso/before-recruitment-portraits-2026-11-04",
+  "quickRollbackLogicalSize": "190 MiB, hard-linked immutable site/case/legal trees",
+  "checks": {
+    "nodeTests": 135,
+    "localSeoErrors": 0,
+    "brokenLocalReferences": 0,
+    "responsiveWidths": [320,390,800,1280],
+    "horizontalOverflow": false,
+    "contentAndLayoutHashComparison": "Matches v1 after normalizing only versioned asset references",
+    "oldArtHashComparison": "All six v1 source/delivery files unchanged"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "createdOn": "2026-11-04",
+  "generator": "built-in image_gen.imagegen",
+  "mode": "identity-preserve",
+  "previous": "config/recruitment-art-v1.json",
+  "scope": "Portrait colors, living likeness and screen edges only; no layout, authored content, pricing or runtime changes",
+  "prompts": [
+    {
+      "target": "assets-source/redesign/recruitment-hero-v1.png",
+      "output": "assets-source/redesign/recruitment-hero-v2.png",
+      "prompt": "Use case: identity-preserve.\nAsset type: focused edit of our approved recruitment website hero artwork.\nInput Image 1 is the EDIT TARGET, not a moodboard. Keep the entire 1817x866 wide composition, camera, cropping, geometry, emerald marble columns and plinths, smoked-glass screens, golden spiral, metallic reflections, mountains, lighting, background, negative space on the left, and all object positions exactly as they are. The user loves this image. Make ONLY the human portrait content inside the three screens come alive in full natural color, instead of resembling ivory stone statues or memorial reliefs.\nPortrait identity and placement: retain the existing facial structure, hairstyle, proportions, pose and gaze of each distinct person. The large front screen shows the same woman with hair elegantly tied low; the smaller screen to the LEFT shows the same short-haired man; the screen to the RIGHT shows the same woman with loose shoulder-length wavy hair. Exactly one man and two women. Do not swap them or introduce anyone else.\nChange the three monochrome sculptural busts into lifelike photorealistic full-color upper-body video portraits displayed INSIDE their glass monitor surfaces, not physical sculptures standing outside the screens. Add natural warm skin tones, subtle skin texture, lifelike eyes with pupils and small catchlights, realistic eyebrows, lips and hair. Their faces should remain recognizable as living versions of the approved people, not different models. Calm confident professional expressions, no exaggerated smiles. Keep the same three-quarter/profile orientation, shoulder framing and scale.\nClothing: the man wears a strict deep navy business suit, crisp white shirt and muted burgundy tie. The front woman wears a tailored dark navy jacket and a soft ivory blouse; her hair becomes natural chestnut-brown. The right woman wears a restrained muted plum or slate-blue business jacket over a light blouse, natural brown wavy hair. Clothes must clearly have real colored woven fabric and skin must look alive, never marble, bronze, plastic or monochrome. Do not wash out their color with green light.\nScreen effect: retain the existing thin warm-gold frames and glass, with a very subtle high-tech screen glow and reflection. The people are luminous full-color digital portraits on futuristic monitors integrated into the architecture; elegant premium realism, not cartoon hologram or neon cyberpunk. Keep each portrait fully within its original screen.\nStrict invariants: everything outside the three portrait areas remains unchanged. No redesign, no new objects, no new backgrounds, no change to the golden ribbon, architecture, framing or perspective. Keep the left 45% dark and empty for website text. No text, icons, labels, numbers, logos or watermark. Do not crop or zoom. The result should feel like the SAME approved image, with only the people enlivened in full color."
+    },
+    {
+      "target": "assets-source/redesign/recruitment-assessment-v1.png",
+      "identityReference": "assets-source/redesign/recruitment-hero-v2.png",
+      "output": "assets-source/redesign/recruitment-assessment-v2.png",
+      "prompt": "Use case: identity-preserve.\nAsset type: precise edit of our approved supporting recruitment illustration.\nInput Image 1 is the EDIT TARGET: the emerald architectural desk scene with three receding glass folios, brass magnifying glass, pen and ivory sheets. Input Image 2 is the EXACT CHARACTER IDENTITY AND COLOR REFERENCE: the approved updated hero showing one living man and two living women in futuristic screens. This is NOT permission to redesign Image 1.\nPreserve Image 1's 1672x941 landscape composition, camera, cropping, perspective, all green marble columns and desk, glass panel geometry and size, the exact magnifying glass and optical pattern, gold lines below portraits, the pen, paper, mountains, lighting, reflections and every object position. Change only the three human portrait contents and add restrained illuminated edges to the existing three portrait panels.\nReplace the monochrome ivory relief portraits with photorealistic full-color living professional portraits displayed INSIDE the glass monitor surfaces, like modern future video screens, not physical busts, statues or memorial stones. Match exactly the THREE individuals in Image 2, with their same recognizable face shapes, realistic eyes, skin tones, hair and business clothing. Exactly one man and two women.\nREORDERING REQUIRED: the LARGEST FRONT screen in Image 1 must show the MAN from the left screen of Image 2: natural skin, short wavy brown hair, deep navy suit, white shirt, muted burgundy necktie, confident calm expression, same three-quarter rightward gaze. The MIDDLE screen behind him must show the woman from the large front screen of Image 2, with chestnut hair in a low bun, navy jacket and ivory blouse. The SMALLEST FARTHEST screen must show the other woman from the right screen of Image 2, with shoulder-length wavy brown hair, muted slate/plum business jacket and light blouse. Keep all portraits in the upper portrait region of their existing screen, with the original gold horizontal inlays below. No extra people and no duplicate man.\nScreen presentation: make these same three glass folios look like refined futuristic portrait monitors by giving each existing perimeter a thin satin-brass edge and restrained warm gold light, matching the monitors of Image 2. The large front monitor is clearest; the middle is a little smaller and the far screen smallest, exactly as Image 1's depth arrangement. Keep a trace of smoked-glass transparency and realistic screen reflection while faces and clothes remain naturally colored. The portrait people should feel alive rather than monochrome stone, bronze or wax.\nStrict invariants: do not alter anything else in Image 1. Do not move, resize or remove the magnifying glass, change its decorative pattern, pen, paper or desk. Do not add new monitor blocks, bases, objects or backgrounds. No letters, words, numbers, logos, fake CV text, buttons, interface labels, watermarks, cyberpunk neon or cartoon. No zooming or cropping. Final image must be unmistakably the same approved supporting illustration, with the same people as Image 2 and the man brought forward."
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets-source/redesign/recruitment-hero-v2.png",
+      "bytes": 1777989,
+      "sha256": "a30bbfe302fc03802f1d72ec1472ddca4a862d84713759af824f52b94b6440db"
+    },
+    {
+      "path": "assets-source/redesign/recruitment-assessment-v2.png",
+      "bytes": 1998558,
+      "sha256": "74ca0fef0223d88cd3ca4861038b4dd4a9cb56846783e750f0b592a7d4520f5e"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-hero-v2.webp",
+      "bytes": 81574,
+      "sha256": "3457cc5fefbdf6e05eea16018b9067671a5d7180bf9b3cc92c97243a5b0cb640"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-hero-v2-720.webp",
+      "bytes": 23808,
+      "sha256": "69387b7430957f6bf5fba34b1c6a0afeab232af23e76acfb22b49ac0d947e27e"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-assessment-v2.webp",
+      "bytes": 89734,
+      "sha256": "d8b98083fbdb55d3c0b2414acd53d87157bdf766a7a04d9bb6e4253c81382723"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-assessment-v2-720.webp",
+      "bytes": 40612,
+      "sha256": "f2fd8226645dccd17afb1cc44836a68a7cbbd81194d157a02a377c116e2cb88a"
+    }
+  ],
+  "preserved": [
+    {
+      "path": "assets-source/redesign/recruitment-hero-v1.png",
+      "sha256": "78128ef8409ab8b1862077dffea45e36281f38b9ebc61c56a497a5f64821b232"
+    },
+    {
+      "path": "assets-source/redesign/recruitment-assessment-v1.png",
+      "sha256": "49301a41e40bc26ffb411c1a07077967b194028563596340e10c8583fea3a6c1"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-hero.webp",
+      "sha256": "144121e7dfc2e0c620cf9644c04190f373cccd819aeb4228007b275ce6df84f8"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-hero-720.webp",
+      "sha256": "1fe632697fbd88d700a086ef39906b928b1d5f1714457f9a19fc36827f6e6b43"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-assessment.webp",
+      "sha256": "b59b89f6e2731042eec74da88d3a639c96606ec080df21899534883f979b31dc"
+    },
+    {
+      "path": "www/assets/redesign/recruitment-assessment-720.webp",
+      "sha256": "e1ec1a8b56e125e046161e971d8eadf1cbdf6fc02f386bb8686541995e9e8eb1"
+    },
+    {
+      "path": "content/recruitment-pages.json",
+      "sha256": "db2578c17413a0ffaef8d269009dafb9eaac0fa987adebfb2b5ce3a93f00bbe6"
+    }
+  ],
+  "layoutBaselines": [
+    {
+      "path": "www/assets/redesign/recruitment.css",
+      "sha256": "1d2edffd9e41534a2cefdb67e4592b37a1729178d679f0e54b711e8355d57b3a"
+    },
+    {
+      "path": "scripts/recruitment-renderer.mjs",
+      "sha256": "d5644bf96ff6acb7b4834af94640e294d7a6d333bc2f70421f192fee29699049"
+    }
+  ],
+  "cacheVersion": "20261104-recruitment-2"
+}

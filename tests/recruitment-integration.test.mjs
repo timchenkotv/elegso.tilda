@@ -47,7 +47,7 @@ test('generated recruiting pages are indexable static documents with privacy and
     assert.match(html, new RegExp(`<link rel="canonical" href="https://elegso.ru${page.route}">`));
     assert.equal((html.match(/<h1\b/g) || []).length, 1);
     assert.doesNotMatch(html, /data-elegso-case-carousel|data-case-source|expert-grid|Позвонить юристу/);
-    assert.match(html, /recruitment-hero\.webp/);
+    assert.match(html, /recruitment-hero-v2\.webp/);
     assert.match(html, /recruitment\.css\?v=/);
   }
 });
