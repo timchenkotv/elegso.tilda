@@ -1,0 +1,113 @@
+/* Recruiting is a self-contained service experience inside the ELEGSO design system. */
+body.recruitment-page{--recruitment-line:rgba(59,72,53,.19)}
+body.recruitment-page .recruitment-hero .hero-scene__image{background-image:url('recruitment-hero.webp');background-position:67% center}
+body.recruitment-page .recruitment-hero .hero-scene__glint--themis{display:none}
+body.recruitment-page .recruitment-hero .hero-grid{min-height:510px}
+body.recruitment-page .recruitment-hero .hero-copy{width:57%;max-width:720px;padding-block:35px 42px}
+body.recruitment-page .recruitment-hero h1.source-field{font-size:clamp(40px,4.3vw,64px);line-height:1.16;max-width:760px}
+body.recruitment-page .recruitment-hero .hero-tagline{font-size:24px;max-width:610px}
+body.recruitment-page .recruitment-hero .hero-lead{font-size:14px;max-width:555px}
+body.recruitment-page .recruitment-menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 32px}
+body.recruitment-page .recruitment-menu-grid a{min-height:44px;padding:11px 0;border-bottom:1px solid var(--white-line);font:400 14px/1.7 Ubuntu,Arial,sans-serif;color:#d5deca}
+body.recruitment-page .recruitment-menu-grid a[aria-current]{color:#f3d8a6}
+body.recruitment-page .recruitment-tabs{position:relative;top:auto}
+body.recruitment-page #specialisations>.container>ul{display:flex;flex-wrap:wrap;gap:9px;list-style:none;padding:0;margin:26px 0 32px}
+body.recruitment-page #specialisations>.container>ul li{padding:8px 13px;border:1px solid var(--recruitment-line);background:rgba(249,244,234,.42);border-radius:3px;font-size:12px;line-height:1.6;color:#4c5d47}
+body.recruitment-page .recruitment-specialisms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--recruitment-line);border-left:1px solid var(--recruitment-line)}
+body.recruitment-page .recruitment-specialism{display:grid;grid-template-columns:1fr 30px;grid-template-rows:auto auto 1fr;align-content:start;padding:25px 26px 23px;border-right:1px solid var(--recruitment-line);border-bottom:1px solid var(--recruitment-line);background:rgba(248,243,232,.2);transition:background .2s}
+body.recruitment-page .recruitment-specialism:hover{background:rgba(252,247,236,.7)}
+body.recruitment-page .recruitment-index{font:400 12px/1.5 Ubuntu,Arial,sans-serif;letter-spacing:.12em;color:#9e855b}
+body.recruitment-page .recruitment-specialism .recruitment-index{grid-column:1/-1;margin-bottom:16px}
+body.recruitment-page .recruitment-specialism h3{grid-column:1;font:400 23px/1.4 Prata,Georgia,serif;letter-spacing:-.025em;color:#17382a;margin:0 12px 12px 0}
+body.recruitment-page .recruitment-specialism p{grid-column:1;font:400 12px/1.8 Ubuntu,Arial,sans-serif;color:#66745e;margin:0 12px 0 0}
+body.recruitment-page .recruitment-specialism__arrow{grid-column:2;grid-row:2/span 2;align-self:center;color:#963e2e}
+body.recruitment-page .recruitment-role-note{display:grid;grid-template-columns:1fr 1fr;gap:10%;padding:26px 0 0;border-top:1px solid var(--recruitment-line)}
+body.recruitment-page .recruitment-role-note>span{font:400 25px/1.5 Prata,Georgia,serif;letter-spacing:-.025em;color:#28402c}
+body.recruitment-page .recruitment-role-note p{font:400 14px/1.85 Ubuntu,Arial,sans-serif;color:#5d6d53;margin:0}
+body.recruitment-page .recruitment-approach{display:grid;grid-template-columns:1fr 1.05fr;gap:7%;align-items:center}
+body.recruitment-page .recruitment-assessment-art{aspect-ratio:1.5;overflow:hidden;border:1px solid rgba(120,115,78,.2);border-radius:4px;background:#10342b;box-shadow:0 20px 50px rgba(34,54,32,.1)}
+body.recruitment-page .recruitment-assessment-art img{display:block;width:100%;height:100%;object-fit:cover}
+body.recruitment-page .recruitment-prose{font:400 16px/1.9 Ubuntu,Arial,sans-serif;color:#465a40;min-width:0;overflow-wrap:anywhere}
+body.recruitment-page .recruitment-prose p{margin:0 0 1.2em;text-align:justify;text-align-last:left;hyphens:auto}
+body.recruitment-page .recruitment-prose p.eyebrow{font-size:9px;line-height:1.7;letter-spacing:.19em;text-align:left;color:#887651}
+body.recruitment-page .recruitment-prose ul{padding-left:20px;margin:22px 0 0}
+body.recruitment-page .recruitment-prose li{padding-left:3px;margin-bottom:10px}
+body.recruitment-page .recruitment-criteria{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:42px;padding-top:32px;border-top:1px solid var(--recruitment-line)}
+body.recruitment-page .recruitment-criteria article{border-right:1px solid var(--recruitment-line);padding:0 25px 0 0}
+body.recruitment-page .recruitment-criteria article:last-child{border-right:0}
+body.recruitment-page .recruitment-criteria h3{font:400 23px/1.45 Prata,Georgia,serif;letter-spacing:-.025em;color:#253c29;margin:12px 0}
+body.recruitment-page .recruitment-criteria p{font:400 13px/1.9 Ubuntu,Arial,sans-serif;color:#67735c;margin:0}
+body.recruitment-page #process .eyebrow{color:#b4a582}
+body.recruitment-page #process .section-intro{color:#b8c8b4}
+body.recruitment-page .recruitment-process{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 35px;list-style:none;padding:0;margin:35px 0 0}
+body.recruitment-page .recruitment-process li{display:grid;grid-template-columns:35px 1fr;gap:17px;border-top:1px solid var(--white-line);padding-top:23px}
+body.recruitment-page .recruitment-process li>span{font:400 22px/1.5 Prata,Georgia,serif;color:#b7a276}
+body.recruitment-page .recruitment-process h3{font:400 20px/1.5 Prata,Georgia,serif;letter-spacing:-.025em;color:#ede6d2;margin:0 0 12px}
+body.recruitment-page .recruitment-process p{font:400 13px/1.9 Ubuntu,Arial,sans-serif;color:#acbea7;margin:0}
+body.recruitment-page .recruitment-content{display:grid;grid-template-columns:250px minmax(0,1fr);gap:65px;align-items:start}
+body.recruitment-page .recruitment-content-section{padding-bottom:34px;margin-bottom:32px;border-bottom:1px solid var(--recruitment-line);scroll-margin-top:90px}
+body.recruitment-page .recruitment-content-section:last-child{margin-bottom:0}
+body.recruitment-page .recruitment-content-section h2{font:400 clamp(26px,2.7vw,36px)/1.4 Prata,Georgia,serif;letter-spacing:-.03em;color:#233c29;margin:12px 0 22px;text-wrap:balance}
+body.recruitment-page .recruitment-details{border-top:1px solid var(--recruitment-line);background:none;margin:0;padding:0}
+body.recruitment-page .recruitment-details>summary{display:flex;justify-content:space-between;align-items:center;gap:20px;list-style:none;cursor:pointer;padding:21px 0;font:400 16px/1.7 Ubuntu,Arial,sans-serif;color:#263e2d}
+body.recruitment-page .recruitment-details>summary::-webkit-details-marker{display:none}
+body.recruitment-page .recruitment-details>summary>span:last-child{font:400 25px/1 Ubuntu,Arial,sans-serif;color:#9c8256;transition:transform .2s;flex-shrink:0}
+body.recruitment-page .recruitment-details[open]>summary>span:last-child{transform:rotate(45deg)}
+body.recruitment-page .recruitment-details>div{padding:0 0 22px;font:400 15px/1.95 Ubuntu,Arial,sans-serif;color:#5b6b51}
+body.recruitment-page .recruitment-details>div p{margin:0 0 1em}
+body.recruitment-page .recruitment-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch;margin-top:30px}
+body.recruitment-page .recruitment-plan{display:flex;flex-direction:column;align-items:stretch;border:1px solid rgba(117,114,79,.23);border-radius:4px;padding:28px 26px 26px;background:rgba(251,246,236,.6);box-shadow:0 7px 24px rgba(53,65,39,.035)}
+body.recruitment-page .recruitment-plan--featured{border-color:#9f855a;box-shadow:0 7px 24px rgba(83,78,45,.09)}
+body.recruitment-page .recruitment-plan>.eyebrow{font-size:8px;letter-spacing:.17em;color:#9a8055;margin:0 0 17px}
+body.recruitment-page .recruitment-plan h3{font:400 27px/1.4 Prata,Georgia,serif;letter-spacing:-.025em;color:#213c2b;margin:0 0 17px}
+body.recruitment-page .recruitment-plan__description{font:400 13px/1.85 Ubuntu,Arial,sans-serif;color:#64735a;min-height:70px;margin:0 0 18px}
+body.recruitment-page .recruitment-plan__price{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap;color:#8f3d2e}
+body.recruitment-page .recruitment-plan__rate{font:400 10px/1.7 Ubuntu,Arial,sans-serif;letter-spacing:.06em;color:#8b7d62;margin:0 0 8px}
+body.recruitment-page .recruitment-plan__price strong{font:400 49px/1.2 Prata,Georgia,serif;letter-spacing:-.04em}
+body.recruitment-page .recruitment-plan__price>span{font:400 12px/1.7 Ubuntu,Arial,sans-serif;color:#71775e}
+body.recruitment-page .recruitment-plan__minimum{font:400 16px/1.6 Ubuntu,Arial,sans-serif;color:#485b40;margin:7px 0 24px}
+body.recruitment-page .recruitment-guarantee{padding:19px 0;border-top:1px solid var(--recruitment-line);border-bottom:1px solid var(--recruitment-line);font:400 14px/1.8 Ubuntu,Arial,sans-serif;color:#5c6b50;margin:0}
+body.recruitment-page .recruitment-guarantee strong{font-weight:500;color:#2f4b33}
+body.recruitment-page .recruitment-plan ul{list-style:none;padding:0;margin:19px 0 23px;flex:1;font:400 13px/1.8 Ubuntu,Arial,sans-serif;color:#5c6b50}
+body.recruitment-page .recruitment-plan li{padding:8px 0 8px 18px;position:relative;border-bottom:1px solid rgba(82,87,58,.09)}
+body.recruitment-page .recruitment-plan li:before{content:'+';position:absolute;left:0;top:8px;color:#a18b61}
+body.recruitment-page .recruitment-plan>.button{font-size:11px;padding-inline:14px;gap:12px;justify-content:space-between;margin-top:auto}
+body.recruitment-page .recruitment-button-outline{border:1px solid #a5926d;color:#4b5b3e;background:transparent}
+body.recruitment-page .recruitment-price-note{font:400 11px/1.85 Ubuntu,Arial,sans-serif;color:#8a8068;margin:12px 0 0}
+body.recruitment-page .recruitment-linear{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;border:1px solid rgba(121,113,73,.23);border-radius:4px;padding:28px;margin-top:25px;background:rgba(229,223,207,.55)}
+body.recruitment-page .recruitment-linear .eyebrow{font-size:8px;color:#9a8156;margin:0 0 12px}
+body.recruitment-page .recruitment-linear h3{font:400 25px/1.4 Prata,Georgia,serif;color:#263d2b;margin:0 0 13px}
+body.recruitment-page .recruitment-linear p{font:400 13px/1.85 Ubuntu,Arial,sans-serif;color:#65725a;margin:0}
+body.recruitment-page .recruitment-linear>div+div{border-left:1px solid var(--recruitment-line);padding-left:35px;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+body.recruitment-page .recruitment-linear strong{font:400 34px/1.4 Prata,Georgia,serif;letter-spacing:-.03em;color:#963e2e}
+body.recruitment-page .recruitment-linear span{font:400 11px/1.8 Ubuntu,Arial,sans-serif;color:#72745e;margin:4px 0 12px}
+body.recruitment-page .recruitment-pricing-terms{margin-top:25px}
+body.recruitment-page .recruitment-calculator{margin-top:34px;padding:32px;border-radius:5px;border:1px solid rgba(187,172,125,.35);display:grid;grid-template-columns:1fr 1.05fr;gap:8%;background:linear-gradient(125deg,#082f27,#123a2d);color:#e7e3cf}
+body.recruitment-page .recruitment-calculator .eyebrow{color:#b8a17b;font-size:8px;margin:0 0 19px}
+body.recruitment-page .recruitment-calculator h3{font:400 29px/1.4 Prata,Georgia,serif;letter-spacing:-.03em;color:#f0ead7;margin:0 0 20px}
+body.recruitment-page .recruitment-calculator p{font:400 12px/1.85 Ubuntu,Arial,sans-serif;color:#b5c4ac;margin:0}
+body.recruitment-page .recruitment-calculator__controls{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+body.recruitment-page .recruitment-calculator label{font:400 10px/1.7 Ubuntu,Arial,sans-serif;color:#d1d7bf;display:grid;gap:8px}
+body.recruitment-page .recruitment-calculator :is(input,select){width:100%;min-width:0;min-height:46px;border:1px solid #667957;border-radius:3px;padding:10px 12px;background:#edf0e3;color:#263b29;font:400 14px/1.5 Ubuntu,Arial,sans-serif}
+body.recruitment-page .recruitment-calculator__result{grid-column:1/-1;border-top:1px solid var(--white-line);padding-top:17px}
+body.recruitment-page .recruitment-calculator__result>span{display:block;font:400 10px/1.8 Ubuntu,Arial,sans-serif;letter-spacing:.06em;color:#b9c5ae}
+body.recruitment-page .recruitment-calculator output{display:block;font:400 38px/1.5 Prata,Georgia,serif;color:#dfc493;margin:6px 0}
+body.recruitment-page .recruitment-calculator p.recruitment-calculator__status{color:#ffd3b4;margin-top:7px}
+body.recruitment-page .recruitment-calculator :is(input,select):focus-visible{outline:2px solid #e4c88c;outline-offset:3px}
+body.recruitment-page .recruitment-faq{display:grid;grid-template-columns:1fr 1.45fr;gap:9%;align-items:start}
+body.recruitment-page .recruitment-related{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}
+body.recruitment-page .recruitment-related a{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:17px 0;border-top:1px solid var(--recruitment-line);font:400 17px/1.7 Prata,Georgia,serif;color:#304d32}
+body.recruitment-page .recruitment-related .icon{width:17px;height:17px;color:#963e2e;flex-shrink:0}
+body.recruitment-page .recruitment-footer-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 30px;border-top:1px solid var(--white-line);padding:26px 0}
+body.recruitment-page .recruitment-footer-links a{font:400 12px/1.8 Ubuntu,Arial,sans-serif;color:#bdcbb2;min-height:38px;padding:7px 0}
+body.recruitment-page #t-footer .contact-copy>p.recruitment-contact-note{font-size:11px;line-height:1.8;color:#9eb297;margin-top:22px}
+body.recruitment-page :is(#process,#prices,#questions,#approach,#specialisations){scroll-margin-top:30px}
+body.recruitment-page :is(.recruitment-specialism,.recruitment-related a,.recruitment-footer-links a,summary):focus-visible{outline:2px solid #ac7146;outline-offset:4px}
+@supports(grid-template-rows:subgrid){@media(min-width:768px){body.recruitment-page .recruitment-plan{display:grid;grid-template-rows:subgrid;grid-row:span 9;row-gap:0}body.recruitment-page .recruitment-plan__description{min-height:0!important}body.recruitment-page .recruitment-plan__price{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center}body.recruitment-page .recruitment-plan>.button{align-self:end}}}
+@media(max-width:1199px){body.recruitment-page .recruitment-hero .hero-grid{min-height:490px}body.recruitment-page .recruitment-hero .hero-copy{width:63%}body.recruitment-page .recruitment-content{grid-template-columns:220px minmax(0,1fr);gap:35px}body.recruitment-page .recruitment-specialism{padding:21px}body.recruitment-page .recruitment-plan{padding:25px 20px}body.recruitment-page .recruitment-approach{gap:5%}body.recruitment-page .recruitment-calculator{gap:5%;padding:25px}}
+@media(max-width:1023px){body.recruitment-page .recruitment-specialisms{grid-template-columns:repeat(2,minmax(0,1fr))}body.recruitment-page .recruitment-hero .hero-scene__image{background-position:80% center}body.recruitment-page .recruitment-hero .hero-copy{width:64%}body.recruitment-page .recruitment-hero h1.source-field{font-size:45px}body.recruitment-page .recruitment-hero .hero-tagline{font-size:21px}body.recruitment-page .recruitment-criteria{gap:18px}body.recruitment-page .recruitment-criteria article{padding-right:15px}body.recruitment-page .recruitment-criteria h3{font-size:20px}body.recruitment-page .recruitment-process{grid-template-columns:repeat(2,minmax(0,1fr))}body.recruitment-page .recruitment-content{grid-template-columns:180px minmax(0,1fr);gap:25px}body.recruitment-page .recruitment-plan h3{font-size:23px}body.recruitment-page .recruitment-plan__description{min-height:110px}body.recruitment-page .recruitment-calculator{grid-template-columns:1fr;gap:28px}body.recruitment-page .recruitment-faq{gap:5%;grid-template-columns:.8fr 1.2fr}body.recruitment-page .recruitment-related{grid-template-columns:repeat(2,minmax(0,1fr))}body.recruitment-page .recruitment-footer-links{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:767px){body.recruitment-page .recruitment-hero .hero-scene__image{background-size:auto 300px;background-position:78% bottom;background-repeat:no-repeat}body.recruitment-page .recruitment-hero .hero-grid{min-height:0;padding-bottom:205px}body.recruitment-page .recruitment-hero .hero-copy{width:100%;max-width:none;padding:26px 20px 20px}body.recruitment-page .recruitment-hero h1.source-field{font-size:clamp(33px,9vw,44px);max-width:520px}body.recruitment-page .recruitment-hero .hero-tagline{font-size:21px;max-width:430px}body.recruitment-page .recruitment-hero .hero-lead{font-size:13px;max-width:480px}body.recruitment-page .recruitment-hero .hero-caption{margin-top:22px}body.recruitment-page .recruitment-approach{grid-template-columns:1fr;gap:30px}body.recruitment-page .recruitment-assessment-art{aspect-ratio:1.6;max-height:350px}body.recruitment-page .recruitment-prose{font-size:15px}body.recruitment-page .recruitment-criteria{grid-template-columns:1fr;gap:22px;margin-top:28px;padding-top:25px}body.recruitment-page .recruitment-criteria article{display:grid;grid-template-columns:35px minmax(0,1fr);column-gap:15px;padding:0 0 22px;border:0;border-bottom:1px solid var(--recruitment-line)}body.recruitment-page .recruitment-criteria article:last-child{border-bottom:0;padding-bottom:0}body.recruitment-page .recruitment-criteria .recruitment-index{grid-column:1;grid-row:1/span 2;margin-top:4px}body.recruitment-page .recruitment-criteria h3{margin:0 0 10px;grid-column:2;font-size:22px}body.recruitment-page .recruitment-criteria p{grid-column:2;font-size:13px}body.recruitment-page .recruitment-specialisms{grid-template-columns:1fr}body.recruitment-page .recruitment-specialism{grid-template-columns:1fr 25px;padding:21px}body.recruitment-page .recruitment-specialism h3{font-size:24px}body.recruitment-page .recruitment-role-note{grid-template-columns:1fr;gap:15px}body.recruitment-page .recruitment-role-note>span{font-size:23px}body.recruitment-page .recruitment-process{grid-template-columns:1fr;gap:22px;margin-top:25px}body.recruitment-page .recruitment-process li{padding-top:20px;grid-template-columns:35px 1fr;gap:15px}body.recruitment-page .recruitment-process h3{font-size:22px}body.recruitment-page .recruitment-process p{font-size:13px}body.recruitment-page .recruitment-content{grid-template-columns:1fr;gap:30px}body.recruitment-page .service-toc{position:static;padding:19px}body.recruitment-page .service-toc>strong{font-size:20px}body.recruitment-page .service-toc>a:not(.text-link){font-size:13px;padding:10px 0}body.recruitment-page .recruitment-content-section{padding-bottom:27px;margin-bottom:27px}body.recruitment-page .recruitment-content-section h2{font-size:28px}body.recruitment-page .recruitment-details>summary{font-size:15px;padding:18px 0;gap:15px}body.recruitment-page .recruitment-details>div{font-size:14px}body.recruitment-page .recruitment-plans{grid-template-columns:1fr;gap:20px}body.recruitment-page .recruitment-plan{padding:25px}body.recruitment-page .recruitment-plan__description{min-height:0;margin-bottom:20px}body.recruitment-page .recruitment-plan h3{font-size:28px}body.recruitment-page .recruitment-plan__price strong{font-size:44px}body.recruitment-page .recruitment-plan__minimum{margin-bottom:20px}body.recruitment-page .recruitment-plan>.button{font-size:12px}body.recruitment-page .recruitment-linear{grid-template-columns:1fr;gap:22px;padding:25px}body.recruitment-page .recruitment-linear>div+div{border-left:0;border-top:1px solid var(--recruitment-line);padding:20px 0 0}body.recruitment-page .recruitment-linear strong{font-size:33px}body.recruitment-page .recruitment-calculator{padding:25px 20px;gap:24px}body.recruitment-page .recruitment-calculator h3{font-size:27px}body.recruitment-page .recruitment-calculator__controls{grid-template-columns:1fr;gap:17px}body.recruitment-page .recruitment-calculator label{font-size:12px}body.recruitment-page .recruitment-calculator :is(input,select){font-size:16px;min-height:48px}body.recruitment-page .recruitment-calculator output{font-size:37px}body.recruitment-page .recruitment-faq{grid-template-columns:1fr;gap:22px}body.recruitment-page .recruitment-related{grid-template-columns:1fr;gap:0}body.recruitment-page .recruitment-related a{font-size:20px;min-height:65px}body.recruitment-page .recruitment-footer-links{grid-template-columns:1fr 1fr;gap:10px 22px}body.recruitment-page .recruitment-footer-links a{font-size:12px;line-height:1.8}}
+@media(max-width:389px){body.recruitment-page .recruitment-hero .hero-copy{padding-inline:16px}body.recruitment-page .recruitment-hero h1.source-field{font-size:34px}body.recruitment-page .recruitment-hero .hero-tagline{font-size:20px}body.recruitment-page .recruitment-calculator{padding:22px 17px}body.recruitment-page .recruitment-plan{padding:22px}body.recruitment-page .recruitment-footer-links{grid-template-columns:1fr}}
+@media(max-width:767px){body.recruitment-page .recruitment-hero .hero-scene__image{background-image:url('recruitment-hero-720.webp')}}
+@media(prefers-reduced-motion:reduce){body.recruitment-page .recruitment-specialism{transition:none}body.recruitment-page .recruitment-details>summary>span:last-child{transition:none}}
+@media print{body.recruitment-page .recruitment-hero .hero-grid{min-height:0;padding:0}body.recruitment-page .recruitment-hero .hero-copy{width:100%;padding:0}body.recruitment-page .recruitment-prose,body.recruitment-page .recruitment-details>div{color:#111}body.recruitment-page .recruitment-assessment-art,body.recruitment-page .service-toc,body.recruitment-page .recruitment-calculator,body.recruitment-page .recruitment-tabs{display:none}body.recruitment-page .recruitment-approach,body.recruitment-page .recruitment-content,body.recruitment-page .recruitment-process,body.recruitment-page .recruitment-plans,body.recruitment-page .recruitment-criteria,body.recruitment-page .recruitment-faq{display:block}body.recruitment-page .recruitment-plan,body.recruitment-page .recruitment-process li{break-inside:avoid;margin:15px 0}body.recruitment-page .recruitment-details:not([open])>div{display:block}body.recruitment-page .recruitment-linear{display:block}}

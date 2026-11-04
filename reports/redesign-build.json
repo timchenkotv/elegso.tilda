@@ -1,6 +1,6 @@
 {
   "format": "elegso-redesign-content-audit-v1",
-  "generatedAt": "2026-11-04T15:32:27.872Z",
+  "generatedAt": "2026-11-04T16:49:05.546Z",
   "source": "content/site-pages.json",
   "pageCount": 23,
   "sourceContentPreserved": true,
@@ -23,8 +23,8 @@
       "h1Count": 1,
       "htmlSha256": "c2c1e613e59737531ed11074f08a85834091e9bbbb41cb56ae84753a58886858",
       "htmlBytes": 122808,
-      "finalHtmlSha256": "a2eab927cd4ca6c6255d7f5706d5488da58418274b10f16a0e6c7135064825f6",
-      "finalHtmlBytes": 125895
+      "finalHtmlSha256": "64703b762c2b855454c153e71ec70d8c171f5c1ec950ad460dd7c4f87aed8578",
+      "finalHtmlBytes": 126168
     },
     {
       "route": "/termination_of_the_lease_agreement/",
@@ -43,8 +43,8 @@
       "h1Count": 1,
       "htmlSha256": "91c00176deac8fd3f3c5228c795a3662fa4dfa87d2749e5a47bfca2ba3214058",
       "htmlBytes": 105374,
-      "finalHtmlSha256": "8fb3dd60003a4bc363284179ad799ad493d76250b2cdceb73280430a8914cf23",
-      "finalHtmlBytes": 108461
+      "finalHtmlSha256": "9a1e392a9dbd48a54d2696c972229481599cfdcf6e8a9d88f2bd787c5cf7693b",
+      "finalHtmlBytes": 108734
     },
     {
       "route": "/contract_modification/",
@@ -62,8 +62,8 @@
       "h1Count": 1,
       "htmlSha256": "76db01400435ed06d429808c20f04c2b1e8f391ee530bd00f453b5f6c93f8f40",
       "htmlBytes": 62001,
-      "finalHtmlSha256": "3edeade31b3ac250c71221000615a57604a4741738e2e22ca87ea7173a41a602",
-      "finalHtmlBytes": 62129
+      "finalHtmlSha256": "517404aa8060e988207fb3965afef93409da4451868069f954c3463dc58addd8",
+      "finalHtmlBytes": 62402
     },
     {
       "route": "/reduction_of_the_penalty_amount/",
@@ -81,8 +81,8 @@
       "h1Count": 1,
       "htmlSha256": "1f57f9a14b0d4d69ca2e82b604990708a3b37695bb736efb61213e842e733cb8",
       "htmlBytes": 60854,
-      "finalHtmlSha256": "88dc7e75b50ed694d73f4b70a18bd72d9aaef07d6aad85b4827f3eab71e99239",
-      "finalHtmlBytes": 60982
+      "finalHtmlSha256": "158c98849cfc1146ac921dd9502e02ced82d1348bae4d0223b099e3b5659d65e",
+      "finalHtmlBytes": 61255
     },
     {
       "route": "/refund_of_the_penalty/",
@@ -100,8 +100,8 @@
       "h1Count": 1,
       "htmlSha256": "6a865e398e8e700600b2d5aa11b859d9276bc01d96327703d3b539f98c071d41",
       "htmlBytes": 63081,
-      "finalHtmlSha256": "c4a6efb8ff18ab8c96e2ff3e5a60c511906442a555bb677265660430c732dc6d",
-      "finalHtmlBytes": 63209
+      "finalHtmlSha256": "d1d91839a2bb93c9c467b663a7a72f7a781a99cd1ab265db6be9b605579fa9e5",
+      "finalHtmlBytes": 63482
     },
     {
       "route": "/restoring_the_contract/",
@@ -119,8 +119,8 @@
       "h1Count": 1,
       "htmlSha256": "4105e13fe6b2fffd0c8b74485b70c5bc06cd09108da1e42cd7ed99d547670887",
       "htmlBytes": 55048,
-      "finalHtmlSha256": "7f3fcc101f4624f82752f956e70a3545fc264e93fb5b1b82416660bd8ddf583f",
-      "finalHtmlBytes": 55176
+      "finalHtmlSha256": "5a5a1fc065de864ad646efba86a0c0daf0b77de706f87fef19e807269b76a6ed",
+      "finalHtmlBytes": 55449
     },
     {
       "route": "/representation_in_the_arbitration_court/",
@@ -138,8 +138,8 @@
       "h1Count": 1,
       "htmlSha256": "f4c3d9bed57f09ca39e5975d9ae2870c63bbface3e2eb9763dccf9251c52f83f",
       "htmlBytes": 60332,
-      "finalHtmlSha256": "09ecd29306527d3a65832e80146287ce31bd736e36fd7f7ace4b58429487cf3b",
-      "finalHtmlBytes": 60460
+      "finalHtmlSha256": "7df24996401d127ae0c187f789a20a81915536c48668e3b6700bb4e6d2c10f5b",
+      "finalHtmlBytes": 60733
     },
     {
       "route": "/calculator_of_the_balance_of_counter_obligations_in_leasing/",
@@ -159,8 +159,8 @@
       "h1Count": 1,
       "htmlSha256": "273db9e2ad034b2ed355dcddeedf1e93a2b014db5ac8b956a2d7b0c76a83e826",
       "htmlBytes": 62879,
-      "finalHtmlSha256": "2f7750517575a34451a72ac11722d25c1453227cd9243f48f0dc7a532a67785b",
-      "finalHtmlBytes": 63007
+      "finalHtmlSha256": "e1a29f6a75cd9ad34533d735cb93803e8ee8e28dadaf568e5ba52d78c18e8d02",
+      "finalHtmlBytes": 63280
     },
     {
       "route": "/arbitration_lawyer/",
@@ -178,8 +178,8 @@
       "h1Count": 1,
       "htmlSha256": "73db1b2516e53bfccd87e02a0ff397c506c0dc5746d600d13de90c4b6a4f8624",
       "htmlBytes": 65836,
-      "finalHtmlSha256": "64a3e566159036ab5aaa38827d24a88b0681921a77809ac96f34709bb76647b0",
-      "finalHtmlBytes": 65964
+      "finalHtmlSha256": "83e9b0a3609cff0f95eef43db61f3f14d10bde56c48a6fe8f64b3f66a89c4851",
+      "finalHtmlBytes": 66237
     },
     {
       "route": "/trial_lawyer/",
@@ -197,8 +197,8 @@
       "h1Count": 1,
       "htmlSha256": "62ca66cd09a6e64b784509cca80576c6d7f679ffba9903030acf3d8aa2749373",
       "htmlBytes": 56130,
-      "finalHtmlSha256": "01604c5353145e497c681ec510309081a625b3596ea644e006d941669ab10213",
-      "finalHtmlBytes": 56258
+      "finalHtmlSha256": "47faa16b4fa8655776aa59c84291ab62b41db946e96a1b965738bf41533de0f2",
+      "finalHtmlBytes": 56531
     },
     {
       "route": "/judicial_protection/",
@@ -216,8 +216,8 @@
       "h1Count": 1,
       "htmlSha256": "79013106b367c4363c18885380ef4f53e70e4ce3d4c985f0cfee37778b2a1ef5",
       "htmlBytes": 64843,
-      "finalHtmlSha256": "0470018d2d9d1b459660328a5d6493705f32ebcf0b6f12b98003a9fbb169cb37",
-      "finalHtmlBytes": 64971
+      "finalHtmlSha256": "f89a804279ed1a8bbebc83c59b45e9726cd57575e96a1b7efaa6bd2cb33f695e",
+      "finalHtmlBytes": 65244
     },
     {
       "route": "/appeal_of_judicial_acts/",
@@ -235,8 +235,8 @@
       "h1Count": 1,
       "htmlSha256": "2f9d6374d0c9e7c1fe6c354d06008539d01eb437ebe06ae3ba44d277c20c464f",
       "htmlBytes": 56500,
-      "finalHtmlSha256": "d0d2a4376857cd1aa52bbe14a4e2ab0fe675d7cb7f04ab87403baac0f829d2e8",
-      "finalHtmlBytes": 56628
+      "finalHtmlSha256": "ffd45c979986e0e2af1327935dd86f6d3e76b0d36df604ca29d16cd29f13342d",
+      "finalHtmlBytes": 56901
     },
     {
       "route": "/cancellation_of_the_court_order/",
@@ -254,8 +254,8 @@
       "h1Count": 1,
       "htmlSha256": "23873a7d8f153f4783e1d3140b7b5a5746cdc7ebf5e15a47079dfb9a49255d51",
       "htmlBytes": 53070,
-      "finalHtmlSha256": "7eb23f6df964c4990ac207d523ce5a2ee0ea0332da6b1b88c689538f531b1b3e",
-      "finalHtmlBytes": 53198
+      "finalHtmlSha256": "0a27a3d257b17121309a5cecf981a85d35b48bcc7f865abb6feb79f203738cfc",
+      "finalHtmlBytes": 53471
     },
     {
       "route": "/collect_the_debt/",
@@ -273,8 +273,8 @@
       "h1Count": 1,
       "htmlSha256": "f338094d03c82c48a47ac94e7be6670e90c3478ee0f267715ec09407d8083457",
       "htmlBytes": 53551,
-      "finalHtmlSha256": "643ef620a3153f419325afd55ada04d1fb3a79633c6a73475cd86b23c879f890",
-      "finalHtmlBytes": 53679
+      "finalHtmlSha256": "168386718a1ae2c153474451a093b72908f5550aa2b14131ec285ffb9091c8ea",
+      "finalHtmlBytes": 53952
     },
     {
       "route": "/contract_drafting_service/",
@@ -292,8 +292,8 @@
       "h1Count": 1,
       "htmlSha256": "58b376c6cb9fc1b2e13f8b688b0751884360319f4dc1557ca1ef7b34d7759b62",
       "htmlBytes": 55862,
-      "finalHtmlSha256": "4f64d984c1fd9fa4fab9fdaf80a8f84f6d07e23195edec84e7cebc097ff25f40",
-      "finalHtmlBytes": 55990
+      "finalHtmlSha256": "ee849b36c666068f044d6dee75042542a9f14fa45904fbb27dd3e42d45887983",
+      "finalHtmlBytes": 56263
     },
     {
       "route": "/drafting_an_agreement/",
@@ -311,8 +311,8 @@
       "h1Count": 1,
       "htmlSha256": "d2dc7bfe0bc1ba7f8e039b278a97e3bf2286ec346befb6dd6025d6f52c1de730",
       "htmlBytes": 49161,
-      "finalHtmlSha256": "f7346dbc94000a93f84c10858c2771324fab6ce5fe80a01fe413e408c9d9de80",
-      "finalHtmlBytes": 49289
+      "finalHtmlSha256": "4250f5ac49d9ab584c59937b9eb5aedb425e697bbd0853a7e8bae9c57d47e9cc",
+      "finalHtmlBytes": 49562
     },
     {
       "route": "/termination_and_restoration_of_contracts/",
@@ -330,8 +330,8 @@
       "h1Count": 1,
       "htmlSha256": "c981775f8c15dc1e5c9d4d37fefdeea4477e7e8e22eda9a9e53451b3bb3e8e4d",
       "htmlBytes": 51040,
-      "finalHtmlSha256": "435f84fb8d821733da3b47bf1e0aba3119e76e917bb044740eac59743911818f",
-      "finalHtmlBytes": 51168
+      "finalHtmlSha256": "b56f0eb9fdf0d96d9dbf07d00c140ca7a68154a7174f76c95046b8ce1ae36c19",
+      "finalHtmlBytes": 51441
     },
     {
       "route": "/property_law/",
@@ -349,8 +349,8 @@
       "h1Count": 1,
       "htmlSha256": "08ccab97910105029530794f0fb7668914d83b2efc091d342d5d2667eaa86633",
       "htmlBytes": 65813,
-      "finalHtmlSha256": "8b8ca083a69e6bd28924c686506331bb80602fd3152d3f53a0d216341407f33c",
-      "finalHtmlBytes": 65941
+      "finalHtmlSha256": "af84a08929f848dc9cb0b55c27b53e2623151f98877e122a3d3637f6dd002b77",
+      "finalHtmlBytes": 66214
     },
     {
       "route": "/accident_lawyer/",
@@ -368,8 +368,8 @@
       "h1Count": 1,
       "htmlSha256": "1ff4989b145ef225855159afdefbd497f635e0957db489e6a383fe8bfa3ffb3a",
       "htmlBytes": 51898,
-      "finalHtmlSha256": "935e337a007b0af5f9fcae7e6dda8ce257750857fa2a7ddfa204cb16bdcc9969",
-      "finalHtmlBytes": 52026
+      "finalHtmlSha256": "837fe2ec2d452d760900be362c15ecb129b764b7bf43ee6f701ed10a4471a087",
+      "finalHtmlBytes": 52299
     },
     {
       "route": "/mission/",
@@ -387,8 +387,8 @@
       "h1Count": 1,
       "htmlSha256": "daa61ef9255b6348b1e2af81b9090186dbd3be5b4a130ca54bdd3e6e2569141f",
       "htmlBytes": 42023,
-      "finalHtmlSha256": "fca5de76aa88b0d19fab2293fa578290f23c19c49009049091128b703129edab",
-      "finalHtmlBytes": 42151
+      "finalHtmlSha256": "18ab79e2351cb5e1f742a5bbffbf961848b4def24870b1d1f89d5a8f5120009a",
+      "finalHtmlBytes": 42424
     },
     {
       "route": "/our_team/",
@@ -406,8 +406,8 @@
       "h1Count": 1,
       "htmlSha256": "27254a2943a7255bc67c4caaa8fc7c2d961334a532d5818957aaf29ad42c472c",
       "htmlBytes": 39625,
-      "finalHtmlSha256": "7f75992366481f36d5c9802a92b4a4658ac97932b6c3b89e7d0b9e3a3dee6bd2",
-      "finalHtmlBytes": 39753
+      "finalHtmlSha256": "b3bf3126aaded93fec2aa5844853fe14aa226eacb1ae758fb4dcfe7a6501b856",
+      "finalHtmlBytes": 40026
     },
     {
       "route": "/contacts/",
@@ -425,8 +425,8 @@
       "h1Count": 1,
       "htmlSha256": "44b537eaf279fb9b84d10dd9eaea203d59b4d2f3feedafb47a0ddae4e22d631e",
       "htmlBytes": 40090,
-      "finalHtmlSha256": "0df4ab107f4e52e3ae18ab909815cd2b23647158e9f4a0411201bff432aba349",
-      "finalHtmlBytes": 40218
+      "finalHtmlSha256": "f1f932fde4ce1f379bf991ed47518133fe8a1537edf62aead01ea796ed06676d",
+      "finalHtmlBytes": 40491
     },
     {
       "route": "/",
@@ -445,11 +445,11 @@
       "h1Count": 1,
       "htmlSha256": "3f902ece0a7705aa8e113e8475bba04cbb5809ee182579227aa6fd9118758ca8",
       "htmlBytes": 76662,
-      "finalHtmlSha256": "dab35721438558d83a1c94f9ba9aa765ae3c84d6bea9056a99f72ad99865ced8",
-      "finalHtmlBytes": 79933
+      "finalHtmlSha256": "1ada985e100dd4c5badf70424281df0e9ff94ae7dc9c0259e0c4ee37c05a2ec4",
+      "finalHtmlBytes": 80206
     }
   ],
-  "completedAt": "2026-11-04T15:32:28.842Z",
+  "completedAt": "2026-11-04T16:49:06.939Z",
   "newServices": [
     "/bankruptcy/",
     "/corporate_bankruptcy/",
@@ -463,5 +463,17 @@
     "/international_contract_disputes/",
     "/cross_border_debt_recovery/",
     "/international_contracts/"
+  ],
+  "recruitmentPages": [
+    "/recruitment/",
+    "/recruitment/legal/",
+    "/recruitment/head-of-legal/",
+    "/recruitment/it/",
+    "/recruitment/finance/",
+    "/recruitment/engineering/",
+    "/recruitment/management/",
+    "/recruitment/sales/",
+    "/recruitment/office/",
+    "/recruitment/frontline/"
   ]
 }

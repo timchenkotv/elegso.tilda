@@ -14,6 +14,7 @@ const newServices = json('content/new-service-pages.json');
 const manifest = json('reports/redesign-build.json');
 const sourcePages = original.pages;
 const addedPages = newServices.pages;
+const recruitmentPages = json('content/recruitment-pages.json').pages;
 const publicFile = route => path.join(web, route === '/' ? 'index.html' : route.replace(/^\//, '') + 'index.html');
 const pageHtml = route => fs.readFileSync(publicFile(route), 'utf8');
 const escapeRE = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -52,6 +53,7 @@ function outputEntries(directory = web, prefix = '') {
 const expectedIndexable = new Set([
   ...sourcePages.map(page => page.route),
   ...addedPages.map(page => page.route),
+  ...recruitmentPages.map(page => page.route),
   '/articles/', '/oferta/', '/soglashenie/', '/consent/', '/cookies/', '/documents/',
   '/offer_for_lawyer_20231103/', '/calc_nst/', '/calc_nst/instruction/',
 ]);

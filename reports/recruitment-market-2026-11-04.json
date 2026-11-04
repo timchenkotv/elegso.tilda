@@ -1,0 +1,49 @@
+{
+  "checkedOn": "2026-11-04",
+  "method": "Primary public agency websites; a non-statistical sample, not a measured market average",
+  "sources": [
+    {"company":"Get Experts","url":"https://getexperts.ru/faq/","observation":"Public fee 20–25% of annual salary; exact terms depend on vacancy"},
+    {"company":"Империя кадров","url":"https://www.imperia.ru/","observation":"Public fee 15–18% of annual income; usual guarantee replacement period three months"},
+    {"company":"Cornerstone","url":"https://cornerstone.ru/uslugi/top-manager/ruk-departamenta","observation":"Current page: from20% annual guaranteed income for department leadership; older search snippets differed"},
+    {"company":"Cornerstone Legal","url":"https://cornerstone.ru/podbor-personala/legalrecruitment","observation":"Professional legal assessment with a law-firm partner supports the logic of legal-specialist recruitment"},
+    {"company":"ANCOR","url":"https://ancor.ru/services/recruitment/podbor-administrativnogo-personala/","observation":"Fixed or percentage model, individualized price, one-to-three-month replacement period"},
+    {"company":"Antal Talent","url":"https://antaltalent.ru/podbor-personala/","observation":"Segmented professional and management recruitment; individual commercial terms"}
+  ],
+  "decision": {
+    "positioning": "Independent ELEGSO recruitment route; legal recruitment as core expertise; technical assessment coordinated with client specialists",
+    "taxonomy": "General recruitment umbrella, professional and management recruitment distinct from frontline hiring",
+    "sourceOfTruth": "content/recruitment-pages.json",
+    "professionalFeesPercent": [15,18,20],
+    "minimumFeesRUB": [120000,180000,300000],
+    "guaranteePeriodDays": [90,90,120],
+    "frontlineFromRUB": 50000,
+    "frontlineGuaranteeDays": 30,
+    "payment": "30% launch /70% candidate start, exact terms agreed in the assignment",
+    "feeBasis": "Twelve months of agreed fixed gross income before personal income tax",
+    "sitePromises": "One replacement search under agreed conditions; no invented hiring results or universal completion deadlines"
+  },
+  "illustrativeUnitEconomics": {
+    "notMarketStatistics": true,
+    "monthlyGrossCandidateIncomeRUB": 150000,
+    "annualGrossIncomeRUB": 1800000,
+    "feePercent": 18,
+    "revenueRUB": 324000,
+    "assumedSearchesPerHire": 2,
+    "assumedHoursPerSearch": 45,
+    "assumedLoadedHourlyCostRUB": 1500,
+    "assumedLaborRUB": 135000,
+    "assumedChannelsPerSearchRUB": 20000,
+    "assumedChannelsTotalRUB": 40000,
+    "assumedReplacementReserveRUB": 32400,
+    "assumedAcquisitionAndOverheadRUB": 50000,
+    "illustrativeRemainderBeforeTaxesRUB": 66600,
+    "conclusion": "Pricing can support the service, but cancelled searches, acquisition cost and replacements determine actual profitability. This is an assumption-based model, not a revenue or profit forecast."
+  },
+  "scopeSafety": {
+    "newApplicantUploadOrDatabase": false,
+    "offerTextChanged": false,
+    "privacyTextChanged": false,
+    "offerBasis": "Existing section12.11 allows individually agreed recruitment fee and assignment conditions",
+    "privacyBasis": "Existing policy3.8 covers recruitment interaction; operational lawful basis and necessary applicant consents remain required"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-04",
+  "section": "/recruitment/",
+  "pages": 10,
+  "source": "content/recruitment-pages.json",
+  "renderer": "scripts/recruitment-renderer.mjs",
+  "marketAssessment": "reports/recruitment-market-2026-11-04.json",
+  "artPromptSet": "config/recruitment-art-v1.json",
+  "previousProductionCommit": "516e641b64ba",
+  "quickRollback": "/var/backups/elegso/before-recruitment-2026-11-04",
+  "quickRollbackLogicalSize": "186 MiB, hard-linked immutable site/case/legal trees",
+  "changes": [
+    "Ten static recruitment pages with distinct specialist content and SEO metadata",
+    "Recruitment-specific header/footer, separate route to legal services through menu",
+    "Three professional/leadership pricing plans and a separate frontline model",
+    "Local fee estimate calculator, explicit gross-income basis and minimum fees",
+    "Original emerald 3D illustrations with responsive WebP derivatives",
+    "Navigation link from existing public pages without rewriting their body content",
+    "Recruitment URLs added to static sitemap"
+  ],
+  "preserved": ["All original legal service content", "46 static ERP case publications", "Legal-document CMS ownership and sealed offer content", "Cookie controls and consent-based analytics", "Contact reveal and goals", "Existing calculators and admin services"],
+  "newApplicantUpload": false,
+  "databaseChanges": false,
+  "verification": {
+    "nodeTests": 133,
+    "pythonTests": 187,
+    "localSeoErrors": 0,
+    "localBrokenLinks": 0,
+    "allTenPagesAt320px": "No horizontal overflow or broken images",
+    "otherWidths": [390,800,1280],
+    "mobileMenu": "Specialisation link opens legal recruitment correctly",
+    "calculator": "200000 ×12 ×18% =432000; minimum fee and invalid input tested",
+    "tariffAlignment": "Dynamic CSS subgrid aligns rates and minimums without fixed card heights",
+    "livePrivacyPolicy": "Existing recruitment/resume purpose confirmed on published policy before release"
+  }
+}

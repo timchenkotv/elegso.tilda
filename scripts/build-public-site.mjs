@@ -5,7 +5,7 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 const root=path.resolve(import.meta.dirname,'..');
-const steps=[['build-site-design.mjs'],['build-new-services.mjs'],['build-publications.mjs'],['build-offers.mjs'],['build-legal-pages.mjs','--write'],['build-remaining-chrome.mjs'],['build-public-sitemap.mjs'],['privacy-analytics.mjs','--apply']];
+const steps=[['build-site-design.mjs'],['build-new-services.mjs'],['build-publications.mjs'],['build-offers.mjs'],['build-legal-pages.mjs','--write'],['build-remaining-chrome.mjs'],['build-recruitment.mjs'],['build-public-sitemap.mjs'],['privacy-analytics.mjs','--apply']];
 for(const [script,...args]of steps){
  const result=spawnSync(process.execPath,[path.join(root,'scripts',script),...args],{cwd:root,stdio:'inherit'});
  if(result.status!==0)process.exit(result.status||1);
@@ -19,4 +19,5 @@ for(const p of report.pages){
 }
 report.completedAt=new Date().toISOString();
 report.newServices=JSON.parse(await fs.readFile(path.join(root,'content/new-service-pages.json'),'utf8')).pages.map(p=>p.route);
+report.recruitmentPages=JSON.parse(await fs.readFile(path.join(root,'content/recruitment-pages.json'),'utf8')).pages.map(p=>p.route);
 await fs.writeFile(reportFile,JSON.stringify(report,null,2)+'\n');
