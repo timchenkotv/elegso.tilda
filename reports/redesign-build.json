@@ -1,6 +1,6 @@
 {
   "format": "elegso-redesign-content-audit-v1",
-  "generatedAt": "2026-11-04T13:42:22.107Z",
+  "generatedAt": "2026-11-04T14:03:49.292Z",
   "source": "content/site-pages.json",
   "pageCount": 23,
   "sourceContentPreserved": true,
@@ -21,10 +21,10 @@
       "missingText": [],
       "missingExtras": [],
       "h1Count": 1,
-      "htmlSha256": "5a55807bf9625ff2b0303422cbc42fce9a537218e38ce576745beb8d8ae8c4ed",
-      "htmlBytes": 122640,
-      "finalHtmlSha256": "6a9b350967c44c9d971a8f2d9491f4fe1471b8a7a16714ab1e1fe44b498d6879",
-      "finalHtmlBytes": 125727
+      "htmlSha256": "9c472567ab23a2570f14f64fe14642f4972e78dac41d30ee984ac438c6924d36",
+      "htmlBytes": 122636,
+      "finalHtmlSha256": "754142ac8e7894e7e6beb566a1f22326febdf6c6c7d058db585c2830a5f8e384",
+      "finalHtmlBytes": 125723
     },
     {
       "route": "/termination_of_the_lease_agreement/",
@@ -41,10 +41,10 @@
       "missingText": [],
       "missingExtras": [],
       "h1Count": 1,
-      "htmlSha256": "a7ff1d3934b786cd0764c92d33e10ba222bb46d8b1f52c26fa2eca94fbce86c9",
-      "htmlBytes": 105206,
-      "finalHtmlSha256": "3ddb445f32b2ecf4a208b99798773fb1dea6ce147f96d76bd91017315ef2b6a8",
-      "finalHtmlBytes": 108293
+      "htmlSha256": "2f6d7092aefcb95f948ef59deb8b69f7c84176c877f294555e3c8e6e1ce66bd8",
+      "htmlBytes": 105202,
+      "finalHtmlSha256": "8825ee6eb6c89f62895da776cf589307728db506ba5cc1dc89d99e6eb26e4d93",
+      "finalHtmlBytes": 108289
     },
     {
       "route": "/contract_modification/",
@@ -60,10 +60,10 @@
       "missingText": [],
       "missingExtras": [],
       "h1Count": 1,
-      "htmlSha256": "0af4733cac8fc08b913248971d2f924c371a5fdd6591f1872236fd624f807466",
-      "htmlBytes": 61833,
-      "finalHtmlSha256": "80c303501a21de5038bac8adb1d858198c5fb6b27336b0433465707ee68457a2",
-      "finalHtmlBytes": 61961
+      "htmlSha256": "5ba50c2eedbdd98ee0a019cda2a7febd3c5100701fc2f7c8fa9da4cd831888e2",
+      "htmlBytes": 61829,
+      "finalHtmlSha256": "6bd28805ddf7bebc4e04f1883b04bb7442fcce39a2e42bbe8ae4e67cff9767b0",
+      "finalHtmlBytes": 61957
     },
     {
       "route": "/reduction_of_the_penalty_amount/",
@@ -79,10 +79,10 @@
       "missingText": [],
       "missingExtras": [],
       "h1Count": 1,
-      "htmlSha256": "72f849f18a8ecd986354a8c9db8aae6ac95a791f2a2320bd840c04e1f6372ee9",
-      "htmlBytes": 60686,
-      "finalHtmlSha256": "cdbc23d238ee2b1e6f6687794fedf702828368ffe2fd6cfdac62a66f139eeabc",
-      "finalHtmlBytes": 60814
+      "htmlSha256": "e8150b6d5d2fbbf7f9f88109e861746774a9353e1b18367f707b7a72e30aaa57",
+      "htmlBytes": 60682,
+      "finalHtmlSha256": "3c604abc83691ade9072fe84bc6b6f0c571c26d2d4b847a1690808a02b38f078",
+      "finalHtmlBytes": 60810
     },
     {
       "route": "/refund_of_the_penalty/",
@@ -98,10 +98,10 @@
       "missingText": [],
       "missingExtras": [],
       "h1Count": 1,
-      "htmlSha256": "40a65a58368d0a7ddaf47a19cf037f0927550edc4ba358798031b9de42861376",
-      "htmlBytes": 62913,
-      "finalHtmlSha256": "1da087555cab3d4e68eb80ef16d2728dfe36879a2049f539e66bd5b7fd24b0b5",
-      "finalHtmlBytes": 63041
+      "htmlSha256": "6f7ef2a81b33209b008244af06ac5b66dd2001b54a67489eb271a6c94653c05e",
+      "htmlBytes": 62909,
+      "finalHtmlSha256": "42b1e9db77729cf3e731baa9519272b1c0de01a44f21d259afab38d229eaab74",
+      "finalHtmlBytes": 63037
     },
     {
       "route": "/restoring_the_contract/",
@@ -117,10 +117,10 @@
       "missingText": [],
       "missingExtras": [],
       "h1Count": 1,
-      "htmlSha256": "226b37c1bf34119f6946f95ba3e8a4c48359a4a863f1d42ef62e7380085a62d8",
-      "htmlBytes": 54880,
-      "finalHtmlSha256": "8ed6bb78d13eadb97c9ad5762542c0eff1d6eb492408f0f2e7689bf432cba082",
-      "finalHtmlBytes": 55008
+      "htmlSha256": "b1ad809318449b479d58b5d2f16560ec17674ad9bb885a00772a9bd7304e9245",
+      "htmlBytes": 54876,
+      "finalHtmlSha256": "237f9cb36bceaf0e06a413fe4e3d961dc2bd2bc17f5f09e4560c9fd42720bde8",
+      "finalHtmlBytes": 55004
     },
     {
       "route": "/representation_in_the_arbitration_court/",
@@ -136,10 +136,10 @@
       "missingText": [],
       "missingExtras": [],
       "h1Count": 1,
-      "htmlSha256": "1334d1f1bf6ce7afd16884505503d13f27d833e340f73a538f9ff71b9e53d900",
-      "htmlBytes": 60164,
-      "finalHtmlSha256": "6cfccd3dae93d2494915bdd2353bfe31aed2869884c4c132b9be337a7b7242a3",
-      "finalHtmlBytes": 60292
+      "htmlSha256": "8b838489128e7128b970e36096a81990bf07e194208f48c8c4654d42ff26fa49",
+      "htmlBytes": 60160,
+      "finalHtmlSha256": "8d9050360afa0d93cda4223b800b7ef49757b20b023c2308db5901b956720228",
+      "finalHtmlBytes": 60288
     },
     {
       "route": "/calculator_of_the_balance_of_counter_obligations_in_leasing/",
@@ -157,10 +157,10 @@
       "missingText": [],
       "missingExtras": [],
       "h1Count": 1,
-      "htmlSha256": "99878252a1a1b6c8218f4c79d6dfe6f7ab168cb9b128e0e2558221465b8a3e7d",
-      "htmlBytes": 62711,
-      "finalHtmlSha256": "7a341bc436a64bab2fac1395d4cc50518a3a544859e452e47c960645b4c9e8a0",
-      "finalHtmlBytes": 62839
+      "htmlSha256": "69206beb89265f072107af72728ee976878da13ec2a364db5036e323c1563e2f",
+      "htmlBytes": 62707,
+      "finalHtmlSha256": "ed4a20dfcca1bc484d022468a523193150f81259860e28eca715a43a57962d22",
+      "finalHtmlBytes": 62835
     },
     {
       "route": "/arbitration_lawyer/",
@@ -449,7 +449,7 @@
       "finalHtmlBytes": 79761
     }
   ],
-  "completedAt": "2026-11-04T13:42:23.328Z",
+  "completedAt": "2026-11-04T14:03:50.356Z",
   "newServices": [
     "/bankruptcy/",
     "/corporate_bankruptcy/",

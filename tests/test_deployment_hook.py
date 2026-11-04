@@ -290,6 +290,46 @@ else:
             self.assertEqual((candidate / "cases/example-1" / filename).read_bytes(), original)
             self.assertTrue(all(folder.is_dir() for folder in retained))
 
+    def test_same_digest_noop_external_seed_is_accepted_only_for_complete_previous(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary).resolve()
+            previous = base / "generated/releases/same-digest"
+            stage = base / "generated/.deploy-stage-repeat"
+            other = base / "generated/releases/unrelated"
+            for candidate in [previous, other]:
+                (candidate / "cases").mkdir(parents=True)
+                (candidate / "cases/index.html").write_text("complete catalogue", encoding="utf-8")
+                (candidate / "cases/carousel.json").write_text('{"version":1,"items":[]}', encoding="utf-8")
+                (candidate / "manifest.json").write_text('{"content_digest":"same-digest","case_count":0,"slugs":[]}', encoding="utf-8")
+            stage.mkdir()
+            # An unchanged publisher returns success without replacing this
+            # external seed link or creating any private release directory.
+            (stage / "current").symlink_to(previous)
+            (base / "generated/current").symlink_to(previous)
+
+            def validate(candidate):
+                script = PREFIX + "\n" + "\n".join([
+                    f"cases_stage='{stage}'", f"cases_previous='{previous}'",
+                    f"validate_case_candidate '{candidate}'", "",
+                ])
+                return subprocess.run(["/bin/sh", "-c", script], capture_output=True, text=True).returncode
+
+            self.assertEqual(validate((stage / "current").resolve()), 0)
+            self.assertEqual((base / "generated/current").resolve(), previous)
+            self.assertEqual((stage / "current").resolve(), previous)
+            self.assertFalse((stage / "releases").exists())
+            self.assertNotEqual(validate(other), 0, "Unrelated external release must not be accepted")
+            (previous / "cases/carousel.json").unlink()
+            self.assertNotEqual(validate(previous), 0, "Previous catalogue without feed must not be accepted")
+            (previous / "cases/carousel.json").write_text('{"version":1,"items":[]}', encoding="utf-8")
+            (previous / "manifest.json").unlink()
+            self.assertNotEqual(validate(previous), 0, "Previous catalogue without manifest must not be accepted")
+
+            promotion = SOURCE[SOURCE.index('    if [ -n "$cases_candidate" ]; then'):SOURCE.index('    # Assets become available first;')]
+            self.assertIn('if [ "$cases_candidate" = "$cases_previous" ]; then', promotion)
+            self.assertIn('cases_ready=$cases_previous', promotion)
+            self.assertLess(promotion.index('if [ "$cases_candidate" = "$cases_ready" ]; then'), promotion.index('sudo /bin/mv -T "$cases_candidate" "$cases_ready"'))
+
 
 if __name__ == "__main__":
     unittest.main()

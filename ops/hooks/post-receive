@@ -39,6 +39,18 @@ cleanup_staging() {
     esac
 }
 
+validate_case_candidate() {
+    [ -n "$1" ] || return 1
+    case "$1" in
+        "$cases_stage"/releases/*) ;;
+        "$cases_previous") [ -n "$cases_previous" ] || return 1 ;;
+        *) return 1 ;;
+    esac
+    [ -f "$1/cases/index.html" ] && \
+        [ -f "$1/cases/carousel.json" ] && \
+        [ -f "$1/manifest.json" ]
+}
+
 restore_projection() {
     restore_previous=$1
     restore_target=$2
@@ -560,12 +572,10 @@ while read -r old new ref; do
             exit 1
         fi
         cases_candidate=$(/usr/bin/readlink -f "$cases_stage/current")
-        case "$cases_candidate" in
-            "$cases_stage"/releases/*) ;;
-            *) echo "Case publisher did not prepare a private release" >&2; exit 1 ;;
-        esac
-        if [ ! -f "$cases_candidate/cases/index.html" ] || [ ! -f "$cases_candidate/cases/carousel.json" ]; then
-            echo "Staged case catalogue/feed is incomplete; frontend release was not switched" >&2
+        # A no-op publisher may deliberately leave the seed link pointing at
+        # the exact previous release. No other external target is accepted.
+        if ! validate_case_candidate "$cases_candidate"; then
+            echo "Case publisher did not prepare a complete staged or previous release; frontend was not switched" >&2
             exit 1
         fi
     fi
@@ -586,8 +596,15 @@ while read -r old new ref; do
         legal_candidate=$legal_ready
     fi
     if [ -n "$cases_candidate" ]; then
-        cases_ready="$site/generated/releases/$(basename "$cases_candidate")"
-        if [ -e "$cases_ready" ] || [ -L "$cases_ready" ]; then
+        if [ "$cases_candidate" = "$cases_previous" ]; then
+            # Never move the live release when a same-digest build is a no-op.
+            cases_ready=$cases_previous
+        else
+            cases_ready="$site/generated/releases/$(basename "$cases_candidate")"
+        fi
+        if [ "$cases_candidate" = "$cases_ready" ]; then
+            :
+        elif [ -e "$cases_ready" ] || [ -L "$cases_ready" ]; then
             # Content-addressed case releases can already exist on a repeat
             # deployment. Reuse only a complete matching immutable release.
             /usr/bin/python3 -c 'import json,sys; from pathlib import Path; a,b=map(Path,sys.argv[1:]); x=json.loads((a/"manifest.json").read_text()); y=json.loads((b/"manifest.json").read_text()); assert all(x.get(k)==y.get(k) for k in ("content_digest","case_count","slugs")); assert (b/"cases/index.html").is_file() and (b/"cases/carousel.json").is_file()' "$cases_candidate" "$cases_ready"
