@@ -2,6 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { footerCard } from './footer-cards.mjs';
+import { finishDesignHead } from './site-shell.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const web = path.join(root, 'www');
@@ -59,6 +60,7 @@ function nav(html) {
   });
 }
 function footerNav(html) {
+  if(html.includes('data-elegso-modern-footer')) return html;
   const card = footerCard('articles');
   if(html.includes('<!--elegso-articles-footer:start-->')) return html.replace(/<!--elegso-articles-footer:start-->[\s\S]*?<!--elegso-articles-footer:end-->/g,card);
   if(html.includes('data-elegso-articles-footer')) return html.replace(/<div class="r t-rec" data-elegso-articles-footer[\s\S]*?<\/p><\/div><\/div><\/div>/g,card);
@@ -97,7 +99,7 @@ function shell(title,description,url,body,item=null) {
   const graph=[organisation,{'@type':'WebSite','@id':origin+'/#website',name:'ЭЛЕГСО',url:origin+'/',publisher:{'@id':origin+'/#organization'}},{'@type':'BreadcrumbList',itemListElement:crumbs}];
   graph.push(item?{'@type':'Article','@id':origin+url+'#article',headline:item.title,description,mainEntityOfPage:origin+url,url:origin+url,inLanguage:'ru-RU',datePublished:item.publishedAt,dateModified:item.modifiedAt,image:[origin+item.image],author:authorSchema(item),publisher:{'@id':origin+'/#organization'},articleSection:item.category,wordCount:item.words,citation:item.sources.map(s=>s.url)}:{'@type':'CollectionPage',name:title,url:origin+url,description,inLanguage:'ru-RU',mainEntity:{'@type':'ItemList',itemListElement:articles.map((a,i)=>({'@type':'ListItem',position:i+1,url:origin+a.url,name:a.title}))}});
   head=head.replace('</head>',`<link rel="stylesheet" href="/assets/publications.css?v=20260909-1"><script src="/assets/publications.js?v=20260909-1" defer></script><link rel="alternate" type="application/rss+xml" title="Статьи и практика ЭЛЕГСО" href="/articles/rss.xml"><script type="application/ld+json" data-elegso-publications-schema>${json({'@context':'https://schema.org','@graph':graph})}</script></head>`);
-  return head+`<body class="t-body elegso-publications-page" style="margin:0"><a class="ep-skip" href="#publication-content">К содержанию</a><div id="allrecords" class="t-records" data-tilda-project-id="3964517" data-tilda-lazy="yes" data-tilda-root-zone="com">${header}${body}${tail}`;
+  return finishDesignHead(head)+`<body class="t-body elegso-redesign elegso-publications-page" style="margin:0"><a class="ep-skip" href="#publication-content">К содержанию</a><div id="allrecords" class="t-records site-shell" data-tilda-project-id="3964517" data-tilda-lazy="yes" data-tilda-root-zone="com">${header}${body}${tail}`;
 }
 function card(a,{featured=false}={}) {return `<article class="ep-card${featured?' ep-card--featured':''}" data-category="${esc(a.category)}" data-search="${esc((a.title+' '+a.description).toLocaleLowerCase('ru'))}"><a href="${a.url}" class="ep-card-image" tabindex="-1" aria-hidden="true"><img src="${a.image}" alt="" width="1200" height="800" loading="lazy" decoding="async"></a><div class="ep-card-copy"><div class="ep-meta"><span>${esc(a.category)}</span><span>${a.minutes} мин чтения</span></div><h3><a href="${a.url}">${esc(a.title)}</a></h3><p>${esc(a.description)}</p><a class="ep-read" href="${a.url}" aria-label="${esc('Читать: '+a.title)}">Читать разбор <span aria-hidden="true">↗</span></a></div></article>`;}
 function block(selected) {return `<!--elegso-publications:start--><section class="ep-preview" aria-labelledby="ep-preview-title"><div class="ep-wrap"><div class="ep-section-head"><div><span class="ep-kicker">Право в деловой практике</span><h2 id="ep-preview-title">Статьи и практика</h2><p>Разбираем сложные ситуации, проверяем расчёты и объясняем, какие документы помогут защитить бизнес.</p></div><a class="ep-button ep-button--outline" href="/articles/">Все материалы <span aria-hidden="true">↗</span></a></div><div class="ep-grid">${selected.map(a=>card(a)).join('')}</div></div></section><!--elegso-publications:end-->`;}

@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "created_on": "2026-11-04",
+  "generator": "built-in image_gen.imagegen",
+  "purpose": "New service illustrations for the approved ELEGSO V2 public-site redesign",
+  "style_references": [
+    {
+      "path": "work/leasing-preview-v2/dist/assets/contract-card.webp",
+      "role": "style-only; premium emerald marble, ivory folio, brass architectural accents"
+    },
+    {
+      "path": "work/leasing-preview-v2/dist/assets/leasing-balance.webp",
+      "role": "style-only; landscape architectural still life, cinematic side light"
+    }
+  ],
+  "images": [
+    {
+      "id": "bankruptcy-card",
+      "prompt": "Use case: stylized-concept. Asset type: standalone website service-card illustration for ELEGSO, wide landscape 16:9. Input Image 1 and Image 2 are STYLE REFERENCES ONLY, not edit targets. Match their premium photorealistic architectural 3D still-life language: dark emerald green marble with restrained natural gold veins, warm ivory limestone floor and paper, brushed brass accents, realistic tactile surfaces and soft reflections. Warm cinematic side light from upper left, elegant low-key deep green architectural background, slight low three-quarter camera angle. Clean centered composition, the entire main subject visible with generous safe margins for responsive cropping. No people, no readable text, no letters, no digits, no logos, no badges, no flags, no seals, no coats of arms, no watermark. Primary subject: a beautifully engineered SPIRAL STAIRCASE built from deep emerald marble, spiralling upward in one clear continuous architectural route, with a fine restrained brushed-brass handrail following its curve. The steps and supporting structure must be physically plausible, calm and refined, not an impossible Escher staircase. Place one neat closed ivory paper document folio with a small unmarked brass clasp at the base on the marble podium. The composition conveys careful legal strategy and a structured path through a difficult restructuring situation. No money, no coins, no falling banknotes, no broken chains, no promises of debt cancellation, no triumphant symbols or arrows. Premium understated architectural object, not an infographic. Keep the top of staircase and the document folder fully within frame. Landscape16:9.",
+      "generated_source": "/Users/timchenko.t.v/.codex/generated_images/01a1a675-b215-7bc2-8479-41f7311edb24/exec-59cd56f4-4a0e-41f3-8681-ee1f73f16421.png",
+      "original": {
+        "path": "assets-source/redesign/bankruptcy-card.png",
+        "width": 1672,
+        "height": 941,
+        "format": "png",
+        "bytes": 2011784,
+        "sha256": "cc950f41441921bc03f651f45b3fe94512e27c4ff5867a3a8771d9800c56167b"
+      },
+      "derivatives": [
+        {
+          "path": "www/assets/redesign/bankruptcy-card.webp",
+          "width": 1600,
+          "height": 900,
+          "format": "webp",
+          "bytes": 158204,
+          "sha256": "17e23d7a67aabce0f89efaa0c5897b5dea8e97682871de76b04596a6cb8e344a",
+          "resize": {
+            "fit": "cover",
+            "position": "centre"
+          },
+          "webp_quality": 90
+        },
+        {
+          "path": "www/assets/redesign/bankruptcy-card-720.webp",
+          "width": 720,
+          "height": 405,
+          "format": "webp",
+          "bytes": 35282,
+          "sha256": "adb3b19fb27b438910a9e3e01a86d52e8bb1ee1c27510b2a5153a09d1d816252",
+          "resize": {
+            "fit": "cover",
+            "position": "centre"
+          },
+          "webp_quality": 85
+        }
+      ],
+      "review": {
+        "composition": "Full subject and document folio remain within frame; safe side margins",
+        "content": "No text, logos, flags, political borders, promises of debt cancellation or unrelated props"
+      }
+    },
+    {
+      "id": "international-card",
+      "prompt": "Use case: stylized-concept. Asset type: standalone website service-card illustration for ELEGSO, wide landscape 16:9. Input Image 1 and Image 2 are STYLE REFERENCES ONLY, not edit targets. Match their premium photorealistic architectural 3D still-life language: dark emerald green marble with restrained natural gold veins, warm ivory limestone floor and paper, brushed brass accents, realistic tactile surfaces and soft reflections. Warm cinematic side light from upper left, elegant low-key deep green architectural background, slight low three-quarter camera angle. Clean centered composition, the entire main subject visible with generous safe margins for responsive cropping. No people, no readable text, no letters, no digits, no logos, no badges, no flags, no seals, no coats of arms, no watermark. Primary subject: a complete three-dimensional globe made from polished deep emerald stone, with subtle natural geography/coastline relief and thin brushed-brass meridian and latitude bands. No national or political borders, no map labels, no flags or heraldry. Mount this substantial globe in a restrained refined brass axis support on a dark green marble pedestal. Place one small neat closed ivory paper legal-document folio with an unmarked brass clasp by the pedestal base. The scene expresses international legal work and recognition/enforcement of judicial decisions without depicting any particular state or political claim. Centered, uncluttered and sculptural; show the entire globe, its support and folio with safe margins. No airplanes, ships, banknotes or unrelated props. Landscape16:9.",
+      "generated_source": "/Users/timchenko.t.v/.codex/generated_images/01a1a675-b215-7bc2-8479-41f7311edb24/exec-2a7d0b5d-7849-48f0-a935-1a0ea9b305de.png",
+      "original": {
+        "path": "assets-source/redesign/international-card.png",
+        "width": 1672,
+        "height": 941,
+        "format": "png",
+        "bytes": 2069876,
+        "sha256": "d2deca0c1163c31469c65e4f51c19f163527db309b82e795c0b3104e13251e60"
+      },
+      "derivatives": [
+        {
+          "path": "www/assets/redesign/international-card.webp",
+          "width": 1600,
+          "height": 900,
+          "format": "webp",
+          "bytes": 173032,
+          "sha256": "4cd6f3af2bf504e827e5434eb6982ca74a216f3a7df99b31f12a6e6453dbaec6",
+          "resize": {
+            "fit": "cover",
+            "position": "centre"
+          },
+          "webp_quality": 90
+        },
+        {
+          "path": "www/assets/redesign/international-card-720.webp",
+          "width": 720,
+          "height": 405,
+          "format": "webp",
+          "bytes": 37680,
+          "sha256": "983d1ea87cb11e1bef3c57239137966b7472b78172232080c38233b03b28871d",
+          "resize": {
+            "fit": "cover",
+            "position": "centre"
+          },
+          "webp_quality": 85
+        }
+      ],
+      "review": {
+        "composition": "Full subject and document folio remain within frame; safe side margins",
+        "content": "No text, logos, flags, political borders, promises of debt cancellation or unrelated props"
+      }
+    }
+  ]
+}

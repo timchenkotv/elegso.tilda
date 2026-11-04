@@ -26,7 +26,19 @@ from typing import Any, Iterable
 
 SITE_ORIGIN = "https://elegso.ru"
 DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements"
-ASSET_VERSION = "20261103-illustrations-1"
+ASSET_VERSION = "20261104-static-materials-1"
+CASE_ILLUSTRATION_FALLBACK = "/assets/redesign/leasing-balance.webp"
+MAX_PUBLIC_MATERIAL_BYTES = 64 * 1024 * 1024
+MATERIAL_CONTENT_TYPES = {
+    "application/pdf": "pdf",
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+    "image/gif": "gif",
+    "image/avif": "avif",
+    "image/bmp": "bmp",
+    "image/tiff": "tiff",
+}
 
 OUTCOME_LABELS = {
     "in_progress": "Работа продолжается",
@@ -430,7 +442,29 @@ def customise_head(
         f"{schema_json}"
         "</script>\n"
     )
-    return head.replace("</head>", f"{extras}</head>", 1)
+    head = head.replace("</head>", f"{extras}</head>", 1)
+    if re.search(r"\bdata-elegso-design\s*=", head, flags=re.I):
+        # The shared redesign overrides the legacy case rules. Keep this
+        # opt-in so pages using the original chrome retain their old order.
+        theme_links: dict[str, str] = {}
+
+        def remove_theme_link(match: re.Match[str]) -> str:
+            tag = match.group(0)
+            href = re.search(r"\bhref\s*=\s*([\"'])(.*?)\1", tag, flags=re.I)
+            if href:
+                filename = Path(urllib.parse.urlsplit(html.unescape(href.group(2))).path).name
+                if filename in {"production.css", "editorial-theme.css"}:
+                    theme_links.setdefault(filename, tag)
+                    return ""
+            return tag
+
+        head = re.sub(r"<link\b[^>]*>", remove_theme_link, head, flags=re.I)
+        overrides = "\n".join(
+            theme_links[name] for name in ["production.css", "editorial-theme.css"] if name in theme_links
+        )
+        if overrides:
+            head = head.replace("</head>", f"{overrides}\n</head>", 1)
+    return head
 
 
 def render_page(
@@ -462,8 +496,9 @@ def render_page(
         )
     else:
         body_open = body_open[:-1] + ' class="elegso-cases-page">'
+    records_class = "t-records site-shell" if re.search(r"\bclass=[\"'][^\"']*\belegso-redesign\b", chrome.body_open) else "t-records"
     allrecords = (
-        '<div id="allrecords" class="t-records" data-hook="blocks-collection-content-node" '
+        f'<div id="allrecords" class="{records_class}" data-hook="blocks-collection-content-node" '
         f'data-tilda-project-id="3964517" data-tilda-page-alias="{escape(alias)}" '
         'data-tilda-lazy="yes" data-tilda-root-zone="com" data-tilda-project-headcode="yes" '
         'data-tilda-project-country="RU">'
@@ -581,6 +616,11 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
     search = card_search_text(case)
     number = str(case.get("court_case_number") or "").strip()
     number_label = f"Дело № {number.lstrip('№ ').strip()}" if number else "Практика ЭЛЕГСО"
+    illustration_url = case_illustration_url(case)
+    illustration_alt = (
+        first_text(case["illustration"].get("illustration_alt"), case.get("public_title"), fallback="Иллюстрация дела")
+        if illustration_url else "Иллюстрация юридической практики"
+    )
     metrics = []
     if protected > 0:
         metrics.append(metric("₽", "Защищено", case_card_money(protected)))
@@ -593,6 +633,8 @@ def render_case_card(case: dict[str, Any], index: int) -> str:
     return f"""
       <article class="case-card" id="case-{escape(slug)}" tabindex="-1" data-case-card data-category="{escape(category.lower())}" data-search="{escape(search)}" style="--case-order:{index}">
         <a class="case-card__surface" href="/cases/{escape(slug)}/" aria-label="Открыть историю дела: {escape(title)}">
+          <img class="case-card__image" src="{escape(illustration_url or CASE_ILLUSTRATION_FALLBACK)}" alt="{escape(illustration_alt)}" width="1600" height="900" loading="lazy" decoding="async">
+          <span class="case-card__badge" aria-hidden="true">{escape(number_label)}</span>
           <div class="case-card__top">
             <span class="case-outcome case-outcome--{escape(case.get('outcome_kind') or 'other')}">{escape(outcome_label(case.get('outcome_kind')))}</span>
             <time datetime="{escape(case.get('document_date') or '')}">{escape(ru_date(case.get('document_date')))}</time>
@@ -931,7 +973,195 @@ def render_economics(case: dict[str, Any], section_number: str = "03") -> str:
       </section>"""
 
 
-def material_tree(materials: list[dict[str, Any]], api_base: str) -> str:
+@dataclass(frozen=True)
+class PublicMaterial:
+    material_id: int
+    filename: str
+    fingerprint: str
+    size_bytes: int
+    content_type: str
+    source_url: str
+
+
+def public_material_spec(case: dict[str, Any], item: dict[str, Any]) -> PublicMaterial:
+    """A deterministic local filename and source-version key, without mutation."""
+    material_id = carousel_count(item.get("id"))
+    size = carousel_count(item.get("file_size"))
+    content_type = str(item.get("file_content_type") or "").split(";", 1)[0].strip().lower()
+    media_kind = str(item.get("media_kind") or "")
+    source_url = str(item.get("content_url") or "").strip()
+    if not material_id or not size or size > MAX_PUBLIC_MATERIAL_BYTES:
+        raise ValueError("Invalid public case material id or size")
+    if content_type not in MATERIAL_CONTENT_TYPES or (
+        (content_type == "application/pdf" and media_kind != "pdf")
+        or (content_type.startswith("image/") and media_kind != "image")
+    ):
+        raise ValueError("Unsupported public case material type")
+    if not source_url:
+        raise ValueError("Public case material has no content URL")
+    metadata = {
+        "case_updated_at": str(case.get("updated_at") or ""),
+        "id": material_id,
+        "file_size": size,
+        "file_content_type": content_type,
+        "file_date": item.get("file_date"),
+        "name": item.get("name"),
+        "content_url": source_url,
+    }
+    fingerprint = hashlib.sha256(
+        json.dumps(metadata, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    filename = f"{material_id}-{fingerprint[:20]}.{MATERIAL_CONTENT_TYPES[content_type]}"
+    return PublicMaterial(material_id, filename, fingerprint, size, content_type, source_url)
+
+
+def material_local_url(case: dict[str, Any], item: dict[str, Any]) -> str:
+    spec = public_material_spec(case, item)
+    return f"/cases/{case['public_slug']}/materials/{spec.filename}"
+
+
+def public_material_url(case: dict[str, Any], spec: PublicMaterial, api_base: str) -> str:
+    """Only this case's public material endpoint can be downloaded."""
+    origin = urllib.parse.urlsplit(api_base)
+    url = absolute_api_url(spec.source_url, api_base)
+    parsed = urllib.parse.urlsplit(url)
+    prefix = f"{origin.path.rstrip('/')}/{case['public_slug']}/materials/{spec.material_id}/"
+    filename = urllib.parse.unquote(parsed.path[len(prefix):]) if parsed.path.startswith(prefix) else ""
+    if (
+        origin.scheme not in {"http", "https"}
+        or origin.username or origin.password
+        or (parsed.scheme, parsed.netloc) != (origin.scheme, origin.netloc)
+        or parsed.username or parsed.password or parsed.fragment
+        or not filename or filename in {".", ".."}
+        or any(character in filename for character in "/\\\x00")
+    ):
+        raise ValueError("Material URL is outside the public case API")
+    return url
+
+
+class PublicMaterialRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Reject an escaping redirect before urllib sends a second request."""
+
+    def __init__(self, allowed_url: str):
+        super().__init__()
+        parsed = urllib.parse.urlsplit(allowed_url)
+        self.allowed_target = (parsed.scheme, parsed.netloc, parsed.path)
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        parsed = urllib.parse.urlsplit(urllib.parse.urljoin(req.full_url, newurl))
+        if (parsed.scheme, parsed.netloc, parsed.path) != self.allowed_target or parsed.fragment or parsed.username or parsed.password:
+            raise ValueError("Unexpected public material redirect")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+def open_public_material(url: str):
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": "ElegsoCasePublisher/1.0", "Accept-Encoding": "identity"},
+    )
+    return urllib.request.build_opener(PublicMaterialRedirectHandler(url)).open(request, timeout=60)
+
+
+def validate_material_bytes(data: bytes, spec: PublicMaterial) -> None:
+    if len(data) != spec.size_bytes:
+        raise ValueError("Public material size mismatch; previous release retained")
+    signatures = {
+        "application/pdf": data.lstrip(b"\xef\xbb\xbf \t\r\n").startswith(b"%PDF-"),
+        "image/jpeg": data.startswith(b"\xff\xd8\xff"),
+        "image/png": data.startswith(b"\x89PNG\r\n\x1a\n"),
+        "image/webp": data.startswith(b"RIFF") and data[8:12] == b"WEBP",
+        "image/gif": data.startswith((b"GIF87a", b"GIF89a")),
+        "image/avif": len(data) >= 16 and data[4:8] == b"ftyp" and b"avif" in data[8:32],
+        "image/bmp": data.startswith(b"BM"),
+        "image/tiff": data.startswith((b"II*\x00", b"MM\x00*")),
+    }
+    if not signatures.get(spec.content_type, False):
+        raise ValueError("Public material signature does not match its type; previous release retained")
+
+
+def mirror_case_materials(case: dict[str, Any], api_base: str, destination: Path, previous: Path | None = None) -> None:
+    """Mirror public files into staging; an incomplete set never becomes live.
+
+    The API supplies no content digest. Its case updated_at and exact public
+    file metadata identify a source version; our own stored SHA-256 verifies
+    reused local bytes. An unchanged release exits before any downloads. A
+    changed source case refreshes only that case's files, not the catalogue.
+    """
+    files = [item for item in case.get("published_materials") or [] if item.get("kind") == "file"]
+    if not files:
+        return
+    material_dir = destination / "materials"
+    material_dir.mkdir()
+    previous_dir = previous / "cases" / case["public_slug"] / "materials" if previous else None
+    cached_items: dict[int, dict[str, Any]] = {}
+    if previous_dir and previous_dir.is_dir() and not previous_dir.is_symlink():
+        manifest_path = previous_dir / "manifest.json"
+        try:
+            if manifest_path.is_symlink() or manifest_path.stat().st_size > 2 * 1024 * 1024:
+                raise ValueError("Invalid local material manifest")
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            if manifest.get("version") == 1 and isinstance(manifest.get("items"), list):
+                cached_items = {
+                    item["id"]: item for item in manifest["items"]
+                    if isinstance(item, dict) and isinstance(item.get("id"), int)
+                }
+        except (OSError, ValueError, TypeError, AttributeError):
+            cached_items = {}
+    manifest_items = []
+    seen: set[int] = set()
+    for item in files:
+        spec = public_material_spec(case, item)
+        if spec.material_id in seen:
+            raise ValueError("Duplicate public case material id")
+        seen.add(spec.material_id)
+        url = public_material_url(case, spec, api_base)
+        cached = cached_items.get(spec.material_id) or {}
+        data: bytes | None = None
+        if (
+            case.get("updated_at") and previous_dir
+            and cached.get("fingerprint") == spec.fingerprint
+            and cached.get("filename") == spec.filename
+            and cached.get("size_bytes") == spec.size_bytes
+            and cached.get("content_type") == spec.content_type
+            and re.fullmatch(r"[0-9a-f]{64}", str(cached.get("sha256") or ""))
+        ):
+            cached_path = previous_dir / spec.filename
+            if cached_path.is_file() and not cached_path.is_symlink():
+                with cached_path.open("rb") as cached_file:
+                    candidate = cached_file.read(spec.size_bytes + 1)
+                if len(candidate) == spec.size_bytes and hashlib.sha256(candidate).hexdigest() == cached["sha256"]:
+                    validate_material_bytes(candidate, spec)
+                    data = candidate
+        if data is None:
+            with open_public_material(url) as response:
+                final = urllib.parse.urlsplit(response.url)
+                expected = urllib.parse.urlsplit(url)
+                if (final.scheme, final.netloc, final.path) != (expected.scheme, expected.netloc, expected.path):
+                    raise ValueError("Unexpected public material redirect")
+                if getattr(response, "status", 200) != 200:
+                    raise ValueError("Public material download did not return HTTP 200")
+                headers = getattr(response, "headers", {})
+                content_type = str(headers.get("Content-Type", "")).split(";", 1)[0].strip().lower()
+                if content_type and content_type not in {spec.content_type, "application/octet-stream"}:
+                    raise ValueError("Unexpected public material HTTP content type")
+                data = response.read(spec.size_bytes + 1)
+            validate_material_bytes(data, spec)
+        (material_dir / spec.filename).write_bytes(data)
+        manifest_items.append({
+            "id": spec.material_id,
+            "fingerprint": spec.fingerprint,
+            "filename": spec.filename,
+            "size_bytes": spec.size_bytes,
+            "sha256": hashlib.sha256(data).hexdigest(),
+            "content_type": spec.content_type,
+        })
+    (material_dir / "manifest.json").write_text(
+        json.dumps({"version": 1, "items": manifest_items}, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def material_tree(materials: list[dict[str, Any]], api_base: str, case: dict[str, Any] | None = None) -> str:
     by_parent: dict[Any, list[dict[str, Any]]] = {}
     ids = {item.get("id") for item in materials}
     for item in materials:
@@ -953,9 +1183,11 @@ def material_tree(materials: list[dict[str, Any]], api_base: str) -> str:
                     f'<li class="case-folder"><details open><summary><span>▱</span>{escape(item.get("name") or "Папка")}</summary>{f"<ul>{children}</ul>" if children else ""}</details></li>'
                 )
             else:
-                url = absolute_api_url(item.get("content_url"), api_base)
+                if case is None:
+                    raise ValueError("A case is required for local public material URLs")
+                url = material_local_url(case, item)
                 rows.append(
-                    f'<li class="case-file"><a href="{escape(with_disposition(url, "inline"))}" data-case-open-material="{escape(item_id)}"><span>{"PDF" if item.get("media_kind") == "pdf" else "IMG"}</span><b>{escape(item.get("name") or "Материал")}</b></a></li>'
+                    f'<li class="case-file"><a href="{escape(url)}" data-case-open-material="{escape(item_id)}"><span>{"PDF" if item.get("media_kind") == "pdf" else "IMG"}</span><b>{escape(item.get("name") or "Материал")}</b></a></li>'
                 )
         return "".join(rows)
 
@@ -970,9 +1202,8 @@ def render_materials(case: dict[str, Any], api_base: str, section_number: str = 
         return ""
     slides = []
     for index, item in enumerate(files):
-        url = absolute_api_url(item.get("content_url"), api_base)
-        inline_url = with_disposition(url, "inline")
-        download_url = with_disposition(url, "attachment")
+        inline_url = material_local_url(case, item)
+        download_url = inline_url
         viewer = (
             f'<img data-case-lazy-src="{escape(inline_url)}" alt="{escape(item.get("name") or "Материал дела")}">'
             if item.get("media_kind") == "image"
@@ -980,7 +1211,7 @@ def render_materials(case: dict[str, Any], api_base: str, section_number: str = 
         )
         slides.append(f"""
           <article class="case-material-slide" data-case-slide data-material-id="{escape(item.get('id'))}" {'hidden' if index else ''}>
-            <header><div><small>{escape(item.get('path') or 'Материалы дела')}</small><strong>{escape(item.get('name') or 'Документ')}</strong></div><div><a href="{escape(inline_url)}" target="_blank" rel="noopener">Открыть</a><a href="{escape(download_url)}">Скачать</a></div></header>
+            <header><div><small>{escape(item.get('path') or 'Материалы дела')}</small><strong>{escape(item.get('name') or 'Документ')}</strong></div><div><a href="{escape(inline_url)}" target="_blank" rel="noopener">Открыть</a><a href="{escape(download_url)}" download="{escape(item.get('name') or public_material_spec(case, item).filename)}">Скачать</a></div></header>
             <div class="case-material-viewer case-material-viewer--{escape(item.get('media_kind') or 'pdf')}">{viewer}</div>
           </article>""")
     return f"""
@@ -988,7 +1219,7 @@ def render_materials(case: dict[str, Any], api_base: str, section_number: str = 
         <div class="case-section__label"><span>{escape(section_number)}</span><p>Документы</p></div>
         <div class="case-section__content"><p class="cases-eyebrow">Материалы дела</p><h2>Решения и подтверждения</h2>
           <div class="case-materials-layout" data-case-carousel>
-            <aside><div><strong>Состав дела</strong><span>{len(files)} {plural_documents(len(files))}</span></div>{material_tree(materials, api_base)}</aside>
+            <aside><div><strong>Состав дела</strong><span>{len(files)} {plural_documents(len(files))}</span></div>{material_tree(materials, api_base, case)}</aside>
             <div class="case-carousel"><div class="case-carousel__toolbar"><span><b data-case-current>1</b> / {len(files)}</span><div><button type="button" data-case-prev aria-label="Предыдущий документ">←</button><button type="button" data-case-next aria-label="Следующий документ">→</button></div></div>{''.join(slides)}</div>
           </div>
         </div>
@@ -1131,11 +1362,16 @@ def illustration_filename(case: dict[str, Any]) -> str | None:
     return f"illustration-{digest}.{extension}"
 
 
-def render_illustration(case: dict[str, Any]) -> str:
+def case_illustration_url(case: dict[str, Any]) -> str | None:
+    """Public URL of the exact ERP original mirrored in this case release."""
     filename = illustration_filename(case)
-    if not filename:
+    return f"/cases/{case['public_slug']}/{filename}" if filename else None
+
+
+def render_illustration(case: dict[str, Any]) -> str:
+    href = case_illustration_url(case)
+    if not href:
         return ""
-    href = f"/cases/{case['public_slug']}/{filename}"
     alt = case["illustration"].get("illustration_alt") or case.get("public_title") or "Иллюстрация дела"
     return (f'<figure class="case-illustration"><a href="{escape(href)}" target="_blank" rel="noopener" title="Открыть оригинал">'
         f'<img src="{escape(href)}" alt="{escape(alt)}" decoding="async"></a></figure>')
@@ -1168,6 +1404,64 @@ def download_illustration(case: dict[str, Any], api_base: str, destination: Path
     if len(data) != expected_size or hashlib.sha256(data).hexdigest() != image["sha256"]:
         raise ValueError("Illustration SHA-256 or size mismatch; previous release retained")
     (destination / filename).write_bytes(data)
+
+
+def carousel_count(value: Any) -> int | None:
+    """Keep typed, nonnegative counters in the public carousel payload."""
+    if isinstance(value, bool) or value is None:
+        return None
+    raw = str(value)
+    if not re.fullmatch(r"[0-9]+", raw):
+        return None
+    number = int(raw)
+    return number if number <= 9007199254740991 else None
+
+
+def render_carousel_feed(cases: list[dict[str, Any]]) -> dict[str, Any]:
+    """An explicit public field allowlist; never expose raw ERP records."""
+    items: list[dict[str, Any]] = []
+    for case in validate_cases(cases):
+        slug = str(case["public_slug"])
+        title = first_text(case.get("public_title"), fallback="История дела")
+        protected = decimal(case.get("protected_interest_amount"))
+        currency = str(case.get("currency_code") or "RUB")
+        duration = carousel_count(case.get("duration_days"))
+        instances = carousel_count(case.get("court_instance_count"))
+        illustration_url = case_illustration_url(case)
+        illustration = (
+            {
+                "url": illustration_url,
+                "alt": first_text(case["illustration"].get("illustration_alt"), title, fallback="Иллюстрация дела"),
+            }
+            if illustration_url else None
+        )
+        protected_label = (
+            f"{case_card_money(protected)} ₽" if currency == "RUB"
+            else re.sub(r"(?<=\d)\.(?=\d)", ",", money(protected, currency))
+        ) if protected > 0 else ""
+        document_date = case_document_date(case)
+        items.append(
+            {
+                "code": first_text(case.get("code"), fallback=slug),
+                "slug": slug,
+                "url": f"/cases/{slug}/",
+                "title": title,
+                "excerpt": case_excerpt(case),
+                "outcome_kind": str(case.get("outcome_kind") or "other"),
+                "outcome_label": outcome_label(case.get("outcome_kind")),
+                "document_date": document_date.isoformat() if document_date != date.min else None,
+                "formatted_date": ru_date(case.get("document_date")),
+                "case_number": first_text(case.get("court_case_number")),
+                "category": first_text(case.get("case_category"), fallback="Юридическая практика"),
+                "protected_interest_amount": format(protected, "f"),
+                "protected_interest_label": protected_label,
+                "duration_days": duration,
+                "duration_label": f"{duration} дн." if duration is not None else "",
+                "court_instance_count": instances,
+                "illustration": illustration,
+            }
+        )
+    return {"version": 1, "items": items}
 
 
 def fetch_json(url: str, timeout: int = 35) -> Any:
@@ -1268,6 +1562,22 @@ def content_digest(source_root: Path, cases: list[dict[str, Any]]) -> str:
     digest = hashlib.sha256()
     digest.update(Path(__file__).read_bytes())
     digest.update((source_root / "mission" / "index.html").read_bytes())
+    # The generated chrome inherits the source page's theme and static assets.
+    # Include those inputs so a design-only update also invalidates the case
+    # projection even when the ERP records did not change.
+    theme_inputs = [
+        source_root / "assets" / "cases.css",
+        source_root / "assets" / "cases.js",
+        source_root / "assets" / "site-fonts.css",
+    ]
+    redesign_assets = source_root / "assets" / "redesign"
+    if redesign_assets.is_dir() and not redesign_assets.is_symlink():
+        theme_inputs.extend(sorted(redesign_assets.rglob("*")))
+    for asset in theme_inputs:
+        if asset.is_file() and not asset.is_symlink():
+            digest.update(asset.relative_to(source_root).as_posix().encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(asset.read_bytes())
     sitemap = source_sitemap_path(source_root)
     if sitemap.exists():
         digest.update(sitemap.read_bytes())
@@ -1309,6 +1619,21 @@ def write_release(
     releases.mkdir(parents=True, exist_ok=True)
     release = releases / digest[:16]
     current = output_root / "current"
+    # Forced rebuilds are immutable too: never delete the directory currently
+    # served by Nginx. Recognise its full digest even when it has a unique
+    # rebuild suffix, so the next timer does not revert to an older copy.
+    if current.is_symlink() and not force:
+        active = current.resolve()
+        try:
+            manifest_path = active / "manifest.json"
+            if active.parent == releases.resolve() and manifest_path.stat().st_size <= 2 * 1024 * 1024:
+                active_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                if active_manifest.get("content_digest") == digest:
+                    return False, releases / active.name
+        except (OSError, ValueError, TypeError, AttributeError):
+            pass
+    if force and release.exists():
+        release = releases / f"{digest[:16]}-rebuild-{os.urandom(6).hex()}"
     if release.exists():
         release.chmod(0o755)
     if current.is_symlink() and current.resolve() == release.resolve() and not force:
@@ -1325,9 +1650,17 @@ def write_release(
                 destination = cases_dir / str(case["public_slug"])
                 destination.mkdir()
                 download_illustration(case, api_base, destination, current.resolve() if current.is_symlink() else None)
+                mirror_case_materials(case, api_base, destination, current.resolve() if current.is_symlink() else None)
                 (destination / "index.html").write_text(
                     render_detail(chrome, case, api_base), encoding="utf-8"
                 )
+            # Feed, pages, exact ERP illustrations and all public documents share the same
+            # temporary release and become visible in one current-link switch.
+            # A failed download/check never exposes a partial static projection.
+            (cases_dir / "carousel.json").write_text(
+                json.dumps(render_carousel_feed(cases), ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c") + "\n",
+                encoding="utf-8",
+            )
             (temp / "sitemap.xml").write_text(render_sitemap(source_root, cases), encoding="utf-8")
             (temp / "manifest.json").write_text(
                 json.dumps(
@@ -1345,7 +1678,7 @@ def write_release(
                 encoding="utf-8",
             )
             if release.exists():
-                shutil.rmtree(release)
+                raise FileExistsError("Refusing to overwrite an immutable case release")
             temp.chmod(0o755)
             os.replace(temp, release)
         except Exception:

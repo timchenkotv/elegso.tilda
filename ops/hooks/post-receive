@@ -16,25 +16,120 @@ legal_changed=0
 legal_previous=
 legal_timer_was_active=0
 legal_timer_stopped=0
-rollback_legal_projection() {
+cases_changed=0
+cases_previous=
+case_publisher_changed=0
+case_publisher_rollback=
+case_projection_rollback=
+case_timer_was_active=0
+case_timer_stopped=0
+frontend_changed=0
+frontend_previous=
+legal_stage=
+legal_candidate=
+cases_stage=
+cases_candidate=
+
+cleanup_staging() {
+    case "$legal_stage" in
+        "$site/generated-legal"/.deploy-stage-*) sudo /bin/rm -rf -- "$legal_stage" ;;
+    esac
+    case "$cases_stage" in
+        "$site/generated"/.deploy-stage-*) sudo /bin/rm -rf -- "$cases_stage" ;;
+    esac
+}
+
+restore_projection() {
+    restore_previous=$1
+    restore_target=$2
+    if [ -n "$restore_previous" ]; then
+        if [ ! -d "$restore_previous" ]; then
+            echo "Previous projection unavailable; leaving current pointer intact: $restore_target" >&2
+            return 1
+        fi
+        sudo /bin/ln -sfn "$restore_previous" "$restore_target.rollback-$$"
+        sudo /bin/mv -Tf "$restore_target.rollback-$$" "$restore_target"
+    else
+        sudo /bin/rm -f "$restore_target"
+    fi
+}
+
+rollback_deployment() {
     status=$?
-    if [ "$status" -ne 0 ] && [ "$legal_changed" -eq 1 ]; then
-        if [ -n "$legal_previous" ] && [ -d "$legal_previous" ]; then
-            sudo /bin/ln -sfn "$legal_previous" "$site/generated-legal/current.rollback"
-            sudo /bin/mv -Tf "$site/generated-legal/current.rollback" "$site/generated-legal/current"
-        else
-            sudo /bin/rm -f "$site/generated-legal/current"
+    trap - EXIT HUP INT TERM
+    # Rollback is best-effort: one failed restore must not prevent the other
+    # projections, publisher program or previously active timers recovering.
+    set +e
+    if [ "$status" -ne 0 ]; then
+        if [ "$cases_changed" -eq 1 ]; then
+            # Publisher retention may remove an intentionally older rollback
+            # target. Its immutable hard-linked copy survives that cleanup.
+            if [ -n "$cases_previous" ] && [ ! -d "$cases_previous" ] && \
+                sudo /usr/bin/test -d "$case_projection_rollback/cases-previous"; then
+                sudo /bin/mv -T "$case_projection_rollback/cases-previous" "$cases_previous"
+            fi
+            restore_projection "$cases_previous" "$site/generated/current"
+        fi
+        if [ "$legal_changed" -eq 1 ]; then
+            restore_projection "$legal_previous" "$site/generated-legal/current"
+        fi
+        # Keep the new frontend's superset of assets available until both
+        # public projections have returned to their previous templates.
+        if [ "$frontend_changed" -eq 1 ]; then
+            restore_projection "$frontend_previous" "$site/current"
+        fi
+        if [ "$case_publisher_changed" -eq 1 ]; then
+            for saved in publish.py elegso-case-publisher.service elegso-case-publisher.timer; do
+                case "$saved" in
+                    publish.py) target="$publisher/publish.py" ;;
+                    *) target="/etc/systemd/system/$saved" ;;
+                esac
+                if sudo /usr/bin/test -f "$case_publisher_rollback/$saved"; then
+                    sudo /bin/cp -p "$case_publisher_rollback/$saved" "$target"
+                else
+                    sudo /bin/rm -f "$target"
+                fi
+            done
+            sudo /bin/systemctl daemon-reload
+        fi
+        if [ "$case_timer_stopped" -eq 1 ] && [ "$case_timer_was_active" -eq 1 ]; then
+            sudo /bin/systemctl start elegso-case-publisher.timer
+        fi
+        if [ "$legal_timer_stopped" -eq 1 ] && [ "$legal_timer_was_active" -eq 1 ]; then
+            sudo /bin/systemctl start elegso-legal-publisher.timer
         fi
     fi
-    if [ "$status" -ne 0 ] && [ "$legal_timer_stopped" -eq 1 ] && [ "$legal_timer_was_active" -eq 1 ]; then
-        sudo /bin/systemctl start elegso-legal-publisher.timer || :
-    fi
+    cleanup_staging
     exit "$status"
 }
-trap rollback_legal_projection EXIT
+trap rollback_deployment EXIT
+trap 'exit 129' HUP
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+# Serialize deploy hooks; an older queued push must not overwrite a newer
+# accepted main. This lock is independent of the runtime publisher lock.
+exec 9>"$site/.deploy.lock"
+/usr/bin/flock 9
 
 while read -r old new ref; do
     [ "$ref" = "refs/heads/main" ] || continue
+    if [ "$old" != "0000000000000000000000000000000000000000" ] && \
+        ! git --git-dir="$repo" merge-base --is-ancestor "$old" "$new"; then
+        echo "Refusing to deploy a non-fast-forward main update" >&2
+        exit 1
+    fi
+    if [ "$(git --git-dir="$repo" rev-parse refs/heads/main)" != "$new" ]; then
+        echo "A newer main update is already accepted; skipping superseded deploy" >&2
+        continue
+    fi
+    frontend_previous=
+    if [ -L "$site/current" ]; then
+        frontend_previous=$(/usr/bin/readlink -f "$site/current" || :)
+    elif [ -e "$site/current" ]; then
+        echo "Refusing to replace a non-symlink frontend current directory" >&2
+        exit 1
+    fi
     release="$site/releases/$(date -u +%Y%m%dT%H%M%SZ)-$(printf '%s' "$new" | cut -c1-12)"
     mkdir -p "$release"
     git --git-dir="$repo" --work-tree="$release" checkout -f "$new"
@@ -81,9 +176,58 @@ while read -r old new ref; do
         sudo /bin/rm -f "$api/server.py.rollback"
     fi
 
-    # Install the case publisher before switching the public release. It reads
-    # only the anonymous API and atomically keeps the last known-good output.
+    # Prepare the case publisher without changing the public case projection.
+    # Generation is deferred until all other deployment checks have passed.
     if [ -f "$release/ops/case-publisher/publish.py" ]; then
+        if sudo /bin/systemctl is-active --quiet elegso-case-publisher.timer; then
+            case_timer_was_active=1
+        fi
+        case_timer_load=$(sudo /bin/systemctl show -p LoadState --value elegso-case-publisher.timer 2>/dev/null || :)
+        case "$case_timer_load" in
+            ''|not-found) ;;
+            *) sudo /bin/systemctl stop elegso-case-publisher.timer ;;
+        esac
+        case_timer_stopped=1
+        case_wait=0
+        while :; do
+            case_service_state=$(sudo /bin/systemctl show -p ActiveState --value elegso-case-publisher.service 2>/dev/null || :)
+            case "$case_service_state" in
+                active|activating|deactivating) ;;
+                *) break ;;
+            esac
+            case_wait=$((case_wait + 1))
+            if [ "$case_wait" -ge 180 ]; then
+                echo "Case publisher is still active; deployment postponed" >&2
+                exit 1
+            fi
+            sleep 1
+        done
+        cases_previous=
+        if [ -L "$site/generated/current" ]; then
+            cases_previous=$(/usr/bin/readlink -f "$site/generated/current" || :)
+        elif [ -e "$site/generated/current" ]; then
+            echo "Refusing to replace a non-symlink case current directory" >&2
+            exit 1
+        fi
+        case_publisher_rollback="$publisher/.deploy-rollback-$(printf '%s' "$new" | cut -c1-12)-$$"
+        sudo /usr/bin/install -d -o root -g root -m 0700 "$case_publisher_rollback"
+        for saved in publish.py elegso-case-publisher.service elegso-case-publisher.timer; do
+            case "$saved" in
+                publish.py) target="$publisher/publish.py" ;;
+                *) target="/etc/systemd/system/$saved" ;;
+            esac
+            if sudo /usr/bin/test -f "$target"; then
+                sudo /bin/cp -p "$target" "$case_publisher_rollback/$saved"
+            fi
+        done
+        if [ -n "$cases_previous" ] && [ -d "$cases_previous" ]; then
+            # Keep hard links on the generated projection's own filesystem;
+            # /opt and /srv need not share a device.
+            case_projection_rollback="$site/generated/.deploy-rollback-$(printf '%s' "$new" | cut -c1-12)-$$"
+            sudo /usr/bin/install -d -o root -g root -m 0700 "$case_projection_rollback"
+            sudo /bin/cp -al "$cases_previous" "$case_projection_rollback/cases-previous"
+        fi
+        case_publisher_changed=1
         # The public-IP hairpin is unavailable inside this datacenter. Resolve
         # only the law API hostname to its normal internal HTTPS edge instead.
         if [ -f "$release/ops/case-publisher/law-api-hosts.conf" ]; then
@@ -103,16 +247,6 @@ while read -r old new ref; do
         sudo /usr/bin/install -d -o www-data -g www-data -m 0755 \
             "$site/generated" "$site/generated/releases"
         sudo /bin/systemctl daemon-reload
-
-        # The first deployment may safely publish an empty catalogue when the
-        # source API is temporarily unavailable. Later failures leave the
-        # previous generated release untouched.
-        if ! sudo -u www-data /usr/bin/python3 "$publisher/publish.py" \
-            --source-root "$release/www" \
-            --output-root "$site/generated" \
-            --allow-empty-fallback; then
-            echo "Case refresh failed; preserving the previous generated release" >&2
-        fi
 
         if [ -f "$release/www/sitemap.xml" ]; then
             /bin/mv "$release/www/sitemap.xml" "$release/www/sitemap.base.xml"
@@ -221,7 +355,7 @@ while read -r old new ref; do
         sudo /usr/bin/install -d -o elegso-seo-admin -g elegso-seo-admin -m 0700 \
             "$seo_admin_state/legal" "$seo_admin_state/legal/backups"
         sudo /usr/bin/install -d -o elegso-seo-admin -g www-data -m 0755 \
-            "$site/generated-legal"
+            "$site/generated-legal" "$site/generated-legal/releases"
         sudo /usr/bin/install -d -o elegso-seo-admin -g seo-monitor -m 2750 \
             "$seo_admin_state/config"
         sudo /usr/bin/install -d -o elegso-seo-admin -g www-data -m 2750 \
@@ -307,10 +441,31 @@ while read -r old new ref; do
             fi
             sleep 1
         done
-        legal_previous=$(/usr/bin/readlink -f "$site/generated-legal/current" || :)
-        legal_changed=1
+        legal_previous=
+        if [ -L "$site/generated-legal/current" ]; then
+            legal_previous=$(/usr/bin/readlink -f "$site/generated-legal/current" || :)
+        elif [ -e "$site/generated-legal/current" ]; then
+            echo "Refusing to replace a non-symlink legal current directory" >&2
+            exit 1
+        fi
+        # --force rebuilds the published SQLite snapshots, never a queued
+        # editor job. Keep its pointer private until frontend assets exist.
+        legal_stage=$(sudo -u elegso-seo-admin /usr/bin/mktemp -d "$site/generated-legal/.deploy-stage-$(printf '%s' "$new" | cut -c1-12)-XXXXXX")
+        sudo /bin/chmod 0755 "$legal_stage"
+        if [ -n "$legal_previous" ]; then
+            sudo -u elegso-seo-admin /bin/ln -s "$legal_previous" "$legal_stage/current"
+        fi
         sudo -u elegso-seo-admin /usr/bin/python3 "$admin_release/legal_publish.py" \
-            --source "$release" --force
+            --source "$release" --output "$legal_stage" --force
+        legal_candidate=$(/usr/bin/readlink -f "$legal_stage/current")
+        case "$legal_candidate" in
+            "$legal_stage"/releases/*) ;;
+            *) echo "Legal publisher did not prepare a private release" >&2; exit 1 ;;
+        esac
+        if [ ! -f "$legal_candidate/www/oferta/index.html" ] || [ ! -f "$legal_candidate/sitemap-legal.json" ]; then
+            echo "Staged legal projection is incomplete; frontend release was not switched" >&2
+            exit 1
+        fi
         admin_previous=
         if sudo /usr/bin/test -L "$seo_admin/current"; then
             admin_previous=$(sudo /usr/bin/readlink -f "$seo_admin/current" || :)
@@ -382,13 +537,103 @@ while read -r old new ref; do
         sudo /bin/systemctl reload nginx.service
     fi
 
+    # Both publishers build into private output roots. Their current links
+    # never expose new HTML against the old frontend's static assets. Seed
+    # previous output for exact illustration/document reuse, but do not put
+    # old release directories in the staging retention namespace.
+    if [ -f "$release/ops/case-publisher/publish.py" ]; then
+        cases_stage=$(sudo -u www-data /usr/bin/mktemp -d "$site/generated/.deploy-stage-$(printf '%s' "$new" | cut -c1-12)-XXXXXX")
+        sudo /bin/chmod 0755 "$cases_stage"
+        if [ -n "$cases_previous" ]; then
+            sudo -u www-data /bin/ln -s "$cases_previous" "$cases_stage/current"
+        fi
+        if [ -n "$legal_candidate" ]; then
+            case_legal_manifest="$legal_candidate/sitemap-legal.json"
+        else
+            case_legal_manifest="$site/generated-legal/current/sitemap-legal.json"
+        fi
+        if ! sudo -u www-data /usr/bin/env "LEGAL_SITEMAP_MANIFEST=$case_legal_manifest" \
+            /usr/bin/python3 "$publisher/publish.py" \
+            --source-root "$release/www" \
+            --output-root "$cases_stage"; then
+            echo "Case staging failed; all public projections remain unchanged" >&2
+            exit 1
+        fi
+        cases_candidate=$(/usr/bin/readlink -f "$cases_stage/current")
+        case "$cases_candidate" in
+            "$cases_stage"/releases/*) ;;
+            *) echo "Case publisher did not prepare a private release" >&2; exit 1 ;;
+        esac
+        if [ ! -f "$cases_candidate/cases/index.html" ] || [ ! -f "$cases_candidate/cases/carousel.json" ]; then
+            echo "Staged case catalogue/feed is incomplete; frontend release was not switched" >&2
+            exit 1
+        fi
+    fi
+
+    # A second main update may have been accepted during the long build. Its
+    # hook waits on the deployment lock and will deploy after this aborts.
+    if [ "$(git --git-dir="$repo" rev-parse refs/heads/main)" != "$new" ]; then
+        echo "A newer main update was accepted during staging; refusing a stale publication" >&2
+        exit 1
+    fi
+    if [ -n "$legal_candidate" ]; then
+        legal_ready="$site/generated-legal/releases/$(basename "$legal_candidate")"
+        if [ -e "$legal_ready" ] || [ -L "$legal_ready" ]; then
+            echo "Refusing to replace an existing legal release: $legal_ready" >&2
+            exit 1
+        fi
+        sudo /bin/mv -T "$legal_candidate" "$legal_ready"
+        legal_candidate=$legal_ready
+    fi
+    if [ -n "$cases_candidate" ]; then
+        cases_ready="$site/generated/releases/$(basename "$cases_candidate")"
+        if [ -e "$cases_ready" ] || [ -L "$cases_ready" ]; then
+            # Content-addressed case releases can already exist on a repeat
+            # deployment. Reuse only a complete matching immutable release.
+            /usr/bin/python3 -c 'import json,sys; from pathlib import Path; a,b=map(Path,sys.argv[1:]); x=json.loads((a/"manifest.json").read_text()); y=json.loads((b/"manifest.json").read_text()); assert all(x.get(k)==y.get(k) for k in ("content_digest","case_count","slugs")); assert (b/"cases/index.html").is_file() and (b/"cases/carousel.json").is_file()' "$cases_candidate" "$cases_ready"
+        else
+            sudo /bin/mv -T "$cases_candidate" "$cases_ready"
+        fi
+        cases_candidate=$cases_ready
+    fi
+
+    # Assets become available first; old projections are compatible with the
+    # retained legacy assets in the new frontend. Adjacent pointer switches
+    # then expose both complete projections. Keep every rollback flag armed
+    # until all three switches have succeeded.
+    frontend_changed=1
     ln -sfn "$release" "$site/current.new"
     mv -Tf "$site/current.new" "$site/current"
+    if [ -n "$legal_candidate" ]; then
+        legal_changed=1
+        sudo /bin/ln -sfn "$legal_candidate" "$site/generated-legal/current.new"
+        sudo /bin/mv -Tf "$site/generated-legal/current.new" "$site/generated-legal/current"
+    fi
+    if [ -n "$cases_candidate" ]; then
+        cases_changed=1
+        sudo /bin/ln -sfn "$cases_candidate" "$site/generated/current.new"
+        sudo /bin/mv -Tf "$site/generated/current.new" "$site/generated/current"
+    fi
+    frontend_changed=0
+    cases_changed=0
+    case_publisher_changed=0
     legal_changed=0
+    cleanup_staging
+    legal_stage=
+    cases_stage=
+    if [ -n "$case_publisher_rollback" ]; then
+        sudo /bin/rm -rf "$case_publisher_rollback"
+        case_publisher_rollback=
+    fi
+    if [ -n "$case_projection_rollback" ]; then
+        sudo /bin/rm -rf "$case_projection_rollback"
+        case_projection_rollback=
+    fi
     find "$site/releases" -mindepth 1 -maxdepth 1 -type d | sort -r | tail -n +6 | xargs -r rm -rf
 
     if [ -f "$release/ops/case-publisher/publish.py" ]; then
         sudo /bin/systemctl enable --now elegso-case-publisher.timer
+        case_timer_stopped=0
         sudo /bin/systemctl start --no-block elegso-case-publisher.service
     fi
 

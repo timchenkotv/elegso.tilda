@@ -5,6 +5,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { updateFooterCards } from './footer-cards.mjs';
+import { finishDesignHead } from './site-shell.mjs';
 import { applyPrivacyAnalytics, loadPrivacyBuild } from './privacy-analytics.mjs';
 
 const origin = 'https://elegso.ru';
@@ -184,7 +185,7 @@ export async function buildLegalPages({ root = path.join(import.meta.dirname, '.
       { '@type': 'BreadcrumbList', itemListElement: crumbs },
     ];
     head = head.replace('</head>', `<link rel="canonical" href="${origin}${url}"><link rel="stylesheet" href="/assets/offers.css?v=${version}"><link rel="stylesheet" href="/assets/legal-pages.css?v=${version}"><script src="/assets/offers.js?v=${version}" defer></script><script type="application/ld+json" data-elegso-legal-schema>${json({ '@context': 'https://schema.org', '@graph': graph })}</script></head>`);
-    return applyPrivacyAnalytics(head + `<body class="t-body elegso-offers-page elegso-legal-page" style="margin:0"><a class="eo-skip" href="#legal-content">К тексту документа</a><div id="allrecords" class="t-records" data-tilda-project-id="3964517" data-tilda-lazy="yes" data-tilda-root-zone="com">${header}${body}${tail}`, privacyBuild);
+    return applyPrivacyAnalytics(finishDesignHead(head) + `<body class="t-body elegso-redesign elegso-offers-page elegso-legal-page" style="margin:0"><a class="eo-skip" href="#legal-content">К тексту документа</a><div id="allrecords" class="t-records site-shell" data-tilda-project-id="3964517" data-tilda-lazy="yes" data-tilda-root-zone="com">${header}${body}${tail}`, privacyBuild);
   }
   const output = new Map();
   const latestDate = documents.map(item => item.revisionDate).sort().at(-1);

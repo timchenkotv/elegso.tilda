@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +16,26 @@ assert SPEC and SPEC.loader
 publisher = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = publisher
 SPEC.loader.exec_module(publisher)
+
+
+class MaterialResponse:
+    """Valid deterministic file bytes; this suite never downloads ERP files."""
+
+    def __init__(self, url: str):
+        self.url = url
+        self.status = 200
+        self.headers = {"Content-Type": "application/pdf" if "/11/" in url else "image/jpeg"}
+        prefix, size = (b"%PDF-1.7\n", 450000) if "/11/" in url else (b"\xff\xd8\xff", 250000)
+        self.data = prefix + b"x" * (size - len(prefix))
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_):
+        return False
+
+    def read(self, size: int = -1):
+        return self.data if size < 0 else self.data[:size]
 
 
 def sample_case() -> dict:
@@ -325,7 +346,8 @@ class CasePublisherTests(unittest.TestCase):
             "<h4>Первый</h4><h4>Второй</h4><h4>Третий</h4>",
         )
 
-    def test_atomic_static_release_contains_search_seo_and_materials(self) -> None:
+    @patch.object(publisher, "open_public_material", side_effect=MaterialResponse)
+    def test_atomic_static_release_contains_search_seo_and_materials(self, download) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / "generated"
             changed, release = publisher.write_release(
@@ -376,10 +398,16 @@ class CasePublisherTests(unittest.TestCase):
             self.assertNotIn('class="cases-author"', detail)
             self.assertIn('href="/cases/"', listing)
             header = listing[listing.index("<!--header-->") : listing.index("</header>")]
-            self.assertIn("elegso-cases-nav-item", header)
-            self.assertIn("Юридические проекты и решённые дела", header)
+            if "data-elegso-design-header" in header:
+                self.assertIn('class="desktop-nav"', header)
+                self.assertIn('class="mobile-menu"', header)
+                self.assertEqual(header.count('href="/cases/"'), 2)
+                self.assertIn("Успешный опыт", header)
+            else:
+                self.assertIn("elegso-cases-nav-item", header)
+                self.assertIn("Юридические проекты и решённые дела", header)
+                self.assertEqual(header.count('href="/cases/"'), 1)
             self.assertLess(header.index('href="/cases/"'), header.index('href="/contacts/"'))
-            self.assertEqual(header.count('href="/cases/"'), 1)
             self.assertIn("Снизили договорную неустойку", listing)
             self.assertIn("18,45 млн", listing)
             self.assertNotIn("cases-hero__mark", listing)
@@ -409,7 +437,12 @@ class CasePublisherTests(unittest.TestCase):
             )
             self.assertRegex(detail, r'data-material-id="12"\s+>')
             self.assertRegex(detail, r'data-material-id="11"\s+hidden>')
-            self.assertIn("https://law.elegso.ru/api/v1/", detail)
+            self.assertNotIn("https://law.elegso.ru/api/v1/", detail)
+            self.assertNotIn("/api/v1/public/legal-case-announcements/", detail)
+            self.assertIn('/cases/snizhenie-neustoyki-v-kassatsii/materials/11-', detail)
+            self.assertIn('download="Постановление кассации.pdf"', detail)
+            self.assertEqual(len(list((release / "cases/snizhenie-neustoyki-v-kassatsii/materials").glob("*.pdf"))), 1)
+            self.assertEqual(download.call_count, 2)
             self.assertIn('data-elegso-cases-schema', detail)
             self.assertIn("/cases/snizhenie-neustoyki-v-kassatsii/", sitemap)
 
@@ -421,6 +454,7 @@ class CasePublisherTests(unittest.TestCase):
             )
             self.assertFalse(changed_again)
             self.assertEqual(release, same_release)
+            self.assertEqual(download.call_count, 2)
 
     def test_case_card_uses_millions_for_sub_million_result(self) -> None:
         case = sample_case()

@@ -620,7 +620,11 @@ class PublishedOfferContentTests(unittest.TestCase):
                     self.assertIn('id="' + section["id"] + '"', html)
                     for clause in section["clauses"]:
                         self.assertIn(clause["html"], html, f"Missing clause {clause['number']} in {route}")
-                self.assertEqual(html.count(MARKER), 1)
+                if "data-elegso-modern-footer" in html:
+                    self.assertEqual(html.count("data-elegso-modern-footer"), 1, route)
+                    self.assertEqual(html.count('id="contact"'), 1, route)
+                else:
+                    self.assertEqual(html.count(MARKER), 1)
 
 
 if __name__ == "__main__":

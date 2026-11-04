@@ -235,7 +235,12 @@ class LegalPublisherTests(unittest.TestCase):
         for route in ("oferta", "oferta-fiz", "soglashenie", "cookies", "consent", "documents", "offer_for_lawyer_20231103"):
             self.assertTrue((stage / "www" / route / "index.html").exists(), route)
         for page in (stage / "www").rglob("index.html"):
-            self.assertEqual(page.read_text().count('id="elegso-contact"'), 1, str(page))
+            html = page.read_text()
+            if "data-elegso-modern-footer" in html:
+                self.assertEqual(html.count("data-elegso-modern-footer"), 1, str(page))
+                self.assertEqual(html.count('id="contact"'), 1, str(page))
+            else:
+                self.assertEqual(html.count('id="elegso-contact"'), 1, str(page))
         self.assertFalse((stage / "www/mission").exists())
         self.assertFalse((stage / "www/assets").exists())
         self.assertTrue((stage / "www/soglashenie/history/index.html").exists())

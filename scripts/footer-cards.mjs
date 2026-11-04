@@ -81,6 +81,8 @@ export function enhanceFooterDetails(body) {
 }
 
 export function updateFooterCards(html, offers = defaultOffers) {
+  // The modular public shell already owns its contact block, cards and links.
+  if (html.includes('data-elegso-modern-footer')) return html;
   if (!/<footer\b[^>]*\bid=["']t-footer["'][^>]*>/i.test(html)) return html;
   const contact = prepareContactFooter(html);
   html = contact.html;

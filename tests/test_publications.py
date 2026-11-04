@@ -1,4 +1,5 @@
 """Static publication contract: sources, generated HTML, feeds and content preservation."""
+import hashlib
 import json
 import re
 import subprocess
@@ -380,12 +381,79 @@ class PublicationsTest(unittest.TestCase):
         # Compare against pre-publications revision. Only the replaced news feed
         # and added navigation label may differ in existing visible body copy.
         baseline = "15677545e1c0663ef8a2e5e8de9772fa104ef7e3"
+        source_file = ROOT / "content/site-pages.json"
+        # Approved pre-redesign extraction. Updating layout must not silently
+        # rewrite the content baseline used to prove preservation.
+        self.assertEqual(hashlib.sha256(source_file.read_bytes()).hexdigest(),
+                         "79b028f1dc563b735aecdda1e3022ee2e904a6fc3b0a3f8b10382de486900fe5")
+        sources = json.loads(source_file.read_text())["pages"]
+        sources_by_file = {page["sourcePath"]: page for page in sources}
+        sources_by_route = {page["route"]: page for page in sources}
+        audits = {page["route"]: page for page in
+                  json.loads((ROOT / "reports/redesign-build.json").read_text())["pages"]}
+
+        def prose_key(value):
+            return re.sub(r"[\s\u200b\u00ad]+", "", visible(value))
+
+        def page_body(html):
+            main = re.search(r"<main\b[^>]*>(.*?)</main>", html, re.S)
+            if main:
+                return main.group(1)
+            header = html.find("<!--header-->")
+            end = html.find("</header>", header) if header >= 0 else -1
+            footer = html.find("<!--footer-->", end)
+            if end >= 0 and footer >= 0:
+                body = html[end + len("</header>"):footer]
+                # The former terminal contact CTA is now the shared footer;
+                # it is not calculator instructions or other authored prose.
+                contact = re.search(r'<div\b[^>]*data-record-type="(?:702|712)"[^>]*>', body)
+                return body[:contact.start()] if contact else body
+            return html
+
         files = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", baseline, "www"], cwd=ROOT, text=True).splitlines()
         for name in files:
             if not name.endswith(".html") or name.startswith(("www/api/", "www/_external/")):
                 continue
             old = subprocess.check_output(["git", "show", f"{baseline}:{name}"], cwd=ROOT).decode()
             new = (ROOT / name).read_text()
+            if "data-elegso-modern-footer" in new:
+                with self.subTest(file=name, design="modern"):
+                    self.assertEqual(new.count("data-elegso-modern-footer"), 1)
+                    self.assertEqual(new.count('id="contact"'), 1)
+                    canonical = re.search(r'<link\b[^>]*rel="canonical"[^>]*href="https://elegso\.ru([^"]+)"', new)
+                    source = sources_by_file.get(name) or (sources_by_route.get(canonical.group(1)) if canonical else None)
+                    if source:
+                        audit = audits[source["route"]]
+                        self.assertEqual(audit["sourceHtmlSha256"], source["sourceHtmlSha256"])
+                        self.assertEqual(audit["sourceContentSha256"], source["sourceContent"]["sha256"])
+                        self.assertEqual(hashlib.sha256(source["sourceContent"]["text"].encode()).hexdigest(),
+                                         source["sourceContent"]["sha256"])
+                        actual = prose_key(new)
+                        for record in source["records"]:
+                            for index, field in enumerate(record["fields"]):
+                                self.assertIn(prose_key(field["text"]), actual,
+                                              f"Missing source field {record['id']}:{index} in {name}")
+                            for index, fragment in enumerate(record.get("uncovered", [])):
+                                self.assertIn(prose_key(fragment), actual,
+                                              f"Missing source fragment {record['id']}:{index} in {name}")
+                    elif name == "www/soglashenie/index.html":
+                        policy = json.loads((ROOT / "content/legal/privacy.json").read_text())
+                        for section in policy["sections"]:
+                            self.assertIn(section["title"], new)
+                            for clause in section["clauses"]:
+                                self.assertEqual(new.count(clause["html"]), 1)
+                    else:
+                        # Calculators, contractor information and technical
+                        # aliases retain their authored body, while the shared
+                        # navigation/footer is deliberately replaced.
+                        parser = VisibleText()
+                        parser.feed(page_body(old))
+                        actual = prose_key(page_body(new))
+                        for index, fragment in enumerate(parser.parts):
+                            expected = prose_key(fragment)
+                            if expected:
+                                self.assertIn(expected, actual, f"Missing legacy body fragment {index} in {name}")
+                continue
             if name == "www/soglashenie/index.html":
                 # The owner requested a complete modular privacy-policy rewrite.
                 # Require every authored clause verbatim, then compare the old
@@ -415,6 +483,9 @@ class PublicationsTest(unittest.TestCase):
             # Normalize only this approved sentence replacement, not any surrounding copy.
             disclaimer_before = 'Любая информация на сайте не является публичной офертой.'
             disclaimer_after = 'Информационные материалы сайта не являются публичной офертой. Условия заключения договоров приведены в соответствующих офертах.'
+            # The owner separately replaced the site-wide phone number. Keep
+            # every other word exact in unchanged legacy header/footer aliases.
+            old = old.replace('+7 (495) 646-00-02', '+7 (495) 822-19-20')
             with self.subTest(file=name):
                 self.assertEqual(visible(old).replace(disclaimer_before, disclaimer_after).replace('Информация для исполнителей.', 'Присоединение исполнителей'),
                                  visible(new).replace(disclaimer_before, disclaimer_after).replace('Информация для исполнителей.', 'Присоединение исполнителей'))

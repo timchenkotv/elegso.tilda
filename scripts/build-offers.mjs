@@ -3,6 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { footerCard } from './footer-cards.mjs';
+import { finishDesignHead } from './site-shell.mjs';
 import { applyPrivacyAnalytics, loadPrivacyBuild } from './privacy-analytics.mjs';
 import { loadLegalPresentation } from './build-legal-pages.mjs';
 import { createHash } from 'node:crypto';
@@ -205,6 +206,7 @@ function footerLinks() {
   return footerCard('offers', offers);
 }
 function applyFooter(html) {
+  if (html.includes('data-elegso-modern-footer')) return html.replace(footerMarker, '');
   html = html.replaceAll(
     'Любая информация на сайте не является публичной офертой.',
     'Информационные материалы сайта не являются публичной офертой. Условия заключения договоров приведены в соответствующих офертах.',
@@ -255,7 +257,7 @@ function shell({ title, description, url, body, document, archived = false, hist
   if (page.mainEntity && document.publication?.identifier !== undefined) page.mainEntity.identifier = document.publication.identifier;
   const graph = [{ '@type': 'Organization', '@id': origin + '/#organization', name: config.publisher.name, url: origin + '/', logo: origin + config.publisher.logo }, { '@type': 'WebSite', '@id': origin + '/#website', name: config.publisher.brand, url: origin + '/' }, page, { '@type': 'BreadcrumbList', itemListElement: crumbs }];
   head = head.replace('</head>', `${redirectTarget ? `<meta http-equiv="refresh" content="0; url=${esc(redirectTarget)}">` : ''}<link rel="canonical" href="${origin}${redirectTarget || url}"><link rel="stylesheet" href="/assets/offers.css?v=${assetVersion}"><script src="/assets/offers.js?v=${assetVersion}" defer></script><script type="application/ld+json" data-elegso-offers-schema>${json({ '@context': 'https://schema.org', '@graph': graph })}</script></head>`);
-  return applyPrivacyAnalytics((head + `<body class="t-body elegso-offers-page" style="margin:0"><a class="eo-skip" href="#offer-content">К тексту оферты</a><div id="allrecords" class="t-records" data-tilda-project-id="3964517" data-tilda-lazy="yes" data-tilda-root-zone="com">${header}${body}${tail}`).replace(/[ \t]+$/gm, ''), privacyBuild);
+  return applyPrivacyAnalytics((finishDesignHead(head) + `<body class="t-body elegso-redesign elegso-offers-page" style="margin:0"><a class="eo-skip" href="#offer-content">К тексту оферты</a><div id="allrecords" class="t-records site-shell" data-tilda-project-id="3964517" data-tilda-lazy="yes" data-tilda-root-zone="com">${header}${body}${tail}`).replace(/[ \t]+$/gm, ''), privacyBuild);
 }
 function crumbs(offer, suffix = '') {
   return `<nav class="eo-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-hidden="true">/</span>${suffix ? `<a href="${currentUrl(offer)}">Публичная оферта</a><span aria-hidden="true">/</span><span>${esc(suffix)}</span>` : '<span>Публичная оферта</span>'}</nav>`;
@@ -314,7 +316,7 @@ for (const offer of offers) {
 // Validate completely before touching generated pages or the integrity manifest.
 for (const [route, html] of output) {
   assert((html.match(/<h1\b/gi) || []).length === 1, `Exactly one H1 required: ${route}`);
-  assert((html.match(/<!--elegso-offers-footer:start-->/g) || []).length === 1, `Footer marker missing or duplicate: ${route}`);
+  assert((html.match(html.includes('data-elegso-modern-footer') ? /data-elegso-modern-footer/g : /<!--elegso-offers-footer:start-->/g) || []).length === 1, `Footer marker missing or duplicate: ${route}`);
 }
 if (seal && newlySealed) {
   registry.versions.sort((a, b) => `${a.id}/${a.version}`.localeCompare(`${b.id}/${b.version}`));
