@@ -10,7 +10,13 @@ const web=path.join(root,'www'),privacy=await loadPrivacyBuild(root),changed=[];
 const resources=designHead({title:'',description:'',route:'/'}).match(/<link\b[^>]*rel="stylesheet"[^>]*>|<script\b[^>]*src="[^"]+"[^>]*><\/script>/g).join('');
 for(const file of await publicHtmlFiles(web)){
  let html=await fs.readFile(file,'utf8');
- if(html.includes('data-elegso-modern-footer'))continue;
+ if(html.includes('data-elegso-modern-footer')){
+  // Retained calculator internals need new chrome behavior without a rewrite.
+  const logoAssets=resources.match(/<link\b[^>]*href="[^\"]*logo-showcase\.css[^\"]*"[^>]*>|<script\b[^>]*src="[^\"]*logo-showcase\.js[^\"]*"[^>]*><\/script>/g)||[];
+  const missing=logoAssets.filter(tag=>!html.includes(tag.match(/(?:href|src)="([^"?]+)/)[1]));
+  if(missing.length){html=html.replace('</head>',missing.join('')+'</head>');await fs.writeFile(file,html);changed.push(path.relative(web,file));}
+  continue;
+ }
  // Redirect stubs and technical fragments remain non-indexable and retain their semantics.
  const instruction=path.relative(web,file)==='calc_nst/instruction/index.html';
  const hs=instruction?html.indexOf('<header'):html.indexOf('<!--header-->'),he=html.indexOf('</header>',hs);
