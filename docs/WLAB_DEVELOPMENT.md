@@ -1,6 +1,6 @@
 # ELEGSO development on WLAB
 
-Updated: 2026-11-10 (Europe/Moscow).
+Updated: 2026-11-11 (Europe/Moscow).
 
 ## Canonical paths
 
@@ -57,6 +57,15 @@ git push vm HEAD:main
 The server post-receive hook validates and atomically publishes the frontend,
 case projection, legal projection, services, and health checks. Do not bypass
 it with direct file copies.
+
+## File-transfer throughput
+
+Run authorized downloads, uploads, `rsync`, and other file copies at the
+maximum throughput available to WLAB and the approved endpoints. Do not add
+artificial client-side caps such as `--bwlimit`, `--limit-rate`, or `scp -l`
+when they are not technically required. Endpoint quotas and necessary safety
+controls still apply; this rule does not authorize a transfer, deployment, or
+movement of excluded data by itself.
 
 ## Local build and preview
 

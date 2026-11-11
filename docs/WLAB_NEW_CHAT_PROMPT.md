@@ -17,5 +17,8 @@ Paste the following into a new Codex chat opened for
 > database-owned legal documents, recruitment section, responsive behavior,
 > consent-based Yandex analytics, calculators, and admin integrations. Never
 > copy secrets or old Mac backups/worktrees, never edit production directly,
-> and deploy only after my explicit authorization in the current chat. Report
-> the audit result and wait for my next development instruction.
+> and deploy only after my explicit authorization in the current chat. For any
+> authorized download, upload, `rsync`, or file copy, use the maximum available
+> throughput and do not add an unnecessary artificial bandwidth limit; retain
+> integrity checks, endpoint quotas, and all deployment safeguards. Report the
+> audit result and wait for my next development instruction.

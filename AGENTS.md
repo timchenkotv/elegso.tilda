@@ -11,6 +11,11 @@
   handoff under `.codex/project-context/` when it exists.
 - Current code, tests, documented module contracts, and verified production
   behavior take precedence over historical chat notes.
+- For authorized downloads, uploads, and file copies on WLAB or between
+  approved project endpoints, do not add artificial bandwidth throttles when
+  they are unnecessary. Use the maximum throughput available to the command
+  and endpoints. This does not relax integrity checks, external quotas,
+  security boundaries, or deployment authorization.
 
 ## Git and deployment
 
