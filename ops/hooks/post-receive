@@ -5,6 +5,7 @@ repo=/srv/git/elegso.tilda.git
 site=/srv/www/elegso.ru
 api=/opt/elegso-calc-api
 publisher=/opt/elegso-case-publisher
+case_publisher_hosts=/etc/hosts
 seo_monitor=/opt/elegso-seo-monitor
 seo_monitor_config=/etc/elegso-seo-monitor
 seo_admin=/opt/elegso-seo-admin
@@ -102,6 +103,9 @@ rollback_deployment() {
                     sudo /bin/rm -f "$target"
                 fi
             done
+            if sudo /usr/bin/test -f "$case_publisher_rollback/hosts"; then
+                sudo /bin/cp -p "$case_publisher_rollback/hosts" "$case_publisher_hosts"
+            fi
             sudo /bin/systemctl daemon-reload
         fi
         if [ "$case_timer_stopped" -eq 1 ] && [ "$case_timer_was_active" -eq 1 ]; then
@@ -232,6 +236,7 @@ while read -r old new ref; do
                 sudo /bin/cp -p "$target" "$case_publisher_rollback/$saved"
             fi
         done
+        sudo /bin/cp -p "$case_publisher_hosts" "$case_publisher_rollback/hosts"
         if [ -n "$cases_previous" ] && [ -d "$cases_previous" ]; then
             # Keep hard links on the generated projection's own filesystem;
             # /opt and /srv need not share a device.
@@ -244,7 +249,7 @@ while read -r old new ref; do
         # only the law API hostname to its normal internal HTTPS edge instead.
         if [ -f "$release/ops/case-publisher/law-api-hosts.conf" ]; then
             sudo /usr/bin/python3 "$release/ops/case-publisher/configure-hosts.py" \
-                --hosts /etc/hosts --mapping "$release/ops/case-publisher/law-api-hosts.conf"
+                --hosts "$case_publisher_hosts" --mapping "$release/ops/case-publisher/law-api-hosts.conf"
         fi
         sudo /usr/bin/install -d -o root -g root -m 0755 "$publisher"
         sudo /usr/bin/install -o root -g root -m 0755 \

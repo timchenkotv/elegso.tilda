@@ -99,6 +99,8 @@ class DeploymentHookTests(unittest.TestCase):
         (site / "generated-legal/current").symlink_to(paths["legal_new"])
         (publisher / "publish.py").write_text("new publisher", encoding="utf-8")
         (publisher / "backup/publish.py").write_text("old publisher", encoding="utf-8")
+        (base / "hosts").write_text("new hosts\n", encoding="utf-8")
+        (publisher / "backup/hosts").write_text("old hosts\n", encoding="utf-8")
         for name in ["elegso-case-publisher.service", "elegso-case-publisher.timer"]:
             (units / name).write_text("new unit", encoding="utf-8")
             (publisher / "backup" / name).write_text("old unit", encoding="utf-8")
@@ -148,6 +150,7 @@ else:
         stub.chmod(0o755)
         prefix = PREFIX.replace("site=/srv/www/elegso.ru", f"site='{site}'")
         prefix = prefix.replace("publisher=/opt/elegso-case-publisher", f"publisher='{publisher}'")
+        prefix = prefix.replace("case_publisher_hosts=/etc/hosts", f"case_publisher_hosts='{base / 'hosts'}'")
         prefix = prefix.replace("/etc/systemd/system/", str(units) + "/")
         script = prefix + "\ntrap rollback_deployment EXIT\n" + "\n".join([
             "frontend_changed=1", f"frontend_previous='{paths['frontend_old']}'",
@@ -181,6 +184,7 @@ else:
             self.assertEqual((paths["cases_old"] / "index.html").read_text(), "old case projection")
             self.assertEqual((base / "site/generated-legal/current").resolve(), paths["legal_old"])
             self.assertEqual((publisher / "publish.py").read_text(), "old publisher")
+            self.assertEqual((base / "hosts").read_text(), "old hosts\n")
             self.assertEqual((units / "elegso-case-publisher.service").read_text(), "old unit")
             self.assertEqual((units / "elegso-case-publisher.timer").read_text(), "old unit")
             reload_at = next(i for i, row in enumerate(operations) if row == ["/bin/systemctl", "daemon-reload"])
@@ -214,6 +218,7 @@ else:
             self.assertEqual((base / "site/current").resolve(), paths["frontend_new"])
             self.assertEqual((base / "site/generated/current").resolve(), paths["cases_new"])
             self.assertEqual((publisher / "publish.py").read_text(), "new publisher")
+            self.assertEqual((base / "hosts").read_text(), "new hosts\n")
             self.assertEqual(operations, [])
 
     def test_first_install_failure_restores_previous_absence(self):
