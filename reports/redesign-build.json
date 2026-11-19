@@ -1,6 +1,6 @@
 {
   "format": "elegso-redesign-content-audit-v1",
-  "generatedAt": "2026-11-19T12:38:39.464Z",
+  "generatedAt": "2026-11-19T13:13:18.060Z",
   "source": "content/site-pages.json",
   "pageCount": 23,
   "sourceContentPreserved": true,
@@ -449,7 +449,7 @@
       "finalHtmlBytes": 80513
     }
   ],
-  "completedAt": "2026-11-19T12:38:40.489Z",
+  "completedAt": "2026-11-19T13:13:19.070Z",
   "newServices": [
     "/bankruptcy/",
     "/corporate_bankruptcy/",
