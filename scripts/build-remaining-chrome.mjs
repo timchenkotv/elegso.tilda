@@ -13,6 +13,12 @@ for(const file of await publicHtmlFiles(web)){
  let html=await fs.readFile(file,'utf8');
  if(html.includes('data-elegso-modern-footer')){
   const before=html;
+  // Already-modern legacy pages keep their calculator/document body, but their
+  // shared header must still follow the current site shell on every rebuild.
+  if(!/<body\b[^>]*\bclass=["'][^"']*\brecruitment-page\b/i.test(html)){
+   const headerStart=html.indexOf('<!--header-->'),headerEnd=html.indexOf('</header>',headerStart);
+   if(headerStart>=0&&headerEnd>headerStart)html=html.slice(0,headerStart)+siteHeader()+html.slice(headerEnd+9);
+  }
   html=addRecruitmentNavigation(html);
   html=html.replace(/(\/assets\/redesign\/[^"?]+\.(?:css|js)\?v=)\d{8}-emerald-\d+/g,(_m,prefix)=>prefix+designVersion);
   // Retained calculator internals need new chrome behavior without a rewrite.

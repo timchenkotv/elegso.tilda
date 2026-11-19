@@ -163,6 +163,9 @@ test('public HTML shares semantic header/footer, one H1, consent controls and re
     assert.match(html, /<!--header-->/, relative + ': shared header marker');
     assert.match(html, /<!--footer-->/, relative + ': shared footer marker');
     assert.match(body, /<header\b[^>]*\bdata-elegso-design-header(?:\s|>)/i, relative + ': shared header');
+    assert.equal((body.match(/data-elegso-account-link/g)||[]).length, 2, relative + ': desktop and mobile account links');
+    assert.equal((body.match(/href="https:\/\/law\.elegso\.ru\/"/g)||[]).length, 2, relative + ': account destination');
+    assert.equal((body.match(/>Личный кабинет(?:\s|<)/g)||[]).length, 2, relative + ': account label');
     assert.match(body, /<footer\b[^>]*\bdata-elegso-modern-footer(?:\s|>)/i, relative + ': shared footer');
     assert.equal((body.match(/<h1\b/gi)||[]).length, 1, relative + ': H1 count');
     assert.ok(body.includes('id="allrecords"'), relative + ': allrecords wrapper');

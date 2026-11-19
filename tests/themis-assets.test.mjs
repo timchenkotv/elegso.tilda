@@ -32,11 +32,11 @@ test('shared backgrounds use Themis with separate mobile artwork and tablet foca
 });
 
 test('shared assets are cache-busted and social previews use the new scene', () => {
-  assert.equal(designVersion, '20261104-emerald-2');
+  assert.equal(designVersion, '20261119-emerald-3');
   const head = designHead({ title: 'ЭЛЕГСО', description: '', route: '/' });
   assert.match(head, /architecture-themis-v1\.webp/);
-  assert.match(head, /motion\.js\?v=20261104-emerald-2/);
+  assert.match(head, /motion\.js\?v=20261119-emerald-3/);
   for (const route of ['leasing_lawyer/index.html', 'calc_nst/index.html', 'oferta/index.html']) {
-    assert.match(read(`www/${route}`).toString(), /reference\.css\?v=20261104-emerald-2/, route);
+    assert.match(read(`www/${route}`).toString(), /reference\.css\?v=20261119-emerald-3/, route);
   }
 });

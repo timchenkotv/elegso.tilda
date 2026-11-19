@@ -86,7 +86,7 @@
     },
     {
       "path": "scripts/recruitment-renderer.mjs",
-      "sha256": "d5644bf96ff6acb7b4834af94640e294d7a6d333bc2f70421f192fee29699049"
+      "sha256": "c97a1b0250fa5609ddb9f49c5fb476818ad11452071e5e20acb02ffdf28075c8"
     }
   ],
   "cacheVersion": "20261104-recruitment-2"
