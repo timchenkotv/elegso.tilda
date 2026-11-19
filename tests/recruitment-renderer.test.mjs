@@ -56,6 +56,9 @@ test('recruiting header, body and footer remain distinct from litigation promoti
   assert.doesNotMatch(html, /data-elegso-case-carousel|data-case-source|\/cases\/|Тимченко|Калькулятор сальдо|Позвонить юристу|арбитражного юриста/);
   assert.doesNotMatch(html, /<form\b|<input[^>]*(?:email|tel)|type="file"/);
   assert.match(html, /Услуги ЭЛЕГСО/);
+  assert.equal((html.match(/data-elegso-account-link/g) || []).length, 2);
+  assert.equal((html.match(/href="https:\/\/law\.elegso\.ru\/"/g) || []).length, 2);
+  assert.equal((html.match(/>Личный кабинет(?:\s|<)/g) || []).length, 2);
   assert.match(html, /mailto:mail@elegso\.ru/);
 });
 

@@ -177,7 +177,7 @@ body.elegso-redesign .new-service-sources a{color:#8c3c2d;text-underline-offset:
 @media(min-width:1101px){body.elegso-redesign .site-header .mobile-menu{display:none!important}body.elegso-redesign .mobile-contact-bar{display:none!important}}
 @media(max-width:1100px){
  body.elegso-redesign{--header:64px}
- body.elegso-redesign .site-header .desktop-nav,body.elegso-redesign .site-header .header-cta{display:none}
+ body.elegso-redesign .site-header .desktop-nav,body.elegso-redesign .site-header .header-account,body.elegso-redesign .site-header .header-cta{display:none}
  body.elegso-redesign .site-header .menu-toggle{display:grid;margin-left:0}
  body.elegso-redesign .site-header .header-phone{display:block;margin-left:auto;font-size:13px}
  body.elegso-redesign .site-header .header-inner{justify-content:space-between;gap:22px}
