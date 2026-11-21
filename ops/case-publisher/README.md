@@ -22,6 +22,13 @@ confidential-file revocation mechanism.
 unreviewed announcements and unpublished material nodes cannot enter the site
 because the source API does not return them.
 
+The production timer runs approximately every three hours with a randomized
+delay. A normal run performs one catalogue request and compares its stable
+revision with the active projection. If the catalogue and frontend inputs are
+unchanged, the publisher exits immediately: it does not request each case,
+download materials, render HTML or switch releases. Detailed case requests and
+an atomic rebuild happen only after the catalogue or frontend revision changes.
+
 The publisher renders `/cases/`, one static page per case and a combined
 `sitemap.xml`. Each build is written to a content-addressed release directory;
 the `current` symlink is switched only after every page has been generated.

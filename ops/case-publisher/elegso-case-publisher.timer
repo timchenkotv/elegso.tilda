@@ -1,12 +1,11 @@
 [Unit]
-Description=Refresh public legal cases every minute
+Description=Check public legal cases every three hours
 
 [Timer]
-OnBootSec=30s
-OnUnitActiveSec=1min
-AccuracySec=10s
-RandomizedDelaySec=5s
-Persistent=true
+OnBootSec=15min
+OnUnitInactiveSec=3h
+AccuracySec=15min
+RandomizedDelaySec=15min
 Unit=elegso-case-publisher.service
 
 [Install]

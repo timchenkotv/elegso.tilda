@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import stat
 import sys
 import tempfile
@@ -191,6 +192,77 @@ def sample_case() -> dict:
 
 
 class CasePublisherTests(unittest.TestCase):
+    def _light_release(self, output: Path, summaries: list[dict]) -> Path:
+        release = output / "releases" / "active"
+        (release / "cases").mkdir(parents=True)
+        (release / "cases/index.html").write_text("catalogue", encoding="utf-8")
+        (release / "cases/carousel.json").write_text('{"version":1,"items":[]}', encoding="utf-8")
+        (release / "sitemap.xml").write_text("<urlset/>", encoding="utf-8")
+        manifest = {
+            "light_check_version": publisher.LIGHT_CHECK_VERSION,
+            "source_api_revision": publisher.case_api_revision(summaries),
+            "source_revision": publisher.source_projection_revision(ROOT / "www"),
+            "case_count": len(summaries),
+            "slugs": [item["public_slug"] for item in summaries],
+        }
+        (release / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+        (output / "current").symlink_to(release)
+        return release
+
+    def test_light_check_skips_details_downloads_and_rendering_when_revision_is_unchanged(self):
+        summaries = [{"public_slug": "same-case", "updated_at": "2026-11-14T12:00:00Z"}]
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "generated"
+            active = self._light_release(output, summaries)
+            arguments = ["publish.py", "--source-root", str(ROOT / "www"), "--output-root", str(output)]
+            with (
+                patch.object(sys, "argv", arguments),
+                patch.object(publisher, "fetch_case_summaries", return_value=summaries) as catalogue,
+                patch.object(publisher, "fetch_case_details", side_effect=AssertionError("detail fetch must be skipped")) as details,
+                patch.object(publisher, "write_release", side_effect=AssertionError("rendering must be skipped")) as render,
+                patch("builtins.print") as output_line,
+            ):
+                self.assertEqual(publisher.main(), 0)
+            catalogue.assert_called_once()
+            details.assert_not_called()
+            render.assert_not_called()
+            output_line.assert_called_once_with(f"cases=1 status=unchanged check=light release={active.resolve()}")
+
+    def test_light_check_fetches_details_and_publishes_only_after_catalogue_change(self):
+        old = [{"public_slug": "changed-case", "updated_at": "2026-11-14T12:00:00Z"}]
+        new = [{"public_slug": "changed-case", "updated_at": "2026-11-21T12:00:00Z"}]
+        details_payload = [sample_case()]
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "generated"
+            self._light_release(output, old)
+            candidate = output / "releases" / "candidate"
+            arguments = ["publish.py", "--source-root", str(ROOT / "www"), "--output-root", str(output)]
+            with (
+                patch.object(sys, "argv", arguments),
+                patch.object(publisher, "fetch_case_summaries", return_value=new),
+                patch.object(publisher, "fetch_case_details", return_value=details_payload) as details,
+                patch.object(publisher, "write_release", return_value=(True, candidate)) as render,
+                patch("builtins.print"),
+            ):
+                self.assertEqual(publisher.main(), 0)
+            details.assert_called_once_with(publisher.DEFAULT_API_BASE, new)
+            self.assertEqual(render.call_count, 1)
+            self.assertEqual(render.call_args.kwargs["source_api_revision"], publisher.case_api_revision(new))
+
+    def test_catalogue_revision_is_order_independent_and_change_sensitive(self):
+        first = {"public_slug": "first", "updated_at": "2026-11-14T12:00:00Z"}
+        second = {"public_slug": "second", "updated_at": "2026-11-14T13:00:00Z"}
+        self.assertEqual(publisher.case_api_revision([first, second]), publisher.case_api_revision([second, first]))
+        changed = dict(second, updated_at="2026-11-21T13:00:00Z")
+        self.assertNotEqual(publisher.case_api_revision([first, second]), publisher.case_api_revision([first, changed]))
+
+    def test_production_timer_uses_sparse_randomized_three_hour_checks(self):
+        timer = (ROOT / "ops/case-publisher/elegso-case-publisher.timer").read_text(encoding="utf-8")
+        self.assertIn("OnUnitInactiveSec=3h", timer)
+        self.assertIn("RandomizedDelaySec=15min", timer)
+        self.assertNotIn("OnUnitActiveSec=1min", timer)
+        self.assertNotIn("Persistent=true", timer)
+
     def test_catalogue_is_sorted_by_latest_judicial_act_descending(self):
         older_published_later = sample_case()
         older_published_later["public_slug"] = "older-published-later"

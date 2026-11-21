@@ -29,6 +29,7 @@ DEFAULT_API_BASE = "https://law.elegso.ru/api/v1/public/legal-case-announcements
 ASSET_VERSION = "20261104-static-materials-1"
 CASE_ILLUSTRATION_FALLBACK = "/assets/redesign/leasing-balance.webp"
 MAX_PUBLIC_MATERIAL_BYTES = 64 * 1024 * 1024
+LIGHT_CHECK_VERSION = 1
 MATERIAL_CONTENT_TYPES = {
     "application/pdf": "pdf",
     "image/jpeg": "jpg",
@@ -1475,7 +1476,7 @@ def fetch_json(url: str, timeout: int = 35) -> Any:
         return json.loads(response.read().decode("utf-8"))
 
 
-def fetch_cases(api_base: str) -> list[dict[str, Any]]:
+def fetch_case_summaries(api_base: str) -> list[dict[str, Any]]:
     summaries: list[dict[str, Any]] = []
     offset = 0
     while True:
@@ -1487,20 +1488,40 @@ def fetch_cases(api_base: str) -> list[dict[str, Any]]:
         if len(page) < 200:
             break
         offset += len(page)
-    result = []
     seen: set[str] = set()
     for summary in summaries:
+        if not isinstance(summary, dict):
+            raise RuntimeError("Публичный API вернул неожиданный элемент списка")
         slug = str(summary.get("public_slug") or "")
         if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
             raise RuntimeError(f"Недопустимый публичный адрес кейса: {slug!r}")
         if slug in seen:
             raise RuntimeError(f"Публичный API вернул повтор адреса: {slug}")
         seen.add(slug)
+    return summaries
+
+
+def case_api_revision(summaries: list[dict[str, Any]]) -> str:
+    """Stable digest of the single catalogue response used by the light check."""
+    ordered = sorted(summaries, key=lambda item: str(item.get("public_slug") or ""))
+    payload = json.dumps(ordered, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def fetch_case_details(api_base: str, summaries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    result = []
+    for summary in summaries:
+        slug = str(summary["public_slug"])
         detail = fetch_json(f"{api_base.rstrip('/')}/{urllib.parse.quote(slug, safe='')}")
         if not isinstance(detail, dict):
             raise RuntimeError(f"Публичный API вернул неожиданный формат кейса {slug}")
         result.append(detail)
     return result
+
+
+def fetch_cases(api_base: str) -> list[dict[str, Any]]:
+    summaries = fetch_case_summaries(api_base)
+    return fetch_case_details(api_base, summaries)
 
 
 def validate_cases(cases: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1605,6 +1626,80 @@ def published_legal_sitemap(source_root: Path) -> dict[str, Any] | None:
     return value
 
 
+def source_projection_revision(source_root: Path) -> str:
+    """Cheap identity for immutable frontend inputs used by generated cases.
+
+    Production releases have unique resolved paths. File metadata keeps local
+    and test trees correct without re-reading every image and stylesheet during
+    each light check. The small legal sitemap is included by value because its
+    projection changes independently from the frontend release.
+    """
+    source_root = source_root.resolve()
+    digest = hashlib.sha256()
+    digest.update(str(source_root).encode("utf-8"))
+    digest.update(b"\0")
+    inputs = [
+        source_root / "mission" / "index.html",
+        source_root / "assets" / "cases.css",
+        source_root / "assets" / "cases.js",
+        source_root / "assets" / "site-fonts.css",
+        source_sitemap_path(source_root),
+    ]
+    redesign = source_root / "assets" / "redesign"
+    if redesign.is_dir() and not redesign.is_symlink():
+        inputs.extend(sorted(redesign.rglob("*")))
+    for asset in inputs:
+        if not asset.is_file() or asset.is_symlink():
+            continue
+        stat = asset.stat()
+        digest.update(asset.relative_to(source_root).as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(str(stat.st_size).encode("ascii"))
+        digest.update(b":")
+        digest.update(str(stat.st_mtime_ns).encode("ascii"))
+        digest.update(b"\0")
+    digest.update(hashlib.sha256(Path(__file__).read_bytes()).digest())
+    digest.update(json.dumps(published_legal_sitemap(source_root), sort_keys=True).encode("utf-8"))
+    return digest.hexdigest()
+
+
+def light_check_release(
+    output_root: Path,
+    summaries: list[dict[str, Any]],
+    source_api_revision: str,
+    source_revision: str,
+) -> Path | None:
+    """Return the complete active release only when a rebuild is unnecessary."""
+    current = output_root / "current"
+    if not current.is_symlink():
+        return None
+    try:
+        active = current.resolve(strict=True)
+        manifest_path = active / "manifest.json"
+        if manifest_path.stat().st_size > 2 * 1024 * 1024:
+            return None
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        expected_slugs = sorted(str(item.get("public_slug") or "") for item in summaries)
+        actual_slugs = sorted(str(item) for item in manifest.get("slugs", []))
+        required = [
+            active / "cases" / "index.html",
+            active / "cases" / "carousel.json",
+            active / "sitemap.xml",
+        ]
+        if (
+            manifest.get("light_check_version") != LIGHT_CHECK_VERSION
+            or manifest.get("source_api_revision") != source_api_revision
+            or manifest.get("source_revision") != source_revision
+            or manifest.get("case_count") != len(summaries)
+            or actual_slugs != expected_slugs
+            or any(not path.is_file() for path in required)
+        ):
+            return None
+        return active
+    except (OSError, ValueError, TypeError, AttributeError, json.JSONDecodeError):
+        return None
+
+
 def write_release(
     source_root: Path,
     output_root: Path,
@@ -1612,8 +1707,12 @@ def write_release(
     api_base: str,
     *,
     force: bool = False,
+    source_api_revision: str | None = None,
+    source_revision: str | None = None,
 ) -> tuple[bool, Path]:
     cases = validate_cases(cases)
+    source_api_revision = source_api_revision or case_api_revision(cases)
+    source_revision = source_revision or source_projection_revision(source_root)
     digest = content_digest(source_root, cases)
     releases = output_root / "releases"
     releases.mkdir(parents=True, exist_ok=True)
@@ -1669,6 +1768,9 @@ def write_release(
                         "source_api": api_base,
                         "case_count": len(cases),
                         "content_digest": digest,
+                        "light_check_version": LIGHT_CHECK_VERSION,
+                        "source_api_revision": source_api_revision,
+                        "source_revision": source_revision,
                         "slugs": [case["public_slug"] for case in cases],
                     },
                     ensure_ascii=False,
@@ -1718,12 +1820,29 @@ def main() -> int:
     lock_path = args.output_root / ".publish.lock"
     with lock_path.open("w", encoding="utf-8") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        source_root = args.source_root.resolve()
+        output_root = args.output_root.resolve()
+        source_api_revision = None
+        source_revision = None
         try:
             if args.fixture:
                 payload = json.loads(args.fixture.read_text(encoding="utf-8"))
                 cases = payload.get("cases", []) if isinstance(payload, dict) else payload
             else:
-                cases = fetch_cases(args.api_base)
+                summaries = fetch_case_summaries(args.api_base)
+                source_api_revision = case_api_revision(summaries)
+                source_revision = source_projection_revision(source_root)
+                if not args.force:
+                    active = light_check_release(
+                        output_root,
+                        summaries,
+                        source_api_revision,
+                        source_revision,
+                    )
+                    if active:
+                        print(f"cases={len(summaries)} status=unchanged check=light release={active}")
+                        return 0
+                cases = fetch_case_details(args.api_base, summaries)
         except (OSError, urllib.error.URLError, json.JSONDecodeError, RuntimeError) as error:
             if not args.allow_empty_fallback or (args.output_root / "current" / "cases" / "index.html").exists():
                 raise
@@ -1732,11 +1851,13 @@ def main() -> int:
         if not isinstance(cases, list):
             raise RuntimeError("Источник кейсов должен вернуть список")
         changed, release = write_release(
-            args.source_root.resolve(),
-            args.output_root.resolve(),
+            source_root,
+            output_root,
             cases,
             args.api_base,
             force=args.force,
+            source_api_revision=source_api_revision,
+            source_revision=source_revision,
         )
         verb = "published" if changed else "unchanged"
         print(f"cases={len(cases)} status={verb} release={release}")
